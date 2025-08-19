@@ -1,0 +1,19 @@
+<FTL>
+
+<mod:findName type="event" name="THE_JUDGES_ENGI_REAL">
+    <mod-append:choice req="lily_ablative_armor" lvl="8" blue="false">
+        <text>Present your Ablative Armor system.</text>
+        <event>
+            <text>"Ablative Armor - defensive p-p-p-procedures it ensures! You pilot a: well protected vessel! Well protected vessel! For well protected vessel: I provide Grant of Ab-Ab-ablative Armor! Grant of Ablative Armor! Save it - for the future!"</text>
+            <achievement>ACH_BOON_LILY_ABLATIVE_ARMOR</achievement>
+            <metaVariable name="prof_r_boon_lily_ablative_armor" op="set" val="1"/>
+            <variable name="ach_boon_lily_ablative_armor" op="set" val="1"/>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="THE_JUDGES_ENGI_ADVICE"/>
+            </choice>
+        </event>
+    </mod-append:choice>
+</mod:findName>
+
+</FTL>

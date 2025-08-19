@@ -1,0 +1,8 @@
+
+---------------------------------------------------------------------------------------------------
+Version: 1.0.0
+Date: 2025-08-19
+  Changes:
+    - Release! (the Kraken) 
+    - Introducing the new Ablative Armor system to replace shields
+

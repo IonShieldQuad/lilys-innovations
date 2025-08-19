@@ -1,0 +1,17 @@
+{
+    "Lua.diagnostics.globals": [
+        "script",
+        "Defines",
+        "Hyperspace",
+        "mods",
+        "time_increment",
+        "document",
+        "mod"
+    ],
+    "Lua.workspace.library": [
+        "${addons}/ftl-hyperspace/module/library"
+    ],
+    "Lua.runtime.version": "Lua 5.3",
+    "Lua.hover.expandAlias": false,
+    "Lua.workspace.checkThirdParty": false
+}

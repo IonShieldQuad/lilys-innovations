@@ -1,0 +1,10 @@
+<FTL>
+
+<animSheet name="lily_reactive_armor_proj" w="30" h="9" fw="30" fh="9">projectiles_lily/reactive_armor_proj.png</animSheet>
+<anim name="lily_reactive_armor_proj">
+    <sheet>lily_reactive_armor_proj</sheet>
+    <desc length="1" x="0" y="0"/>
+    <time>1.0</time>
+</anim>
+
+</FTL>

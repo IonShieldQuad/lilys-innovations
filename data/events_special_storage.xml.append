@@ -1,0 +1,241 @@
+<FTL>
+
+<mod:findName type="event" name="STORAGE_CHECK_SYSTEM">
+    <mod-append:choice req="lily_ablative_armor" hidden="true"  blue="false">
+        <text>Ablative Armor.</text>
+        <event load="STORAGE_CHECK_SYSTEM_LILY_ABLATIVE_ARMOR"/>
+    </mod-append:choice>
+</mod:findName>
+
+
+<event name="STORAGE_CHECK_SYSTEM_LILY_ABLATIVE_ARMOR">
+    <text>What upgrade do you want to install?</text>
+    <choice req="UPG_LILY_POLISHED_ARMOR" lvl="1" max_group="0" blue="false" hidden="true">
+        <text>Polished Armor. [ALREADY INSTALLED]</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="UPG_LILY_POLISHED_ARMOR" lvl="0" max_group="0" blue="false" hidden="true">
+        <text>Polished Armor. [Cost: 75~, 5{]</text>
+        <event load="STORAGE_CHECK_SYSTEM_LILY_ABLATIVE_ARMOR_POLISHED"/>
+    </choice>
+
+    <choice req="UPG_LILY_REACTIVE_ARMOR" lvl="1" max_group="1" blue="false" hidden="true">
+        <text>Reactive Armor. [ALREADY INSTALLED]</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="UPG_LILY_REACTIVE_ARMOR" lvl="0" max_group="1" blue="false" hidden="true">
+        <text>Reactive Armor. [Cost: 80~, 10}]</text>
+        <event load="STORAGE_CHECK_SYSTEM_LILY_ABLATIVE_ARMOR_REACTIVE"/>
+    </choice>
+
+    <choice req="UPG_LILY_STRONG_ARMOR" lvl="1" max_group="2" blue="false" hidden="true">
+        <text>Double-Strength Armor. [ALREADY INSTALLED]</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="UPG_LILY_STRONG_ARMOR" lvl="0" max_group="2" blue="false" hidden="true">
+        <text>Double-Strength Armor. [Cost: 100~]</text>
+        <event load="STORAGE_CHECK_SYSTEM_LILY_ABLATIVE_ARMOR_STRONG"/>
+    </choice>
+
+    <choice req="UPG_LILY_REGEN_ARMOR" lvl="1" max_group="3" blue="false" hidden="true">
+        <text>Mending Armor. [ALREADY INSTALLED]</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="UPG_LILY_REGEN_ARMOR" lvl="0" max_group="3" blue="false" hidden="true">
+        <text>Mending Armor. [Cost: 60~, 10|]</text>
+        <event load="STORAGE_CHECK_SYSTEM_LILY_ABLATIVE_ARMOR_REGEN"/>
+    </choice>
+
+    <choice>
+        <text>Nevermind.</text>
+        <event load="STORAGE_CHECK_SYSTEM_LOAD"/>
+    </choice>
+</event>
+
+
+<event name="STORAGE_CHECK_SYSTEM_LILY_ABLATIVE_ARMOR_POLISHED">
+    <text>You are about to install the Polished Armor upgrade.
+	[Effects: Decreases damage taken by ablative armor from beams by 1.]</text>
+
+    <choice req="lily_ablative_armor" lvl="3" max_group="0" blue="false" hidden="true">
+        <text>Perform the upgrade. [Cost: 75~, 5{]</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <item_modify>
+                <item type="fuel" min="-5" max="-5"/>
+                <item type="scrap" min="-75" max="-75"/>
+            </item_modify>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_POLISHED_ARMOR"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="lily_ablative_armor" max_group="0" blue="false" hidden="true">
+        <text>This upgrade is unavailable. You need Ablative Armor level 3.</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="EX_LILY_POLISHED_ARMOR" max_group="1" blue="false" hidden="true">
+        <text>Install the External Augment internally.</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <remove name="EX_LILY_POLISHED_ARMOR"/>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_POLISHED_ARMOR"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="pilot" lvl="1" max_group="2" blue="false" hidden="true">
+        <text>Nevermind.</text>
+        <event load="STORAGE_CHECK_SYSTEM_LOAD"/>
+    </choice>
+</event>
+<event name="INSTALL_LILY_POLISHED_ARMOR">
+    <variable name="loc_internal_upgrades" op="add" val="1"/>
+    <hiddenAug>UPG_LILY_POLISHED_ARMOR</hiddenAug>
+    <loadEvent>STORAGE_CHECK_SYSTEM</loadEvent>
+</event>
+
+
+<event name="STORAGE_CHECK_SYSTEM_LILY_ABLATIVE_ARMOR_REACTIVE">
+    <text>You are about to install the Reactive Armor upgrade.
+	[Effects: When Ablative Armor absorbs damage, it also releases a burst of debris to intercept incoming projectiles or drones.]</text>
+
+    <choice req="lily_ablative_armor" lvl="5" max_group="0" blue="false" hidden="true">
+    <!--choice req="INSTALL_LILY_REACTIVE" max_group="0" blue="false" hidden="true"-->
+        <text>Perform the upgrade. [Cost: 80~, 10}]</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <item_modify>
+                <item type="missiles" min="-10" max="-10"/>
+                <item type="scrap" min="-80" max="-80"/>
+            </item_modify>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_REACTIVE_ARMOR"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="lily_ablative_armor" max_group="0" blue="false" hidden="true">
+        <text>This upgrade is unavailable. You need Ablative Armor level 5.</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="EX_LILY_REACTIVE_ARMOR" max_group="1" blue="false" hidden="true">
+        <text>Install the External Augment internally.</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <remove name="EX_LILY_REACTIVE_ARMOR"/>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_REACTIVE_ARMOR"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="pilot" lvl="1" max_group="2" blue="false" hidden="true">
+        <text>Nevermind.</text>
+        <event load="STORAGE_CHECK_SYSTEM_LOAD"/>
+    </choice>
+</event>
+<event name="INSTALL_LILY_REACTIVE_ARMOR">
+    <variable name="loc_internal_upgrades" op="add" val="1"/>
+    <hiddenAug>UPG_LILY_REACTIVE_ARMOR</hiddenAug>
+    <loadEvent>STORAGE_CHECK_SYSTEM</loadEvent>
+</event>
+
+
+<event name="STORAGE_CHECK_SYSTEM_LILY_ABLATIVE_ARMOR_STRONG">
+    <text>You are about to install the Double-Strength Armor upgrade.
+	[Effects: Improves chances of Ablative Armor to absorb system or crew damage. Also increases the chance to resist hull and system damage by extra 10%.]</text>
+
+    <choice req="lily_ablative_armor" lvl="4" max_group="0" blue="false" hidden="true">
+        <text>Perform the upgrade. [Cost: 100~]</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <item_modify>
+                <item type="scrap" min="-100" max="-100"/>
+            </item_modify>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_STRONG_ARMOR"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="lily_ablative_armor" max_group="0" blue="false" hidden="true">
+        <text>This upgrade is unavailable. You need Ablative Armor level 4.</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="EX_LILY_STRONG_ARMOR" max_group="1" blue="false" hidden="true">
+        <text>Install the External Augment internally.</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <remove name="EX_LILY_STRONG_ARMOR"/>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_STRONG_ARMOR"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="pilot" lvl="1" max_group="2" blue="false" hidden="true">
+        <text>Nevermind.</text>
+        <event load="STORAGE_CHECK_SYSTEM_LOAD"/>
+    </choice>
+</event>
+<event name="INSTALL_LILY_STRONG_ARMOR">
+    <variable name="loc_internal_upgrades" op="add" val="1"/>
+    <hiddenAug>UPG_LILY_STRONG_ARMOR</hiddenAug>
+    <loadEvent>STORAGE_CHECK_SYSTEM</loadEvent>
+</event>
+
+
+<event name="STORAGE_CHECK_SYSTEM_LILY_ABLATIVE_ARMOR_REGEN">
+    <text>You are about to install the Mending Armor upgrade.
+	[Effects: If Ablative Armor system is present, repairs 2 hull points per jump.]</text>
+
+    <choice req="lily_ablative_armor" lvl="4" max_group="0" blue="false" hidden="true">
+        <text>Perform the upgrade. [Cost: 60~, 10|]</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <item_modify>
+                <item type="drones" min="-10" max="-10"/>
+                <item type="scrap" min="-60" max="-60"/>
+            </item_modify>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_REGEN_ARMOR"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="lily_ablative_armor" max_group="0" blue="false" hidden="true">
+        <text>This upgrade is unavailable. You need Ablative Armor level 4.</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="EX_LILY_REGEN_ARMOR" max_group="1" blue="false" hidden="true">
+        <text>Install the External Augment internally.</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <remove name="EX_LILY_REGEN_ARMOR"/>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_REGEN_ARMOR"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="pilot" lvl="1" max_group="2" blue="false" hidden="true">
+        <text>Nevermind.</text>
+        <event load="STORAGE_CHECK_SYSTEM_LOAD"/>
+    </choice>
+</event>
+<event name="INSTALL_LILY_REGEN_ARMOR">
+    <variable name="loc_internal_upgrades" op="add" val="1"/>
+    <hiddenAug>UPG_LILY_REGEN_ARMOR</hiddenAug>
+    <loadEvent>STORAGE_CHECK_SYSTEM</loadEvent>
+</event>
+
+
+
+
+
+
+
+</FTL>

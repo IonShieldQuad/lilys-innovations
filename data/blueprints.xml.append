@@ -1,0 +1,161 @@
+<FTL>
+
+<systemBlueprint name="lily_ablative_armor">
+    <type>shields</type>
+    <title>Ablative Armor</title>
+    <desc>Provides your ship with a layer of armor that absorbs damage before your hull does, and slowly repairs it. Higher levels grant more armor points, faster regeneration, and ion resistance. Uses manning levels in repairs.
+</desc>
+    <startPower>2</startPower>
+    <maxPower>8</maxPower>
+    <rarity>2</rarity>
+    <upgradeCost>
+        <level>20</level>
+        <level>20</level>
+        <level>30</level>
+        <level>40</level>
+        <level>60</level>
+        <level>70</level>
+        <level>80</level>
+        <level>90</level>
+        <level>100</level>
+        <level>110</level>
+        <level>120</level>
+        <level>130</level>
+        <level>140</level>
+        <level>150</level>
+        <level>160</level>
+        <level>170</level>
+    </upgradeCost>
+    <cost>80</cost>
+</systemBlueprint>
+
+<augBlueprint name="BOON_LILY_ABLATIVE_ARMOR">
+    <title>Ablative Armor Grant</title>
+    <desc>YOU SHOULD NEVER SEE THIS</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>false</stackable>
+</augBlueprint>
+
+<augBlueprint name="UPG_LILY_POLISHED_ARMOR">
+    <title>Polished armor</title>
+    <desc>YOU SHOULD NEVER SEE THIS</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>false</stackable>
+</augBlueprint>
+<augBlueprint name="EX_LILY_POLISHED_ARMOR">
+    <title>Polished Armor [X]</title>
+    <desc>Decreases damage taken by ablative armor from beams by 1.
+    
+[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>false</stackable>
+</augBlueprint>
+<augBlueprint name="UPG_LILY_REACTIVE_ARMOR">
+    <title>Reactive Armor</title>
+    <desc>YOU SHOULD NEVER SEE THIS</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>false</stackable>
+</augBlueprint>
+<augBlueprint name="EX_LILY_REACTIVE_ARMOR">
+    <title>Reactive Armor [X]</title>
+    <desc>When Ablative Armor absorbs damage, it also releases a burst of debris to intercept incoming projectiles or drones.
+    
+[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>false</stackable>
+</augBlueprint>
+<augBlueprint name="UPG_LILY_STRONG_ARMOR">
+    <title>Double-Strength Armor</title>
+    <desc>YOU SHOULD NEVER SEE THIS</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>false</stackable>
+</augBlueprint>
+<augBlueprint name="EX_LILY_STRONG_ARMOR">
+    <title>Double-Strength Armor [X]</title>
+    <desc>Improves chances of Ablative Armor to absorb system or crew damage.
+    
+		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>false</stackable>
+</augBlueprint>
+<augBlueprint name="UPG_LILY_REGEN_ARMOR">
+    <title>Mending Armor</title>
+    <desc>YOU SHOULD NEVER SEE THIS</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>true</stackable>
+</augBlueprint>
+<augBlueprint name="EX_LILY_REGEN_ARMOR">
+    <title>Mending Armor [X]</title>
+    <desc>If Ablative Armor system is present, repairs 2 hull points per jump.
+    
+		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>true</stackable>
+</augBlueprint>
+<augBlueprint name="BOON_LILY_ABLATIVE_ARMOR">
+    <title>Ablative Armor boon</title>
+    <desc>YOU SHOULD NEVER SEE THIS</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>false</stackable>
+</augBlueprint>
+
+<weaponBlueprint name="LILY_REACTIVE_BLAST">
+    <type>BURST</type>
+    <flavorType>Physical Projectile Blast</flavorType>
+    <drone_targetable>1</drone_targetable>
+    <title>---</title>
+    <short>---</short>
+    <tip>tip_flak</tip>
+    <desc>000</desc>
+    <tooltip>000</tooltip>
+    <radius>30</radius>
+    <damage>1</damage>
+    <spin>0</spin>
+    <shots>1</shots>
+    <sp>0</sp>
+    <fireChance>0</fireChance>
+    <breachChance>2</breachChance>
+    <cooldown>1</cooldown>
+    <power>4</power>
+    <cost>110</cost>
+    <bp>10</bp>
+    <speed>150</speed>
+    <rarity>0</rarity>
+    <projectiles>
+        <!--projectile count="3" fake="false">debris_large</projectile-->
+        <projectile count="1" fake="false">lily_reactive_armor_proj</projectile>
+        <!--projectile count="3" fake="true">debris_small</projectile-->
+    </projectiles>
+    <launchSounds>
+        <sound>flak</sound>
+    </launchSounds>
+    <hitShipSounds>
+        <sound>flakImpact1</sound>
+        <sound>flakImpact2</sound>
+        <sound>flakImpact3</sound>
+        <sound>flakImpact4</sound>
+    </hitShipSounds>
+    <hitShieldSounds>
+        <sound>hitShield1</sound>
+        <sound>hitShield2</sound>
+        <sound>hitShield3</sound>
+    </hitShieldSounds>
+    <missSounds>
+        <sound>miss</sound>
+    </missSounds>
+    <weaponArt>shotgun_3</weaponArt>
+    <iconReplace>shotgun_3_icon</iconReplace>
+    <iconImage>flak</iconImage>
+</weaponBlueprint>
+
+</FTL>

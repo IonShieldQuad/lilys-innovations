@@ -1,0 +1,11 @@
+<FTL>
+
+<mod:findName type="blueprintList" name="SHOP_ITEM_SYSTEMS_ESSENTIAL">
+    <mod-append:name>lily_ablative_armor</mod-append:name>
+</mod:findName>
+
+    
+</FTL>
+
+
+

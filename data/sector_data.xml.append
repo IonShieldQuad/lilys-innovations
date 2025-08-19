@@ -1,0 +1,128 @@
+<FTL>
+
+
+<!--mod:findLike type="sectorDescription">
+    <mod-append:priorityEvent name="LILY_EMPORIUM_QUEST_START" min="1" max="1" priority="1" req="LILY_EMPORIUM_SPAWN_CHECK" lvl="1"/>
+</mod:findLike-->
+
+<!-- 
+[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[
+[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[
+					SECRET
+[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[
+[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[
+-->
+
+
+<!--mod:findName type="sectorDescription" name="SECRET_ANCIENT">
+    <mod:findLike type="rarityList">
+        <mod-append:blueprint name="LILY_FOCUS_ION_1" rarity="0" />
+        <mod-append:blueprint name="LILY_FOCUS_ION_2" rarity="0" />
+        <mod-append:blueprint name="LILY_FOCUS_ION_HEAVY" rarity="0" />
+        <mod-append:blueprint name="LILY_FOCUS_ION_CHAIN" rarity="0" />
+        <mod-append:blueprint name="LILY_FOCUS_ION_FIRE" rarity="0" />
+        <mod-append:blueprint name="LILY_FOCUS_ION_STUN" rarity="0" />
+        <mod-append:blueprint name="LILY_FOCUS_ION_BIO" rarity="0" />
+        <mod-append:blueprint name="LILY_FOCUS_ION_PHASE" rarity="0" />
+        <mod-append:blueprint name="LILY_BEAM_TOGGLE_SUNSET_H" rarity="0" />
+        <mod-append:blueprint name="LILY_BEAM_TOGGLE_SYRINGE" rarity="0" />
+        <mod-append:blueprint name="LILY_BEAM_AMP_SIPHON_1" rarity="0" />
+        <mod-append:blueprint name="LILY_FOCUS_PIERCE_1" rarity="0" />
+        <mod-append:blueprint name="LILY_FOCUS_PIERCE_2" rarity="0" />
+        <mod-append:blueprint name="LILY_FOCUS_PIERCE_2" rarity="0" />
+        <mod-append:blueprint name="LILY_BEAM_PARTICLE_MINI" rarity="0" />
+        <mod-append:blueprint name="LILY_BEAM_CYCLOTRON" rarity="0" />
+        <mod-append:blueprint name="LILY_BEAM_FROST" rarity="0" />
+        <mod-append:blueprint name="LILY_COMBAT_AFTERBURNER" rarity="0" />
+
+
+
+    </mod:findLike>
+</mod:findName>
+
+<mod:findName type="sectorDescription" name="SECRET_ROYAL">
+    <mod:findLike type="rarityList">
+        <mod-append:blueprint name="LILY_FOCUS_ION_1" rarity="0" />
+        <mod-append:blueprint name="LILY_FOCUS_ION_2" rarity="0" />
+        <mod-append:blueprint name="LILY_FOCUS_ION_HEAVY" rarity="0" />
+        <mod-append:blueprint name="LILY_FOCUS_ION_CHAIN" rarity="0" />
+        <mod-append:blueprint name="LILY_FOCUS_ION_FIRE" rarity="0" />
+        <mod-append:blueprint name="LILY_FOCUS_ION_STUN" rarity="0" />
+        <mod-append:blueprint name="LILY_FOCUS_ION_BIO" rarity="0" />
+        <mod-append:blueprint name="LILY_FOCUS_ION_PHASE" rarity="0" />
+        <mod-append:blueprint name="LILY_BEAM_TOGGLE_SUNSET_H" rarity="0" />
+        <mod-append:blueprint name="LILY_BEAM_TOGGLE_SYRINGE" rarity="0" />
+        <mod-append:blueprint name="LILY_BEAM_AMP_SIPHON_1" rarity="0" />
+        <mod-append:blueprint name="LILY_FOCUS_PIERCE_1" rarity="0" />
+        <mod-append:blueprint name="LILY_FOCUS_PIERCE_2" rarity="0" />
+        <mod-append:blueprint name="LILY_BEAM_PARTICLE_MINI" rarity="0" />
+        <mod-append:blueprint name="LILY_BEAM_CYCLOTRON" rarity="0" />
+        <mod-append:blueprint name="LILY_BEAM_FROST" rarity="0" />
+        <mod-append:blueprint name="LILY_COMBAT_AFTERBURNER" rarity="0" />
+
+
+
+
+
+    </mod:findLike>
+</mod:findName>
+
+<mod:findName type="sectorDescription" name="SECRET_FR_COMMONWEALTH">
+    <mod:findLike type="rarityList">
+        <mod-append:blueprint name="LILY_FOCUS_ION_1" rarity="0" />
+        <mod-append:blueprint name="LILY_FOCUS_ION_2" rarity="0" />
+        <mod-append:blueprint name="LILY_FOCUS_ION_HEAVY" rarity="0" />
+        <mod-append:blueprint name="LILY_FOCUS_ION_CHAIN" rarity="0" />
+        <mod-append:blueprint name="LILY_FOCUS_ION_FIRE" rarity="0" />
+        <mod-append:blueprint name="LILY_FOCUS_ION_STUN" rarity="0" />
+        <mod-append:blueprint name="LILY_FOCUS_ION_BIO" rarity="0" />
+        <mod-append:blueprint name="LILY_FOCUS_ION_PHASE" rarity="0" />
+        <mod-append:blueprint name="LILY_BEAM_TOGGLE_SUNSET_H" rarity="0" />
+        <mod-append:blueprint name="LILY_BEAM_TOGGLE_SYRINGE" rarity="0" />
+        <mod-append:blueprint name="LILY_BEAM_AMP_SIPHON_1" rarity="0" />
+        <mod-append:blueprint name="LILY_FOCUS_PIERCE_1" rarity="0" />
+        <mod-append:blueprint name="LILY_FOCUS_PIERCE_2" rarity="0" />
+        <mod-append:blueprint name="LILY_BEAM_PARTICLE_MINI" rarity="0" />
+        <mod-append:blueprint name="LILY_BEAM_CYCLOTRON" rarity="0" />
+        <mod-append:blueprint name="LILY_BEAM_FROST" rarity="0" />
+        <mod-append:blueprint name="LILY_COMBAT_AFTERBURNER" rarity="0" />
+
+
+
+
+
+    </mod:findLike>
+</mod:findName>
+
+<mod:findName type="sectorDescription" name="SECRET_AEA_OLD_2">
+    <mod:findLike type="rarityList">
+        <mod-append:blueprint name="LILY_FOCUS_ION_1" rarity="0" />
+        <mod-append:blueprint name="LILY_FOCUS_ION_2" rarity="0" />
+        <mod-append:blueprint name="LILY_FOCUS_ION_HEAVY" rarity="0" />
+        <mod-append:blueprint name="LILY_FOCUS_ION_CHAIN" rarity="0" />
+        <mod-append:blueprint name="LILY_FOCUS_ION_FIRE" rarity="0" />
+        <mod-append:blueprint name="LILY_FOCUS_ION_STUN" rarity="0" />
+        <mod-append:blueprint name="LILY_FOCUS_ION_BIO" rarity="0" />
+        <mod-append:blueprint name="LILY_FOCUS_ION_PHASE" rarity="0" />
+        <mod-append:blueprint name="LILY_BEAM_TOGGLE_SUNSET_H" rarity="0" />
+        <mod-append:blueprint name="LILY_BEAM_TOGGLE_SYRINGE" rarity="0" />
+        <mod-append:blueprint name="LILY_BEAM_AMP_SIPHON_1" rarity="0" />
+        <mod-append:blueprint name="LILY_FOCUS_PIERCE_1" rarity="0" />
+        <mod-append:blueprint name="LILY_FOCUS_PIERCE_2" rarity="0" />
+        <mod-append:blueprint name="LILY_BEAM_PARTICLE_MINI" rarity="0" />
+        <mod-append:blueprint name="LILY_BEAM_CYCLOTRON" rarity="0" />
+        <mod-append:blueprint name="LILY_BEAM_FROST" rarity="0" />
+        <mod-append:blueprint name="LILY_COMBAT_AFTERBURNER" rarity="0" />
+
+
+
+
+
+    </mod:findLike>
+</mod:findName-->
+
+
+
+
+
+</FTL>
