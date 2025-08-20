@@ -15,7 +15,7 @@
 		If there's no thread yet, create one to announce your upcoming mod in the
 		forum. Then paste the url here.
 	-->
-	<threadUrl><![CDATA[ https://https://ftlmultiverse.boards.net/thread/162/mv-lilys-innovations ]]></threadUrl>
+	<threadUrl><![CDATA[ https://ftlmultiverse.boards.net/thread/167/mv-5-lilys-innovations-1 ]]></threadUrl>
 
 
 	<!-- Your forum user name. -->
@@ -30,7 +30,7 @@
 			2.4.1 Hi-res Bkgs
 			1.0 for FTL 1.03.1
 	-->
-	<version><![CDATA[ 1.0.0 ]]></version>
+	<version><![CDATA[ 1.0.1 ]]></version>
 
 
 	<description>

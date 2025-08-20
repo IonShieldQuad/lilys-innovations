@@ -119,7 +119,7 @@ local function get_level_description_lily_ablative_armor(systemId, level, toolti
     if systemId == Hyperspace.ShipSystem.NameToSystemId("lily_ablative_armor") then
         --print(tostring(level * 2) .. "/" .. tostring(0.75 + ((level > 1) and 0.25 or 0) + level * 0.25) .. "/" .. tostring(10 * math.max(0, (level - 3))) .. "%")
         --return (tostring(level * 2) .. "/" .. tostring(0.75 + ((level > 1) and 0.25 or 0) + level * 0.25) .. "/" .. tostring(10 * math.max(0, (level - 3))) .. "%")
-        return ("HP: " .. tostring(level * 2) .. "/Reg.: " .. tostring(0.75 + ((level > 1) and 0.25 or 0) + level * 0.25) .. ((level > 3) and ("/I.Res.: " .. tostring(10 * math.max(0, (level - 3))) .. "%") or ""))
+        return ("HP: " .. tostring(level * 2) .. "/Reg.: " .. tostring(0.75 + ((level > 1) and 0.25 or 0) + level * 0.25) .. ((level > 3) and ("x/I.Res.: " .. tostring(10 * math.max(0, (level - 3))) .. "%") or ""))
         --return string.format("Layers: %i / Regen: s%x, / Ion Res.: s%", level * 2, tostring(0.75 + ((level > 1) and 0.25 or 0) + level * 0.25 ), tostring(10 * math.max(0, (level - 3))) .. "%")
     end
 end
@@ -256,19 +256,20 @@ script.on_internal_event(Defines.InternalEvents.HAS_AUGMENTATION, function(ship,
     if augment == "ION_ARMOR" then
         if ship:HasSystem(Hyperspace.ShipSystem.NameToSystemId("lily_ablative_armor")) then
             local lily_ablative_armor_system = ship:GetSystem(Hyperspace.ShipSystem.NameToSystemId("lily_ablative_armor"))
-            return Defines.Chain.CONTINUE, value + math.min(1, math.max(0, lily_ablative_armor_system:GetEffectivePower() - 3))
+            return Defines.Chain.CONTINUE,
+            value + math.min(1, math.max(0, lily_ablative_armor_system.healthState.second - 3))
         end
     end
     if augment == "ROCK_ARMOR" then
         if ship:HasSystem(Hyperspace.ShipSystem.NameToSystemId("lily_ablative_armor")) then
             local lily_ablative_armor_system = ship:GetSystem(Hyperspace.ShipSystem.NameToSystemId("lily_ablative_armor"))
-            return Defines.Chain.CONTINUE, math.max(value, 1)
+            return Defines.Chain.CONTINUE, value + 1
         end
     end
     if augment == "SYSTEM_CASING" then
         if ship:HasSystem(Hyperspace.ShipSystem.NameToSystemId("lily_ablative_armor")) then
             local lily_ablative_armor_system = ship:GetSystem(Hyperspace.ShipSystem.NameToSystemId("lily_ablative_armor"))
-            return Defines.Chain.CONTINUE, math.max(value, 1)
+            return Defines.Chain.CONTINUE, value + 1
         end
     end
 
@@ -332,6 +333,17 @@ script.on_internal_event(Defines.InternalEvents.SHIP_LOOP, function(shipManager)
 
         if shipManager.iShipId == 0 then
             Hyperspace.playerVariables.lily_ablative_armor = level
+            local cApp = Hyperspace.App
+            local gui = cApp.gui
+
+            -- If player is not in danger
+            local inSafeEnviroment = gui.upgradeButton.bActive
+                and not gui.event_pause
+                and cApp.world.space.projectiles:empty()
+                and not shipManager.bJumping
+                if inSafeEnviroment then
+                    multiplier = multiplier * 10
+                end
         end
 
         userdata_table(shipManager, "mods.lilyinno.ablativearmor").second = maxLayers
