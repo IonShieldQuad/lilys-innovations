@@ -84,7 +84,7 @@ local function setup_damage_message(path)
         Graphics.GL_Color(1, 1, 1, 1), 1.0, false)
 end
 local ABLATED = setup_damage_message("numbers/lily_text_ablate.png")
-
+local ABLATED_ORANGE = setup_damage_message("numbers/lily_text_ablate_orange.png")
 
 local function global_pos_to_player_pos(mousePosition)
     local cApp = Hyperspace.Global.GetInstance():GetCApp()
@@ -652,7 +652,7 @@ script.on_internal_event(Defines.InternalEvents.DAMAGE_BEAM, function(ship, proj
                 if armorDamage == 0 then
                     create_damage_message(ship.iShipId, damageMessages.NEGATED, location.x, location.y)
                 else
-                    create_damage_message(ship.iShipId, ABLATED, location.x, location.y)
+                    create_damage_message(ship.iShipId, ABLATED_ORANGE, location.x, location.y)
                 end
                 Hyperspace.Sounds:PlaySoundMix("lily_ablative_armor_hit_breach_1", -1, false)
             end
@@ -667,8 +667,10 @@ script.on_internal_event(Defines.InternalEvents.DAMAGE_BEAM, function(ship, proj
                 dmg.iSystemDamage = -1
                 dmg.selfId = ship.iShipId
                 dmg.ownerId = ship.iShipId
+                local hull = ship.ship.hullIntegrity.first
                 ship:DamageArea(location, dmg, true)
-                ship:DamageHull(-1, true)
+                local restore = hull - ship.ship.hullIntegrity.first
+                ship:DamageHull(-restore, true)
             end
         end
 
@@ -682,7 +684,10 @@ end)
 
 
 script.on_internal_event(Defines.InternalEvents.DAMAGE_AREA, function(ship, projectile, location, damage, forceHit, shipFriendlyFire)
-
+    if ship:HasSystem(Hyperspace.ShipSystem.NameToSystemId("lily_ablative_armor")) and lily_ablating then
+        damage.iSystemDamage = -damage.iDamage
+        damage.iPersDamage = -damage.iDamage
+    end
     if ship:HasSystem(Hyperspace.ShipSystem.NameToSystemId("lily_ablative_armor")) and not lily_ablating then
         local currentLayers = userdata_table(ship, "mods.lilyinno.ablativearmor").first or 0
         local maxLayers = userdata_table(ship, "mods.lilyinno.ablativearmor").second or 0
@@ -891,8 +896,10 @@ script.on_internal_event(Defines.InternalEvents.DAMAGE_AREA_HIT, function(ship, 
             else
                 if neg then
                     Hyperspace.Sounds:PlaySoundMix("lily_ablative_armor_hit_1", -1, false)
+                    create_damage_message(ship.iShipId, ABLATED, location.x, location.y)
                 else
                     Hyperspace.Sounds:PlaySoundMix("lily_ablative_armor_hit_breach_1", -1, false)
+                    create_damage_message(ship.iShipId, ABLATED_ORANGE, location.x, location.y)
                 end
                 
                 if ship:HasAugmentation("UPG_LILY_VENGEANCE_ARMOR") > 0 or ship:HasAugmentation("EX_LILY_VENGEANCE_ARMOR") > 0 then
@@ -906,13 +913,15 @@ script.on_internal_event(Defines.InternalEvents.DAMAGE_AREA_HIT, function(ship, 
                     dmg.ownerId = ship.iShipId
                     
                     lily_ablating = true
+                    local hull = ship.ship.hullIntegrity.first
                     ship:DamageArea(location, dmg, true)
-                    ship:DamageHull(-1, true)
+                    local restore = hull - ship.ship.hullIntegrity.first
+                    ship:DamageHull(-restore, true)
                     lily_ablating = false
 
                 end
                 
-                create_damage_message(ship.iShipId, ABLATED, location.x, location.y)
+                
                 
                 userdata_table(ship, "mods.lilyinno.ablativearmor").first = currentLayers
                 
@@ -935,6 +944,7 @@ script.on_internal_event(Defines.InternalEvents.DAMAGE_AREA_HIT, function(ship, 
                             end
                         end
                     end
+                    Hyperspace.Sounds:PlaySoundMix("smallExplosion", -1, false)
                     Hyperspace.Sounds:PlaySoundMix("smallExplosion", -1, false)
                     for i = 1, maxLayers, 1 do
                         if #targets > 0 then
@@ -1011,9 +1021,9 @@ script.on_internal_event(Defines.InternalEvents.DAMAGE_AREA_HIT, function(ship, 
     return Defines.Chain.CONTINUE
 end)
 
-script.on_internal_event(Defines.InternalEvents.SYSTEM_ADD_DAMAGE, function(sys,  projectile, amount)
+script.on_internal_event(Defines.InternalEvents.SYSTEM_ADD_DAMAGE, function(sys, projectile, amount)
     local ship = Hyperspace.ships(sys._shipObj.iShipId)
-    if ship:HasSystem(Hyperspace.ShipSystem.NameToSystemId("lily_ablative_armor")) then
+    if ship and ship:HasSystem(Hyperspace.ShipSystem.NameToSystemId("lily_ablative_armor")) then
         local currentLayers = userdata_table(ship, "mods.lilyinno.ablativearmor").first or 0
         local maxLayers = userdata_table(ship, "mods.lilyinno.ablativearmor").second or 0
 
