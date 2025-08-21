@@ -65,7 +65,7 @@ local function find_collision_point(target_pos, target_vel, interceptor_pos, int
     local tti = kx / magnitude(target_vel)
     --local BA = mulVec(mulVec(target_vel, 1.0 / magnitude(target_vel))) * kx
 
-    local intercept = addVec(target_pos, target_vel * tti)
+    local intercept = addVec(target_pos, mulVec(target_vel, tti))
 
     return intercept;
 end
@@ -78,7 +78,12 @@ local function toVec(point)
     return {X = point.x, Y = point.y}
 end
 
-
+local function setup_damage_message(path)
+    local messageTex = Hyperspace.Resources:GetImageId(path)
+    return Hyperspace.Resources:CreateImagePrimitive(messageTex, -messageTex.width / 2, -messageTex.height / 2, 0,
+        Graphics.GL_Color(1, 1, 1, 1), 1.0, false)
+end
+local ABLATED = setup_damage_message("numbers/lily_text_ablate.png")
 
 
 local function global_pos_to_player_pos(mousePosition)
@@ -119,6 +124,12 @@ local function get_level_description_lily_ablative_armor(systemId, level, toolti
     if systemId == Hyperspace.ShipSystem.NameToSystemId("lily_ablative_armor") then
         --print(tostring(level * 2) .. "/" .. tostring(0.75 + ((level > 1) and 0.25 or 0) + level * 0.25) .. "/" .. tostring(10 * math.max(0, (level - 3))) .. "%")
         --return (tostring(level * 2) .. "/" .. tostring(0.75 + ((level > 1) and 0.25 or 0) + level * 0.25) .. "/" .. tostring(10 * math.max(0, (level - 3))) .. "%")
+        if tooltip then
+            if level == 0 then
+                return "Regen Disabled." .. "\n\nManning bonuses: 20/40/60% faster regen."
+            end
+            return ("HP: " .. tostring(level * 2) .. "  / Regen: " .. tostring(0.75 + ((level > 1) and 0.25 or 0) + level * 0.25) .. ((level > 3) and ("x / Ion Resist: " .. tostring(10 * math.max(0, (level - 3))) .. "%") or "")) .. "\n\nManning bonuses: 20/40/60% faster regen."
+        end
         return ("HP: " .. tostring(level * 2) .. "/Reg.: " .. tostring(0.75 + ((level > 1) and 0.25 or 0) + level * 0.25) .. ((level > 3) and ("x/I.Res.: " .. tostring(10 * math.max(0, (level - 3))) .. "%") or ""))
         --return string.format("Layers: %i / Regen: s%x, / Ion Res.: s%", level * 2, tostring(0.75 + ((level > 1) and 0.25 or 0) + level * 0.25 ), tostring(10 * math.max(0, (level - 3))) .. "%")
     end
@@ -440,7 +451,7 @@ mods.multiverse.systemIcons[Hyperspace.ShipSystem.NameToSystemId("lily_ablative_
 
 
 
-
+local lily_ablating = false
 
 script.on_internal_event(Defines.InternalEvents.DAMAGE_BEAM, function(ship, projectile, location, damage, newTile, beamHit)
     if ship:HasSystem(Hyperspace.ShipSystem.NameToSystemId("lily_ablative_armor")) then
@@ -464,9 +475,19 @@ script.on_internal_event(Defines.InternalEvents.DAMAGE_BEAM, function(ship, proj
         end
         --]]
 
-        local cdamage = projectile.extend.customDamage.def
+        local cdamage = projectile and projectile.extend.customDamage.def or nil
+        if cdamage == nil then
+            cdamage = Hyperspace.CustomDamageDefinition()
+        end
 
         local frac = (currentLayers * 100.0) / (maxLayers * 1.0)
+
+        local hullres = false
+        local sysres = false
+        if ship:HasAugmentation("UPG_LILY_AETHER_ARMOR") > 0 or ship:HasAugmentation("EX_LILY_AETHER_ARMOR") > 0 then
+            hullres = math.random() < ship:GetAugmentationValue("ROCK_ARMOR")
+            sysres = math.random() < ship:GetAugmentationValue("SYSTEM_CASING")
+        end
 
         --polished armor gives -1 to beam dmg
         if ship:HasAugmentation("UPG_LILY_POLISHED_ARMOR") > 0 or ship:HasAugmentation("EX_LILY_POLISHED_ARMOR") > 0 then
@@ -515,11 +536,12 @@ script.on_internal_event(Defines.InternalEvents.DAMAGE_BEAM, function(ship, proj
         --print("3:" .. damage.iDamage)
 
         if damage.iDamage == 0 and damage.iPersDamage == 0 and damage.iSystemDamage == 0 then
-            if beamHit == Defines.BeamHit_NEW_ROOM or beamHit == Defines.BeamHit_NEW_TILE then
+            if beamHit == Defines.BeamHit_NEW_ROOM then
                 Hyperspace.Sounds:PlaySoundMix("zoltanResist", -1, false)
                 create_damage_message(ship.iShipId, damageMessages.NEGATED, location.x, location.y)
             end
             userdata_table(ship, "mods.lilyinno.ablativearmor").first = currentLayers
+            return Defines.Chain.CONTINUE, beamHit
         end
 
 
@@ -534,19 +556,24 @@ script.on_internal_event(Defines.InternalEvents.DAMAGE_BEAM, function(ship, proj
         local sys = ship:GetSystemInRoom(roomId)
 
         local currentLayers2 = currentLayers
+        local armorDamage = 0
+
         if sys == nil and damage.bHullBuster == true then
             if damage.iDamage * 2 < currentLayers then
-                if damage.iDamage > 0 then
-                    create_damage_message(ship.iShipId, damageMessages.NEGATED, location.x, location.y)
-                end
-                currentLayers = currentLayers - damage.iDamage * 2
+                --if damage.iDamage > 0 then
+                --    create_damage_message(ship.iShipId, damageMessages.NEGATED, location.x, location.y)
+                --end
                 if not neg2 and not cdamage.noSysDamage then
                     damage.iSystemDamage = damage.iSystemDamage + damage.iDamage
                 end
                 if not neg2 and not cdamage.noPersDamage then
                     damage.iPersDamage = damage.iPersDamage + damage.iDamage
                 end
+                if not hullres then
+                    armorDamage = armorDamage + damage.iDamage * 2
+                end
                 damage.iDamage = 0
+                currentLayers = currentLayers - damage.iDamage * 2
             else
                 if not neg2 and not cdamage.noSysDamage then
                     damage.iSystemDamage = damage.iSystemDamage + math.ceil(currentLayers / 2)
@@ -554,19 +581,25 @@ script.on_internal_event(Defines.InternalEvents.DAMAGE_BEAM, function(ship, proj
                 if not neg2 and not cdamage.noPersDamage then
                     damage.iPersDamage = damage.iPersDamage + math.ceil(currentLayers / 2)
                 end
+                if not hullres then 
+                    armorDamage = armorDamage + currentLayers
+                end
                 damage.iDamage = damage.iDamage - math.ceil(currentLayers / 2)
                 currentLayers = 0
             end
         else
             if damage.iDamage < currentLayers then
-                if damage.iDamage > 0 then
-                    create_damage_message(ship.iShipId, damageMessages.NEGATED, location.x, location.y)
-                end
+                --if damage.iDamage > 0 then
+                --    create_damage_message(ship.iShipId, damageMessages.NEGATED, location.x, location.y)
+                --end
                 if not neg2 and not cdamage.noSysDamage then
                     damage.iSystemDamage = damage.iSystemDamage + damage.iDamage
                 end
                 if not neg2 and not cdamage.noPersDamage then
                     damage.iPersDamage = damage.iPersDamage + damage.iDamage
+                end
+                if not hullres then
+                    armorDamage = armorDamage + damage.iDamage
                 end
                 currentLayers = currentLayers - damage.iDamage
                 damage.iDamage = 0
@@ -578,36 +611,70 @@ script.on_internal_event(Defines.InternalEvents.DAMAGE_BEAM, function(ship, proj
                     damage.iPersDamage = damage.iPersDamage + currentLayers
                 end
                 damage.iDamage = damage.iDamage - currentLayers
+                if not hullres then
+                    armorDamage = armorDamage + currentLayers
+                end
                 currentLayers = 0
             end
         end
 
-        --print("4:" .. damage.iDamage)
-
-            
-
 
         if sys and neg2 then
             if damage.iSystemDamage < currentLayers then
+                if not sysres  then
+                    armorDamage = armorDamage + damage.iSystemDamage
+                end
                 currentLayers = currentLayers - damage.iSystemDamage
                 damage.iSystemDamage = 0
             else
                 damage.iSystemDamage = damage.iSystemDamage - currentLayers
+                if not sysres then
+                    armorDamage = armorDamage + currentLayers
+                end
                 currentLayers = 0
             end
         end
 
         if neg2 then
             damage.iPersDamage = math.max(0, damage.iPersDamage - currentLayers2)
+            damage.fireChance = math.max(0, damage.fireChance - currentLayers2)
         end
-        if beamHit == Defines.BeamHit_NEW_ROOM or beamHit == Defines.BeamHit_NEW_TILE then
+        if beamHit == Defines.BeamHit_NEW_ROOM then
             if neg2 then
-                Hyperspace.Sounds:PlaySoundMix("lily_ablative_armor_hit_1", -1, false)
+                if armorDamage == 0 then
+                    create_damage_message(ship.iShipId, damageMessages.NEGATED, location.x, location.y)
+                    Hyperspace.Sounds:PlaySoundMix("zoltanResist", -1, false)
+                else
+                    Hyperspace.Sounds:PlaySoundMix("lily_ablative_armor_hit_1", -1, false)
+                    create_damage_message(ship.iShipId, ABLATED, location.x, location.y)
+                end
             else
+                if armorDamage == 0 then
+                    create_damage_message(ship.iShipId, damageMessages.NEGATED, location.x, location.y)
+                else
+                    create_damage_message(ship.iShipId, ABLATED, location.x, location.y)
+                end
                 Hyperspace.Sounds:PlaySoundMix("lily_ablative_armor_hit_breach_1", -1, false)
             end
         end
-        userdata_table(ship, "mods.lilyinno.ablativearmor").first = currentLayers
+
+        if ship:HasAugmentation("UPG_LILY_VENGEANCE_ARMOR") > 0 or ship:HasAugmentation("EX_LILY_VENGEANCE_ARMOR") > 0 then
+            if armorDamage > 0 then
+                local dmg = Hyperspace.Damage()
+                dmg.bFriendlyFire = true
+                dmg.iDamage = 1
+                dmg.iPersDamage = -1
+                dmg.iSystemDamage = -1
+                dmg.selfId = ship.iShipId
+                dmg.ownerId = ship.iShipId
+                ship:DamageArea(location, dmg, true)
+                ship:DamageHull(-1, true)
+            end
+        end
+
+        --currentLayers = math.max(0, currentLayers - armorDamage)
+            userdata_table(ship, "mods.lilyinno.ablativearmor").first = math.max(0, currentLayers2 - armorDamage)
+        --userdata_table(ship, "mods.lilyinno.ablativearmor").first = currentLayers
     end
     return Defines.Chain.CONTINUE, beamHit
 end)
@@ -615,7 +682,8 @@ end)
 
 
 script.on_internal_event(Defines.InternalEvents.DAMAGE_AREA, function(ship, projectile, location, damage, forceHit, shipFriendlyFire)
-    if ship:HasSystem(Hyperspace.ShipSystem.NameToSystemId("lily_ablative_armor")) then
+
+    if ship:HasSystem(Hyperspace.ShipSystem.NameToSystemId("lily_ablative_armor")) and not lily_ablating then
         local currentLayers = userdata_table(ship, "mods.lilyinno.ablativearmor").first or 0
         local maxLayers = userdata_table(ship, "mods.lilyinno.ablativearmor").second or 0
 
@@ -641,7 +709,10 @@ script.on_internal_event(Defines.InternalEvents.DAMAGE_AREA, function(ship, proj
         end
         --]]
 
-        
+        if damage.ownerId == ship.iShipId and damage.bFriendlyFire then
+            return Defines.Chain.CONTINUE, forceHit, shipFriendlyFire
+        end
+
         if damage.iDamage <= 0 and damage.iPersDamage <= 0 and damage.iSystemDamage <= 0 then
             return Defines.Chain.CONTINUE, forceHit, shipFriendlyFire
         end
@@ -650,7 +721,10 @@ script.on_internal_event(Defines.InternalEvents.DAMAGE_AREA, function(ship, proj
             return Defines.Chain.CONTINUE, forceHit, shipFriendlyFire
         end
         
-        local cdamage = projectile.extend.customDamage.def
+        local cdamage = projectile and projectile.extend.customDamage.def or nil
+        if cdamage == nil then
+            cdamage = Hyperspace.CustomDamageDefinition()
+        end
         --[[
         if ship:GetAugmentationValue("ROCK_ARMOR") < math.random() then
             damage.iDamage = 0
@@ -669,6 +743,13 @@ script.on_internal_event(Defines.InternalEvents.DAMAGE_AREA, function(ship, proj
             userdata_table(ship, "mods.lilyinno.ablativearmor").first = currentLayers
         end
         --]]
+
+        local hullres = false
+        local sysres = false
+        if ship:HasAugmentation("UPG_LILY_AETHER_ARMOR") > 0 or ship:HasAugmentation("EX_LILY_AETHER_ARMOR") > 0 then
+            hullres = math.random() < ship:GetAugmentationValue("ROCK_ARMOR")
+            sysres = math.random() < ship:GetAugmentationValue("SYSTEM_CASING")
+        end
 
         local neg2
         if ship:HasAugmentation("UPG_LILY_STRONG_ARMOR") > 0 or ship:HasAugmentation("EX_LILY_STRONG_ARMOR") > 0 then
@@ -699,7 +780,9 @@ script.on_internal_event(Defines.InternalEvents.DAMAGE_AREA, function(ship, proj
                 if not neg2 and not cdamage.noPersDamage then
                     damage.iPersDamage = damage.iPersDamage + damage.iDamage
                 end
-                armorDamage = armorDamage + damage.iDamage * 2
+                if not hullres then
+                    armorDamage = armorDamage + damage.iDamage * 2
+                end
                 damage.iDamage = 0
                 currentLayers = currentLayers - damage.iDamage * 2
             else
@@ -709,7 +792,9 @@ script.on_internal_event(Defines.InternalEvents.DAMAGE_AREA, function(ship, proj
                 if not neg2 and not cdamage.noPersDamage then
                     damage.iPersDamage = damage.iPersDamage + math.ceil(currentLayers / 2)
                 end
-                armorDamage = armorDamage + currentLayers
+                if not hullres then
+                    armorDamage = armorDamage + currentLayers
+                end
                 damage.iDamage = damage.iDamage - math.ceil(currentLayers / 2)
                 currentLayers = 0
             end
@@ -724,7 +809,9 @@ script.on_internal_event(Defines.InternalEvents.DAMAGE_AREA, function(ship, proj
                 if not neg2 and not cdamage.noPersDamage then
                     damage.iPersDamage = damage.iPersDamage + damage.iDamage
                 end
-                armorDamage = armorDamage + damage.iDamage
+                if not hullres then
+                    armorDamage = armorDamage + damage.iDamage
+                end
                 currentLayers = currentLayers - damage.iDamage
                 damage.iDamage = 0
             else
@@ -735,7 +822,9 @@ script.on_internal_event(Defines.InternalEvents.DAMAGE_AREA, function(ship, proj
                     damage.iPersDamage = damage.iPersDamage + currentLayers
                 end
                 damage.iDamage = damage.iDamage - currentLayers
-                armorDamage = armorDamage + currentLayers
+                if not hullres then
+                    armorDamage = armorDamage + currentLayers
+                end
                 currentLayers = 0
             end
         end
@@ -743,12 +832,16 @@ script.on_internal_event(Defines.InternalEvents.DAMAGE_AREA, function(ship, proj
 
         if sys and neg2 then
             if damage.iSystemDamage < currentLayers then
-                armorDamage = armorDamage + damage.iSystemDamage
+                if not sysres then
+                    armorDamage = armorDamage + damage.iSystemDamage
+                end
                 currentLayers = currentLayers - damage.iSystemDamage
                 damage.iSystemDamage = 0
             else
                 damage.iSystemDamage = damage.iSystemDamage - currentLayers
-                armorDamage = armorDamage + currentLayers
+                if not sysres then
+                    armorDamage = armorDamage + currentLayers
+                end
                 currentLayers = 0
             end
         end
@@ -758,8 +851,10 @@ script.on_internal_event(Defines.InternalEvents.DAMAGE_AREA, function(ship, proj
             damage.fireChance = math.max(0, damage.fireChance - currentLayers2)
         end
 
-        userdata_table(projectile, "mods.lilyinno.ablativearmor").armorDamage = armorDamage
-        userdata_table(projectile, "mods.lilyinno.ablativearmor").neg = neg2
+        if projectile then
+            userdata_table(projectile, "mods.lilyinno.ablativearmor").armorDamage = armorDamage
+            userdata_table(projectile, "mods.lilyinno.ablativearmor").neg = neg2
+        end
         --print("8:" .. damage.iDamage)
         --Hyperspace.Sounds:PlaySoundMix("lily_ablative_armor_hit_1", -1, false)
         --userdata_table(ship, "mods.lilyinno.ablativearmor").first = currentLayers
@@ -769,9 +864,13 @@ script.on_internal_event(Defines.InternalEvents.DAMAGE_AREA, function(ship, proj
 end)
 
 script.on_internal_event(Defines.InternalEvents.DAMAGE_AREA_HIT, function(ship, projectile, location, damage, shipFriendlyFire)
-    if ship:HasSystem(Hyperspace.ShipSystem.NameToSystemId("lily_ablative_armor")) then
-        local armorDamage = userdata_table(projectile, "mods.lilyinno.ablativearmor").armorDamage
-        local neg = userdata_table(projectile, "mods.lilyinno.ablativearmor").neg
+    if ship:HasSystem(Hyperspace.ShipSystem.NameToSystemId("lily_ablative_armor")) and not lily_ablating then
+        local armorDamage = nil
+        local neg = true
+        if projectile then
+            armorDamage = projectile and userdata_table(projectile, "mods.lilyinno.ablativearmor").armorDamage
+            neg = projectile and userdata_table(projectile, "mods.lilyinno.ablativearmor").neg
+        end
         local currentLayers = userdata_table(ship, "mods.lilyinno.ablativearmor").first or 0
         local maxLayers = userdata_table(ship, "mods.lilyinno.ablativearmor").second or 0
 
@@ -780,59 +879,100 @@ script.on_internal_event(Defines.InternalEvents.DAMAGE_AREA_HIT, function(ship, 
         end
 
 
-        if armorDamage ~= nil then
+        if armorDamage ~= nil and not (damage.bFriendlyFire and damage.ownerId == ship.iShipId) then
             currentLayers = math.max(0, currentLayers - armorDamage)
             if armorDamage == 0 then
-                Hyperspace.Sounds:PlaySoundMix("zoltanResist", -1, false)
+                create_damage_message(ship.iShipId, damageMessages.NEGATED, location.x, location.y)
+                if neg then
+                    Hyperspace.Sounds:PlaySoundMix("zoltanResist", -1, false)
+                else
+                    Hyperspace.Sounds:PlaySoundMix("lily_ablative_armor_hit_breach_1", -1, false)
+                end
             else
                 if neg then
                     Hyperspace.Sounds:PlaySoundMix("lily_ablative_armor_hit_1", -1, false)
                 else
                     Hyperspace.Sounds:PlaySoundMix("lily_ablative_armor_hit_breach_1", -1, false)
                 end
-            end
-            create_damage_message(ship.iShipId, damageMessages.NEGATED, location.x, location.y)
+                
+                if ship:HasAugmentation("UPG_LILY_VENGEANCE_ARMOR") > 0 or ship:HasAugmentation("EX_LILY_VENGEANCE_ARMOR") > 0 then
+                    --A hack for triggering crystal armor
+                    local dmg = Hyperspace.Damage()
+                    dmg.bFriendlyFire = true
+                    dmg.iDamage = 1
+                    dmg.iPersDamage = -1
+                    dmg.iSystemDamage = -1
+                    dmg.selfId = ship.iShipId
+                    dmg.ownerId = ship.iShipId
+                    
+                    lily_ablating = true
+                    ship:DamageArea(location, dmg, true)
+                    ship:DamageHull(-1, true)
+                    lily_ablating = false
 
-            --reactive armor shoots flak
-            if ship:HasAugmentation("UPG_LILY_REACTIVE_ARMOR") > 0 or ship:HasAugmentation("EX_LILY_REACTIVE_ARMOR") > 0 then
-                local spaceManager = Hyperspace.App.world.space
-                local weapon = Hyperspace.Blueprints:GetWeaponBlueprint("LILY_REACTIVE_BLAST")
-                local targets = {}
-                if spaceManager.drones then
-                    for drone in vter(spaceManager.drones) do
-                        if drone._collideable and drone._targetable and drone.currentSpace == ship.iShipId and drone.iShipId ~= ship.iShipId then
-                            targets[#targets + 1] = { location = drone.currentLocation, velocity = drone.speedVector }
+                end
+                
+                create_damage_message(ship.iShipId, ABLATED, location.x, location.y)
+                
+                userdata_table(ship, "mods.lilyinno.ablativearmor").first = currentLayers
+                
+                --reactive armor shoots flak
+                if ship:HasAugmentation("UPG_LILY_REACTIVE_ARMOR") > 0 or ship:HasAugmentation("EX_LILY_REACTIVE_ARMOR") > 0 then
+                    local spaceManager = Hyperspace.App.world.space
+                    local weapon = Hyperspace.Blueprints:GetWeaponBlueprint("LILY_REACTIVE_BLAST")
+                    local targets = {}
+                    if spaceManager.drones then
+                        for drone in vter(spaceManager.drones) do
+                            if drone._collideable and drone._targetable and drone.currentSpace == ship.iShipId and drone.iShipId ~= ship.iShipId then
+                                targets[#targets + 1] = { location = drone.currentLocation, velocity = drone.speedVector }
+                            end
                         end
                     end
-                end
-                if spaceManager.projectiles then
-                    for proj in vter(spaceManager.projectiles) do
-                        if proj._targetable and proj.currentSpace == ship.iShipId and proj.ownerId ~= ship.iShipId and not proj.passedTarget then
-                            targets[#targets + 1] = { location = proj.position, velocity = proj.speed }
+                    if spaceManager.projectiles then
+                        for proj in vter(spaceManager.projectiles) do
+                            if proj._targetable and proj.currentSpace == ship.iShipId and proj.ownerId ~= ship.iShipId and not proj.passedTarget then
+                                targets[#targets + 1] = { location = proj.position, velocity = proj.speed }
+                            end
                         end
                     end
-                end
-                Hyperspace.Sounds:PlaySoundMix("smallExplosion", -1, false)
-                for i = 1, maxLayers, 1 do
-                    if #targets > 0 then
-                        local target = targets[math.random(#targets)]
-                        local intercept = find_collision_point(toVec(target.location), toVec(target.velocity),
-                            toVec(location), 200.0)
-                        intercept = Hyperspace.Pointf(intercept.X, intercept.Y)
-                        local randomvector = Hyperspace.Pointf((math.random() - 0.5) * 10, (math.random() - 0.5) * 10)
-                        local point = (intercept - location):Normalize() * 200 + randomvector + location
-
-                        local piece = spaceManager:CreateBurstProjectile(
-                            weapon, "lily_reactive_armor_proj", false,
-                            location,
-                            ship.iShipId,
-                            ship.iShipId,
-                            intercept + randomvector,
-                            ship.iShipId,
-                            1
-                        )
-                        piece:ComputeHeading()
-                    else
+                    Hyperspace.Sounds:PlaySoundMix("smallExplosion", -1, false)
+                    for i = 1, maxLayers, 1 do
+                        if #targets > 0 then
+                            local target = targets[math.random(#targets)]
+                            local intercept = find_collision_point(toVec(target.location), toVec(target.velocity),
+                            toVec(location), 1000.0)
+                            intercept = Hyperspace.Pointf(intercept.X, intercept.Y)
+                            local randomvector = Hyperspace.Pointf((math.random() - 0.5) * 10, (math.random() - 0.5) * 10)
+                            local point = (intercept - location):Normalize() * 200 + randomvector + location
+                            
+                            local piece = spaceManager:CreateBurstProjectile(
+                                weapon, "lily_reactive_armor_proj", false,
+                                location,
+                                ship.iShipId,
+                                ship.iShipId,
+                                intercept + randomvector,
+                                ship.iShipId,
+                                1
+                            )
+                            piece:ComputeHeading()
+                        else
+                            local theta = math.random() * math.pi * 2
+                            local vector = Hyperspace.Pointf(location.x + 1000 * math.cos(theta),
+                            location.y + 1000 * math.sin(theta))
+                            local piece = spaceManager:CreateBurstProjectile(
+                                weapon, "lily_reactive_armor_proj", false,
+                                location,
+                                ship.iShipId,
+                                ship.iShipId,
+                                vector,
+                                ship.iShipId,
+                                1
+                            )
+                            piece:ComputeHeading()
+                        end
+                    end
+                    for i = 1, maxLayers, 1 do
+                        
                         local theta = math.random() * math.pi * 2
                         local vector = Hyperspace.Pointf(location.x + 1000 * math.cos(theta),
                             location.y + 1000 * math.sin(theta))
@@ -843,18 +983,18 @@ script.on_internal_event(Defines.InternalEvents.DAMAGE_AREA_HIT, function(ship, 
                             ship.iShipId,
                             vector,
                             ship.iShipId,
-                            1
+                            math.random() * math.pi * 2
                         )
                         piece:ComputeHeading()
+                
                     end
                 end
             end
-
         end
         
 
 
-        if damage.iDamage > 0 and currentLayers > 0 then
+        if damage.iDamage > 0 and currentLayers > 0 and not (damage.bFriendlyFire) then
             if damage.iDamage > currentLayers then
                 ship:DamageHull(-currentLayers, true)
                 

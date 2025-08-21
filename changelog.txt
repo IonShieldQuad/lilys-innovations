@@ -1,9 +1,15 @@
+---------------------------------------------------------------------------------------------------
+Version: 1.0.1
+Date: 2025-08-20
+  Changes:
+    - Bugfixes
+    - Added new Internal upgrades: Vengeance Adapter, Fortifications and Aether Infused Armor
 
 ---------------------------------------------------------------------------------------------------
 Version: 1.0.1
 Date: 2025-08-20
   Changes:
-    - Armor now regenerates 10x faster in safe enviroinments to reduce waiting
+    - Armor now regenerates 10x faster in safe environments  to reduce waiting
 
 ---------------------------------------------------------------------------------------------------
 Version: 1.0.0

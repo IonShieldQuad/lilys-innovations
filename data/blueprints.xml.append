@@ -101,6 +101,74 @@
     <rarity>0</rarity>
     <stackable>true</stackable>
 </augBlueprint>
+
+<augBlueprint name="UPG_LILY_VENGEANCE_ARMOR">
+    <title>Vengeance Adapter</title>
+    <desc>YOU SHOULD NEVER SEE THIS</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>true</stackable>
+</augBlueprint>
+<augBlueprint name="EX_LILY_VENGEANCE_ARMOR">
+    <title>Vengeance Adapter [X]</title>
+    <desc>Allows effects that trigger on hull damage trigger on armor damage as well.
+    
+		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>true</stackable>
+</augBlueprint>
+
+<augBlueprint name="UPG_LILY_BUNKER_ARMOR">
+    <title>Fortifications</title>
+    <desc>YOU SHOULD NEVER SEE THIS</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>true</stackable>
+</augBlueprint>
+<augBlueprint name="EX_LILY_BUNKER_ARMOR">
+    <title>Fortifications [X]</title>
+    <desc>Allied crew in Ablative Armor room take half damage from all sources, and enemy crew sabotage it at half speed.
+    
+		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>true</stackable>
+</augBlueprint>
+
+<augBlueprint name="UPG_LILY_AETHER_ARMOR">
+    <title>Aether Inf. Armor</title>
+    <desc>YOU SHOULD NEVER SEE THIS</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>true</stackable>
+</augBlueprint>
+<augBlueprint name="EX_LILY_AETHER_ARMOR">
+    <title>Aether Inf. Armor [X]</title>
+    <desc>Increases chance to resist armor and hull damage by 10% and allows Ablative Armor layers benefit from resist chance.
+    
+		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>true</stackable>
+</augBlueprint>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <augBlueprint name="BOON_LILY_ABLATIVE_ARMOR">
     <title>Ablative Armor boon</title>
     <desc>YOU SHOULD NEVER SEE THIS</desc>
@@ -129,7 +197,7 @@
     <power>4</power>
     <cost>110</cost>
     <bp>10</bp>
-    <speed>150</speed>
+    <speed>1000</speed>
     <rarity>0</rarity>
     <projectiles>
         <!--projectile count="3" fake="false">debris_large</projectile-->
@@ -153,6 +221,40 @@
     <missSounds>
         <sound>miss</sound>
     </missSounds>
+    <weaponArt>shotgun_3</weaponArt>
+    <iconReplace>shotgun_3_icon</iconReplace>
+    <iconImage>flak</iconImage>
+</weaponBlueprint>
+
+<weaponBlueprint name="LILY_CRYSTAL_TRIGGER">
+    <type>BURST</type>
+    <flavorType>Physical Projectile Blast</flavorType>
+    <drone_targetable>1</drone_targetable>
+    <title>---</title>
+    <short>---</short>
+    <tip>tip_flak</tip>
+    <desc>000</desc>
+    <tooltip>000</tooltip>
+    <radius>30</radius>
+    <damage>1</damage>
+    <noPersDamage/>
+    <noSysDamage/>
+    <spin>0</spin>
+    <shots>1</shots>
+    <sp>0</sp>
+    <fireChance>0</fireChance>
+    <breachChance>0</breachChance>
+    <cooldown>1</cooldown>
+    <power>4</power>
+    <cost>110</cost>
+    <bp>10</bp>
+    <speed>1000</speed>
+    <rarity>0</rarity>
+    <projectiles>
+        <!--projectile count="3" fake="false">debris_large</projectile-->
+        <projectile count="1" fake="false">nothing</projectile>
+        <!--projectile count="3" fake="true">debris_small</projectile-->
+    </projectiles>
     <weaponArt>shotgun_3</weaponArt>
     <iconReplace>shotgun_3_icon</iconReplace>
     <iconImage>flak</iconImage>

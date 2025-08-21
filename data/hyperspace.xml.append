@@ -41,6 +41,77 @@
 	<aug name="EX_LILY_REGEN_ARMOR">
 		<function name="UPG_LILY_REGEN_ARMOR" value="1" useForReqs="true" warning="false" />
 	</aug>
+	<aug name="UPG_LILY_VENGEANCE_ARMOR"/>
+	<aug name="EX_LILY_VENGEANCE_ARMOR">
+		<function name="UPG_LILY_STRONG_ARMOR" value="1" useForReqs="true" warning="false" />
+	</aug>
+	<aug name="UPG_LILY_BUNKER_ARMOR">
+		<statBoosts>
+			<statBoost name="allDamageTakenMultiplier">
+				<boostType>MULT</boostType>
+				<shipTarget>ORIGINAL_SHIP</shipTarget>
+				<crewTarget>ALLIES</crewTarget>
+				<droneTarget>ALLIES</droneTarget>
+				<amount>0.5</amount>
+				<priority>0</priority>
+				<systemRoomTarget>ALL</systemRoomTarget>
+				<systemList>
+					<lily_ablative_armor/>
+				</systemList>
+				<boostAnim>lily_fort_effect</boostAnim>
+			</statBoost>
+			<statBoost name="sabotageSpeedMultiplier">
+				<boostType>MULT</boostType>
+				<shipTarget>ORIGINAL_SHIP</shipTarget>
+				<crewTarget>ALL</crewTarget>
+				<droneTarget>ALL</droneTarget>
+				<amount>0.5</amount>
+				<priority>0</priority>
+				<systemRoomTarget>ALL</systemRoomTarget>
+				<systemList>
+					<lily_ablative_armor/>
+				</systemList>
+			</statBoost>
+		</statBoosts>
+	</aug>
+	<aug name="EX_LILY_BUNKER_ARMOR">
+		<statBoosts>
+			<statBoost name="allDamageTakenMultiplier">
+				<boostType>MULT</boostType>
+				<shipTarget>ORIGINAL_SHIP</shipTarget>
+				<crewTarget>ALLIES</crewTarget>
+				<droneTarget>ALLIES</droneTarget>
+				<amount>0.5</amount>
+				<priority>0</priority>
+				<systemRoomTarget>ALL</systemRoomTarget>
+				<systemList>
+					<lily_ablative_armor/>
+				</systemList>
+				<boostAnim>lily_fort_effect</boostAnim>
+			</statBoost>
+			<statBoost name="sabotageSpeedMultiplier">
+				<boostType>MULT</boostType>
+				<shipTarget>ORIGINAL_SHIP</shipTarget>
+				<crewTarget>ALL</crewTarget>
+				<droneTarget>ALL</droneTarget>
+				<amount>0.5</amount>
+				<priority>0</priority>
+				<systemRoomTarget>ALL</systemRoomTarget>
+				<systemList>
+					<lily_ablative_armor/>
+				</systemList>
+			</statBoost>
+		</statBoosts>
+	</aug>
+	<aug name="UPG_LILY_AETHER_ARMOR">
+		<function name="ROCK_ARMOR" value="0.1" useForReqs="true" warning="false" />
+		<function name="SYSTEM_CASING" value="0.1" useForReqs="true" warning="false" />
+	</aug>
+	<aug name="EX_LILY_AETHER_ARMOR">
+		<function name="UPG_LILY_AETHER_ARMOR" value="1" useForReqs="true" warning="false" />
+		<function name="ROCK_ARMOR" value="0.1" useForReqs="true" warning="false" />
+		<function name="SYSTEM_CASING" value="0.1" useForReqs="true" warning="false" />
+	</aug>
 </augments>
 
 <req name="INSTALL_LILY_POLISHED" type="all">

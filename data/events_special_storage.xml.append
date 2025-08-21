@@ -7,6 +7,17 @@
     </mod-append:choice>
 </mod:findName>
 
+<mod:findName type="event" name="STORAGE_CHECK_SYSTEM_AETHER">
+    <mod-append:choice req="UPG_LILY_AETHER_ARMOR" lvl="1" max_group="10" blue="false" hidden="true">
+        <text>Aether Infused Armor. [ALREADY INSTALLED]</text>
+        <event load="OPTION_INVALID"/>
+    </mod-append:choice>
+    <mod-append:choice req="UPG_LILY_AETHER_ARMOR" lvl="0" max_group="10" blue="false" hidden="true">
+        <text>Aether Infused Armor. [Cost: 65~, 5|]</text>
+        <event load="STORAGE_CHECK_SYSTEM_AETHER_LILY_AETHER_ARMOR"/>
+    </mod-append:choice>
+</mod:findName>
+
 
 <event name="STORAGE_CHECK_SYSTEM_LILY_ABLATIVE_ARMOR">
     <text>What upgrade do you want to install?</text>
@@ -45,6 +56,28 @@
         <text>Mending Armor. [Cost: 60~, 10|]</text>
         <event load="STORAGE_CHECK_SYSTEM_LILY_ABLATIVE_ARMOR_REGEN"/>
     </choice>
+    
+    <choice req="UPG_LILY_VENGEANCE_ARMOR" lvl="1" max_group="5" blue="false" hidden="true">
+        <text>Vengeance Adapter. [ALREADY INSTALLED]</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="UPG_LILY_VENGEANCE_ARMOR" lvl="0" max_group="5" blue="false" hidden="true">
+        <text>Vengeance Adapter. [Cost: 20~, 4|]</text>
+        <event load="STORAGE_CHECK_SYSTEM_LILY_ABLATIVE_ARMOR_VENGEANCE"/>
+    </choice>
+
+    <choice req="UPG_LILY_BUNKER_ARMOR" lvl="1" max_group="6" blue="false" hidden="true">
+        <text>Fortifications. [ALREADY INSTALLED]</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="UPG_LILY_BUNKER_ARMOR" lvl="0" max_group="6" blue="false" hidden="true">
+        <text>Fortifications. [Cost: 30~]</text>
+        <event load="STORAGE_CHECK_SYSTEM_LILY_ABLATIVE_ARMOR_BUNKER"/>
+    </choice>
+
+    
+    
+    
 
     <choice>
         <text>Nevermind.</text>
@@ -232,6 +265,140 @@
     <loadEvent>STORAGE_CHECK_SYSTEM</loadEvent>
 </event>
 
+
+<event name="STORAGE_CHECK_SYSTEM_LILY_ABLATIVE_ARMOR_VENGEANCE">
+    <text>You are about to install the Vengeance Adapter upgrade.
+	[Effects: Allows effects that trigger on hull damage trigger on armor damage as well.]</text>
+
+    <choice req="lily_ablative_armor" lvl="2" max_group="0" blue="false" hidden="true">
+        <text>Perform the upgrade. [Cost: 20~, 4}]</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <item_modify>
+                <item type="missiles" min="-4" max="-4"/>
+                <item type="scrap" min="-20" max="-20"/>
+            </item_modify>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_VENGEANCE_ARMOR"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="lily_ablative_armor" max_group="0" blue="false" hidden="true">
+        <text>This upgrade is unavailable. You need Ablative Armor level 2.</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="EX_LILY_VENGEANCE_ARMOR" max_group="1" blue="false" hidden="true">
+        <text>Install the External Augment internally.</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <remove name="EX_LILY_VENGEANCE_ARMOR"/>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_VENGEANCE_ARMOR"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="pilot" lvl="1" max_group="2" blue="false" hidden="true">
+        <text>Nevermind.</text>
+        <event load="STORAGE_CHECK_SYSTEM_LOAD"/>
+    </choice>
+</event>
+<event name="INSTALL_LILY_VENGEANCE_ARMOR">
+    <variable name="loc_internal_upgrades" op="add" val="1"/>
+    <hiddenAug>UPG_LILY_VENGEANCE_ARMOR</hiddenAug>
+    <loadEvent>STORAGE_CHECK_SYSTEM</loadEvent>
+</event>
+
+
+
+<event name="STORAGE_CHECK_SYSTEM_LILY_ABLATIVE_ARMOR_BUNKER">
+    <text>You are about to install the Fortifications upgrade.
+	[Effects: Allied crew in Ablative Armor room take half damage from all sources, and enemy crew sabotage it at half speed.]</text>
+
+    <choice req="lily_ablative_armor" lvl="3" max_group="0" blue="false" hidden="true">
+        <text>Perform the upgrade. [Cost: 30~]</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <item_modify>
+                <item type="scrap" min="-30" max="-30"/>
+            </item_modify>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_BUNKER_ARMOR"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="lily_ablative_armor" max_group="0" blue="false" hidden="true">
+        <text>This upgrade is unavailable. You need Ablative Armor level 3.</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="EX_LILY_BUNKER_ARMOR" max_group="1" blue="false" hidden="true">
+        <text>Install the External Augment internally.</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <remove name="EX_LILY_BUNKER_ARMOR"/>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_BUNKER_ARMOR"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="pilot" lvl="1" max_group="2" blue="false" hidden="true">
+        <text>Nevermind.</text>
+        <event load="STORAGE_CHECK_SYSTEM_LOAD"/>
+    </choice>
+</event>
+<event name="INSTALL_LILY_BUNKER_ARMOR">
+    <variable name="loc_internal_upgrades" op="add" val="1"/>
+    <hiddenAug>UPG_LILY_BUNKER_ARMOR</hiddenAug>
+    <loadEvent>STORAGE_CHECK_SYSTEM</loadEvent>
+</event>
+
+
+<event name="STORAGE_CHECK_SYSTEM_AETHER_LILY_AETHER_ARMOR">
+    <text>You are about to install the Aether Infused Armor upgrade.
+	[Effects: Increases chance to resist armor and hull damage by 10% and allows Ablative Armor layers benefit from resist chance.]</text>
+
+    <choice req="UPG_LILY_STRONG_ARMOR" lvl="1" max_group="0" blue="false" hidden="true">
+        <text>Perform the upgrade. [Cost: 65~, 5|]</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <item_modify>
+                <item type="drones" min="-5" max="-5"/>
+                <item type="scrap" min="-65" max="-65"/>
+            </item_modify>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_AETHER_ARMOR"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="UPG_LILY_STRONG_ARMOR" max_group="0" blue="false" hidden="true">
+        <text>This upgrade is unavailable. You need Double-Strength Armor installed first.</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="EX_LILY_AETHER_ARMOR" max_group="1" blue="false" hidden="true">
+        <text>Install the External Augment internally.</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <remove name="EX_LILY_AETHER_ARMOR"/>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_AETHER_ARMOR"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="pilot" lvl="1" max_group="2" blue="false" hidden="true">
+        <text>Nevermind.</text>
+        <event load="STORAGE_CHECK_SYSTEM_LOAD"/>
+    </choice>
+</event>
+<event name="INSTALL_LILY_AETHER_ARMOR">
+    <variable name="loc_internal_upgrades" op="add" val="1"/>
+    <hiddenAug>UPG_LILY_AETHER_ARMOR</hiddenAug>
+    <loadEvent>STORAGE_CHECK_SYSTEM</loadEvent>
+</event>
 
 
 

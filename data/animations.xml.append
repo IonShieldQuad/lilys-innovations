@@ -7,4 +7,11 @@
     <time>1.0</time>
 </anim>
 
+<animSheet name="lily_fort_effect" w="35" h="33" fw="35" fh="33">people_lily/fort_effect.png</animSheet>
+<anim name="lily_fort_effect">
+    <sheet>lily_fort_effect</sheet>
+    <desc length="1" x="0" y="0"/>
+    <time>1.0</time>
+</anim>
+
 </FTL>
