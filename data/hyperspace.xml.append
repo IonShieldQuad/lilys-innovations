@@ -211,4 +211,36 @@
 		</mod-append:section>
 	</mod-append:page>
 </mod:findLike>
+
+
+
+<mod:findWithChildLike type="customStore" child-type="category">
+	<mod:selector type="SYSTEMS"/>
+	<mod:setAttributes lilys="inno"/>
+</mod:findWithChildLike>
+
+<mod:findLike type="store" limit="1">
+	<mod:findWithChildLike type="customStore" child-type="category">
+		<mod:selector type="SYSTEMS"/>
+		<mod:setAttributes lilys="inno"/>
+	</mod:findWithChildLike>
+	<mod:findLike type="customStore">
+		<mod:selector lilys="inno" />
+		<mod-append:category type="SYSTEMS">
+			<customTitle>INNOVATION SYSTEMS</customTitle>
+			<item>
+				<blueprint>SHOP_ITEM_SYSTEMS_LILYINNO</blueprint>
+			</item>
+			<item>
+				<blueprint>SHOP_ITEM_SYSTEMS_LILYINNO</blueprint>
+			</item>
+			<item>
+				<blueprint>SHOP_ITEM_SYSTEMS_LILYINNO</blueprint>
+			</item>
+			<chance>100</chance>
+		</mod-append:category>
+		<mod:removeAttributes lilys="" />
+	</mod:findLike>
+</mod:findLike>
+
 </FTL>

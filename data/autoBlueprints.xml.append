@@ -1,12 +1,17 @@
 <FTL>
-
+<!--
 <mod:findName type="blueprintList" name="SHOP_ITEM_SYSTEMS_ESSENTIAL">
     <mod-append:name>lily_ablative_armor</mod-append:name>
 </mod:findName>
 <mod:findName type="blueprintList" name="SHOP_ITEM_SYSTEMS_BONUS">
     <mod-append:name>lily_shock_neutralizer</mod-append:name>
 </mod:findName>
+-->
 
+<blueprintList name="SHOP_ITEM_SYSTEMS_LILYINNO">
+    <name>lily_ablative_armor</name>
+    <name>lily_shock_neutralizer</name>
+</blueprintList>
     
 </FTL>
 
