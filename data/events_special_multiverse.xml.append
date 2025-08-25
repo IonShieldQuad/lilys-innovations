@@ -6,8 +6,21 @@
         <event>
             <text>"Ablative Armor - defensive p-p-p-procedures it ensures! You pilot a: well protected vessel! Well protected vessel! For well protected vessel: I provide Grant of Ab-Ab-ablative Armor! Grant of Ablative Armor! Save it - for the future!"</text>
             <achievement>ACH_BOON_LILY_ABLATIVE_ARMOR</achievement>
-            <metaVariable name="prof_r_boon_lily_ablative_armor" op="set" val="1"/>
+            <metaVariable name="prof_e_boon_lily_ablative_armor" op="set" val="1"/>
             <variable name="ach_boon_lily_ablative_armor" op="set" val="1"/>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="THE_JUDGES_ENGI_ADVICE"/>
+            </choice>
+        </event>
+    </mod-append:choice>
+    <mod-append:choice req="lily_shock_neutralizer" lvl="4" blue="false">
+        <text>Present your Shock Neutralizer subsystem.</text>
+        <event>
+            <text>"Shock Neutralizer - for p-p-p-protection against ions! Ions! A Technology - for [helping] other technology! Technology!!! For this: I [proudly] provide Grant of Shock Neutralizer! Grant of Shock Neutralizer! Save it - for the future!"</text>
+            <achievement>ACH_BOON_LILY_SHOCK_NEUTRALIZER</achievement>
+            <metaVariable name="prof_e_boon_lily_shock_neutralizer" op="set" val="1"/>
+            <variable name="ach_boon_lily_shock_neutralizer" op="set" val="1"/>
             <choice hidden="true">
                 <text>Continue...</text>
                 <event load="THE_JUDGES_ENGI_ADVICE"/>

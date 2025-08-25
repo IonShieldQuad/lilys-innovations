@@ -5,6 +5,10 @@
         <text>Ablative Armor.</text>
         <event load="STORAGE_CHECK_SYSTEM_LILY_ABLATIVE_ARMOR"/>
     </mod-append:choice>
+    <mod-append:choice req="lily_shock_neutralizer" hidden="true" blue="false">
+        <text>Shock Neutralizer.</text>
+        <event load="STORAGE_CHECK_SYSTEM_LILY_SHOCK_NEUTRALIZER"/>
+    </mod-append:choice>
 </mod:findName>
 
 <mod:findName type="event" name="STORAGE_CHECK_SYSTEM_AETHER">
@@ -77,8 +81,6 @@
 
     
     
-    
-
     <choice>
         <text>Nevermind.</text>
         <event load="STORAGE_CHECK_SYSTEM_LOAD"/>
@@ -402,7 +404,176 @@
 
 
 
+<event name="STORAGE_CHECK_SYSTEM_LILY_SHOCK_NEUTRALIZER">
+    <text>What upgrade do you want to install?</text>
+    <choice req="UPG_LILY_SECONDARY_ION_FIELD" lvl="1" max_group="0" blue="false" hidden="true">
+        <text>Secondary Ion Field. [ALREADY INSTALLED]</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="UPG_LILY_SECONDARY_ION_FIELD" lvl="0" max_group="0" blue="false" hidden="true">
+        <text>Secondary Ion Field. [Cost: 50~, 2{]</text>
+        <event load="STORAGE_CHECK_SYSTEM_LILY_SHOCK_NEUTRALIZER_ION_FIELD"/>
+    </choice>
 
+    <choice req="UPG_LILY_WIDE_NEUTRALIZE" lvl="1" max_group="1" blue="false" hidden="true">
+        <text>Expanded Field. [ALREADY INSTALLED]</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="UPG_LILY_WIDE_NEUTRALIZE" lvl="0" max_group="1" blue="false" hidden="true">
+        <text>Expanded Field. [Cost: 80~, 5{, 5|]</text>
+        <event load="STORAGE_CHECK_SYSTEM_LILY_SHOCK_NEUTRALIZER_WIDE"/>
+    </choice>
+
+    <choice req="UPG_LILY_PLASMA_NEUTRALIZE" lvl="1" max_group="2" blue="false" hidden="true">
+        <text>Surge Protectors. [ALREADY INSTALLED]</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="UPG_LILY_PLASMA_NEUTRALIZE" lvl="0" max_group="2" blue="false" hidden="true">
+        <text>Surge Protectors. [Cost: 30~, 3|]</text>
+        <event load="STORAGE_CHECK_SYSTEM_LILY_SHOCK_NEUTRALIZER_PLASMA"/>
+    </choice>
+
+    <choice>
+        <text>Nevermind.</text>
+        <event load="STORAGE_CHECK_SYSTEM_LOAD"/>
+    </choice>
+</event>
+
+
+<event name="STORAGE_CHECK_SYSTEM_LILY_SHOCK_NEUTRALIZER_ION_FIELD">
+    <text>You are about to install the Secondary Ion Field upgrade.
+	[Effects: Protects your ship from ion damage, giving a 30% chance to negate it entirely. Stacks.]</text>
+
+    <choice req="lily_shock_neutralizer" lvl="1" max_group="0" blue="false" hidden="true">
+        <text>Perform the upgrade. [Cost: 50~, 2{]</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <item_modify>
+                <item type="scrap" min="-50" max="-50"/>
+                <item type="fuel" min="-2" max="-2"/>
+            </item_modify>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_SECONDARY_ION_FIELD"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="lily_shock_neutralizer" max_group="0" blue="false" hidden="true">
+        <text>This upgrade is unavailable. You need Shock Neutralizer level 1.</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="EX_LILY_SECONDARY_ION_FIELD" max_group="1" blue="false" hidden="true">
+        <text>Install the External Augment internally.</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <remove name="EX_LILY_SECONDARY_ION_FIELD"/>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_SECONDARY_ION_FIELD"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="pilot" lvl="1" max_group="2" blue="false" hidden="true">
+        <text>Nevermind.</text>
+        <event load="STORAGE_CHECK_SYSTEM_LOAD"/>
+    </choice>
+</event>
+<event name="INSTALL_LILY_SECONDARY_ION_FIELD">
+    <variable name="loc_internal_upgrades" op="add" val="1"/>
+    <hiddenAug>UPG_LILY_SECONDARY_ION_FIELD</hiddenAug>
+    <loadEvent>STORAGE_CHECK_SYSTEM</loadEvent>
+</event>
+
+
+<event name="STORAGE_CHECK_SYSTEM_LILY_SHOCK_NEUTRALIZER_WIDE">
+    <text>You are about to install the Expanded Field upgrade.
+	[Effects: Shock Neutralizer also provide half of its bonus to rooms adjancent to target.]</text>
+
+    <choice req="lily_shock_neutralizer" lvl="2" max_group="0" blue="false" hidden="true">
+        <text>Perform the upgrade. [Cost: 80~, 5{, 5|]</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <item_modify>
+                <item type="scrap" min="-80" max="-80"/>
+                <item type="fuel" min="-5" max="-5"/>
+                <item type="drones" min="-5" max="-5"/>
+            </item_modify>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_WIDE_NEUTRALIZE"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="lily_shock_neutralizer" max_group="0" blue="false" hidden="true">
+        <text>This upgrade is unavailable. You need Shock Neutralizer level 2.</text>
+        <event load="OPTION_INVALID"/>s
+    </choice>
+    <choice req="EX_LILY_WIDE_NEUTRALIZE" max_group="1" blue="false" hidden="true">
+        <text>Install the External Augment internally.</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <remove name="EX_LILY_WIDE_NEUTRALIZE"/>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_WIDE_NEUTRALIZE"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="pilot" lvl="1" max_group="2" blue="false" hidden="true">
+        <text>Nevermind.</text>
+        <event load="STORAGE_CHECK_SYSTEM_LOAD"/>
+    </choice>
+</event>
+<event name="INSTALL_LILY_WIDE_NEUTRALIZE">
+    <variable name="loc_internal_upgrades" op="add" val="1"/>
+    <hiddenAug>UPG_LILY_WIDE_NEUTRALIZE</hiddenAug>
+    <loadEvent>STORAGE_CHECK_SYSTEM</loadEvent>
+</event>
+
+
+<event name="STORAGE_CHECK_SYSTEM_LILY_SHOCK_NEUTRALIZER_PLASMA">
+    <text>You are about to install the Surge Protectors upgrade.
+	[Effects: Protect your ship from Plasma damage, giving 100% chance to negate system damage on shield hits and 50% on direct hits.]</text>
+
+    <choice req="lily_shock_neutralizer" lvl="1" max_group="0" blue="false" hidden="true">
+        <text>Perform the upgrade. [Cost: 30~, 3|]</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <item_modify>
+                <item type="scrap" min="-30" max="-30"/>
+                <item type="drones" min="-3" max="-3"/>
+            </item_modify>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_PLASMA_NEUTRALIZE"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="lily_shock_neutralizer" max_group="0" blue="false" hidden="true">
+        <text>This upgrade is unavailable. You need Shock Neutralizer level 1.</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="EX_LILY_PLASMA_NEUTRALIZE" max_group="1" blue="false" hidden="true">
+        <text>Install the External Augment internally.</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <remove name="EX_LILY_PLASMA_NEUTRALIZE"/>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_PLASMA_NEUTRALIZE"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="pilot" lvl="1" max_group="2" blue="false" hidden="true">
+        <text>Nevermind.</text>
+        <event load="STORAGE_CHECK_SYSTEM_LOAD"/>
+    </choice>
+</event>
+<event name="INSTALL_LILY_PLASMA_NEUTRALIZE">
+    <variable name="loc_internal_upgrades" op="add" val="1"/>
+    <hiddenAug>UPG_LILY_PLASMA_NEUTRALIZE</hiddenAug>
+    <loadEvent>STORAGE_CHECK_SYSTEM</loadEvent>
+</event>
 
 
 </FTL>

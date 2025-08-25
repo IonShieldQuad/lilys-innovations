@@ -29,13 +29,31 @@
     <cost>80</cost>
 </systemBlueprint>
 
-<augBlueprint name="BOON_LILY_ABLATIVE_ARMOR">
-    <title>Ablative Armor Grant</title>
-    <desc>YOU SHOULD NEVER SEE THIS</desc>
-    <cost>0</cost>
-    <rarity>0</rarity>
-    <stackable>false</stackable>
-</augBlueprint>
+<systemBlueprint name="lily_shock_neutralizer">
+    <type>battery</type>
+    <title>Shock Neutralizer</title>
+    <desc>Increases the rate of ion dissipation of target room, either helping it to recover from ion weapons or reducing cooldown. Also provides bonus power to it while in ion storms.</desc>
+    <startPower>1</startPower>
+    <maxPower>4</maxPower>
+    <rarity>2</rarity>
+    <upgradeCost>
+        <level>60</level>
+        <level>80</level>
+        <level>100</level>
+        <level>120</level>
+        <level>140</level>
+        <level>160</level>
+        <level>180</level>
+        <level>200</level>
+        <level>220</level>
+        <level>240</level>
+        <level>260</level>
+        <level>280</level>
+        <level>300</level>
+    </upgradeCost>
+    <cost>40</cost>
+</systemBlueprint>
+
 
 <augBlueprint name="UPG_LILY_POLISHED_ARMOR">
     <title>Polished armor</title>
@@ -156,7 +174,71 @@
 
 
 
+<aug name="UPG_LILY_SECONDARY_ION_FIELD">
+    <function name="ION_ARMOR" value="0.3" useForReqs="true" warning="false" />
+</aug>
+<aug name="EX_LILY_SECONDARY_ION_FIELD">
+    <function name="ION_ARMOR" value="0.3" useForReqs="true" warning="false" />
 
+</aug>
+
+<aug name="UPG_LILY_WIDE_NEUTRALIZE"/>
+<aug name="EX_LILY_WIDE_NEUTRALIZE"/>
+
+<aug name="UPG_LILY_PLASMA_NEUTRALIZE"/>
+<aug name="EX_LILY_PLASMA_NEUTRALIZE"/>
+
+
+<augBlueprint name="UPG_LILY_SECONDARY_ION_FIELD">
+    <title>Sec. Ion Field</title>
+    <desc>YOU SHOULD NEVER SEE THIS</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>true</stackable>
+</augBlueprint>
+<augBlueprint name="EX_LILY_SECONDARY_ION_FIELD">
+    <title>Sec. Ion Field [X]</title>
+    <desc>Protects your ship from ion damage, giving a 30% chance to negate it entirely. Stacks.
+    
+		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>true</stackable>
+</augBlueprint>
+
+<augBlueprint name="UPG_LILY_WIDE_NEUTRALIZE">
+    <title>Expanded Field</title>
+    <desc>YOU SHOULD NEVER SEE THIS</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>true</stackable>
+</augBlueprint>
+<augBlueprint name="EX_LILY_WIDE_NEUTRALIZE">
+    <title>Expanded Field [X]</title>
+    <desc>Shock Neutralizer also provide half of its bonus to rooms adjancent to target.
+    
+		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>true</stackable>
+</augBlueprint>
+
+<augBlueprint name="UPG_LILY_PLASMA_NEUTRALIZE">
+    <title>Surge Protectors</title>
+    <desc>YOU SHOULD NEVER SEE THIS</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>true</stackable>
+</augBlueprint>
+<augBlueprint name="EX_LILY_PLASMA_NEUTRALIZE">
+    <title>Surge Protectors [X]</title>
+    <desc>Protect your ship from Plasma damage, giving 100% chance to negate system damage on shield hits and 50% on direct hits.
+    
+		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>true</stackable>
+</augBlueprint>
 
 
 
@@ -170,12 +252,33 @@
 
 
 <augBlueprint name="BOON_LILY_ABLATIVE_ARMOR">
-    <title>Ablative Armor boon</title>
+    <title>Ablative Armor Grant</title>
     <desc>YOU SHOULD NEVER SEE THIS</desc>
     <cost>0</cost>
     <rarity>0</rarity>
     <stackable>false</stackable>
 </augBlueprint>
+
+<augBlueprint name="BOON_LILY_SHOCK_NEUTRALIZER">
+    <title>Ablative Armor Grant</title>
+    <desc>YOU SHOULD NEVER SEE THIS</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>false</stackable>
+</augBlueprint>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <weaponBlueprint name="LILY_REACTIVE_BLAST">
     <type>BURST</type>

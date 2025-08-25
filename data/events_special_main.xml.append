@@ -1,7 +1,9 @@
 <FTL>
 <mod:findName type="event" name="BOON_SELECT">
     <mod:findLike type="loadEventList">
-        <mod-append:event name="BOON_SELECT_LILY_ABLATIVE_ARMOR" req="prof_r_boon_lily_ablative_armor" />
+        <mod-append:event name="BOON_SELECT_LILY_ABLATIVE_ARMOR" req="prof_e_boon_lily_ablative_armor" />
+        <mod-append:event name="BOON_SELECT_LILY_SHOCK_NEUTRALIZER" req="prof_e_boon_lily_shock_neutralizer" />
+
     </mod:findLike>
 </mod:findName>
 </FTL>

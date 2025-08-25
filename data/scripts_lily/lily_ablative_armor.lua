@@ -296,6 +296,9 @@ script.on_internal_event(Defines.InternalEvents.GET_AUGMENTATION_VALUE, function
     if augment == "ION_ARMOR" then
         if ship:HasSystem(Hyperspace.ShipSystem.NameToSystemId("lily_ablative_armor")) then
             local lily_ablative_armor_system = ship:GetSystem(Hyperspace.ShipSystem.NameToSystemId("lily_ablative_armor"))
+            if lily_ablative_armor_system.iHackEffect > 0 then
+                return Defines.Chain.CONTINUE, value
+            end
             return Defines.Chain.CONTINUE, value + 0.1 * math.max(0, lily_ablative_armor_system:GetEffectivePower() - 3)
         end
     end
@@ -392,6 +395,7 @@ end)
 
 script.on_render_event(Defines.RenderEvents.SHIP_STATUS, function() end, function()
     if Hyperspace.ships.player:HasSystem(Hyperspace.ShipSystem.NameToSystemId("lily_ablative_armor")) then
+        local lily_ablative_armor_system = Hyperspace.ships.player:GetSystem(Hyperspace.ShipSystem.NameToSystemId("lily_ablative_armor"))
         Graphics.CSurface.GL_PushMatrix()
         Graphics.CSurface.GL_Translate(16 - 12, 56 - 9, 5)
         Graphics.CSurface.GL_RenderPrimitive(armorTop)
@@ -436,10 +440,16 @@ script.on_render_event(Defines.RenderEvents.SHIP_STATUS, function() end, functio
         if currentLayers ~= nil and maxLayers ~= nil then
             Graphics.CSurface.GL_PushMatrix()
             Graphics.CSurface.GL_Translate(33, 79, 5)
+
+            local color = Graphics.GL_Color(1, 1, 1, 1)
+
+            if lily_ablative_armor_system.iHackEffect > 0 then
+                color = Graphics.GL_Color(187 / 255.0, 37 / 255.0, 249 / 255.0, 1)
+            end
             if shipManager:GetShieldPower().super.first > 0 then
                 Graphics.CSurface.GL_DrawRect(0, 0, 92, 3, Graphics.GL_Color(22 / 255.0, 30 / 255.0, 37 / 255.0, 1));
             end
-            Graphics.CSurface.GL_DrawRect(0, 0, (armorTimer[0] / (10)) * 92, barHeight, Graphics.GL_Color(1, 1, 1, 1));
+            Graphics.CSurface.GL_DrawRect(0, 0, (armorTimer[0] / (10)) * 92, barHeight, color);
             Graphics.CSurface.GL_PopMatrix()
         end
     end
@@ -701,18 +711,16 @@ script.on_internal_event(Defines.InternalEvents.DAMAGE_AREA, function(ship, proj
         end
 
         --Asteroids
-        --[[
         if projectile and projectile:GetType() == 2 then
             if currentLayers > 0 then
-                currentLayers = currentLayers - 1
+                --currentLayers = currentLayers - 1
                 damage.iDamage = 0
-                Hyperspace.Sounds:PlaySoundMix("lily_ablative_armor_hit_1", -1, false)
-                userdata_table(ship, "mods.lilyinno.ablativearmor").first = currentLayers
-                create_damage_message(ship.iShipId, damageMessages.NEGATED, location.x, location.y)
-                return Defines.Chain.CONTINUE, forceHit, shipFriendlyFire
+                --Hyperspace.Sounds:PlaySoundMix("lily_ablative_armor_hit_1", -1, false)
+                --userdata_table(ship, "mods.lilyinno.ablativearmor").first = currentLayers
+                --create_damage_message(ship.iShipId, damageMessages.NEGATED, location.x, location.y)
+                return Defines.Chain.CONTINUE, Defines.Evasion.MISS, shipFriendlyFire
             end
         end
-        --]]
 
         if damage.ownerId == ship.iShipId and damage.bFriendlyFire then
             return Defines.Chain.CONTINUE, forceHit, shipFriendlyFire
