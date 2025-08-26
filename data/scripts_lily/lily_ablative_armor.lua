@@ -376,7 +376,7 @@ script.on_internal_event(Defines.InternalEvents.SHIP_LOOP, function(shipManager)
                 --    manningCrew:IncreaseSkill(4)
                 --end
 
-                if manningCrew and math.random(4) == 4 then
+                if manningCrew and math.random(2) == 2 then
                     manningCrew:IncreaseSkill(4)
                 end
                 --if maxLayers > 5 then shipManager.shieldSystem.shields.power.super.second = maxLayers end
@@ -546,7 +546,7 @@ script.on_internal_event(Defines.InternalEvents.DAMAGE_BEAM, function(ship, proj
         --print("3:" .. damage.iDamage)
 
         if damage.iDamage == 0 and damage.iPersDamage == 0 and damage.iSystemDamage == 0 then
-            if beamHit == Defines.BeamHit_NEW_ROOM then
+                if beamHit == Defines.BeamHit_NEW_ROOM and damageMessages then
                 Hyperspace.Sounds:PlaySoundMix("zoltanResist", -1, false)
                 create_damage_message(ship.iShipId, damageMessages.NEGATED, location.x, location.y)
             end
@@ -651,7 +651,7 @@ script.on_internal_event(Defines.InternalEvents.DAMAGE_BEAM, function(ship, proj
         end
         if beamHit == Defines.BeamHit_NEW_ROOM then
             if neg2 then
-                if armorDamage == 0 then
+                    if armorDamage == 0 and damageMessages then
                     create_damage_message(ship.iShipId, damageMessages.NEGATED, location.x, location.y)
                     Hyperspace.Sounds:PlaySoundMix("zoltanResist", -1, false)
                 else
@@ -894,7 +894,7 @@ script.on_internal_event(Defines.InternalEvents.DAMAGE_AREA_HIT, function(ship, 
 
         if armorDamage ~= nil and not (damage.bFriendlyFire and damage.ownerId == ship.iShipId) then
             currentLayers = math.max(0, currentLayers - armorDamage)
-            if armorDamage == 0 then
+            if armorDamage == 0 and damageMessages then
                 create_damage_message(ship.iShipId, damageMessages.NEGATED, location.x, location.y)
                 if neg then
                     Hyperspace.Sounds:PlaySoundMix("zoltanResist", -1, false)

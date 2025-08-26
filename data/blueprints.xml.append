@@ -243,7 +243,62 @@
 
 
 
+<!--
+    1) Aux. Compact Reactor:
+8 max lvls
+2 power per level, 3 on overdrive
+4 output cables - to link to systems
+Requires power - at least half max to run the pumps
+DeltaHeat = CurrentHeat * k - CoolingHeat - PumpToPowerHeat  
+k > 1 if online, k    < 1 if offline
+Bar colors: Blue: stalling, yellow: producing no power, green-nominal, orange - overdrive, red - danger, black - no return 
+If destroyed, will deal damage depending on current heat, max level and internal upgrades - worst case is 8 hull dmg and 8 sys + 8 pers dmg in 4 tile radius
+3 Buttons: Shutdown, Keep Nominal and Overdrive
+    Internal upgrades:
+- Reinforced casing - gives + sys dmg resist chance, reduces sabotage damage
+- Containment protocols: reduces chance of fire starting and damage to your crew
+- Cool running - allows reactor to output nominal power at lower temperature, but disables overdrive
+- Extra heatsinks - Adds an extra buffer for when things start to go beyond nominal
 
+    2) ECM Suite
+Replaces hacking
+Max 3 lvls
+Slowly grants charges to use on abilities, more charges and better cd with level
+Abilities - disrupt drones, disrupt missiles, disrupt targeted system (effects vary, but not as strong as hacking)
+    Internal upgrades:
+-Targeting scrambler - makes enemies less likely to target vital systems, -5% to enemy accuracy
+-Signal diluter - internal version of signal diluter
+-Signal diluter mk2 - Makes ASBs always miss
+-Hacking drone disruptor - Disrupting hacking also stuns hacking drone
+-Ionic interference generator - regain charges 25% slower, but each enemy ion bar takes 6 seconds to dissipate
+
+    3) Dedicated targeting core
+Max 4 lvls + 1 when manning
+Targets a room (manually)
+(Will automatically try to target weapons or shields at batle start)
+Targeted room is always visible
+Changing room takes 10 seconds
++5% Weapon accuracy when targeting this room
+Your drones are more likely to target this room
+    Internal upgrades:
+ - Full spectrum targeting
+Gain extra +5% weapon accuracy per level if target is cloaked
+Weapons charge at +25% rate per level when cloaked
+At at least 3 power, tp works when target cloaked (If implementable)
+At at least 4 power, drones work when target cloaked (If implementable)
+
+- Spread pattern correction
+Flaks will gain limited ability to course correct if their point is outside the ship
+
+- Optimized weapon protocols - +5% Weapon speed per sys lvl
+
+- Crewmate uplink HUD - +10% damage and +20% sabotaga speed per level for allies in targeted room
+
+- Core overclock - Changing target only takes 2 seconds from 10
+- Parallel processing - bonus effects also affect rooms adjanced to target
+Core overclock and Parallel processing are mutually exclusive
+
+-->
 
 
 
