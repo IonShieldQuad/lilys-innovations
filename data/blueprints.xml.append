@@ -32,11 +32,12 @@
 <systemBlueprint name="lily_shock_neutralizer">
     <type>battery</type>
     <title>Shock Neutralizer</title>
-    <desc>Increases the rate of ion dissipation of target room, either helping it to recover from ion weapons or reducing cooldown. Also provides bonus power to it while in ion storms.</desc>
+    <desc>Increases the rate of ion dissipation of target room, either helping it to recover from ion weapons or reducing cooldown. Also provides bonus power to it while in ion storms or near pulsars.</desc>
     <startPower>1</startPower>
     <maxPower>4</maxPower>
     <rarity>2</rarity>
     <upgradeCost>
+        <level>40</level>
         <level>60</level>
         <level>80</level>
         <level>100</level>

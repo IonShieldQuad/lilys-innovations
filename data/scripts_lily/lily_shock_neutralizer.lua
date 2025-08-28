@@ -92,9 +92,9 @@ local function get_level_description_lily_shock_neutralizer(systemId, level, too
             if level == 0 then
                 return "Disabled."
             end
-            return ("De-Ion Rate: " .. tostring(1 + level * .15) .. "x / Bonus Power: " .. level)
+            return ("De-Ion Rate: " .. tostring(1 + level * .2) .. "x / Bonus Power: " .. level)
         end
-        return ("Rate: " .. tostring(1 + level * .15) .. "x / Bonus Power: " .. level)
+        return ("Rate: " .. tostring(1 + level * .2) .. "x / Bonus Power: " .. level)
         --return string.format("Layers: %i / Regen: s%x, / Ion Res.: s%", level * 2, tostring(0.75 + ((level > 1) and 0.25 or 0) + level * 0.25 ), tostring(10 * math.max(0, (level - 3))) .. "%")
     end
 end
@@ -193,6 +193,8 @@ local buttonBase
 local crosshair
 local buttonCharging
 local buttonChargingTex
+local indicatorsSys = {}
+local indicatorsSubsys = {}
 script.on_init(function()
     buttonBase = Hyperspace.Resources:CreateImagePrimitiveString("systemUI/button_cloaking2_base.png",
     lily_shock_neutralizerButtonOffset_x, lily_shock_neutralizerButtonOffset_y, 0, Graphics.GL_Color(1, 1, 1, 1), 1, false)
@@ -205,6 +207,15 @@ script.on_init(function()
     activationTimer[0] = 1
     activationTimer[1] = 1
     sfxPlayed = true
+
+    local i = 1
+    while i <= 8 do
+        indicatorsSys[i] = Hyperspace.Resources:CreateImagePrimitiveString(
+        "systemUI/shock_neutralizer_main_" .. i .. ".png", 0, 0, 0, Graphics.GL_Color(1, 1, 1, 1), 1, false)
+        indicatorsSubsys[i] = Hyperspace.Resources:CreateImagePrimitiveString(
+        "systemUI/shock_neutralizer_sub_" .. i .. ".png", 8, 8, 0, Graphics.GL_Color(1, 1, 1, 1), 1, false)
+        i = i + 1
+    end
 end)
 
 --Handles custom rendering
@@ -362,10 +373,15 @@ script.on_internal_event(Defines.InternalEvents.SHIP_LOOP, function(shipManager)
             lily_shock_neutralizer_system.lockTimer.currTime = lily_shock_neutralizer_system.lockTimer.currGoal
         end
         
+        if lily_shock_neutralizer_system:CompletelyDestroyed() then
+            activationTimer[shipManager.iShipId] = 0
+        end
+
+
         lily_shock_neutralizer_system.bBoostable = false
         local level = lily_shock_neutralizer_system.healthState.second
         local efflevel = lily_shock_neutralizer_system:GetEffectivePower()
-        local multiplier = 0.2
+        local multiplier = 0.15
                  if lily_shock_neutralizer_system.iHackEffect > 0 then
             multiplier = -1
         end
@@ -387,7 +403,7 @@ script.on_internal_event(Defines.InternalEvents.SHIP_LOOP, function(shipManager)
         local targetroom = userdata_table(shipManager, "mods.lilyinno.shockneutralizer").targetroom
         if targetroom and targetroom > 0 then
             local sys = shipManager:GetSystemInRoom(targetroom)
-            local deionizationBoost = activationTimer[shipManager.iShipId] * efflevel * 0.15
+            local deionizationBoost = activationTimer[shipManager.iShipId] * efflevel * 0.2
             if sys and sys.iLockCount > 0 then
                 
                 sys.lockTimer.currTime = sys.lockTimer.currTime + Hyperspace.FPS.SpeedFactor / 16 * deionizationBoost
@@ -399,7 +415,7 @@ script.on_internal_event(Defines.InternalEvents.SHIP_LOOP, function(shipManager)
         if bonusrooms and (shipManager:HasAugmentation("UPG_LILY_WIDE_NEUTRALIZE") > 0 or shipManager:HasAugmentation("EX_LILY_WIDE_NEUTRALIZE") > 0) then
             for id, coord in pairs(bonusrooms) do
                 local sys = shipManager:GetSystemInRoom(id)
-                local deionizationBoost = 0.5 * activationTimer[shipManager.iShipId] * efflevel * 0.15
+                local deionizationBoost = 0.5 * activationTimer[shipManager.iShipId] * efflevel * 0.2
                 if sys and sys.iLockCount > 0 then
                     sys.lockTimer.currTime = sys.lockTimer.currTime + Hyperspace.FPS.SpeedFactor / 16 * deionizationBoost
                 end
@@ -413,6 +429,7 @@ end)
 script.on_internal_event(Defines.InternalEvents.SET_BONUS_POWER, function(system, amount)
     local ship = Hyperspace.ships(system._shipObj.iShipId)
     local storm = Hyperspace.App.world.space.bStorm == true
+    storm = storm or Hyperspace.App.world.space.pulsarLevel
 
     if storm and ship and ship:HasSystem(Hyperspace.ShipSystem.NameToSystemId("lily_shock_neutralizer")) then
         local targetroom = userdata_table(ship, "mods.lilyinno.shockneutralizer").targetroom
@@ -540,3 +557,49 @@ script.on_internal_event(Defines.InternalEvents.SHIP_LOOP, function(ShipManager)
         end
     end
 end)
+
+
+script.on_render_event(Defines.RenderEvents.SYSTEM_BOX,
+    function(systemBox, ignoreStatus)
+        return Defines.Chain.CONTINUE
+    end, function(systemBox, ignoreStatus)
+        local shipManager
+        if systemBox and systemBox.pSystem and systemBox.pSystem._shipObj then
+            shipManager = Hyperspace.ships(systemBox.pSystem._shipObj.iShipId)
+        end
+
+        if shipManager and shipManager:HasSystem(Hyperspace.ShipSystem.NameToSystemId("lily_shock_neutralizer")) then
+            local targetroom = userdata_table(shipManager, "mods.lilyinno.shockneutralizer").targetroom
+            local level = shipManager:GetSystem(Hyperspace.ShipSystem.NameToSystemId("lily_shock_neutralizer"))
+            :GetEffectivePower()
+            if level > 0 then
+                local sys = targetroom and shipManager:GetSystemInRoom(targetroom)
+                if sys and sys:GetId() == systemBox.pSystem:GetId() then
+
+                    if not sys.bNeedsPower then
+                        Graphics.CSurface.GL_RenderPrimitiveWithAlpha(indicatorsSubsys[math.min(8, level * 2)],
+                        activationTimer[shipManager.iShipId])
+                    else
+                        Graphics.CSurface.GL_RenderPrimitiveWithAlpha(indicatorsSys[math.min(8, level * 2)],
+                            activationTimer[shipManager.iShipId])
+                    end
+
+                end
+
+                local bonusrooms = userdata_table(shipManager, "mods.lilyinno.shockneutralizer").bonusrooms
+                if bonusrooms and (shipManager:HasAugmentation("UPG_LILY_WIDE_NEUTRALIZE") > 0 or shipManager:HasAugmentation("EX_LILY_WIDE_NEUTRALIZE") > 0) then
+                    local room = systemBox.pSystem.roomId
+                    if bonusrooms[room] then
+                        local sys = systemBox.pSystem
+                        if not sys.bNeedsPower then
+                            Graphics.CSurface.GL_RenderPrimitiveWithAlpha(indicatorsSubsys[math.min(8, level)],
+                                activationTimer[shipManager.iShipId])
+                        else
+                            Graphics.CSurface.GL_RenderPrimitiveWithAlpha(indicatorsSys[math.min(8, level)],
+                                activationTimer[shipManager.iShipId])
+                        end
+                    end
+                end
+            end
+        end
+    end)

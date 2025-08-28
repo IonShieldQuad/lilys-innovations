@@ -1,4 +1,11 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.2.3
+Date: 2025-08-28
+  Changes:
+    - Buffed Shock Neutralizer effect and lowered the price
+    - System buffed by Shock Neutralizer now have a visual effect around their system box
+    - Shock Neutralizer now abso provides bonus power around Pulsars as well
+---------------------------------------------------------------------------------------------------
 Version: 1.2.2
 Date: 2025-08-26
   Changes:
