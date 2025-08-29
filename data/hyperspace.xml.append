@@ -131,6 +131,10 @@
 	<aug name="UPG_LILY_PLASMA_NEUTRALIZE"/>
 	<aug name="EX_LILY_PLASMA_NEUTRALIZE"/>
 
+	<aug name="UPG_LILY_STUN_NEUTRALIZE"/>
+	<aug name="EX_LILY_STUN_NEUTRALIZE"/>
+
+
 </augments>
 
 <req name="INSTALL_LILY_POLISHED" type="all">

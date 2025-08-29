@@ -128,6 +128,12 @@ local function get_level_description_lily_ablative_armor(systemId, level, toolti
             if level == 0 then
                 return "Regen Disabled." .. "\n\nManning bonuses: 20/40/60% faster regen."
             end
+            
+            if Hyperspace.ships.player and Hyperspace.ships.player:HasSystem(systemId) then
+                local maxlvl = Hyperspace.ships.player:GetSystem(systemId).healthState.second
+                return ("HP: " .. tostring(maxlvl * 2) .. "  / Regen: " .. tostring(0.75 + ((level > 1) and 0.25 or 0) + level * 0.25) .. ((level > 3) and ("x / Ion Resist: " .. tostring(10 * math.max(0, (level - 3))) .. "%") or "")) ..
+                "\n\nManning bonuses: 20/40/60% faster regen."
+            end
             return ("HP: " .. tostring(level * 2) .. "  / Regen: " .. tostring(0.75 + ((level > 1) and 0.25 or 0) + level * 0.25) .. ((level > 3) and ("x / Ion Resist: " .. tostring(10 * math.max(0, (level - 3))) .. "%") or "")) .. "\n\nManning bonuses: 20/40/60% faster regen."
         end
         return ("HP: " .. tostring(level * 2) .. "/Reg.: " .. tostring(0.75 + ((level > 1) and 0.25 or 0) + level * 0.25) .. ((level > 3) and ("x/I.Res.: " .. tostring(10 * math.max(0, (level - 3))) .. "%") or ""))

@@ -241,6 +241,23 @@
     <stackable>true</stackable>
 </augBlueprint>
 
+<augBlueprint name="UPG_LILY_STUN_NEUTRALIZE">
+    <title>Neural Neutralizer</title>
+    <desc>YOU SHOULD NEVER SEE THIS</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>true</stackable>
+</augBlueprint>
+<augBlueprint name="EX_LILY_STUN_NEUTRALIZE">
+    <title>Neural Neutralizer [X]</title>
+    <desc>Shock Neutralizer now also affects crew stun times.
+    
+		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>true</stackable>
+</augBlueprint>
+
 
 
 

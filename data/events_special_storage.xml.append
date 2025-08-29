@@ -376,7 +376,7 @@
             </choice>
         </event>
     </choice>
-    <choice req="UPG_LILY_STRONG_ARMOR" max_group="0" blue="false" hidden="true">
+    <choice req="UPG_LILY_STRONG_ARMOR" lvl="0" max_lvl="0" max_group="0" blue="false" hidden="true">
         <text>This upgrade is unavailable. You need Double-Strength Armor installed first.</text>
         <event load="OPTION_INVALID"/>
     </choice>
@@ -415,12 +415,16 @@
         <event load="STORAGE_CHECK_SYSTEM_LILY_SHOCK_NEUTRALIZER_ION_FIELD"/>
     </choice>
 
-    <choice req="UPG_LILY_WIDE_NEUTRALIZE" lvl="1" max_group="1" blue="false" hidden="true">
-        <text>Expanded Field. [ALREADY INSTALLED]</text>
+    <choice req="UPG_LILY_WIDE_NEUTRALIZE" lvl="2" max_group="1" blue="false" hidden="true">
+        <text>Expanded Field. [MAX LVL ALREADY INSTALLED]</text>
         <event load="OPTION_INVALID"/>
     </choice>
-    <choice req="UPG_LILY_WIDE_NEUTRALIZE" lvl="0" max_group="1" blue="false" hidden="true">
-        <text>Expanded Field. [Cost: 80~, 5{, 5|]</text>
+    <choice req="UPG_LILY_WIDE_NEUTRALIZE" lvl="1" max_lvl="1" max_group="1" blue="false" hidden="true">
+        <text>Expanded Field LvL 2. [Cost: 80~, 5{, 5|]</text>
+        <event load="STORAGE_CHECK_SYSTEM_LILY_SHOCK_NEUTRALIZER_WIDE"/>
+    </choice>
+    <choice req="UPG_LILY_WIDE_NEUTRALIZE" lvl="0" max_lvl="0" max_group="1" blue="false" hidden="true">
+        <text>Expanded Field LvL 1. [Cost: 80~, 5{, 5|]</text>
         <event load="STORAGE_CHECK_SYSTEM_LILY_SHOCK_NEUTRALIZER_WIDE"/>
     </choice>
 
@@ -431,6 +435,15 @@
     <choice req="UPG_LILY_PLASMA_NEUTRALIZE" lvl="0" max_group="2" blue="false" hidden="true">
         <text>Surge Protectors. [Cost: 30~, 3|]</text>
         <event load="STORAGE_CHECK_SYSTEM_LILY_SHOCK_NEUTRALIZER_PLASMA"/>
+    </choice>
+
+    <choice req="UPG_LILY_STUN_NEUTRALIZE" lvl="1" max_group="3" blue="false" hidden="true">
+        <text>Surge Protectors. [ALREADY INSTALLED]</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="UPG_LILY_STUN_NEUTRALIZE" lvl="0" max_group="3" blue="false" hidden="true">
+        <text>Neural Neutralizer. [Cost: 30~, 3{, 3|]</text>
+        <event load="STORAGE_CHECK_SYSTEM_LILY_SHOCK_NEUTRALIZER_STUN"/>
     </choice>
 
     <choice>
@@ -487,7 +500,7 @@
 
 <event name="STORAGE_CHECK_SYSTEM_LILY_SHOCK_NEUTRALIZER_WIDE">
     <text>You are about to install the Expanded Field upgrade.
-	[Effects: Shock Neutralizer also provide half of its bonus to rooms adjancent to target.]</text>
+	[Effects: Shock Neutralizer also provide half of its bonus to rooms adjancent to target. LvL 2 also provides bonus to diagonal rooms.]</text>
 
     <choice req="lily_shock_neutralizer" lvl="2" max_group="0" blue="false" hidden="true">
         <text>Perform the upgrade. [Cost: 80~, 5{, 5|]</text>
@@ -574,6 +587,53 @@
     <hiddenAug>UPG_LILY_PLASMA_NEUTRALIZE</hiddenAug>
     <loadEvent>STORAGE_CHECK_SYSTEM</loadEvent>
 </event>
+
+
+<event name="STORAGE_CHECK_SYSTEM_LILY_SHOCK_NEUTRALIZER_STUN">
+    <text>You are about to install the Surge Protectors upgrade.
+	[Effects: Shock Neutralizer now also affects crew stun times.]</text>
+
+    <choice req="lily_shock_neutralizer" lvl="1" max_group="0" blue="false" hidden="true">
+        <text>Perform the upgrade. [Cost: 30~, 3{, 3|]</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <item_modify>
+                <item type="scrap" min="-30" max="-30"/>
+                <item type="fuel" min="-3" max="-3"/>
+                <item type="drones" min="-3" max="-3"/>
+            </item_modify>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_STUN_NEUTRALIZE"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="lily_shock_neutralizer" max_group="0" blue="false" hidden="true">
+        <text>This upgrade is unavailable. You need Shock Neutralizer level 1.</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="EX_LILY_STUN_NEUTRALIZE" max_group="1" blue="false" hidden="true">
+        <text>Install the External Augment internally.</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <remove name="EX_LILY_STUN_NEUTRALIZE"/>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_STUN_NEUTRALIZE"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="pilot" lvl="1" max_group="2" blue="false" hidden="true">
+        <text>Nevermind.</text>
+        <event load="STORAGE_CHECK_SYSTEM_LOAD"/>
+    </choice>
+</event>
+<event name="INSTALL_LILY_STUN_NEUTRALIZE">
+    <variable name="loc_internal_upgrades" op="add" val="1"/>
+    <hiddenAug>UPG_LILY_STUN_NEUTRALIZE</hiddenAug>
+    <loadEvent>STORAGE_CHECK_SYSTEM</loadEvent>
+</event>
+
 
 
 </FTL>

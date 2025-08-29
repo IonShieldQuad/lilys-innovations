@@ -84,18 +84,14 @@ local sfxPlayed = false
 
 --Handles tooltips and mousever descriptions per level
 local function get_level_description_lily_shock_neutralizer(systemId, level, tooltip)
-    --print(systemId .. "/" .. Hyperspace.ShipSystem.NameToSystemId("lily_shock_neutralizer"))
     if systemId == Hyperspace.ShipSystem.NameToSystemId("lily_shock_neutralizer") then
-        --print(tostring(level * 2) .. "/" .. tostring(0.75 + ((level > 1) and 0.25 or 0) + level * 0.25) .. "/" .. tostring(10 * math.max(0, (level - 3))) .. "%")
-        --return (tostring(level * 2) .. "/" .. tostring(0.75 + ((level > 1) and 0.25 or 0) + level * 0.25) .. "/" .. tostring(10 * math.max(0, (level - 3))) .. "%")
-        if tooltip then
+                if tooltip then
             if level == 0 then
                 return "Disabled."
             end
-            return ("De-Ion Rate: " .. tostring(1 + level * .2) .. "x / Bonus Power: " .. level)
+            return ("De-Ion Rate: " .. tostring(1 + level * .15) .. "x / Bonus Power: " .. level)
         end
-        return ("Rate: " .. tostring(1 + level * .2) .. "x / Bonus Power: " .. level)
-        --return string.format("Layers: %i / Regen: s%x, / Ion Res.: s%", level * 2, tostring(0.75 + ((level > 1) and 0.25 or 0) + level * 0.25 ), tostring(10 * math.max(0, (level - 3))) .. "%")
+        return ("Rate: " .. tostring(1 + level * .15) .. "x / Bonus Power: " .. level)
     end
 end
 
@@ -171,7 +167,7 @@ script.on_internal_event(Defines.InternalEvents.SYSTEM_BOX_KEY_DOWN, function(sy
         --print("press key:"..key.." shift:"..tostring(shift))
         local shipManager = Hyperspace.ships.player
         if not Hyperspace.ships.player:HasSystem(Hyperspace.ShipSystem.NameToSystemId("lily_shock_neutralizer")) then return end
-        if key == 110 and shift then
+        if key == 110 then
             if activationTimer[1] >= 1 then
                 userdata_table(shipManager, "mods.lilyinno.shockneutralizer").selectmode = true
             end
@@ -348,7 +344,12 @@ script.on_internal_event(Defines.InternalEvents.ON_MOUSE_L_BUTTON_DOWN, function
             activationTimer[shipManager.iShipId] = 0
             Hyperspace.Sounds:PlaySoundMix("lily_shock_neutralizer_select_1", -1, false)
             --if shipManager:HasAugmentation("UPG_LILY_WIDE_NEUTRALIZE") > 0 or shipManager:HasAugmentation("EX_LILY_WIDE_NEUTRALIZE") > 0 then
-            local adjRooms = get_adjacent_rooms(shipManager.iShipId, roomAtMouse, false)
+            local adjRooms
+            if (shipManager:HasAugmentation("UPG_LILY_WIDE_NEUTRALIZE") + shipManager:HasAugmentation("EX_LILY_WIDE_NEUTRALIZE")) >= 2 then
+                adjRooms = get_adjacent_rooms(shipManager.iShipId, roomAtMouse, true)
+            else
+                adjRooms = get_adjacent_rooms(shipManager.iShipId, roomAtMouse, false)
+            end
             userdata_table(shipManager, "mods.lilyinno.shockneutralizer").bonusrooms = adjRooms
             --print("count: " .. #adjRooms)
             --for id, point in pairs(adjRooms) do
@@ -390,6 +391,11 @@ script.on_internal_event(Defines.InternalEvents.SHIP_LOOP, function(shipManager)
             Hyperspace.playerVariables.lily_shock_neutralizer = level
         end
 
+
+        
+
+
+
         activationTimer[shipManager.iShipId] = math.max(0,
             math.min(1, activationTimer[shipManager.iShipId] + multiplier * Hyperspace.FPS.SpeedFactor / 16))
         if activationTimer[0] < 1 then
@@ -403,7 +409,7 @@ script.on_internal_event(Defines.InternalEvents.SHIP_LOOP, function(shipManager)
         local targetroom = userdata_table(shipManager, "mods.lilyinno.shockneutralizer").targetroom
         if targetroom and targetroom > 0 then
             local sys = shipManager:GetSystemInRoom(targetroom)
-            local deionizationBoost = activationTimer[shipManager.iShipId] * efflevel * 0.2
+            local deionizationBoost = activationTimer[shipManager.iShipId] * efflevel * 0.15
             if sys and sys.iLockCount > 0 then
                 
                 sys.lockTimer.currTime = sys.lockTimer.currTime + Hyperspace.FPS.SpeedFactor / 16 * deionizationBoost
@@ -415,10 +421,31 @@ script.on_internal_event(Defines.InternalEvents.SHIP_LOOP, function(shipManager)
         if bonusrooms and (shipManager:HasAugmentation("UPG_LILY_WIDE_NEUTRALIZE") > 0 or shipManager:HasAugmentation("EX_LILY_WIDE_NEUTRALIZE") > 0) then
             for id, coord in pairs(bonusrooms) do
                 local sys = shipManager:GetSystemInRoom(id)
-                local deionizationBoost = 0.5 * activationTimer[shipManager.iShipId] * efflevel * 0.2
+                local deionizationBoost = 0.5 * activationTimer[shipManager.iShipId] * efflevel * 0.15
                 if sys and sys.iLockCount > 0 then
-                    sys.lockTimer.currTime = sys.lockTimer.currTime + Hyperspace.FPS.SpeedFactor / 16 * deionizationBoost
+                    sys.lockTimer.currTime = sys.lockTimer.currTime + (Hyperspace.FPS.SpeedFactor / 16) * deionizationBoost
                 end
+            end
+        end
+
+        if shipManager:HasAugmentation("UPG_LILY_STUN_NEUTRALIZE") > 0 or shipManager:HasAugmentation("EX_LILY_STUN_NEUTRALIZE") > 0 then
+            local crewList = shipManager.vCrewList
+
+            for crew in vter(crewList) do
+                ---@type Hyperspace.CrewMember
+                crew = crew
+                if crew and crew.currentShipId == shipManager.iShipId and crew.stunned and (not crew.intruder) and not (crew.bMindControlled) then
+                    if targetroom and crew:InsideRoom(targetroom) then
+                        local deionizationBoost = activationTimer[shipManager.iShipId] * efflevel * 0.15
+                        crew.fStunTime = math.max(0, crew.fStunTime - deionizationBoost * Hyperspace.FPS.SpeedFactor / 16)
+                    end
+                    if bonusrooms and bonusrooms[crew.iRoomId] then
+                        local deionizationBoost = 0.5 * activationTimer[shipManager.iShipId] * efflevel * 0.15
+                        crew.fStunTime = math.max(0, crew.fStunTime - deionizationBoost * Hyperspace.FPS.SpeedFactor / 16)
+                    end
+                end
+
+
             end
         end
 
