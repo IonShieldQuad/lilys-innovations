@@ -3,6 +3,7 @@
 <mod:findLike type="scripts">
     <mod-append:script>data/scripts_lily/lily_ablative_armor.lua</mod-append:script>
 	<mod-append:script>data/scripts_lily/lily_shock_neutralizer.lua</mod-append:script>
+	<mod-append:script>data/scripts_lily/lily_innovation_augments.lua</mod-append:script>
 </mod:findLike>
 
 
@@ -134,6 +135,102 @@
 	<aug name="UPG_LILY_STUN_NEUTRALIZE"/>
 	<aug name="EX_LILY_STUN_NEUTRALIZE"/>
 
+	<aug name="UPG_LILY_DRONE_BOARDING_SMART"/>
+	<aug name="EX_LILY_DRONE_BOARDING_SMART"/>
+
+
+
+	<aug name="CREW_OXYGEN">
+		<statBoosts>
+			<statBoost name="oxygenChangeSpeed">
+				<boostType>FLAT</boostType>
+				<amount>0.8</amount>
+				<shipTarget>ORIGINAL_SHIP</shipTarget>
+				<crewTarget>ALLIES</crewTarget>
+				<droneTarget>CREW</droneTarget>
+				<priority>0</priority>
+				<systemPowerDependency>
+					<oxygen/>
+				</systemPowerDependency>
+				<systemPowerScaling>
+					<noSys>0</noSys>
+					<noPwr>0</noPwr>
+					<onePwr>.3</onePwr>
+					<twoPwr>.9</twoPwr>
+					<threePwr>1.8</threePwr>
+					<fourPwr>2.7</fourPwr>
+				</systemPowerScaling>
+			</statBoost>
+			<statBoost name="oxygenChangeSpeed">
+				<boostType>FLAT</boostType>
+				<amount>-0.8</amount>
+				<shipTarget>ORIGINAL_SHIP</shipTarget>
+				<crewTarget>ENEMIES</crewTarget>
+				<droneTarget>CREW</droneTarget>
+				<priority>0</priority>
+				<systemPowerDependency>
+					<oxygen/>
+				</systemPowerDependency>
+				<systemPowerScaling>
+					<noSys>0</noSys>
+					<noPwr>0</noPwr>
+					<onePwr>.3</onePwr>
+					<twoPwr>.9</twoPwr>
+					<threePwr>1.8</threePwr>
+					<fourPwr>2.7</fourPwr>
+				</systemPowerScaling>
+			</statBoost>
+		</statBoosts>
+	</aug>
+	<aug name="UPG_CREW_OXYGEN">
+		<statBoosts>
+			<statBoost name="oxygenChangeSpeed">
+				<boostType>FLAT</boostType>
+				<amount>0.65</amount>
+				<shipTarget>ORIGINAL_SHIP</shipTarget>
+				<crewTarget>ALLIES</crewTarget>
+				<droneTarget>CREW</droneTarget>
+				<priority>0</priority>
+				<systemPowerDependency>
+					<oxygen/>
+				</systemPowerDependency>
+				<systemPowerScaling>
+					<noSys>0</noSys>
+					<noPwr>0</noPwr>
+					<onePwr>.3</onePwr>
+					<twoPwr>.9</twoPwr>
+					<threePwr>1.8</threePwr>
+					<fourPwr>2.7</fourPwr>
+				</systemPowerScaling>
+			</statBoost>
+			<statBoost name="oxygenChangeSpeed">
+				<boostType>FLAT</boostType>
+				<amount>-0.65</amount>
+				<shipTarget>ORIGINAL_SHIP</shipTarget>
+				<crewTarget>ENEMIES</crewTarget>
+				<droneTarget>CREW</droneTarget>
+				<priority>0</priority>
+				<systemPowerDependency>
+					<oxygen/>
+				</systemPowerDependency>
+				<systemPowerScaling>
+					<noSys>0</noSys>
+					<noPwr>0</noPwr>
+					<onePwr>.3</onePwr>
+					<twoPwr>.9</twoPwr>
+					<threePwr>1.8</threePwr>
+					<fourPwr>2.7</fourPwr>
+				</systemPowerScaling>
+			</statBoost>
+		</statBoosts>
+	</aug>
+
+
+
+
+
+
+
 
 </augments>
 
@@ -242,6 +339,19 @@
 				<blueprint>SHOP_ITEM_SYSTEMS_LILYINNO</blueprint>
 			</item>
 			<chance>100</chance>
+		</mod-append:category>
+		<mod-append:category type="SYSTEMS">
+			<customTitle>INNOVATION SYSTEMS</customTitle>
+			<item>
+				<blueprint>SHOP_ITEM_SYSTEMS_LILYINNO</blueprint>
+			</item>
+			<item>
+				<blueprint>SHOP_ITEM_SYSTEMS_LILYINNO</blueprint>
+			</item>
+			<item>
+				<blueprint>SHOP_ITEM_SYSTEMS_LILYINNO</blueprint>
+			</item>
+			<chance>60</chance>
 		</mod-append:category>
 		<mod:removeAttributes lilys="" />
 	</mod:findLike>

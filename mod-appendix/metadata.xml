@@ -30,7 +30,7 @@
 			2.4.1 Hi-res Bkgs
 			1.0 for FTL 1.03.1
 	-->
-	<version><![CDATA[ 1.2.4 ]]></version>
+	<version><![CDATA[ 1.3.0 ]]></version>
 
 
 	<description>
@@ -43,6 +43,7 @@ Recommended to patch LAST - or at least after mods that add ships.
 
 
 Special thanks to: 
+Nai, for ideas and spriting work;
 Arc, sillysandvich, for help with scripting;
 Willow, for help with writing;
 Kix, and everyone else who have worked on creating FTL: Multiverse (and Hyperspace);

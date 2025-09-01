@@ -56,6 +56,46 @@
 </systemBlueprint>
 
 
+
+<augBlueprint name="UPG_LILY_DRONE_BOARDING_SMART">
+    <title>Smart boarding deployment</title>
+    <desc>YOU SHOULD NEVER SEE THIS</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>false</stackable>
+</augBlueprint>
+<augBlueprint name="EX_LILY_DRONE_BOARDING_SMART">
+    <title>Smart boarding deployment [X]</title>
+    <desc>Makes your boarding drones prioritize landing in important enemy rooms.
+    
+[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>false</stackable>
+</augBlueprint>
+
+
+<augBlueprint name="CREW_OXYGEN">
+    <title>Advanced Ventilation [X]</title>
+    <desc>Life Support now prioritizes your crew, refilling oxygen 80% faster in rooms where crew are present. Has the opposite effect on enemy crew and fires, draining oxygen. Requires the system to be powered, and scales with power.
+
+[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
+<cost>0</cost>
+    <cost>30</cost>
+    <rarity>2</rarity>
+    <stackable>true</stackable>
+</augBlueprint>
+
+<augBlueprint name="UPG_CREW_OXYGEN">
+    <title>Advanced Ventilation</title>
+    <desc>YOU SHOULD NEVER SEE THIS</desc>
+    <cost>30</cost>
+    <rarity>0</rarity>
+    <stackable>true</stackable>
+</augBlueprint>
+
+
+
 <augBlueprint name="UPG_LILY_POLISHED_ARMOR">
     <title>Polished armor</title>
     <desc>YOU SHOULD NEVER SEE THIS</desc>

@@ -9,6 +9,14 @@
         <text>Shock Neutralizer.</text>
         <event load="STORAGE_CHECK_SYSTEM_LILY_SHOCK_NEUTRALIZER"/>
     </mod-append:choice>
+    <mod:findLike type="choice">
+        <mod:selector req="oxygen"/>
+        <mod:removeTag/>
+    </mod:findLike>
+    <mod-append:choice req="oxygen" hidden="true" blue="false">
+        <text>Oxygen.</text>
+        <event load="STORAGE_CHECK_SYSTEM_OXYGEN"/>
+    </mod-append:choice>
 </mod:findName>
 
 <mod:findName type="event" name="STORAGE_CHECK_SYSTEM_AETHER">
@@ -21,6 +29,66 @@
         <event load="STORAGE_CHECK_SYSTEM_AETHER_LILY_AETHER_ARMOR"/>
     </mod-append:choice>
 </mod:findName>
+
+
+<mod:findName type="event" name="STORAGE_CHECK_SYSTEM_DRONES">
+    <mod-append:choice req="UPG_LILY_DRONE_BOARDING_SMART" lvl="1" max_group="10" blue="false" hidden="true">
+        <text>Smart Boarding. [ALREADY INSTALLED]</text>
+        <event load="OPTION_INVALID"/>
+    </mod-append:choice>
+    <mod-append:choice req="UPG_LILY_DRONE_BOARDING_SMART" lvl="0" max_group="10" blue="false" hidden="true">
+        <text>Smart Boarding. [Cost: 50~, 5|]</text>
+        <event load="STORAGE_CHECK_SYSTEM_DRONES_LILY_DRONE_BOARDING_SMART"/>
+    </mod-append:choice>
+</mod:findName>
+
+
+
+<event name="STORAGE_CHECK_SYSTEM_DRONES_LILY_DRONE_BOARDING_SMART">
+    <text>You are about to install the Smart Boarding upgrade.
+	[Effects: Makes your boarding drones prioritize landing in important enemy rooms.]</text>
+
+    <choice req="drones" lvl="4" max_group="0" blue="false" hidden="true">
+        <text>Perform the upgrade. [Cost: 50~, 5|]</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <item_modify>
+                <item type="drones" min="-5" max="-5"/>
+                <item type="scrap" min="-50" max="-50"/>
+            </item_modify>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_DRONE_BOARDING_SMART"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="drones" max_group="0" blue="false" hidden="true">
+        <text>This upgrade is unavailable. You need Drone Control level 4.</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="EX_LILY_DRONE_BOARDING_SMART" max_group="1" blue="false" hidden="true">
+        <text>Install the External Augment internally.</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <remove name="EX_LILY_DRONE_BOARDING_SMART"/>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_DRONE_BOARDING_SMART"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="pilot" lvl="1" max_group="2" blue="false" hidden="true">
+        <text>Nevermind.</text>
+        <event load="STORAGE_CHECK_SYSTEM_LOAD"/>
+    </choice>
+</event>
+<event name="INSTALL_LILY_DRONE_BOARDING_SMART">
+    <variable name="loc_internal_upgrades" op="add" val="1"/>
+    <hiddenAug>UPG_LILY_DRONE_BOARDING_SMART</hiddenAug>
+    <loadEvent>STORAGE_CHECK_SYSTEM</loadEvent>
+</event>
+
+
 
 
 <event name="STORAGE_CHECK_SYSTEM_LILY_ABLATIVE_ARMOR">
@@ -79,8 +147,6 @@
         <event load="STORAGE_CHECK_SYSTEM_LILY_ABLATIVE_ARMOR_BUNKER"/>
     </choice>
 
-    
-    
     <choice>
         <text>Nevermind.</text>
         <event load="STORAGE_CHECK_SYSTEM_LOAD"/>
@@ -634,6 +700,90 @@
     <loadEvent>STORAGE_CHECK_SYSTEM</loadEvent>
 </event>
 
+
+<event name="STORAGE_CHECK_SYSTEM_OXYGEN">
+    <text>What upgrade do you want to install?</text>
+
+    <choice req="UPG_CREW_OXYGEN" lvl="2" max_group="1" blue="false" hidden="true">
+        <text>Advanced Ventilation. [MAX LVL ALREADY INSTALLED]</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="UPG_CREW_OXYGEN" lvl="1" max_lvl="1" max_group="1" blue="false" hidden="true">
+        <text>Advanced Ventilation LvL 2. [Cost: 30~]</text>
+        <event load="STORAGE_CHECK_SYSTEM_OXYGEN_CREW_OXYGEN"/>
+    </choice>
+    <choice req="UPG_CREW_OXYGEN" lvl="0" max_lvl="0" max_group="1" blue="false" hidden="true">
+        <text>Advanced Ventilation LvL 1. [Cost: 30~]</text>
+        <event load="STORAGE_CHECK_SYSTEM_OXYGEN_CREW_OXYGEN"/>
+    </choice>
+
+    <choice>
+        <text>Nevermind.</text>
+        <event load="STORAGE_CHECK_SYSTEM_LOAD"/>
+    </choice>
+</event>
+
+
+
+<event name="STORAGE_CHECK_SYSTEM_OXYGEN_CREW_OXYGEN">
+    <text>You are about to install the Advanced Ventilation upgrade.
+	[Effects: Life Support now prioritizes your crew, refilling oxygen 80% faster in rooms where crew are present. Has the opposite effect on enemy crew and fires, draining oxygen. Requires the system to be powered, and scales with power.]</text>
+
+    <choice req="oxygen" lvl="1" max_group="0" blue="false" hidden="true">
+        <text>Perform the upgrade. [Cost: 30~]</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <item_modify>
+                <item type="scrap" min="-30" max="-30"/>
+            </item_modify>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_CREW_OXYGEN"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="oxygen" max_group="0" blue="false" hidden="true">
+        <text>This upgrade is unavailable. You need Oxygen level 2.</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="CREW_OXYGEN" max_group="1" blue="false" hidden="true">
+        <text>Install the External Augment internally.</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <remove name="CREW_OXYGEN"/>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_CREW_OXYGEN"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="pilot" lvl="1" max_group="2" blue="false" hidden="true">
+        <text>Nevermind.</text>
+        <event load="STORAGE_CHECK_SYSTEM_LOAD"/>
+    </choice>
+</event>
+<event name="INSTALL_LILY_CREW_OXYGEN">
+    <variable name="loc_internal_upgrades" op="add" val="1"/>
+    <hiddenAug>UPG_CREW_OXYGEN</hiddenAug>
+    <loadEvent>STORAGE_CHECK_SYSTEM</loadEvent>
+</event>
+
+
+<mod:findName type="event" name="COMBAT_CHECK_TOGGLE">
+    <mod-append:choice req="lily_ablative_armor_rendering_disabled" lvl="0" max_lvl="0" blue="false">
+        <text>Disable ablative armor rendering.</text>
+        <event>
+            <metaVariable name="lily_ablative_armor_rendering_disabled" op="set" value="1"/>
+        </event>
+    </mod-append:choice>
+    <mod-append:choice req="lily_ablative_armor_rendering_disabled" lvl="1" blue="false">
+        <text>Enable ablative armor rendering.</text>
+        <event>
+            <metaVariable name="lily_ablative_armor_rendering_disabled" op="set" value="0"/>
+        </event>
+    </mod-append:choice>
+
+</mod:findName>
 
 
 </FTL>

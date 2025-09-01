@@ -201,6 +201,10 @@ local buttonBase
 local armorTop
 local squareFull
 local squareEmpty
+local hulltile
+local hulltileBroken
+local hulltileCrack1
+local hulltileCrack2
 
 script.on_init(function()
     buttonBase = Hyperspace.Resources:CreateImagePrimitive(
@@ -220,6 +224,26 @@ script.on_init(function()
         false)
     squareEmpty = Hyperspace.Resources:CreateImagePrimitive(
         Hyperspace.Resources:GetImageId("statusUI/top_armorsquare_2_empty.png"), 0,
+        0, 0,
+        Graphics.GL_Color(1, 1, 1, 1), 1,
+        false)
+    hulltile = Hyperspace.Resources:CreateImagePrimitive(
+        Hyperspace.Resources:GetImageId("misc/lily_armorsquare_tile.png"), 0,
+        0, 0,
+        Graphics.GL_Color(1, 1, 1, 1), 1,
+        false)
+    hulltileBroken = Hyperspace.Resources:CreateImagePrimitive(
+        Hyperspace.Resources:GetImageId("misc/lily_armorsquare_tile_broken.png"), 0,
+        0, 0,
+        Graphics.GL_Color(1, 1, 1, 1), 1,
+        false)
+    hulltileCrack1 = Hyperspace.Resources:CreateImagePrimitive(
+        Hyperspace.Resources:GetImageId("misc/lily_armorsquare_tile_crack1.png"), 0,
+        0, 0,
+        Graphics.GL_Color(1, 1, 1, 1), 1,
+        false)
+    hulltileCrack2 = Hyperspace.Resources:CreateImagePrimitive(
+        Hyperspace.Resources:GetImageId("misc/lily_armorsquare_tile_crack2.png"), 0,
         0, 0,
         Graphics.GL_Color(1, 1, 1, 1), 1,
         false)
@@ -399,11 +423,88 @@ script.on_internal_event(Defines.InternalEvents.SHIP_LOOP, function(shipManager)
     end
 end)
 
+script.on_render_event(Defines.RenderEvents.SHIP_SPARKS, function() end, function(ship)
+    local shipManager = Hyperspace.ships(ship.iShipId)
+    local enabled = not (Hyperspace.metaVariables.lily_ablative_armor_rendering_disabled > 0)
+    if enabled and shipManager:HasSystem(Hyperspace.ShipSystem.NameToSystemId("lily_ablative_armor")) then
+        local currentLayers = userdata_table(shipManager, "mods.lilyinno.ablativearmor").first or 0
+        local maxLayers = userdata_table(shipManager, "mods.lilyinno.ablativearmor").second or 0
+
+        if maxLayers > 0 then     
+            local colors = {}
+            colors[1] = Graphics.GL_Color(175 / 255.0, 150 / 255.0, 150 / 255.0, 1)
+            colors[2] = Graphics.GL_Color(145 / 255.0, 160 / 255.0, 175 / 255.0, 1)
+            colors[3] = Graphics.GL_Color(100 / 255.0, 200 / 255.0, 100 / 255.0, 1)
+            local color = 1
+            if shipManager:HasAugmentation("UPG_LILY_STRONG_ARMOR") > 0 or shipManager:HasAugmentation("EX_LILY_STRONG_ARMOR") > 0 then
+                color = 2
+            end
+            if shipManager:HasAugmentation("UPG_LILY_AETHER_ARMOR") > 0 or shipManager:HasAugmentation("EX_LILY_AETHER_ARMOR") > 0 then
+                color = 3
+            end
+            --print(color)
+            local num = 1
+            Graphics.CSurface.GL_SetColorTint(colors[color])
+            for wall in vter(ship.vOuterWalls) do
+                ---@type Hyperspace.OuterHull
+                wall = wall
+                
+                if currentLayers > 0 then
+                    Graphics.CSurface.GL_Translate(wall.pLoc.x, wall.pLoc.y, 0)
+                    Graphics.CSurface.GL_RenderPrimitiveWithAlpha(hulltile, 0.25)
+                    
+                    if (num + 1) > 2 * currentLayers then
+                        Graphics.CSurface.GL_RenderPrimitiveWithAlpha(hulltileCrack2, 0.3)
+                    elseif (num + 1) > 2 * currentLayers - maxLayers then
+                        Graphics.CSurface.GL_RenderPrimitiveWithAlpha(hulltileCrack1, 0.3)
+                    end 
+
+
+
+                    --[[
+                    if currentLayers < maxLayers then
+                        Graphics.CSurface.GL_RenderPrimitiveWithAlpha(hulltileCrack1,
+                        0.3 * math.sqrt(1 - (math.max(0, currentLayers - maxLayers / 2) / (maxLayers / 2))))
+                    end
+
+                    if currentLayers < (maxLayers / 2) then
+                        Graphics.CSurface.GL_RenderPrimitiveWithAlpha(hulltileCrack2,
+                            0.5 * (1 - ((currentLayers - 1) / (maxLayers / 2))))
+                    end
+                    --]]
+                    Graphics.CSurface.GL_Translate(-wall.pLoc.x, -wall.pLoc.y, 0)
+                end
+                --print(currentLayers)
+                if currentLayers <= 0 then
+                    --print("BROKEN")
+                    Graphics.CSurface.GL_Translate(wall.pLoc.x, wall.pLoc.y, 0)
+                    Graphics.CSurface.GL_RenderPrimitiveWithAlpha(hulltileBroken, 0.25)
+                    Graphics.CSurface.GL_Translate(-wall.pLoc.x, -wall.pLoc.y, 0)
+                end
+                num = num + 1
+                num = num % maxLayers
+            end
+            Graphics.CSurface.GL_RemoveColorTint()
+        end
+    end
+end)
+
+
+
 script.on_render_event(Defines.RenderEvents.SHIP_STATUS, function() end, function()
     if Hyperspace.ships.player:HasSystem(Hyperspace.ShipSystem.NameToSystemId("lily_ablative_armor")) then
         local lily_ablative_armor_system = Hyperspace.ships.player:GetSystem(Hyperspace.ShipSystem.NameToSystemId("lily_ablative_armor"))
+        local shields = false
+        if Hyperspace.ships.player:HasSystem(Hyperspace.ShipSystem.NameToSystemId("shields")) then
+            shields = true
+        end
         Graphics.CSurface.GL_PushMatrix()
         Graphics.CSurface.GL_Translate(16 - 12, 56 - 9, 5)
+
+        if shields then
+            Graphics.CSurface.GL_Translate(376, 0, 0)
+        end
+
         Graphics.CSurface.GL_RenderPrimitive(armorTop)
         --Graphics.CSurface.GL_DrawRect(25 + 7, 87 + 2, (armorTimer[0] / (5)) * 94, 4, Graphics.GL_Color(1, 1, 1, 1));
         local shipManager = Hyperspace.ships.player
@@ -437,7 +538,7 @@ script.on_render_event(Defines.RenderEvents.SHIP_STATUS, function() end, functio
         Graphics.CSurface.GL_PopMatrix()
 
         local barHeight
-        if shipManager:GetShieldPower().super.first > 0 then
+        if (not shields) and shipManager:GetShieldPower().super.first > 0 then
             barHeight = 2
         else
             barHeight = 6
@@ -445,6 +546,9 @@ script.on_render_event(Defines.RenderEvents.SHIP_STATUS, function() end, functio
 
         if currentLayers ~= nil and maxLayers ~= nil then
             Graphics.CSurface.GL_PushMatrix()
+            if shields then
+                Graphics.CSurface.GL_Translate(376, 0, 0)
+            end
             Graphics.CSurface.GL_Translate(33, 79, 5)
 
             local color = Graphics.GL_Color(1, 1, 1, 1)
@@ -453,7 +557,11 @@ script.on_render_event(Defines.RenderEvents.SHIP_STATUS, function() end, functio
                 color = Graphics.GL_Color(187 / 255.0, 37 / 255.0, 249 / 255.0, 1)
             end
             if shipManager:GetShieldPower().super.first > 0 then
-                Graphics.CSurface.GL_DrawRect(0, 0, 92, 3, Graphics.GL_Color(22 / 255.0, 30 / 255.0, 37 / 255.0, 1));
+                if shields then
+                    --Graphics.CSurface.GL_DrawRect(0, 0, 92, 6, Graphics.GL_Color(22 / 255.0, 30 / 255.0, 37 / 255.0, 1));
+                else
+                    Graphics.CSurface.GL_DrawRect(0, 0, 92, 3, Graphics.GL_Color(22 / 255.0, 30 / 255.0, 37 / 255.0, 1));
+                end
             end
             Graphics.CSurface.GL_DrawRect(0, 0, (armorTimer[0] / (10)) * 92, barHeight, color);
             Graphics.CSurface.GL_PopMatrix()
@@ -960,7 +1068,7 @@ script.on_internal_event(Defines.InternalEvents.DAMAGE_AREA_HIT, function(ship, 
                     end
                     Hyperspace.Sounds:PlaySoundMix("smallExplosion", -1, false)
                     Hyperspace.Sounds:PlaySoundMix("smallExplosion", -1, false)
-                    for i = 1, maxLayers, 1 do
+                        for i = 1, math.floor(maxLayers / 2), 1 do
                         if #targets > 0 then
                             local target = targets[math.random(#targets)]
                             local intercept = find_collision_point(toVec(target.location), toVec(target.velocity),
@@ -995,7 +1103,7 @@ script.on_internal_event(Defines.InternalEvents.DAMAGE_AREA_HIT, function(ship, 
                             piece:ComputeHeading()
                         end
                     end
-                    for i = 1, maxLayers, 1 do
+                    for i = 1, math.floor(maxLayers / 2), 1 do
                         
                         local theta = math.random() * math.pi * 2
                         local vector = Hyperspace.Pointf(location.x + 1000 * math.cos(theta),

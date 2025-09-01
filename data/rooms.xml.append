@@ -10,3 +10,73 @@
 <roomLayout name="shock_3">
    
 </roomLayout>
+
+<?xml version="1.0" encoding="UTF-8"?>
+
+<roomLayout name="lily_ablative_armor">
+    <computerGlow x="43" y="53" dir="DOWN" />
+</roomLayout>
+
+<roomLayout name="lily_ablative_armor_2">
+    <computerGlow x="53" y="5" dir="RIGHT" />
+</roomLayout>
+
+<roomLayout name="lily_ablative_armor_3">
+    <computerGlow x="5" y="1" dir="UP" />
+</roomLayout>
+
+<roomLayout name="lily_ablative_armor_4">
+    <computerGlow x="1" y="43" dir="LEFT" />
+</roomLayout>
+
+<roomLayout name="lily_ablative_armor_5">
+    <computerGlow x="43" y="18" dir="DOWN" />
+</roomLayout>
+
+<roomLayout name="lily_ablative_armor_6">
+    <computerGlow x="43" y="1" dir="UP" />
+</roomLayout>
+
+<roomLayout name="lily_ablative_armor_7">
+    <computerGlow x="12" y="18" dir="DOWN" />
+</roomLayout>
+
+<roomLayout name="lily_ablative_armor_8">
+    <computerGlow x="18" y="1" dir="RIGHT" />
+</roomLayout>
+
+<roomLayout name="lily_ablative_armor_9">
+    <computerGlow x="1" y="1" dir="UP" />
+</roomLayout>
+
+<roomLayout name="lily_ablative_armor_10">
+    <computerGlow x="1" y="12" dir="LEFT" />
+</roomLayout>
+
+<roomLayout name="lily_ablative_armor_11">
+    <computerGlow x="18" y="43" dir="RIGHT" />
+</roomLayout>
+
+<roomLayout name="lily_ablative_armor_12">
+    <computerGlow x="1" y="43" dir="LEFT" />
+</roomLayout>
+
+<roomLayout name="lily_ablative_armor_13">
+    <computerGlow x="5" y="1" dir="UP" />
+</roomLayout>
+
+<roomLayout name="lily_ablative_armor_14">
+    <computerGlow x="1" y="43" dir="LEFT" />
+</roomLayout>
+
+<roomLayout name="lily_ablative_armor_15">
+    <computerGlow x="43" y="53" dir="DOWN" />
+</roomLayout>
+
+<roomLayout name="lily_ablative_armor_16">
+    <computerGlow x="53" y="5" dir="RIGHT" />
+</roomLayout>
+
+<roomLayout name="lily_ablative_armor_17">
+    <computerGlow x="43" y="53" dir="DOWN" />
+</roomLayout>

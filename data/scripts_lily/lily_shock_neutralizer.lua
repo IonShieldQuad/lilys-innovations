@@ -488,6 +488,11 @@ local function render_shock_neutralizer_effects(ship, experimental)
         local level = shipManager:GetSystem(Hyperspace.ShipSystem.NameToSystemId("lily_shock_neutralizer")):GetEffectivePower()
 
         if level > 0 then
+            local yellow = false
+            if shipManager:HasAugmentation("UPG_LILY_STUN_NEUTRALIZE") > 0 or shipManager:HasAugmentation("EX_LILY_STUN_NEUTRALIZE") > 0 then
+                yellow = true
+            end
+
             if targetroom and targetroom > 0 then
                 local roomdata = rooms[targetroom]
                 local rect = roomdata.rect
@@ -495,8 +500,15 @@ local function render_shock_neutralizer_effects(ship, experimental)
                 activationTimer[shipManager.iShipId])
                 local color2 = Graphics.GL_Color(68 / 255, math.min(1, (25 * level + 154) / 255), 136 / 255,
                 0.4 * activationTimer[shipManager.iShipId])
+                local color3 = Graphics.GL_Color((25 * level + 154) / 255, math.min(1, (25 * level + 154) / 255),
+                40 / 255,
+                    0.4 * activationTimer[shipManager.iShipId])
 
                 Graphics.CSurface.GL_PushMatrix()
+                if yellow then
+                    Graphics.CSurface.GL_DrawRectOutline(rect.x, rect.y, rect.w, rect.h, color3,
+                        (level + 7) * activationTimer[shipManager.iShipId])
+                end
                 Graphics.CSurface.GL_DrawRectOutline(rect.x, rect.y, rect.w, rect.h, color2,
                     (level + 5) * activationTimer[shipManager.iShipId])
                 Graphics.CSurface.GL_DrawRectOutline(rect.x, rect.y, rect.w, rect.h, color2,
@@ -511,12 +523,22 @@ local function render_shock_neutralizer_effects(ship, experimental)
                 for id, coord in pairs(bonusrooms) do
                     local roomdata = rooms[id]
                     local rect = roomdata.rect
-                    local color1 = Graphics.GL_Color(68 / 255, math.min(1, (25 * math.floor(level / 2) + 154) / 255), 136 / 255,
+                    local color1 = Graphics.GL_Color(68 / 255, math.min(1, (25 * math.floor(level / 2) + 154) / 255),
+                    136 / 255,
                     activationTimer[shipManager.iShipId])
-                    local color2 = Graphics.GL_Color(68 / 255, math.min(1, (25 * math.floor(level / 2) + 154) / 255), 136 / 255,
+                    local color2 = Graphics.GL_Color(68 / 255, math.min(1, (25 * math.floor(level / 2) + 154) / 255),
+                    136 / 255,
+                        0.4 * activationTimer[shipManager.iShipId])
+                    local color3 = Graphics.GL_Color((25 * math.floor(level / 2) + 154) / 255,
+                    math.min(1, (25 * math.floor(level / 2) + 154) / 255),
+                        40 / 255,
                         0.4 * activationTimer[shipManager.iShipId])
 
                     Graphics.CSurface.GL_PushMatrix()
+                    if yellow then
+                        Graphics.CSurface.GL_DrawRectOutline(rect.x, rect.y, rect.w, rect.h, color3,
+                            (level / 2 + 7) * activationTimer[shipManager.iShipId])
+                    end
                     Graphics.CSurface.GL_DrawRectOutline(rect.x, rect.y, rect.w, rect.h, color2,
                         (math.floor(level / 2) + 5) * activationTimer[shipManager.iShipId])
                     Graphics.CSurface.GL_DrawRectOutline(rect.x, rect.y, rect.w, rect.h, color2,
