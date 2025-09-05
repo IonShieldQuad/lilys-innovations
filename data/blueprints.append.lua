@@ -107,6 +107,50 @@ systemsToAppend["lily_shock_neutralizer"] = {
     }
 }
 
+systemsToAppend["lily_infusion_bay"] = {
+    attributes = { power = 1, start = "false" },
+    manning = false,
+    replace_sys = "clonebay",
+    image_list = {
+        { room_image = "room_lily_infusion",    w = 2, h = 2, top = "01", bottom = "00", left = "00", right = "10", manning_slot = 1, manning_direction = "up" },
+        { room_image = "room_lily_infusion_2",  w = 2, h = 2, top = "11", bottom = "01", left = "00", right = "01", manning_slot = 3, manning_direction = "right" },
+        { room_image = "room_lily_infusion_3",  w = 2, h = 2, top = "00", bottom = "10", left = "01", right = "00", manning_slot = 2, manning_direction = "left" },
+        { room_image = "room_lily_infusion_4",  w = 2, h = 2, top = "10", bottom = "00", left = "10", right = "00", manning_slot = 0, manning_direction = "up" },
+        { room_image = "room_lily_infusion_5",  w = 3, h = 1, top = "011", bottom = "000", left = "0", right = "0", manning_slot = 1, manning_direction = "up" },
+        { room_image = "room_lily_infusion_6",  w = 1, h = 3, top = "0", bottom = "0", left = "000", right = "100", manning_slot = 1, manning_direction = "right" },
+        { room_image = "room_lily_infusion_7",  w = 3, h = 1, top = "000", bottom = "011", left = "0", right = "0", manning_slot = 1, manning_direction = "down" },
+        { room_image = "room_lily_infusion_8",  w = 1, h = 3, top = "0",  bottom = "0",  left = "011",  right = "000",  manning_slot = 1, manning_direction = "left" },
+        { room_image = "room_lily_infusion_9",  w = 3, h = 1, top = "000",  bottom = "000",  left = "1",  right = "0",  manning_slot = 0, manning_direction = "left" },
+        { room_image = "room_lily_infusion_10", w = 1, h = 3, top = "0",  bottom = "1",  left = "000",  right = "000",  manning_slot = 2, manning_direction = "down" },
+        { room_image = "room_lily_infusion_11", w = 2, h = 1, top = "11",  bottom = "00",  left = "0",  right = "0",  manning_slot = 0, manning_direction = "up" },
+        { room_image = "room_lily_infusion_12", w = 1, h = 2, top = "0",  bottom = "0",  left = "00",  right = "11",  manning_slot = 0, manning_direction = "right" },
+        { room_image = "room_lily_infusion_13", w = 2, h = 1, top = "00",  bottom = "11",  left = "0",  right = "0",  manning_slot = 0, manning_direction = "down" },
+        { room_image = "room_lily_infusion_14", w = 1, h = 2, top = "0",  bottom = "0",  left = "11",  right = "00",  manning_slot = 0, manning_direction = "left" },
+        { room_image = "room_lily_infusion_15", w = 2, h = 1, top = "01",  bottom = "00",  left = "0",  right = "1",  manning_slot = 1, manning_direction = "right" },
+        { room_image = "room_lily_infusion_16", w = 1, h = 2, top = "0",  bottom = "1",  left = "00",  right = "01",  manning_slot = 1, manning_direction = "down" },
+        { room_image = "room_lily_infusion_17", w = 2, h = 1, top = "00",  bottom = "10",  left = "1",  right = "0",  manning_slot = 0, manning_direction = "left" },
+        { room_image = "room_lily_infusion_18", w = 1, h = 2, top = "1",  bottom = "0",  left = "10",  right = "00",  manning_slot = 0, manning_direction = "up" },
+        { room_image = "room_lily_infusion_19", w = 2, h = 1, top = "00",  bottom = "01",  left = "0",  right = "1",  manning_slot = 1, manning_direction = "right" },
+        { room_image = "room_lily_infusion_20", w = 1, h = 2, top = "0",  bottom = "1",  left = "01",  right = "00",  manning_slot = 1, manning_direction = "left" },
+        { room_image = "room_lily_infusion_21", w = 2, h = 1, top = "10",  bottom = "00",  left = "1",  right = "0",  manning_slot = 0, manning_direction = "left" },
+        { room_image = "room_lily_infusion_22", w = 1, h = 2, top = "1",  bottom = "0",  left = "0",  right = "10",  manning_slot = 0, manning_direction = "up" },
+        { room_image = "room_lily_infusion_23", w = 2, h = 1, top = "10",  bottom = "01",  left = "0",  right = "0",  manning_slot = 0, manning_direction = "up" },
+        { room_image = "room_lily_infusion_24", w = 1, h = 2, top = "0",  bottom = "0",  left = "10",  right = "01",  manning_slot = 0, manning_direction = "left" },
+        { room_image = "room_lily_infusion_25", w = 2, h = 1, top = "01",  bottom = "10",  left = "0",  right = "0",  manning_slot = 0, manning_direction = "down" },
+        { room_image = "room_lily_infusion_26", w = 1, h = 2, top = "0",  bottom = "0",  left = "01",  right = "10",  manning_slot = 0, manning_direction = "right" },
+        { room_image = "room_lily_infusion_27", w = 2, h = 1, top = "01",  bottom = "00",  left = "0",  right = "00",  manning_slot = 1, manning_direction = "up" },
+        { room_image = "room_lily_infusion_28", w = 1, h = 2, top = "0",  bottom = "0",  left = "00",  right = "01",  manning_slot = 1, manning_direction = "right" },
+        { room_image = "room_lily_infusion_29", w = 2, h = 1, top = "00",  bottom = "01",  left = "0",  right = "00",  manning_slot = 1, manning_direction = "down" },
+        { room_image = "room_lily_infusion_30", w = 1, h = 2, top = "0",  bottom = "0",  left = "01",  right = "00",  manning_slot = 1, manning_direction = "left" },
+        { room_image = "room_lily_infusion_31", w = 2, h = 1, top = "00",  bottom = "00",  left = "0",  right = "1",  manning_slot = 1, manning_direction = "right" },
+        { room_image = "room_lily_infusion_32", w = 1, h = 2, top = "0",  bottom = "1",  left = "0",  right = "0",  manning_slot = 1, manning_direction = "down" },
+        { room_image = "room_lily_infusion_33", w = 1, h = 1, top = "1",  bottom = "0",  left = "0",  right = "0",  manning_slot = 0, manning_direction = "top" },
+        { room_image = "room_lily_infusion_34", w = 1, h = 1, top = "0",  bottom = "0",  left = "0",  right = "1",  manning_slot = 0, manning_direction = "right" },
+        { room_image = "room_lily_infusion_35", w = 1, h = 1, top = "0",  bottom = "1",  left = "0",  right = "0",  manning_slot = 0, manning_direction = "down" },
+        { room_image = "room_lily_infusion_36", w = 1, h = 1, top = "0",  bottom = "0",  left = "1",  right = "0",  manning_slot = 0, manning_direction = "left" },
+    }
+}
+
 local function noDoorOverlap(rT, rB, rL, rR, iT, iB, iL, iR, shipName)
     local room = table.concat({rT,rB,rL,rR},"")
     local roomNumber = tonumber(room,2)

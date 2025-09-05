@@ -1,5 +1,22 @@
 <FTL>
 
+
+<animSheet fh="64" fw="64" h="64" name="explosion_big1_ion_chaos" w="640">effects_lily/explosion_big1_strip10_ion_chaos.png</animSheet>
+<anim name="explosion_big1_ion_chaos">
+    <sheet>explosion_big1_ion_chaos</sheet>
+    <desc length="10" x="0" y="0"/>
+    <time>0.5</time>
+</anim>
+
+<animSheet fh="64" fw="64" h="64" name="explosion_big1_chaos" w="640">effects_lily/explosion_big1_strip10_chaos.png</animSheet>
+<anim name="explosion_big1_chaos">
+    <sheet>explosion_big1_chaos</sheet>
+    <desc length="10" x="0" y="0"/>
+    <time>0.5</time>
+</anim>
+
+
+
 <animSheet name="lily_reactive_armor_proj" w="30" h="9" fw="30" fh="9">projectiles_lily/reactive_armor_proj.png</animSheet>
 <anim name="lily_reactive_armor_proj">
     <sheet>lily_reactive_armor_proj</sheet>
@@ -7,11 +24,117 @@
     <time>1.0</time>
 </anim>
 
-<animSheet name="lily_fort_effect" w="35" h="33" fw="35" fh="33">people_lily/fort_effect.png</animSheet>
+<animSheet name="lily_fort_effect" w="385" h="33" fw="35" fh="33">people_lily/fort_effect.png</animSheet>
 <anim name="lily_fort_effect">
     <sheet>lily_fort_effect</sheet>
-    <desc length="1" x="0" y="0"/>
+    <desc length="11" x="0" y="0"/>
+    <time>1.375</time>
+</anim>
+
+
+<animSheet name="lily_infusion_acquired_effect" w="490" h="35" fw="35" fh="35">people_lily/lily_infusion_acquired_effect.png</animSheet>
+<anim name="lily_infusion_acquired_effect">
+    <sheet>lily_infusion_acquired_effect</sheet>
+    <desc length="14" x="0" y="0"/>
+    <time>1.75</time>
+</anim>
+
+<animSheet name="lily_infusion_activated_effect" w="525" h="35" fw="35" fh="35">people_lily/lily_infusion_activated_effect.png</animSheet>
+<anim name="lily_infusion_activated_effect">
+    <sheet>lily_infusion_activated_effect</sheet>
+    <desc length="15" x="0" y="0"/>
+    <time>1.75</time>
+</anim>
+
+<animSheet name="lily_infusion_sickness_debuff" w="384" h="32" fw="32" fh="32">people_lily/lily_infusion_sickness_debuff.png</animSheet>
+<anim name="lily_infusion_sickness_debuff">
+    <sheet>lily_infusion_sickness_debuff</sheet>
+    <desc length="12" x="0" y="0"/>
+    <time>1.5</time>
+</anim>
+
+<animSheet name="lily_infusion_dormant_buff" w="384" h="32" fw="32" fh="32">people_lily/lily_infusion_dormant_buff.png</animSheet>
+<anim name="lily_infusion_dormant_buff">
+    <sheet>lily_infusion_dormant_buff</sheet>
+    <desc length="12" x="0" y="0"/>
+    <time>1.5</time>
+</anim>
+
+<animSheet name="lily_chaoticcombatstimulant_buff" w="352" h="32" fw="32" fh="33">people_lily/lily_infusion_chaoticcombatstimulant_buff.png</animSheet>
+<anim name="lily_chaoticcombatstimulant_buff">
+    <sheet>lily_chaoticcombatstimulant_buff</sheet>
+    <desc length="11" x="0" y="0"/>
     <time>1.0</time>
+</anim>
+
+<animSheet name="lily_chaoticfireborne_buff" w="352" h="32" fw="32" fh="33">people_lily/lily_infusion_chaoticfireborne_buff.png</animSheet>
+<anim name="lily_chaoticfireborne_buff">
+    <sheet>lily_chaoticfireborne_buff</sheet>
+    <desc length="11" x="0" y="0"/>
+    <time>1.0</time>
+</anim>
+
+<animSheet name="lily_chaoticgaseous_buff" w="352" h="32" fw="32" fh="33">people_lily/lily_infusion_chaoticgaseous_buff.png</animSheet>
+<anim name="lily_chaoticgaseous_buff">
+    <sheet>lily_chaoticgaseous_buff</sheet>
+    <desc length="11" x="0" y="0"/>
+    <time>1.0</time>
+</anim>
+
+<animSheet name="lily_chaoticphoenix_buff" w="352" h="32" fw="32" fh="33">people_lily/lily_infusion_chaoticphoenix_buff.png</animSheet>
+<anim name="lily_chaoticphoenix_buff">
+    <sheet>lily_chaoticphoenix_buff</sheet>
+    <desc length="11" x="0" y="0"/>
+    <time>1.0</time>
+</anim>
+
+<animSheet name="lily_chaoticreconstitution_buff" w="352" h="32" fw="32" fh="33">people_lily/lily_infusion_chaoticreconstitution_buff.png</animSheet>
+<anim name="lily_chaoticreconstitution_buff">
+    <sheet>lily_chaoticreconstitution_buff</sheet>
+    <desc length="11" x="0" y="0"/>
+    <time>1.0</time>
+</anim>
+
+<animSheet name="lily_combatstimulant_buff" w="352" h="32" fw="32" fh="33">people_lily/lily_infusion_combatstimulant_buff.png</animSheet>
+<anim name="lily_combatstimulant_buff">
+    <sheet>lily_combatstimulant_buff</sheet>
+    <desc length="11" x="0" y="0"/>
+    <time>1.0</time>
+</anim>
+
+<animSheet name="lily_fireborne_buff" w="352" h="32" fw="32" fh="33">people_lily/lily_infusion_fireborne_buff.png</animSheet>
+<anim name="lily_fireborne_buff">
+    <sheet>lily_fireborne_buff</sheet>
+    <desc length="11" x="0" y="0"/>
+    <time>1.0</time>
+</anim>
+
+<animSheet name="lily_gaseous_buff" w="352" h="32" fw="32" fh="33">people_lily/lily_infusion_gaseous_buff.png</animSheet>
+<anim name="lily_gaseous_buff">
+    <sheet>lily_gaseous_buff</sheet>
+    <desc length="11" x="0" y="0"/>
+    <time>1.0</time>
+</anim>
+
+<animSheet name="lily_reconstitution_buff" w="352" h="32" fw="32" fh="33">people_lily/lily_infusion_reconstitution_buff.png</animSheet>
+<anim name="lily_reconstitution_buff">
+    <sheet>lily_reconstitution_buff</sheet>
+    <desc length="11" x="0" y="0"/>
+    <time>1.0</time>
+</anim>
+
+<animSheet name="lily_phoenix_buff" w="352" h="32" fw="32" fh="33">people_lily/lily_infusion_phoenix_buff.png</animSheet>
+<anim name="lily_phoenix_buff">
+    <sheet>lily_phoenix_buff</sheet>
+    <desc length="11" x="0" y="0"/>
+    <time>1.0</time>
+</anim>
+
+<animSheet name="lily_invisible" w="35" h="35" fw="35" fh="35">effects_lily/invisible.png</animSheet>
+<anim name="lily_invisible">
+    <sheet>lily_invisible</sheet>
+    <desc length="1" x="0" y="0" />
+    <time>0.1</time>
 </anim>
 
 </FTL>

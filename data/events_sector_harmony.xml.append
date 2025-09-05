@@ -1,0 +1,18 @@
+
+<FTL>
+
+<mod:findName type="event" name="DISTRESS_ENGI_PARTY">
+    <mod:findLike type="choice">
+        <mod:findWithChildLike type="event" child-type="choice">
+            <mod:selector req="BLUELIST_ION" />
+            <mod-append:choice hidden="true" req="lily_infusion_bay">
+                <text>(Infusion Bay) Give them some infusions.</text>
+                <event>
+                    <text>You share out some stimulating infusions made in your infusion bay to the Engi and their Slug companions. Immediately the partygoers start to get more energetic and excited. The Engi, who is visibly shaking, pays you before rushing off to join their Slug companions, who seem to be bouncing around the room.</text>
+                    <autoReward level="HIGH">stuff</autoReward>
+                </event>
+            </mod-append:choice>
+        </mod:findWithChildLike>
+    </mod:findLike>
+</mod:findName>
+</FTL>

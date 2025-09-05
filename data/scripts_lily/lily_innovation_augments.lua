@@ -77,8 +77,66 @@ script.on_internal_event(Defines.InternalEvents.SHIP_LOOP, function(shipManager)
                 end
             end
         end
-    
     end
+    if shipManager:HasAugmentation("UPG_LILY_OXYGEN_BACKUP") > 0 or shipManager:HasAugmentation("EX_LILY_OXYGEN_BACKUP") > 0 then
+        if shipManager:HasSystem(Hyperspace.ShipSystem.NameToSystemId("oxygen")) then
+            local o2sys = shipManager.oxygenSystem
+            if (o2sys:CompletelyDestroyed() or o2sys:GetEffectivePower() == 0) and shipManager:GetFireCount(o2sys.roomId) == 0 then
+                o2sys:ModifyRoomOxygen(o2sys.roomId, 0.12)
+            end
+        end
+    end
+
+    if shipManager:HasAugmentation("UPG_LILY_DOORS_FAILSAFE") > 0 or shipManager:HasAugmentation("EX_LILY_DOORS_FAILSAFE") > 0 then
+        if shipManager:HasSystem(Hyperspace.ShipSystem.NameToSystemId("doors")) then
+            ---@type Hyperspace.ShipSystem
+            local doorSys = shipManager:GetSystem(Hyperspace.ShipSystem.NameToSystemId("doors"))
+            if (not shipManager:DoorsFunction() or doorSys:CompletelyDestroyed())then
+                local ship = shipManager.ship
+                for door in vter(ship.vDoorList) do
+                    ---@type Hyperspace.Door
+                    door = door
+                    door.bOpen = false
+                end
+                for door in vter(ship.vOuterAirlocks) do
+                    ---@type Hyperspace.Door
+                    door = door
+                    door.bOpen = false
+                end
+            end
+        end
+    end
+--[[
+    local battery = shipManager.batterySystem
+    if battery then
+        print(battery.bTurnedOn and "true" or "false")
+    end
+    if shipManager:HasAugmentation("UPG_LILY_BATTERY_SOLAR_POWER") > 0 or shipManager:HasAugmentation("EX_LILY_BATTERY_SOLAR_POWER") > 0 then
+        local battery = shipManager.batterySystem
+        if battery then
+            print(battery.bTurnedOn)
+
+
+
+        end
+
+        
+    end
+    --]]
+    --[[
+            ---@type Hyperspace.Room
+            local o2room = shipManager.ship.vRoomList(shipManager.oxygenSystem.roomId)
+            local graph = Hyperspace.ShipGraph.GetShipInfo(shipManager.iShipId)
+            if (shipManager:GetFireCount(shipManager.oxygenSystem.roomId) > 0) then
+                for i = 1, o2room.rect.w, 1 do
+                    for j = 1, o2room.rect.h, 1 do
+                        shipManager.fire                    end
+                end
+            end
+        end
+    
+--]]
+
 
     if shipManager:HasAugmentation("UPG_LILY_DRONE_BOARDING_SMART") > 0 or shipManager:HasAugmentation("EX_LILY_DRONE_BOARDING_SMART") > 0 then
         local spaceManager = Hyperspace.App.world.space

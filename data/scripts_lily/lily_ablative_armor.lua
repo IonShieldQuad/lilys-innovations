@@ -371,6 +371,9 @@ script.on_internal_event(Defines.InternalEvents.SHIP_LOOP, function(shipManager)
         local multiplier = 0.5 * ((efflevel > 0 and 0.75 or 0) + ((efflevel > 1) and 0.25 or 0) + efflevel * 0.25) *
             (1 + lily_ablative_armor_system.iActiveManned * 0.20)
 
+
+        
+
         if lily_ablative_armor_system.iHackEffect > 0 then
             multiplier = -3
         end
@@ -389,7 +392,9 @@ script.on_internal_event(Defines.InternalEvents.SHIP_LOOP, function(shipManager)
                     multiplier = multiplier * 10
                 end
         end
-
+        if userdata_table(shipManager, "mods.lilyinno.ablativearmor").second and maxLayers > userdata_table(shipManager, "mods.lilyinno.ablativearmor").second then
+            userdata_table(shipManager, "mods.lilyinno.ablativearmor").first = maxLayers
+        end
         userdata_table(shipManager, "mods.lilyinno.ablativearmor").second = maxLayers
         if not userdata_table(shipManager, "mods.lilyinno.ablativearmor").first then
                 userdata_table(shipManager, "mods.lilyinno.ablativearmor").first = userdata_table(shipManager,"mods.lilyinno.ablativearmor").second
@@ -399,6 +404,12 @@ script.on_internal_event(Defines.InternalEvents.SHIP_LOOP, function(shipManager)
         --if shipManager.iShipId == 1 then multiplier = multiplier * 0.7 end
         local currentLayers = userdata_table(shipManager, "mods.lilyinno.ablativearmor").first or 0
             --print(currentLayers)
+
+        if currentLayers == 0 then
+            multiplier = multiplier * 0.25
+        end
+
+
         if currentLayers < maxLayers then
             armorTimer[shipManager.iShipId] = math.max(0, math.min(10, armorTimer[shipManager.iShipId] + multiplier * Hyperspace.FPS.SpeedFactor / 16))
             if armorTimer[shipManager.iShipId] >= 10 then
@@ -808,6 +819,12 @@ end)
 
 
 script.on_internal_event(Defines.InternalEvents.DAMAGE_AREA, function(ship, projectile, location, damage, forceHit, shipFriendlyFire)
+    --[[print("DAMAGE_AREA")
+    print("Projectile: " .. (projectile and "true" or "false"))
+    if projectile then
+        print("ID:" .. projectile.ownerId)
+        print("Type:" .. projectile:GetType())
+    end--]]
     if ship:HasSystem(Hyperspace.ShipSystem.NameToSystemId("lily_ablative_armor")) and lily_ablating then
         damage.iSystemDamage = -damage.iDamage
         damage.iPersDamage = -damage.iDamage
@@ -991,6 +1008,12 @@ script.on_internal_event(Defines.InternalEvents.DAMAGE_AREA, function(ship, proj
 end)
 
 script.on_internal_event(Defines.InternalEvents.DAMAGE_AREA_HIT, function(ship, projectile, location, damage, shipFriendlyFire)
+    --[[print("DAMAGE_AREA_HIT")
+    print("Projectile: " .. (projectile and "true" or "false"))
+    if projectile then
+        print("ID:" .. projectile.ownerId)
+        print("Type:" .. projectile:GetType())
+    end--]]
     if ship:HasSystem(Hyperspace.ShipSystem.NameToSystemId("lily_ablative_armor")) and not lily_ablating then
         local armorDamage = nil
         local neg = true
@@ -1000,6 +1023,17 @@ script.on_internal_event(Defines.InternalEvents.DAMAGE_AREA_HIT, function(ship, 
         end
         local currentLayers = userdata_table(ship, "mods.lilyinno.ablativearmor").first or 0
         local maxLayers = userdata_table(ship, "mods.lilyinno.ablativearmor").second or 0
+
+        --asteroid bandaid fix
+        if projectile and projectile:GetType() == 2 then
+            if currentLayers > 0 then
+                if damage.iDamage > 0 then
+                    ship:DamageHull(-damage.iDamage, true)
+                end
+                Hyperspace.Sounds:PlaySoundMix("lily_ablative_armor_hit_breach_1", -1, false)
+                return Defines.Chain.CONTINUE
+            end
+        end
 
         if neg == nil then
             neg = true

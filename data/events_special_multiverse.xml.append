@@ -14,6 +14,19 @@
             </choice>
         </event>
     </mod-append:choice>
+    <mod-append:choice req="lily_infusion_bay" lvl="3" blue="false">
+        <text>Present your Infusion Bay system.</text>
+        <event>
+            <text>"Infusion Bay - risk, and reward! R-r-risk, r-r-r-reward... [which] is heavier? You are: here... a captain: -considerate- of potentiality! For heavy consideration, and heavier p-p-potential: I provide Grant of I-i-i-infusion! Grant of Infusion! Save it - for the future!"</text>
+            <achievement>ACH_BOON_LILY_INFUSION_BAY</achievement>
+            <metaVariable name="prof_e_boon_lily_infusion_bay" op="set" val="1"/>
+            <variable name="ach_boon_lily_infusion_bay" op="set" val="1"/>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="THE_JUDGES_ENGI_ADVICE"/>
+            </choice>
+        </event>
+    </mod-append:choice>
     <mod-append:choice req="lily_shock_neutralizer" lvl="4" blue="false">
         <text>Present your Shock Neutralizer subsystem.</text>
         <event>

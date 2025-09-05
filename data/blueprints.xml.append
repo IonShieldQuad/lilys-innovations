@@ -42,19 +42,25 @@
         <level>80</level>
         <level>100</level>
         <level>120</level>
-        <level>140</level>
-        <level>160</level>
-        <level>180</level>
-        <level>200</level>
-        <level>220</level>
-        <level>240</level>
-        <level>260</level>
-        <level>280</level>
-        <level>300</level>
     </upgradeCost>
     <cost>40</cost>
 </systemBlueprint>
 
+
+<systemBlueprint name="lily_infusion_bay">
+    <type>medbay</type>
+    <title>Infusion Bay</title>
+    <desc>Generates infusions over time. Crew entering the room will pick up and carry the infusion if one is available. The infusions carried by crew can be activated at later time via UI.</desc>
+    <startPower>1</startPower>
+    <maxPower>3</maxPower>
+    <rarity>1</rarity>
+    <upgradeCost>
+        <level>40</level>
+        <level>55</level>
+        <level>200</level>
+    </upgradeCost>
+    <cost>55</cost>
+</systemBlueprint>
 
 
 <augBlueprint name="UPG_LILY_DRONE_BOARDING_SMART">
@@ -81,8 +87,8 @@
 
 [X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
 <cost>0</cost>
-    <cost>30</cost>
-    <rarity>2</rarity>
+    <cost>20</cost>
+    <rarity>0</rarity>
     <stackable>true</stackable>
 </augBlueprint>
 
@@ -93,6 +99,97 @@
     <rarity>0</rarity>
     <stackable>true</stackable>
 </augBlueprint>
+
+
+<augBlueprint name="UPG_LILY_BUNKER_DOORS">
+    <title>Door Fortifications</title>
+    <desc>YOU SHOULD NEVER SEE THIS</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>true</stackable>
+</augBlueprint>
+<augBlueprint name="EX_LILY_BUNKER_DOORS">
+    <title>Door Fort. [X]</title>
+    <desc>Allied crew in Doors room take half damage from all sources, and enemy crew sabotage it at half speed.
+    
+		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>true</stackable>
+</augBlueprint>
+
+<augBlueprint name="UPG_LILY_OXYGEN_BACKUP">
+    <title>Backup Oxygen</title>
+    <desc>YOU SHOULD NEVER SEE THIS</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>true</stackable>
+</augBlueprint>
+<augBlueprint name="EX_LILY_OXYGEN_BACKUP">
+    <title>Backup Oxygen [X]</title>
+    <desc>Oxygen system provides a tiny amount of oxygen in the system room even if it's destroyed or disabled.
+    
+		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>true</stackable>
+</augBlueprint>
+
+<augBlueprint name="UPG_LILY_DOORS_FAILSAFE">
+    <title>Door Failsafe</title>
+    <desc>YOU SHOULD NEVER SEE THIS</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>true</stackable>
+</augBlueprint>
+<augBlueprint name="EX_LILY_DOORS_FAILSAFE">
+    <title>Door Failsafe [X]</title>
+    <desc>All doors and airlocks are automatically shut closed if Doors system is destroyed or disabled.
+    
+		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>true</stackable>
+</augBlueprint>
+
+<augBlueprint name="UPG_LILY_BATTERY_SURGE_OVERDRIVE">
+    <title>Surge Overdrive</title>
+    <desc>YOU SHOULD NEVER SEE THIS</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>true</stackable>
+</augBlueprint>
+<augBlueprint name="EX_LILY_BATTERY_SURGE_OVERDRIVE">
+    <title>Bat. Surge Overdrive [X]</title>
+    <desc>While your backup battery is active, receive +10% weapon charge rate, +20% shield recharge rate and +5% evasion for each backup battery level. 
+Incompatible with performance upgrades.
+    
+		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>true</stackable>
+</augBlueprint>
+
+<augBlueprint name="UPG_LILY_BATTERY_SOLAR_POWER">
+    <title>Solar Battery</title>
+    <desc>YOU SHOULD NEVER SEE THIS</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>true</stackable>
+</augBlueprint>
+<augBlueprint name="EX_LILY_BATTERY_SOLAR_POWER">
+    <title>Solar Battery [X]</title>
+    <desc>When close to a sun, backup battery can be active indefinitely.
+    
+		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>true</stackable>
+</augBlueprint>
+
+
+
+
 
 
 
@@ -300,6 +397,80 @@
 
 
 
+<augBlueprint name="UPG_LILY_INFUSION_OVERLOADED_UNLOCK">
+    <title>Overloaded Infusions</title>
+    <desc>YOU SHOULD NEVER SEE THIS</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>true</stackable>
+</augBlueprint>
+<augBlueprint name="UPG_LILY_INFUSION_CHAOTIC_UNLOCK">
+    <title>Chaotic Infusions</title>
+    <desc>YOU SHOULD NEVER SEE THIS</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>true</stackable>
+</augBlueprint>
+<augBlueprint name="UPG_LILY_INFUSION_FIREBORNE_UNLOCK">
+    <title>Fireborne Infusions</title>
+    <desc>YOU SHOULD NEVER SEE THIS</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>true</stackable>
+</augBlueprint>
+<augBlueprint name="UPG_LILY_INFUSION_EXPLOSIVE_UNLOCK">
+    <title>Explosive Infusions</title>
+    <desc>YOU SHOULD NEVER SEE THIS</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>true</stackable>
+</augBlueprint>
+<augBlueprint name="UPG_LILY_INFUSION_PHOENIX_UNLOCK">
+    <title>Phoenix Infusions</title>
+    <desc>YOU SHOULD NEVER SEE THIS</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>true</stackable>
+</augBlueprint>
+
+<augBlueprint name="UPG_LILY_SICKNESS_RECOVERY">
+    <title>Sickness Treatment</title>
+    <desc>YOU SHOULD NEVER SEE THIS</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>true</stackable>
+</augBlueprint>
+<augBlueprint name="EX_LILY_SICKNESS_RECOVERY">
+    <title>Sickness Treatment [X]</title>
+    <desc>Crew in the Infusion Bay recover from their Infusion Sickness at an increased rate, corresponding to its current power.
+1 Power: 1.75x Infusion Sickness recovery rate.
+2 Power: 2.5x Infusion Sickness recovery rate.
+3 Power: 3.25x Infusion Sickness recovery rate.
+    
+		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>true</stackable>
+</augBlueprint>
+
+
+
+<augBlueprint name="UPG_LILY_INFUSION_HAVEN">
+    <title>Safe Haven Protocols</title>
+    <desc>YOU SHOULD NEVER SEE THIS</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>true</stackable>
+</augBlueprint>
+<augBlueprint name="EX_LILY_INFUSION_HAVEN">
+    <title>Safe Haven Protocols [X]</title>
+    <desc>Crew in the Infusion Bay become immune to suffocation and fires, and recover extra 1 HP/s.
+    
+		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>true</stackable>
+</augBlueprint>
 
 <!--
     1) Aux. Compact Reactor:
@@ -380,14 +551,13 @@ Core overclock and Parallel processing are mutually exclusive
     <stackable>false</stackable>
 </augBlueprint>
 
-
-
-
-
-
-
-
-
+<augBlueprint name="BOON_LILY_INFUSION_BAY">
+    <title>Infusion Bay Grant</title>
+    <desc>YOU SHOULD NEVER SEE THIS</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>false</stackable>
+</augBlueprint>
 
 
 

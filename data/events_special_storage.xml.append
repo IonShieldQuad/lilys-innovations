@@ -5,6 +5,10 @@
         <text>Ablative Armor.</text>
         <event load="STORAGE_CHECK_SYSTEM_LILY_ABLATIVE_ARMOR"/>
     </mod-append:choice>
+    <mod-append:choice req="lily_infusion_bay" hidden="true" blue="false">
+        <text>Infusion Bay.</text>
+        <event load="STORAGE_CHECK_SYSTEM_LILY_INFUSION_BAY"/>
+    </mod-append:choice>
     <mod-append:choice req="lily_shock_neutralizer" hidden="true" blue="false">
         <text>Shock Neutralizer.</text>
         <event load="STORAGE_CHECK_SYSTEM_LILY_SHOCK_NEUTRALIZER"/>
@@ -14,7 +18,7 @@
         <mod:removeTag/>
     </mod:findLike>
     <mod-append:choice req="oxygen" hidden="true" blue="false">
-        <text>Oxygen.</text>
+        <text>Life Support.</text>
         <event load="STORAGE_CHECK_SYSTEM_OXYGEN"/>
     </mod-append:choice>
 </mod:findName>
@@ -41,6 +45,114 @@
         <event load="STORAGE_CHECK_SYSTEM_DRONES_LILY_DRONE_BOARDING_SMART"/>
     </mod-append:choice>
 </mod:findName>
+
+<mod:findName type="event" name="STORAGE_CHECK_SYSTEM_DOORS">
+    <mod-append:choice req="UPG_LILY_BUNKER_DOORS" lvl="1" max_group="5" blue="false" hidden="true">
+        <text>Fortifications. [ALREADY INSTALLED]</text>
+        <event load="OPTION_INVALID"/>
+    </mod-append:choice>
+    <mod-append:choice req="UPG_LILY_BUNKER_DOORS" lvl="0" max_group="5" blue="false" hidden="true">
+        <text>Fortifications. [Cost: 30~]</text>
+        <event load="STORAGE_CHECK_SYSTEM_DOORS_LILY_DOORS_BUNKER"/>
+    </mod-append:choice>
+    <mod-append:choice req="UPG_LILY_DOORS_FAILSAFE" lvl="1" max_group="6" blue="false" hidden="true">
+        <text>Failsafe. [ALREADY INSTALLED]</text>
+        <event load="OPTION_INVALID"/>
+    </mod-append:choice>
+    <mod-append:choice req="UPG_LILY_DOORS_FAILSAFE" lvl="0" max_group="6" blue="false" hidden="true">
+        <text>Failsafe. [Cost: 10~, 1|]</text>
+        <event load="STORAGE_CHECK_SYSTEM_DOORS_LILY_DOORS_FAILSAFE"/>
+    </mod-append:choice>
+</mod:findName>
+
+
+<event name="STORAGE_CHECK_SYSTEM_DOORS_LILY_DOORS_BUNKER">
+    <text>You are about to install the Fortifications upgrade.
+	[Effects: Allied crew in Doors room take half damage from all sources, and enemy crew sabotage it at half speed.]</text>
+
+    <choice req="doors" lvl="2" max_group="0" blue="false" hidden="true">
+        <text>Perform the upgrade. [Cost: 30~]</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <item_modify>
+                <item type="scrap" min="-30" max="-30"/>
+            </item_modify>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_BUNKER_DOORS"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="doors" max_group="0" blue="false" hidden="true">
+        <text>This upgrade is unavailable. You need Doors level 2.</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="EX_LILY_BUNKER_DOORS" max_group="1" blue="false" hidden="true">
+        <text>Install the External Augment internally.</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <remove name="EX_LILY_BUNKER_DOORS"/>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_BUNKER_DOORS"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="pilot" lvl="1" max_group="2" blue="false" hidden="true">
+        <text>Nevermind.</text>
+        <event load="STORAGE_CHECK_SYSTEM_LOAD"/>
+    </choice>
+</event>
+<event name="INSTALL_LILY_BUNKER_DOORS">
+    <variable name="loc_internal_upgrades" op="add" val="1"/>
+    <hiddenAug>UPG_LILY_BUNKER_DOORS</hiddenAug>
+    <loadEvent>STORAGE_CHECK_SYSTEM</loadEvent>
+</event>
+
+
+<event name="STORAGE_CHECK_SYSTEM_DOORS_LILY_DOORS_FAILSAFE">
+    <text>You are about to install the Failsafe upgrade.
+	[Effects: All doors and airlocks are automatically shut closed if Doors system is destroyed or disabled.]</text>
+
+    <choice req="doors" lvl="1" max_group="0" blue="false" hidden="true">
+        <text>Perform the upgrade. [Cost: 10~. 1|]</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <item_modify>
+                <item type="scrap" min="-30" max="-30"/>
+                <item type="drones" min="1" max="1"/>
+            </item_modify>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_DOORS_FAILSAFE"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="doors" max_group="0" blue="false" hidden="true">
+        <text>This upgrade is unavailable. You need Doors level 1.</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="EX_LILY_DOORS_FAILSAFE" max_group="1" blue="false" hidden="true">
+        <text>Install the External Augment internally.</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <remove name="EX_LILY_DOORS_FAILSAFE"/>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_DOORS_FAILSAFE"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="pilot" lvl="1" max_group="2" blue="false" hidden="true">
+        <text>Nevermind.</text>
+        <event load="STORAGE_CHECK_SYSTEM_LOAD"/>
+    </choice>
+</event>
+<event name="INSTALL_LILY_DOORS_FAILSAFE">
+    <variable name="loc_internal_upgrades" op="add" val="1"/>
+    <hiddenAug>UPG_LILY_DOORS_FAILSAFE</hiddenAug>
+    <loadEvent>STORAGE_CHECK_SYSTEM</loadEvent>
+</event>
 
 
 
@@ -566,7 +678,7 @@
 
 <event name="STORAGE_CHECK_SYSTEM_LILY_SHOCK_NEUTRALIZER_WIDE">
     <text>You are about to install the Expanded Field upgrade.
-	[Effects: Shock Neutralizer also provide half of its bonus to rooms adjancent to target. LvL 2 also provides bonus to diagonal rooms.]</text>
+	[Effects: Shock Neutralizer also provide half of its bonus to rooms adjacent to target. LvL 2 also provides bonus to diagonal rooms.]</text>
 
     <choice req="lily_shock_neutralizer" lvl="2" max_group="0" blue="false" hidden="true">
         <text>Perform the upgrade. [Cost: 80~, 5{, 5|]</text>
@@ -656,7 +768,7 @@
 
 
 <event name="STORAGE_CHECK_SYSTEM_LILY_SHOCK_NEUTRALIZER_STUN">
-    <text>You are about to install the Surge Protectors upgrade.
+    <text>You are about to install the Neural Neutralizer upgrade.
 	[Effects: Shock Neutralizer now also affects crew stun times.]</text>
 
     <choice req="lily_shock_neutralizer" lvl="1" max_group="0" blue="false" hidden="true">
@@ -701,6 +813,431 @@
 </event>
 
 
+
+
+<event name="STORAGE_CHECK_SYSTEM_LILY_INFUSION_BAY">
+    <text>What upgrade do you want to install?</text>
+    <choice req="UPG_LILY_INFUSION_OVERLOADED_UNLOCK" lvl="1" blue="false" hidden="true">
+        <text>Overloaded Infusions. [ALREADY INSTALLED]</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="UPG_LILY_INFUSION_CHAOTIC_UNLOCK" lvl="1" blue="false" hidden="true">
+        <text>Chaotic Infusions. [ALREADY INSTALLED]</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="UPG_LILY_INFUSION_FIREBORNE_UNLOCK" lvl="1" blue="false" hidden="true">
+        <text>Fireborne Infusions. [ALREADY INSTALLED]</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="UPG_LILY_INFUSION_EXPLOSIVE_UNLOCK" lvl="1" blue="false" hidden="true">
+        <text>Explosive Infusions. [ALREADY INSTALLED]</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="UPG_LILY_INFUSION_PHOENIX_UNLOCK" lvl="1" blue="false" hidden="true">
+        <text>Phoenix Infusions. [ALREADY INSTALLED]</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="INFUSION_BAY_FOURTH" lvl="1" blue="false" hidden="true">
+        <text>Dismantle the installed extra infusions to free up the slot for other ones.</text>
+        <event load="STORAGE_CHECK_SYSTEM_LILY_INFUSION_BAY_UNINSTALL_FOURTH"/>
+    </choice>
+    <choice req="INFUSION_BAY_FOURTH" lvl="0" max_lvl="0" blue="false" hidden="true">
+        <text>Install extra infusions in the fourth slot of the system.</text>
+        <event load="STORAGE_CHECK_SYSTEM_LILY_INFUSION_BAY_INSTALL_FOURTH"/>
+    </choice>
+
+
+    <choice req="UPG_LILY_SICKNESS_RECOVERY" lvl="1" max_group="1" blue="false" hidden="true">
+        <text>Sickness Treatment. [ALREADY INSTALLED]</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="UPG_LILY_SICKNESS_RECOVERY" lvl="0" max_group="1" blue="false" hidden="true">
+        <text>Sickness Treatment. [Cost: 40~, 3{]</text>
+        <event load="STORAGE_CHECK_SYSTEM_LILY_INFUSION_BAY_RECOVERY"/>
+    </choice>
+
+    <choice req="UPG_LILY_INFUSION_HAVEN" lvl="1" max_group="2" blue="false" hidden="true">
+        <text>Safe Haven Protocols. [ALREADY INSTALLED]</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="UPG_LILY_INFUSION_HAVEN" lvl="0" max_group="2" blue="false" hidden="true">
+        <text>Safe Haven Protocols. [Cost: 20~, 3|]</text>
+        <event load="STORAGE_CHECK_SYSTEM_LILY_INFUSION_BAY_HAVEN"/>
+    </choice>
+
+    <choice>
+        <text>Nevermind.</text>
+        <event load="STORAGE_CHECK_SYSTEM_LOAD"/>
+    </choice>
+</event>
+
+
+
+<event name="STORAGE_CHECK_SYSTEM_LILY_INFUSION_BAY_RECOVERY">
+    <text>You are about to install the Sickness Treatment upgrade.
+	[Effects: Crew in the Infusion Bay recover from their Infusion Sickness at an increased rate, corresponding to its current power.
+1 Power: 1.75x Infusion Sickness recovery rate.
+2 Power: 2.5x Infusion Sickness recovery rate.
+3 Power: 3.25x Infusion Sickness recovery rate.]</text>
+
+    <choice req="lily_infusion_bay" lvl="2" max_group="0" blue="false" hidden="true">
+        <text>Perform the upgrade. [Cost: 40~, 3{]</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <item_modify>
+                <item type="scrap" min="-40" max="-40"/>
+                <item type="fuel" min="-3" max="-3"/>
+            </item_modify>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_SICKNESS_RECOVERY"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="lily_infusion_bay" max_group="0" blue="false" hidden="true">
+        <text>This upgrade is unavailable. You need Infusion bay level 2.</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="EX_LILY_SICKNESS_RECOVERY" max_group="1" blue="false" hidden="true">
+        <text>Install the External Augment internally.</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <remove name="EX_LILY_SICKNESS_RECOVERY"/>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_SICKNESS_RECOVERY"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="pilot" lvl="1" max_group="2" blue="false" hidden="true">
+        <text>Nevermind.</text>
+        <event load="STORAGE_CHECK_SYSTEM_LOAD"/>
+    </choice>
+</event>
+<event name="INSTALL_LILY_SICKNESS_RECOVERY">
+    <variable name="loc_internal_upgrades" op="add" val="1"/>
+    <hiddenAug>UPG_LILY_SICKNESS_RECOVERY</hiddenAug>
+    <loadEvent>STORAGE_CHECK_SYSTEM</loadEvent>
+</event>
+
+
+<event name="STORAGE_CHECK_SYSTEM_LILY_INFUSION_BAY_HAVEN">
+    <text>You are about to install the Safe Haven Protocols upgrade.
+	[Effects: Crew in the Infusion Bay become immune to suffocation and fires, and recover extra 1 HP/s.]</text>
+
+    <choice req="lily_infusion_bay" lvl="1" max_group="0" blue="false" hidden="true">
+        <text>Perform the upgrade. [Cost: 20~, 3|]</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <item_modify>
+                <item type="scrap" min="-20" max="-20"/>
+                <item type="drones" min="-3" max="-3"/>
+            </item_modify>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_INFUSION_HAVEN"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="lily_infusion_bay" max_group="0" blue="false" hidden="true">
+        <text>This upgrade is unavailable. You need Infusion bay level 1.</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="EX_LILY_INFUSION_HAVEN" max_group="1" blue="false" hidden="true">
+        <text>Install the External Augment internally.</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <remove name="EX_LILY_INFUSION_HAVEN"/>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_INFUSION_HAVEN"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="pilot" lvl="1" max_group="2" blue="false" hidden="true">
+        <text>Nevermind.</text>
+        <event load="STORAGE_CHECK_SYSTEM_LOAD"/>
+    </choice>
+</event>
+<event name="INSTALL_LILY_INFUSION_HAVEN">
+    <variable name="loc_internal_upgrades" op="add" val="1"/>
+    <hiddenAug>UPG_LILY_INFUSION_HAVEN</hiddenAug>
+    <loadEvent>STORAGE_CHECK_SYSTEM</loadEvent>
+</event>
+
+<event name="STORAGE_CHECK_SYSTEM_LILY_INFUSION_BAY_UNINSTALL_FOURTH">
+    <text>Are you sure you want to uninstall the fourth slot infusions? No refunds.</text>
+    <choice hidden="true">
+        <text>Yes, I understand the implications and wish to proceed.</text>
+        <event load="STORAGE_CHECK_SYSTEM_LILY_INFUSION_BAY_UNINSTALL_FOURTH_REAL"/>
+    </choice>
+    <choice>
+        <text>Nevermind.</text>
+        <event load="STORAGE_CHECK_SYSTEM_LOAD"/>
+    </choice>
+</event>
+
+<event name="STORAGE_CHECK_SYSTEM_LILY_INFUSION_BAY_UNINSTALL_FOURTH_REAL">
+    <loadEventList first="true" default="STORAGE_CHECK_SYSTEM_LOAD">
+        <event name="STORAGE_CHECK_SYSTEM_LILY_INFUSION_BAY_UNINSTALL_OVERLOADED" req="UPG_LILY_INFUSION_OVERLOADED_UNLOCK" lvl="1"/>
+        <event name="STORAGE_CHECK_SYSTEM_LILY_INFUSION_BAY_UNINSTALL_CHAOTIC" req="UPG_LILY_INFUSION_CHAOTIC_UNLOCK" lvl="1"/>
+        <event name="STORAGE_CHECK_SYSTEM_LILY_INFUSION_BAY_UNINSTALL_FIREBORNE" req="UPG_LILY_INFUSION_FIREBORNE_UNLOCK" lvl="1"/>
+        <event name="STORAGE_CHECK_SYSTEM_LILY_INFUSION_BAY_UNINSTALL_EXPLOSIVE" req="UPG_LILY_INFUSION_EXPLOSIVE_UNLOCK" lvl="1"/>
+        <event name="STORAGE_CHECK_SYSTEM_LILY_INFUSION_BAY_UNINSTALL_PHOENIX" req="UPG_LILY_INFUSION_PHOENIX_UNLOCK" lvl="1"/>
+    </loadEventList>
+</event>
+
+<event name="STORAGE_CHECK_SYSTEM_LILY_INFUSION_BAY_UNINSTALL_OVERLOADED">
+    <text>You successfully uninstall the extra infusions.</text>
+    <remove name="HIDDEN UPG_LILY_INFUSION_OVERLOADED_UNLOCK"/>
+    <choice>
+        <text>Continue...</text>
+        <event load="STORAGE_CHECK_SYSTEM_LOAD"/>
+    </choice>
+</event>
+<event name="STORAGE_CHECK_SYSTEM_LILY_INFUSION_BAY_UNINSTALL_CHAOTIC">
+    <text>You successfully uninstall the extra infusions.</text>
+    <remove name="HIDDEN UPG_LILY_INFUSION_CHAOTIC_UNLOCK"/>
+    <choice>
+        <text>Continue...</text>
+        <event load="STORAGE_CHECK_SYSTEM_LOAD"/>
+    </choice>
+</event>
+<event name="STORAGE_CHECK_SYSTEM_LILY_INFUSION_BAY_UNINSTALL_FIREBORNE">
+    <text>You successfully uninstall the extra infusions.</text>
+    <remove name="HIDDEN UPG_LILY_INFUSION_FIREBORNE_UNLOCK"/>
+    <choice>
+        <text>Continue...</text>
+        <event load="STORAGE_CHECK_SYSTEM_LOAD"/>
+    </choice>
+</event>
+<event name="STORAGE_CHECK_SYSTEM_LILY_INFUSION_BAY_UNINSTALL_EXPLOSIVE">
+    <text>You successfully uninstall the extra infusions.</text>
+    <remove name="HIDDEN UPG_LILY_INFUSION_EXPLOSIVE_UNLOCK"/>
+    <choice>
+        <text>Continue...</text>
+        <event load="STORAGE_CHECK_SYSTEM_LOAD"/>
+    </choice>
+</event>
+<event name="STORAGE_CHECK_SYSTEM_LILY_INFUSION_BAY_UNINSTALL_PHOENIX">
+    <text>You successfully uninstall the extra infusions.</text>
+    <remove name="HIDDEN UPG_LILY_INFUSION_PHOENIX_UNLOCK"/>
+    <choice>
+        <text>Continue...</text>
+        <event load="STORAGE_CHECK_SYSTEM_LOAD"/>
+    </choice>
+</event>
+
+
+<event name="STORAGE_CHECK_SYSTEM_LILY_INFUSION_BAY_INSTALL_FOURTH">
+    <text>Which infusions do you want to install? [Mutually Exclusive]</text>
+    <choice req="UPG_LILY_INFUSION_OVERLOADED_UNLOCK" lvl="0" blue="false" hidden="true">
+        <text>Overloaded Infusions. [50~, 5{]</text>
+        <event load="STORAGE_CHECK_SYSTEM_LILY_INFUSION_BAY_OVERLOADED"/>
+    </choice>
+    <choice req="UPG_LILY_INFUSION_CHAOTIC_UNLOCK" lvl="0" blue="false" hidden="true">
+        <text>Chaotic Infusions. [20~, 5{, 5}, 5|]</text>
+        <event load="STORAGE_CHECK_SYSTEM_LILY_INFUSION_BAY_CHAOTIC"/>
+    </choice>
+    <choice req="UPG_LILY_INFUSION_FIREBORNE_UNLOCK" lvl="0" blue="false" hidden="true">
+        <text>Fireborne Infusions. [40~, 3{, 4}]</text>
+        <event load="STORAGE_CHECK_SYSTEM_LILY_INFUSION_BAY_FIREBORNE"/>
+    </choice>
+    <choice req="UPG_LILY_INFUSION_EXPLOSIVE_UNLOCK" lvl="0" blue="false" hidden="true">
+        <text>Explosive Infusions. [50~, 8}]</text>
+        <event load="STORAGE_CHECK_SYSTEM_LILY_INFUSION_BAY_EXPLOSIVE"/>
+    </choice>
+    <choice req="UPG_LILY_INFUSION_PHOENIX_UNLOCK" lvl="0" blue="false" hidden="true">
+        <text>Phoenix Infusions. [50~, 5|]</text>
+        <event load="STORAGE_CHECK_SYSTEM_LILY_INFUSION_BAY_PHOENIX"/>
+    </choice>
+
+
+    <choice>
+        <text>Nevermind.</text>
+        <event load="STORAGE_CHECK_SYSTEM_LOAD"/>
+    </choice>
+</event>
+
+<event name="STORAGE_CHECK_SYSTEM_LILY_INFUSION_BAY_OVERLOADED">
+    <text>You are about to install the Overloaded Infusions upgrade.
+	[Infusion Effects: Stuns self and all nearby crew for 5s and deals 2 ion damage to system. Systems on your ship have 1 ion removed instead.
+30 HP/% heal, 21 second sickness.]</text>
+
+    <choice req="lily_infusion_bay" lvl="1" max_group="0" blue="false" hidden="true">
+        <text>Perform the upgrade. [Cost: 50~, 5{]</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <item_modify>
+                <item type="scrap" min="-50" max="-50"/>
+                <item type="fuel" min="-5" max="-5"/>
+            </item_modify>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_INFUSION_OVERLOADED"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="lily_infusion_bay" max_group="0" blue="false" hidden="true">
+        <text>This upgrade is unavailable. You need Infusion bay level 1.</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="pilot" lvl="1" max_group="2" blue="false" hidden="true">
+        <text>Nevermind.</text>
+        <event load="STORAGE_CHECK_SYSTEM_LOAD"/>
+    </choice>
+</event>
+<event name="INSTALL_LILY_INFUSION_OVERLOADED">
+    <variable name="loc_internal_upgrades" op="add" val="1"/>
+    <hiddenAug>UPG_LILY_INFUSION_OVERLOADED_UNLOCK</hiddenAug>
+    <loadEvent>STORAGE_CHECK_SYSTEM</loadEvent>
+</event>
+
+
+<event name="STORAGE_CHECK_SYSTEM_LILY_INFUSION_BAY_CHAOTIC">
+    <text>You are about to install the Chaotic Infusions upgrade.
+	[Infusion Effects: Applies an effect of a random other infusion. Hopefully there isn't any adverse effects on your crew.
+15 - 45 HP/% heal, 7 second sickness.]</text>
+
+    <choice req="lily_infusion_bay" lvl="1" max_group="0" blue="false" hidden="true">
+        <text>Perform the upgrade. [20~, 5{, 5}, 5|]</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <item_modify>
+                <item type="scrap" min="-20" max="-20"/>
+                <item type="fuel" min="-5" max="-5"/>
+                <item type="missiles" min="-5" max="-5"/>
+                <item type="drones" min="-5" max="-5"/>
+
+            </item_modify>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_INFUSION_CHAOTIC"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="lily_infusion_bay" max_group="0" blue="false" hidden="true">
+        <text>This upgrade is unavailable. You need Infusion bay level 1.</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="pilot" lvl="1" max_group="2" blue="false" hidden="true">
+        <text>Nevermind.</text>
+        <event load="STORAGE_CHECK_SYSTEM_LOAD"/>
+    </choice>
+</event>
+<event name="INSTALL_LILY_INFUSION_CHAOTIC">
+    <variable name="loc_internal_upgrades" op="add" val="1"/>
+    <hiddenAug>UPG_LILY_INFUSION_CHAOTIC_UNLOCK</hiddenAug>
+    <loadEvent>STORAGE_CHECK_SYSTEM</loadEvent>
+</event>
+
+
+<event name="STORAGE_CHECK_SYSTEM_LILY_INFUSION_BAY_FIREBORNE">
+    <text>You are about to install the Fireborne Infusions upgrade.
+	[Infusion Effects: Starts a fire in current room. Grants ability to heal from fires for the duration, but also makes your crew suffocate at rapid speed, even if they are normally immune.
+15 HP/% heal, 21 second sickness.]</text>
+
+    <choice req="lily_infusion_bay" lvl="1" max_group="0" blue="false" hidden="true">
+        <text>Perform the upgrade. [Cost: 40~, 3{, 4}]</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <item_modify>
+                <item type="scrap" min="-40" max="-40"/>
+                <item type="fuel" min="-3" max="-3"/>
+                <item type="missiles" min="-4" max="-4"/>
+            </item_modify>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_INFUSION_FIREBORNE"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="lily_infusion_bay" max_group="0" blue="false" hidden="true">
+        <text>This upgrade is unavailable. You need Infusion bay level 1.</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="pilot" lvl="1" max_group="2" blue="false" hidden="true">
+        <text>Nevermind.</text>
+        <event load="STORAGE_CHECK_SYSTEM_LOAD"/>
+    </choice>
+</event>
+<event name="INSTALL_LILY_INFUSION_FIREBORNE">
+    <variable name="loc_internal_upgrades" op="add" val="1"/>
+    <hiddenAug>UPG_LILY_INFUSION_FIREBORNE_UNLOCK</hiddenAug>
+    <loadEvent>STORAGE_CHECK_SYSTEM</loadEvent>
+</event>
+
+
+<event name="STORAGE_CHECK_SYSTEM_LILY_INFUSION_BAY_EXPLOSIVE">
+    <text>You are about to install the Explosive Infusions upgrade.
+	[Infusion Effects: Explodes, damaging all enemies in the room by 30 HP. System on enemy ships take 1 damage, while on your ship are repaired by 1 bar instead. <!--Grants lingering 3 HP/s regeneration for the duration.-->
+0 HP/% heal, 14 second sickness.]</text>
+
+    <choice req="lily_infusion_bay" lvl="1" max_group="0" blue="false" hidden="true">
+        <text>Perform the upgrade. [50~, 8}]</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <item_modify>
+                <item type="scrap" min="-50" max="-50"/>
+                <item type="missiles" min="-8" max="-8"/>
+            </item_modify>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_INFUSION_EXPLOSIVE"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="lily_infusion_bay" max_group="0" blue="false" hidden="true">
+        <text>This upgrade is unavailable. You need Infusion bay level 1.</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="pilot" lvl="1" max_group="2" blue="false" hidden="true">
+        <text>Nevermind.</text>
+        <event load="STORAGE_CHECK_SYSTEM_LOAD"/>
+    </choice>
+</event>
+<event name="INSTALL_LILY_INFUSION_EXPLOSIVE">
+    <variable name="loc_internal_upgrades" op="add" val="1"/>
+    <hiddenAug>UPG_LILY_INFUSION_EXPLOSIVE_UNLOCK</hiddenAug>
+    <loadEvent>STORAGE_CHECK_SYSTEM</loadEvent>
+</event>
+
+
+<event name="STORAGE_CHECK_SYSTEM_LILY_INFUSION_BAY_PHOENIX">
+    <text>You are about to install the Phoenix Infusions upgrade.
+	[Infusion Effects: Crew cannot die during the duration. If they take damage that would normally kill them, they are instead healed to full health and teleported to the Infusion Bay. When this effect triggers, the Infusion Bay takes 1 unresistable ion damage with double lockout duration. Won't save your boarders if enemy ship explodes.
+15 HP/% heal, 21 second sickness.]</text>
+
+    <choice req="lily_infusion_bay" lvl="1" max_group="0" blue="false" hidden="true">
+        <text>Perform the upgrade. [Cost: 50~, 5|]</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <item_modify>
+                <item type="scrap" min="-50" max="-50"/>
+                <item type="drones" min="-5" max="-5"/>
+            </item_modify>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_INFUSION_PHOENIX"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="lily_infusion_bay" max_group="0" blue="false" hidden="true">
+        <text>This upgrade is unavailable. You need Infusion bay level 1.</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="pilot" lvl="1" max_group="2" blue="false" hidden="true">
+        <text>Nevermind.</text>
+        <event load="STORAGE_CHECK_SYSTEM_LOAD"/>
+    </choice>
+</event>
+<event name="INSTALL_LILY_INFUSION_PHOENIX">
+    <variable name="loc_internal_upgrades" op="add" val="1"/>
+    <hiddenAug>UPG_LILY_INFUSION_PHOENIX_UNLOCK</hiddenAug>
+    <loadEvent>STORAGE_CHECK_SYSTEM</loadEvent>
+</event>
+
+
 <event name="STORAGE_CHECK_SYSTEM_OXYGEN">
     <text>What upgrade do you want to install?</text>
 
@@ -716,6 +1253,15 @@
         <text>Advanced Ventilation LvL 1. [Cost: 30~]</text>
         <event load="STORAGE_CHECK_SYSTEM_OXYGEN_CREW_OXYGEN"/>
     </choice>
+
+    <mod-append:choice req="UPG_LILY_OXYGEN_BACKUP" lvl="1" max_group="6" blue="false" hidden="true">
+        <text>Backup Oxygen. [ALREADY INSTALLED]</text>
+        <event load="OPTION_INVALID"/>
+    </mod-append:choice>
+    <mod-append:choice req="UPG_LILY_OXYGEN_BACKUP" lvl="0" max_group="6" blue="false" hidden="true">
+        <text>Backup Oxygen. [Cost: 10~, 2{]</text>
+        <event load="STORAGE_CHECK_SYSTEM_DOORS_LILY_OXYGEN_BACKUP"/>
+    </mod-append:choice>
 
     <choice>
         <text>Nevermind.</text>
@@ -743,7 +1289,7 @@
         </event>
     </choice>
     <choice req="oxygen" max_group="0" blue="false" hidden="true">
-        <text>This upgrade is unavailable. You need Oxygen level 2.</text>
+        <text>This upgrade is unavailable. You need Oxygen level 1.</text>
         <event load="OPTION_INVALID"/>
     </choice>
     <choice req="CREW_OXYGEN" max_group="1" blue="false" hidden="true">
@@ -767,6 +1313,177 @@
     <hiddenAug>UPG_CREW_OXYGEN</hiddenAug>
     <loadEvent>STORAGE_CHECK_SYSTEM</loadEvent>
 </event>
+
+<event name="STORAGE_CHECK_SYSTEM_DOORS_LILY_OXYGEN_BACKUP">
+    <text>You are about to install the Oxygen Backup upgrade.
+	[Effects: Life Support system provides a tiny amount of oxygen in the system room even if it's destroyed or disabled.]</text>
+
+    <choice req="oxygen" lvl="1" max_group="0" blue="false" hidden="true">
+        <text>Perform the upgrade. [Cost: 10~, 2{]</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <item_modify>
+                <item type="scrap" min="-10" max="-10"/>
+                <item type="fuel" min="-2" max="-2"/>
+            </item_modify>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_OXYGEN_BACKUP"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="oxygen" max_group="0" blue="false" hidden="true">
+        <text>This upgrade is unavailable. You need Oxygen level 1.</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="EX_LILY_OXYGEN_BACKUP" max_group="1" blue="false" hidden="true">
+        <text>Install the External Augment internally.</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <remove name="EX_LILY_OXYGEN_BACKUP"/>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_OXYGEN_BACKUP"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="pilot" lvl="1" max_group="2" blue="false" hidden="true">
+        <text>Nevermind.</text>
+        <event load="STORAGE_CHECK_SYSTEM_LOAD"/>
+    </choice>
+</event>
+<event name="INSTALL_LILY_OXYGEN_BACKUP">
+    <variable name="loc_internal_upgrades" op="add" val="1"/>
+    <hiddenAug>UPG_LILY_OXYGEN_BACKUP</hiddenAug>
+    <loadEvent>STORAGE_CHECK_SYSTEM</loadEvent>
+</event>
+
+
+
+
+<!--
+
+
+<mod:findName type="event" name="STORAGE_CHECK_SYSTEM_BATTERY">
+    <mod:findLike type="choice">
+        <mod:selector req="UPG_BATTERY_BOOSTER"/>
+        <mod:setAttributes req="LILY_BATTERY_ADVANCED" />
+    </mod:findLike>
+    <mod-append:choice req="LILY_BATTERY_ADVANCED" lvl="1" max_group="5" blue="false" hidden="true">
+        <text>Surge Overdrive. [UNAVAILABLE]</text>
+        <event load="OPTION_INVALID"/>
+    </mod-append:choice>
+    <mod-append:choice req="LILY_BATTERY_ADVANCED" lvl="0" max_group="5" blue="false" hidden="true">
+        <text>Surge Overdrive. [Cost: 50~, 5{, 5}, 5|]</text>
+        <event load="STORAGE_CHECK_SYSTEM_BATTERY_SURGE_OVERDRIVE"/>
+    </mod-append:choice>
+    <mod-append:choice req="UPG_LILY_BATTERY_SOLAR_POWER" lvl="1" max_group="6" blue="false" hidden="true">
+        <text>Solar Battery. [ALREADY INSTALLED]</text>
+        <event load="OPTION_INVALID"/>
+    </mod-append:choice>
+    <mod-append:choice req="UPG_LILY_BATTERY_SOLAR_POWER" lvl="0" max_group="6" blue="false" hidden="true">
+        <text>Solar Battery. [Cost: 20~, 3|]</text>
+        <event load="STORAGE_CHECK_SYSTEM_BATTERY_SOLAR_POWER"/>
+    </mod-append:choice>
+</mod:findName>
+
+
+<event name="STORAGE_CHECK_SYSTEM_BATTERY_SURGE_OVERDRIVE">
+    <text>You are about to install the Surge Overdrive upgrade.
+	[Effects: While your backup battery is active, receive +10% weapon charge rate, +20% shield recharge rate and +5% evasion for each backup battery level. 
+Incompatible with battery performance upgrades.]</text>
+
+    <choice req="battery" lvl="2" max_group="0" blue="false" hidden="true">
+        <text>Perform the upgrade. [Cost: 50~, 5{, 5}, 5|]</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <item_modify>
+                <item type="scrap" min="-50" max="-50"/>
+                <item type="fuel" min="-5" max="-5"/>
+                <item type="missiles" min="-5" max="-5"/>
+                <item type="drones" min="-5" max="-5"/>
+            </item_modify>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_BATTERY_SURGE_OVERDRIVE"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="battery" max_group="0" blue="false" hidden="true">
+        <text>This upgrade is unavailable. You need Backup Battery level 2.</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="EX_LILY_BATTERY_SURGE_OVERDRIVE" max_group="1" blue="false" hidden="true">
+        <text>Install the External Augment internally.</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <remove name="EX_LILY_BATTERY_SURGE_OVERDRIVE"/>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_BATTERY_SURGE_OVERDRIVE"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="pilot" lvl="1" max_group="2" blue="false" hidden="true">
+        <text>Nevermind.</text>
+        <event load="STORAGE_CHECK_SYSTEM_LOAD"/>
+    </choice>
+</event>
+<event name="INSTALL_LILY_BATTERY_SURGE_OVERDRIVE">
+    <variable name="loc_internal_upgrades" op="add" val="1"/>
+    <hiddenAug>UPG_LILY_BATTERY_SURGE_OVERDRIVE</hiddenAug>
+    <loadEvent>STORAGE_CHECK_SYSTEM</loadEvent>
+</event>
+
+
+<event name="STORAGE_CHECK_SYSTEM_BATTERY_SOLAR_POWER">
+    <text>You are about to install the Solar Battery upgrade.
+	[Effects: When close to a sun, backup battery can be active indefinitely.]</text>
+
+    <choice req="battery" lvl="1" max_group="0" blue="false" hidden="true">
+        <text>Perform the upgrade. [Cost: 20~, 3|]</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <item_modify>
+                <item type="scrap" min="-20" max="-20"/>
+                <item type="drones" min="-3" max="-3"/>
+            </item_modify>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_BATTERY_SOLAR_POWER"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="battery" max_group="0" blue="false" hidden="true">
+        <text>This upgrade is unavailable. You need Backup Battery level 1.</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="EX_LILY_BATTERY_SOLAR_POWER" max_group="1" blue="false" hidden="true">
+        <text>Install the External Augment internally.</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <remove name="EX_LILY_BATTERY_SOLAR_POWER"/>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_BATTERY_SOLAR_POWER"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="pilot" lvl="1" max_group="2" blue="false" hidden="true">
+        <text>Nevermind.</text>
+        <event load="STORAGE_CHECK_SYSTEM_LOAD"/>
+    </choice>
+</event>
+<event name="INSTALL_LILY_BATTERY_SOLAR_POWER">
+    <variable name="loc_internal_upgrades" op="add" val="1"/>
+    <hiddenAug>UPG_LILY_BATTERY_SOLAR_POWER</hiddenAug>
+    <loadEvent>STORAGE_CHECK_SYSTEM</loadEvent>
+</event>
+
+
+
+-->
+
 
 
 <mod:findName type="event" name="COMBAT_CHECK_TOGGLE">
