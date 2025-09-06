@@ -133,6 +133,14 @@ local function get_taken_infusions_count(shipManager)
     return count
 end
 
+---@param crew Hyperspace.CrewMember
+---@param amount integer 1 - small healing, 2 - medium healing, 3 - large healing
+local function healCrewmember(crew, amount)
+    amount = math.max(amount, 0)
+
+    local healing = math.max(amount * 15, crew:GetMaxHealth() * 0.15 * amount)
+    crew:DirectModifyHealth(healing)
+end
 
 -- -13, 64
 local lily_infusion_bayBaseOffset_x = 37    --35
@@ -279,10 +287,10 @@ local function lily_infusion_bay_construct_system_box(systemBox)
         tooltips["gaseous"] = "Grants Suffocation/fire/mind control immunity, same-ship teleporation, but combat damage is reduced to 0.5x. 30 HP/% heal, 7 second sickness."
         tooltips["locked"] = "None."
         tooltips["overloaded"] = "Stuns self and all nearby crew for 5s and deals 2 ion damage to system. Systems on your ship have 1 ion removed instead. 30 HP/% heal, 21 second sickness."
-        tooltips["chaotic"] = "Applies an effect of a random other infusion. Hopefully there isn't any adverse effects on your crew. 15 - 45 HP/% heal, 7 second sickness."
+        tooltips["chaotic"] = "Applies an effect of a random other infusion. Hopefully there isn't any adverse effects on your crew. 15 - 75 HP/% heal, 7 second sickness."
         tooltips["fireborne"] = "Starts a fire in current room. Grants ability to heal from fires for the duration, but also makes your crew suffocate at rapid speed, even if they are normally immune. 15 HP/% heal, 21 second sickness."
         tooltips["explosive"] = "Explodes, damaging all enemies in the room by 15 HP. System on enemy ships take 1 damage, while on your ship are repaired by 1 bar instead. 15 HP/% heal, 14 second sickness." --Grants lingering 3 HP/s regeneration for the duration. 
-        tooltips["phoenix"] = "Crew cannot die during the duration. If they take damage that would normally kill them, they are instead healed to full health and teleported to the Infusion Bay. When this effect triggers, the Infusion Bay takes 1 unresistable ion damage with double lockout duration. Won't save your boarders if enemy ship explodes. 15 HP/% heal, 21 second sickness."
+        tooltips["phoenix"] = "Crew cannot die during the duration. If they take damage that would normally kill them, they are instead healed to full health and teleported to the Infusion Bay. When this effect triggers, allies in the same room get healed by 30 HP/%, and the Infusion Bay takes 1 unresistable ion damage with double lockout duration. Won't save your boarders if enemy ship explodes. 15 HP/% heal, 14 second sickness."
     end
 end
 
@@ -735,7 +743,14 @@ script.on_internal_event(Defines.InternalEvents.CREW_LOOP, function(crew)
             if type == "phoenix" or type == "chaoticphoenix" and (not phoenixBlacklist[crew.species]) then
                 --local otherShipManager = Hyperspace.ships(1 - crew.iShipId)
                 if crew.health.first < 4 or crew.bDead then
-
+                    local currentShipManager = Hyperspace.ships(crew.currentShipId)
+                    for cr in vter(currentShipManager.vCrewList) do
+                        ---@type Hyperspace.CrewMember
+                        cr = cr
+                        if cr.iRoomId == crew.iRoomId and cr.iShipId == crew.iShipId then
+                            healCrewmember(cr, 2)
+                        end
+                    end
                     crew.bDead = false
                     crew.bOutOfGame = false
                     crew.bFrozen = false
@@ -894,14 +909,7 @@ mods.multiverse.systemIcons[Hyperspace.ShipSystem.NameToSystemId("lily_infusion_
 
 
 
----@param crew Hyperspace.CrewMember
----@param amount integer 1 - small healing, 2 - medium healing, 3 - large healing
-local function healCrewmember(crew, amount)
-    amount = math.max(math.min(amount, 3), 1)
 
-    local healing = math.max(amount * 15, crew:GetMaxHealth() * 0.15 * amount)
-    crew:DirectModifyHealth(healing)
-end
 
 ---@param crew Hyperspace.CrewMember
 ---@param name string Name of the infusion
@@ -909,7 +917,7 @@ end
 ---@param animationName string
 local function setInfusionData(crew, name, sickness, animationName)
     userdata_table(crew, "mods.lilyinno.infusionbay").infusionType = name
-    userdata_table(crew, "mods.lilyinno.infusionbay").sicknessAmount = math.min(math.max(sickness, 0), 3)
+    userdata_table(crew, "mods.lilyinno.infusionbay").sicknessAmount = math.max(sickness, 0)
     local timer = Hyperspace.TimerHelper(false)
     timer:Start_Float(15)
     userdata_table(crew, "mods.lilyinno.infusionbay").infusionTimer = timer
@@ -923,7 +931,7 @@ end
 ---@param amount integer 1 - 7s, 2 - 14s, 3 - 21s
 local function applySickness(crew, amount)
     userdata_table(crew, "mods.lilyinno.infusionbay").infusionType = "sickness"
-    userdata_table(crew, "mods.lilyinno.infusionbay").sicknessAmount = math.min(math.max(amount, 0), 3)
+    userdata_table(crew, "mods.lilyinno.infusionbay").sicknessAmount = math.max(amount, 0)
     local timer = Hyperspace.TimerHelper(false)
     timer:Start_Float(amount * 7)
     userdata_table(crew, "mods.lilyinno.infusionbay").infusionTimer = timer
@@ -1201,11 +1209,27 @@ local function activateOverloaded(crew)
 end
 functions["overloaded"] = activateOverloaded
 
-local chaoticlist = { "chaoticreconstitution", "chaoticcombatstimulant", "chaoticgaseous", "chaoticoverloaded", "chaoticfireborne", "chaoticexplosive", "chaoticphoenix"}
+local chaoticlist = { 
+    "chaoticreconstitution", 
+    "chaoticcombatstimulant", 
+    "chaoticgaseous", 
+    "chaoticoverloaded", 
+    "chaoticfireborne", 
+    "chaoticexplosive", 
+    "chaoticphoenix", 
+    "chaoticreconstitution",
+    "chaoticcombatstimulant",
+    "chaoticgaseous",
+    "chaoticoverloaded",
+    "chaoticfireborne",
+    "chaoticexplosive",
+    "chaoticphoenix",
+    --"chaoticsiren"
+}
 
 ---@param crew Hyperspace.CrewMember
 local function activateChaotic(crew)
-    healCrewmember(crew, math.random(1, 3))
+    healCrewmember(crew, math.random(1, 5))
     local currentShipManager = Hyperspace.ships(crew.currentShipId)
     local buff = chaoticlist[math.random(#chaoticlist)]
 
@@ -1274,6 +1298,10 @@ local function activateChaotic(crew)
         currentShipManager:StartFire(crew.iRoomId)
         currentShipManager:StartFire(crew.iRoomId)
         Hyperspace.Sounds:PlaySoundMix("fireBomb", -1, false)
+    elseif buff == "chaoticsiren" then
+        local sirenbp = Hyperspace.Blueprints:GetCrewBlueprint("siren")
+        local sirenanim = Hyperspace.CrewAnimation(crew.currentShipId, "siren", currentShipManager:GetRoomCenter(crew.iRoomId), crew.iShipId)
+        local siren = Hyperspace.CrewMember(sirenbp, crew.currentShipId, crew.iShipId ~= 0, sirenanim)
     else
         
         setInfusionData(crew, buff, 1, "lily_" .. buff .. "_buff")
@@ -1326,6 +1354,6 @@ functions["explosive"] = activateExplosive
 ---@param crew Hyperspace.CrewMember
 local function activatePhoenix(crew)
     healCrewmember(crew, 1)
-    setInfusionData(crew, "phoenix", 3, "lily_phoenix_buff")
+    setInfusionData(crew, "phoenix", 2, "lily_phoenix_buff")
 end
 functions["phoenix"] = activatePhoenix

@@ -20,11 +20,48 @@
 	<mod:findWithChildLike type="exclusivityGroup" child-type="battery">
 		<mod-append:lily_shock_neutralizer/>
 	</mod:findWithChildLike>
-	<mod:findWithChildLike type="exclusivityGroup" child-type="clonebay">
+	<mod:findWithChildLike type="exclusivityGroup" child-type="medbay">
 		<mod-append:lily_infusion_bay/>
 	</mod:findWithChildLike>
 </mod:findLike>
 
+
+<mod:findLike type="ships" limit="1">
+	<mod:findLike type="customShip">
+		<mod:findLike type="exclusivityOverride">
+			<mod:findWithChildLike type="exclusivityGroup" child-type="shields">
+				<mod-append:lily_ablative_armor/>
+			</mod:findWithChildLike>
+			<mod:findWithChildLike type="exclusivityGroup" child-type="battery">
+				<mod-append:lily_shock_neutralizer/>
+			</mod:findWithChildLike>
+			<mod:findWithChildLike type="exclusivityGroup" child-type="medbay">
+				<mod-append:lily_infusion_bay/>
+			</mod:findWithChildLike>
+			<mod-append:exclusivityGroup>
+				<shields/>
+				<lily_ablative_armor/>
+			</mod-append:exclusivityGroup>
+			<mod-append:exclusivityGroup>
+				<battery/>
+				<lily_shock_neutralizer/>
+			</mod-append:exclusivityGroup>
+			<mod-append:exclusivityGroup>
+				<medbay/>
+				<lily_infusion_bay/>
+			</mod-append:exclusivityGroup>
+			<mod:findWithChildLike type="exclusivityGroup" child-type="lily_ablative_armor" start="1">
+				<mod:removeTag />
+			</mod:findWithChildLike>
+			<mod:findWithChildLike type="exclusivityGroup" child-type="lily_shock_neutralizer" start="1">
+				<mod:removeTag />
+			</mod:findWithChildLike>
+			<mod:findWithChildLike type="exclusivityGroup" child-type="lily_infusion_bay" start="1">
+				<mod:removeTag />
+			</mod:findWithChildLike>
+		</mod:findLike>
+	</mod:findLike>
+</mod:findLike>
 
 
 <augments>

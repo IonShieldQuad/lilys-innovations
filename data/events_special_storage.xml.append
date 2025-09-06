@@ -1097,7 +1097,7 @@
 <event name="STORAGE_CHECK_SYSTEM_LILY_INFUSION_BAY_CHAOTIC">
     <text>You are about to install the Chaotic Infusions upgrade.
 	[Infusion Effects: Applies an effect of a random other infusion. Hopefully there isn't any adverse effects on your crew.
-15 - 45 HP/% heal, 7 second sickness.]</text>
+15 - 75 HP/% heal, 7 second sickness.]</text>
 
     <choice req="lily_infusion_bay" lvl="2" max_group="0" blue="false" hidden="true">
         <text>Perform the upgrade. [20~, 5{, 5}, 5|]</text>
@@ -1205,8 +1205,8 @@
 
 <event name="STORAGE_CHECK_SYSTEM_LILY_INFUSION_BAY_PHOENIX">
     <text>You are about to install the Phoenix Infusions upgrade.
-	[Infusion Effects: Crew cannot die during the duration. If they take damage that would normally kill them, they are instead healed to full health and teleported to the Infusion Bay. When this effect triggers, the Infusion Bay takes 1 unresistable ion damage with double lockout duration. Won't save your boarders if enemy ship explodes.
-15 HP/% heal, 21 second sickness.]</text>
+	[Infusion Effects: Crew cannot die during the duration. If they take damage that would normally kill them, they are instead healed to full health and teleported to the Infusion Bay. When this effect triggers, allies in the same room are healed by 30 HP/%, and the Infusion Bay takes 1 unresistable ion damage with double lockout duration. Won't save your boarders if enemy ship explodes.
+15 HP/% heal, 14 second sickness.]</text>
 
     <choice req="lily_infusion_bay" lvl="2" max_group="0" blue="false" hidden="true">
         <text>Perform the upgrade. [Cost: 50~, 5|]</text>
