@@ -1065,11 +1065,11 @@ script.on_internal_event(Defines.InternalEvents.CALCULATE_STAT_POST, function(cr
             if stat == Hyperspace.CrewStat.CAN_BURN then
                 value = true
             end
-            if stat == Hyperspace.CrewStat.SUFFOCATION_MODIFIER then
-                amount = math.max(amount / 2, 0.5)
-            end
             if stat == Hyperspace.CrewStat.FIRE_DAMAGE_MULTIPLIER then
                 amount = math.min(amount, -1)
+            end
+            if stat == Hyperspace.CrewStat.SUFFOCATION_MODIFIER then
+                amount = math.max(amount / 2, 0.5)
             end
             if stat == Hyperspace.CrewStat.FIRE_REPAIR_MULTIPLIER then
                 amount = math.max(amount * 5, 5)
@@ -1270,7 +1270,7 @@ local function activateChaotic(crew)
         table.insert(extraAnimations, { anim = anim, id = crew.currentShipId })
         Hyperspace.Sounds:PlaySoundMix("explosionShell", -1, false)
     elseif buff == "chaoticfireborne" then
-        setInfusionData(crew, "buff", 1, "lily_" .. buff .. "_buff")
+        setInfusionData(crew, buff, 1, "lily_" .. buff .. "_buff")
         currentShipManager:StartFire(crew.iRoomId)
         currentShipManager:StartFire(crew.iRoomId)
         Hyperspace.Sounds:PlaySoundMix("fireBomb", -1, false)
