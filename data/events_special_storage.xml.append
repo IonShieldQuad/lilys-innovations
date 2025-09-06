@@ -817,55 +817,55 @@
 
 <event name="STORAGE_CHECK_SYSTEM_LILY_INFUSION_BAY">
     <text>What upgrade do you want to install?</text>
-    <choice req="UPG_LILY_INFUSION_OVERLOADED_UNLOCK" lvl="1" blue="false" hidden="true">
+    <choice req="UPG_LILY_INFUSION_OVERLOADED_UNLOCK" lvl="1" max_group="0" blue="false" hidden="true">
         <text>Overloaded Infusions. [ALREADY INSTALLED]</text>
         <event load="OPTION_INVALID"/>
     </choice>
-    <choice req="UPG_LILY_INFUSION_CHAOTIC_UNLOCK" lvl="1" blue="false" hidden="true">
+    <choice req="UPG_LILY_INFUSION_CHAOTIC_UNLOCK" lvl="1" max_group="0" blue="false" hidden="true">
         <text>Chaotic Infusions. [ALREADY INSTALLED]</text>
         <event load="OPTION_INVALID"/>
     </choice>
-    <choice req="UPG_LILY_INFUSION_FIREBORNE_UNLOCK" lvl="1" blue="false" hidden="true">
+    <choice req="UPG_LILY_INFUSION_FIREBORNE_UNLOCK" lvl="1" max_group="0" blue="false" hidden="true">
         <text>Fireborne Infusions. [ALREADY INSTALLED]</text>
         <event load="OPTION_INVALID"/>
     </choice>
-    <choice req="UPG_LILY_INFUSION_EXPLOSIVE_UNLOCK" lvl="1" blue="false" hidden="true">
+    <choice req="UPG_LILY_INFUSION_EXPLOSIVE_UNLOCK" lvl="1" max_group="0" blue="false" hidden="true">
         <text>Explosive Infusions. [ALREADY INSTALLED]</text>
         <event load="OPTION_INVALID"/>
     </choice>
-    <choice req="UPG_LILY_INFUSION_PHOENIX_UNLOCK" lvl="1" blue="false" hidden="true">
+    <choice req="UPG_LILY_INFUSION_PHOENIX_UNLOCK" lvl="1" max_group="0" blue="false" hidden="true">
         <text>Phoenix Infusions. [ALREADY INSTALLED]</text>
         <event load="OPTION_INVALID"/>
     </choice>
-    <choice req="INFUSION_BAY_FOURTH" lvl="1" blue="false" hidden="true">
+    <choice req="INFUSION_BAY_FOURTH" lvl="1" max_group="1" blue="false" hidden="true">
         <text>Dismantle the installed extra infusions to free up the slot for other ones.</text>
         <event load="STORAGE_CHECK_SYSTEM_LILY_INFUSION_BAY_UNINSTALL_FOURTH"/>
     </choice>
-    <choice req="INFUSION_BAY_FOURTH" lvl="0" max_lvl="0" blue="false" hidden="true">
+    <choice req="INFUSION_BAY_FOURTH" lvl="0" max_lvl="0" max_group="1" blue="false" hidden="true">
         <text>Install extra infusions in the fourth slot of the system.</text>
         <event load="STORAGE_CHECK_SYSTEM_LILY_INFUSION_BAY_INSTALL_FOURTH"/>
     </choice>
 
 
-    <choice req="UPG_LILY_SICKNESS_RECOVERY" lvl="1" max_group="1" blue="false" hidden="true">
+    <choice req="UPG_LILY_SICKNESS_RECOVERY" lvl="1" max_group="2" blue="false" hidden="true">
         <text>Sickness Treatment. [ALREADY INSTALLED]</text>
         <event load="OPTION_INVALID"/>
     </choice>
-    <choice req="UPG_LILY_SICKNESS_RECOVERY" lvl="0" max_group="1" blue="false" hidden="true">
+    <choice req="UPG_LILY_SICKNESS_RECOVERY" lvl="0" max_group="2" blue="false" hidden="true">
         <text>Sickness Treatment. [Cost: 40~, 3{]</text>
         <event load="STORAGE_CHECK_SYSTEM_LILY_INFUSION_BAY_RECOVERY"/>
     </choice>
 
-    <choice req="UPG_LILY_INFUSION_HAVEN" lvl="1" max_group="2" blue="false" hidden="true">
+    <choice req="UPG_LILY_INFUSION_HAVEN" lvl="1" max_group="3" blue="false" hidden="true">
         <text>Safe Haven Protocols. [ALREADY INSTALLED]</text>
         <event load="OPTION_INVALID"/>
     </choice>
-    <choice req="UPG_LILY_INFUSION_HAVEN" lvl="0" max_group="2" blue="false" hidden="true">
+    <choice req="UPG_LILY_INFUSION_HAVEN" lvl="0" max_group="3" blue="false" hidden="true">
         <text>Safe Haven Protocols. [Cost: 20~, 3|]</text>
         <event load="STORAGE_CHECK_SYSTEM_LILY_INFUSION_BAY_HAVEN"/>
     </choice>
 
-    <choice>
+    <choice req="pilot" lvl="1" max_group="5" blue="false" hidden="true">
         <text>Nevermind.</text>
         <event load="STORAGE_CHECK_SYSTEM_LOAD"/>
     </choice>
@@ -1064,7 +1064,7 @@
 	[Infusion Effects: Stuns self and all nearby crew for 5s and deals 2 ion damage to system. Systems on your ship have 1 ion removed instead.
 30 HP/% heal, 21 second sickness.]</text>
 
-    <choice req="lily_infusion_bay" lvl="1" max_group="0" blue="false" hidden="true">
+    <choice req="lily_infusion_bay" lvl="2" max_group="0" blue="false" hidden="true">
         <text>Perform the upgrade. [Cost: 50~, 5{]</text>
         <event>
             <text>You install the upgrade.</text>
@@ -1079,7 +1079,7 @@
         </event>
     </choice>
     <choice req="lily_infusion_bay" max_group="0" blue="false" hidden="true">
-        <text>This upgrade is unavailable. You need Infusion bay level 1.</text>
+        <text>This upgrade is unavailable. You need Infusion bay level 2.</text>
         <event load="OPTION_INVALID"/>
     </choice>
     <choice req="pilot" lvl="1" max_group="2" blue="false" hidden="true">
@@ -1099,7 +1099,7 @@
 	[Infusion Effects: Applies an effect of a random other infusion. Hopefully there isn't any adverse effects on your crew.
 15 - 45 HP/% heal, 7 second sickness.]</text>
 
-    <choice req="lily_infusion_bay" lvl="1" max_group="0" blue="false" hidden="true">
+    <choice req="lily_infusion_bay" lvl="2" max_group="0" blue="false" hidden="true">
         <text>Perform the upgrade. [20~, 5{, 5}, 5|]</text>
         <event>
             <text>You install the upgrade.</text>
@@ -1117,7 +1117,7 @@
         </event>
     </choice>
     <choice req="lily_infusion_bay" max_group="0" blue="false" hidden="true">
-        <text>This upgrade is unavailable. You need Infusion bay level 1.</text>
+        <text>This upgrade is unavailable. You need Infusion bay level 2.</text>
         <event load="OPTION_INVALID"/>
     </choice>
     <choice req="pilot" lvl="1" max_group="2" blue="false" hidden="true">
@@ -1137,7 +1137,7 @@
 	[Infusion Effects: Starts a fire in current room. Grants ability to heal from fires for the duration, but also makes your crew suffocate at rapid speed, even if they are normally immune.
 15 HP/% heal, 21 second sickness.]</text>
 
-    <choice req="lily_infusion_bay" lvl="1" max_group="0" blue="false" hidden="true">
+    <choice req="lily_infusion_bay" lvl="2" max_group="0" blue="false" hidden="true">
         <text>Perform the upgrade. [Cost: 40~, 3{, 4}]</text>
         <event>
             <text>You install the upgrade.</text>
@@ -1153,7 +1153,7 @@
         </event>
     </choice>
     <choice req="lily_infusion_bay" max_group="0" blue="false" hidden="true">
-        <text>This upgrade is unavailable. You need Infusion bay level 1.</text>
+        <text>This upgrade is unavailable. You need Infusion bay level 2.</text>
         <event load="OPTION_INVALID"/>
     </choice>
     <choice req="pilot" lvl="1" max_group="2" blue="false" hidden="true">
@@ -1170,10 +1170,10 @@
 
 <event name="STORAGE_CHECK_SYSTEM_LILY_INFUSION_BAY_EXPLOSIVE">
     <text>You are about to install the Explosive Infusions upgrade.
-	[Infusion Effects: Explodes, damaging all enemies in the room by 30 HP. System on enemy ships take 1 damage, while on your ship are repaired by 1 bar instead. <!--Grants lingering 3 HP/s regeneration for the duration.-->
-0 HP/% heal, 14 second sickness.]</text>
+	[Infusion Effects: Explodes, damaging all enemies in the room by 15 HP. System on enemy ships take 1 damage, while on your ship are repaired by 1 bar instead. <!--Grants lingering 3 HP/s regeneration for the duration.-->
+15 HP/% heal, 14 second sickness.]</text>
 
-    <choice req="lily_infusion_bay" lvl="1" max_group="0" blue="false" hidden="true">
+    <choice req="lily_infusion_bay" lvl="2" max_group="0" blue="false" hidden="true">
         <text>Perform the upgrade. [50~, 8}]</text>
         <event>
             <text>You install the upgrade.</text>
@@ -1188,7 +1188,7 @@
         </event>
     </choice>
     <choice req="lily_infusion_bay" max_group="0" blue="false" hidden="true">
-        <text>This upgrade is unavailable. You need Infusion bay level 1.</text>
+        <text>This upgrade is unavailable. You need Infusion bay level 2.</text>
         <event load="OPTION_INVALID"/>
     </choice>
     <choice req="pilot" lvl="1" max_group="2" blue="false" hidden="true">
@@ -1208,7 +1208,7 @@
 	[Infusion Effects: Crew cannot die during the duration. If they take damage that would normally kill them, they are instead healed to full health and teleported to the Infusion Bay. When this effect triggers, the Infusion Bay takes 1 unresistable ion damage with double lockout duration. Won't save your boarders if enemy ship explodes.
 15 HP/% heal, 21 second sickness.]</text>
 
-    <choice req="lily_infusion_bay" lvl="1" max_group="0" blue="false" hidden="true">
+    <choice req="lily_infusion_bay" lvl="2" max_group="0" blue="false" hidden="true">
         <text>Perform the upgrade. [Cost: 50~, 5|]</text>
         <event>
             <text>You install the upgrade.</text>
@@ -1223,7 +1223,7 @@
         </event>
     </choice>
     <choice req="lily_infusion_bay" max_group="0" blue="false" hidden="true">
-        <text>This upgrade is unavailable. You need Infusion bay level 1.</text>
+        <text>This upgrade is unavailable. You need Infusion bay level 2.</text>
         <event load="OPTION_INVALID"/>
     </choice>
     <choice req="pilot" lvl="1" max_group="2" blue="false" hidden="true">
@@ -1361,7 +1361,7 @@
 
 
 
-<!--
+
 
 
 <mod:findName type="event" name="STORAGE_CHECK_SYSTEM_BATTERY">
@@ -1482,7 +1482,7 @@ Incompatible with battery performance upgrades.]</text>
 
 
 
--->
+
 
 
 

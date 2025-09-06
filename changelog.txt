@@ -1,4 +1,12 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.4.1
+Date: 2025-09-06
+  Changes:
+    - Added missing tooltips.
+    - Infusion sickness now recovers instantly outside combat.
+    - Fixed asteroids damaging ship through Ablative Armor.
+    - Added Surge Overdrive and Solar Battery internal upgrades.
+---------------------------------------------------------------------------------------------------
 Version: 1.4.0
 Date: 2025-09-05
   Changes:

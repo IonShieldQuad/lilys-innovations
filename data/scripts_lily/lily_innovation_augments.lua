@@ -56,7 +56,12 @@ script.on_internal_event(Defines.InternalEvents.CONSTRUCT_SPACEDRONE, function(d
 end)
 --]]
 
+local sun = false
 
+script.on_game_event("BLUE_GIANT", false, function() sun = true end)
+script.on_game_event("BLUE_GIANT_FLARE", false, function() sun = true end)
+
+script.on_internal_event(Defines.InternalEvents.JUMP_LEAVE, function() sun = false end)
 
 script.on_internal_event(Defines.InternalEvents.SHIP_LOOP, function(shipManager)
     if shipManager:HasAugmentation("UPG_CREW_OXYGEN") > 0 or shipManager:HasAugmentation("CREW_OXYGEN") > 0 then
@@ -106,21 +111,19 @@ script.on_internal_event(Defines.InternalEvents.SHIP_LOOP, function(shipManager)
             end
         end
     end
---[[
-    local battery = shipManager.batterySystem
-    if battery then
-        print(battery.bTurnedOn and "true" or "false")
-    end
+
+
     if shipManager:HasAugmentation("UPG_LILY_BATTERY_SOLAR_POWER") > 0 or shipManager:HasAugmentation("EX_LILY_BATTERY_SOLAR_POWER") > 0 then
         local battery = shipManager.batterySystem
-        if battery then
-            print(battery.bTurnedOn)
+        local space = Hyperspace.App.world.space
+        sun = sun or space.sunLevel
+        if battery and sun then
+            if battery.lockTimer then
+                battery.lockTimer.currTime = battery.lockTimer.currGoal
+            
+            end
 
-
-
-        end
-
-        
+        end 
     end
     --]]
     --[[
@@ -240,4 +243,40 @@ script.on_internal_event(Defines.InternalEvents.SHIP_LOOP, function(shipManager)
             end
         end
     end
+end)
+
+
+
+script.on_internal_event(Defines.InternalEvents.GET_AUGMENTATION_VALUE, function(shipManager, augment, value)
+    if shipManager and (shipManager:HasAugmentation("UPG_LILY_BATTERY_SURGE_OVERDRIVE") > 0 or shipManager:HasAugmentation("EX_LILY_BATTERY_SURGE_OVERDRIVE") > 0) then
+        local battery = shipManager.batterySystem
+
+        if battery and battery.bTurnedOn then
+            local level = battery.healthState.first
+            if augment == "AUTO_COOLDOWN" then
+                value = value + level * 0.1
+            end
+            if augment == "SHIELD_RECHARGE" then
+                value = value + level * 0.2
+            end
+        end
+        
+
+    end
+    return Defines.Chain.CONTINUE, value
+end)
+
+
+script.on_internal_event(Defines.InternalEvents.GET_DODGE_FACTOR, function(shipManager, value)
+    if shipManager and (shipManager:HasAugmentation("UPG_LILY_BATTERY_SURGE_OVERDRIVE") > 0 or shipManager:HasAugmentation("EX_LILY_BATTERY_SURGE_OVERDRIVE") > 0) then
+        local battery = shipManager.batterySystem
+
+        if battery and battery.bTurnedOn then
+            local level = battery.healthState.first
+            
+            value = value + level * 5
+            
+        end
+    end
+    return Defines.Chain.CONTINUE, value
 end)

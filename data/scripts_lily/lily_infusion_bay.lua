@@ -281,7 +281,7 @@ local function lily_infusion_bay_construct_system_box(systemBox)
         tooltips["overloaded"] = "Stuns self and all nearby crew for 5s and deals 2 ion damage to system. Systems on your ship have 1 ion removed instead. 30 HP/% heal, 21 second sickness."
         tooltips["chaotic"] = "Applies an effect of a random other infusion. Hopefully there isn't any adverse effects on your crew. 15 - 45 HP/% heal, 7 second sickness."
         tooltips["fireborne"] = "Starts a fire in current room. Grants ability to heal from fires for the duration, but also makes your crew suffocate at rapid speed, even if they are normally immune. 15 HP/% heal, 21 second sickness."
-        tooltips["explosive"] = "Explodes, damaging all enemies in the room by 30 HP. System on enemy ships take 1 damage, while on your ship are repaired by 1 bar instead. 0 HP/% heal, 14 second sickness." --Grants lingering 3 HP/s regeneration for the duration. 
+        tooltips["explosive"] = "Explodes, damaging all enemies in the room by 15 HP. System on enemy ships take 1 damage, while on your ship are repaired by 1 bar instead. 15 HP/% heal, 14 second sickness." --Grants lingering 3 HP/s regeneration for the duration. 
         tooltips["phoenix"] = "Crew cannot die during the duration. If they take damage that would normally kill them, they are instead healed to full health and teleported to the Infusion Bay. When this effect triggers, the Infusion Bay takes 1 unresistable ion damage with double lockout duration. Won't save your boarders if enemy ship explodes. 15 HP/% heal, 21 second sickness."
     end
 end
@@ -711,6 +711,23 @@ script.on_internal_event(Defines.InternalEvents.CREW_LOOP, function(crew)
                 end
             end
         end
+        local cApp = Hyperspace.App
+        local gui = cApp.gui
+        -- If player is not in danger
+        local inSafeEnviroment = gui.upgradeButton.bActive
+            and not gui.event_pause
+            and cApp.world.space.projectiles:empty()
+            and not shipManager.bJumping
+        if inSafeEnviroment then
+            local type = userdata_table(crew, "mods.lilyinno.infusionbay").infusionType
+            ---@type Hyperspace.TimerHelper
+            local timer = userdata_table(crew, "mods.lilyinno.infusionbay").infusionTimer
+            if type and type == "sickness" then
+                if timer then
+                    timer.currTime = timer.currGoal
+                end
+            end
+        end
 
         --phoenix infusion LILY_FORCE_RECALL
         if userdata_table(crew, "mods.lilyinno.infusionbay").infusionType then
@@ -970,6 +987,9 @@ script.on_internal_event(Defines.InternalEvents.CALCULATE_STAT_POST, function(cr
             if stat == Hyperspace.CrewStat.MOVE_SPEED_MULTIPLIER then
                 amount = amount * mult
             end
+            if stat == Hyperspace.CrewStat.DAMAGE_ENEMIES_AMOUNT then
+                amount = amount * mult
+            end
         elseif type == "chaoticcombatstimulant" then
             if stat == Hyperspace.CrewStat.DAMAGE_MULTIPLIER then
                 amount = amount * 1.5
@@ -978,6 +998,9 @@ script.on_internal_event(Defines.InternalEvents.CALCULATE_STAT_POST, function(cr
                 amount = amount * 1.5
             end
             if stat == Hyperspace.CrewStat.MOVE_SPEED_MULTIPLIER then
+                amount = amount * 1.5
+            end
+            if stat == Hyperspace.CrewStat.DAMAGE_ENEMIES_AMOUNT then
                 amount = amount * 1.5
             end
         elseif type == "gaseous" then
@@ -1272,6 +1295,7 @@ functions["fireborne"] = activateFireborne
 ---@param crew Hyperspace.CrewMember
 local function activateExplosive(crew)
     local currentShipManager = Hyperspace.ships(crew.currentShipId)
+    healCrewmember(crew, 1)
     applySickness(crew, 2)
     --setInfusionData(crew, "explosive", 2, "lily_invisible")
     local onEnemyShip = crew.iShipId ~= crew.currentShipId
@@ -1280,7 +1304,7 @@ local function activateExplosive(crew)
         ---@type Hyperspace.CrewMember
         cr = cr
         if cr.iRoomId == crew.iRoomId and cr.iShipId ~= crew.iShipId then
-            cr:ApplyDamage(-30)
+            cr:ApplyDamage(-15)
         end
     end
     local dmg = Hyperspace.Damage()

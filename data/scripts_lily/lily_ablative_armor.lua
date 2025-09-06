@@ -2,6 +2,7 @@
 local userdata_table = mods.multiverse.userdata_table
 local create_damage_message = mods.multiverse.create_damage_message
 local damageMessages = mods.multiverse.damageMessages
+local INT_MAX = 2147483647
 
 local function dot(a, b)
     return a.X * b.X + a.Y * b.Y;
@@ -816,12 +817,35 @@ script.on_internal_event(Defines.InternalEvents.DAMAGE_BEAM, function(ship, proj
     return Defines.Chain.CONTINUE, beamHit
 end)
 
+script.on_internal_event(Defines.InternalEvents.DAMAGE_AREA, function(ship, projectile, location, damage, forceHit, shipFriendlyFire)
+    if ship:HasSystem(Hyperspace.ShipSystem.NameToSystemId("lily_ablative_armor")) then
+        local currentLayers = userdata_table(ship, "mods.lilyinno.ablativearmor").first or 0
+        local maxLayers = userdata_table(ship, "mods.lilyinno.ablativearmor").second or 0
+
+        if currentLayers > 0 then
+            
+                if projectile and projectile:GetType() == 2 then
+                    if currentLayers > 0 then
+                        damage.iDamage = 0
+                        Hyperspace.Sounds:PlaySoundMix("lily_ablative_armor_bounce_1", -1, false)
+                        return Defines.Chain.HALT, Defines.Evasion.MISS, shipFriendlyFire
+                    end
+                end
+
+        end
+
+
+    end
+
+        return Defines.Chain.CONTINUE, forceHit, shipFriendlyFire
+end, INT_MAX)
 
 
 script.on_internal_event(Defines.InternalEvents.DAMAGE_AREA, function(ship, projectile, location, damage, forceHit, shipFriendlyFire)
     --[[print("DAMAGE_AREA")
     print("Projectile: " .. (projectile and "true" or "false"))
     if projectile then
+        print(projectile)
         print("ID:" .. projectile.ownerId)
         print("Type:" .. projectile:GetType())
     end--]]
@@ -1011,6 +1035,7 @@ script.on_internal_event(Defines.InternalEvents.DAMAGE_AREA_HIT, function(ship, 
     --[[print("DAMAGE_AREA_HIT")
     print("Projectile: " .. (projectile and "true" or "false"))
     if projectile then
+        print(projectile)
         print("ID:" .. projectile.ownerId)
         print("Type:" .. projectile:GetType())
     end--]]

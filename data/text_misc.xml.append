@@ -4,5 +4,6 @@
 <text name="lily_ablative_armor_installed">Ablative Armor System installed</text>
 <text name="lily_shock_neutralizer">Shock Neutralizer</text>
 <text name="lily_shock_neutralizer_installed">Shock Neutralizer Subsystem installed</text>
-
+<text name="lily_infusion_bay">Infusion Bay</text>
+<text name="lily_infusion_bay_installed">Infusion Bay System installed</text>
 </FTL>

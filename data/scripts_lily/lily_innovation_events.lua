@@ -16,7 +16,7 @@ script.on_internal_event(Defines.InternalEvents.PRE_CREATE_CHOICEBOX, function(e
             if choice.requirement.object == "medbay" then
                 if choice.requirement.min_level == 2 or choice.requirement.min_level == 3 then
                     local txt = choice.text:GetText()
-                    txt = string.gsub(txt, "Medbay", "Infusion bay")
+                    txt = string.gsub(txt, "Medbay", "Infusion Bay")
                     txt = string.gsub(txt, "medbay", "infusion bay")
                     local ev = choice.event
                     local req = Hyperspace.ChoiceReq()
