@@ -82,6 +82,55 @@ rechargeTimer[0] = 0
 rechargeTimer[1] = 0
 
 
+local def0XCREWSLOT = Hyperspace.StatBoostDefinition()
+def0XCREWSLOT.stat = Hyperspace.CrewStat.CREW_SLOTS
+def0XCREWSLOT.value = true
+def0XCREWSLOT.boostType = Hyperspace.StatBoostDefinition.BoostType.MULT
+def0XCREWSLOT.boostSource = Hyperspace.StatBoostDefinition.BoostSource.AUGMENT
+def0XCREWSLOT.shipTarget = Hyperspace.StatBoostDefinition.ShipTarget.ALL
+def0XCREWSLOT.crewTarget = Hyperspace.StatBoostDefinition.CrewTarget.ALL
+def0XCREWSLOT.duration = 1
+def0XCREWSLOT.priority = 999999
+def0XCREWSLOT.realBoostId = Hyperspace.StatBoostDefinition.statBoostDefs:size()
+Hyperspace.StatBoostDefinition.statBoostDefs:push_back(def0XCREWSLOT)
+
+local defNOCLONE = Hyperspace.StatBoostDefinition()
+defNOCLONE.stat = Hyperspace.CrewStat.NO_CLONE
+defNOCLONE.value = true
+defNOCLONE.boostType = Hyperspace.StatBoostDefinition.BoostType.SET
+defNOCLONE.boostSource = Hyperspace.StatBoostDefinition.BoostSource.AUGMENT
+defNOCLONE.shipTarget = Hyperspace.StatBoostDefinition.ShipTarget.ALL
+defNOCLONE.crewTarget = Hyperspace.StatBoostDefinition.CrewTarget.ALL
+defNOCLONE.duration = 99
+defNOCLONE.priority = 9999
+defNOCLONE.realBoostId = Hyperspace.StatBoostDefinition.statBoostDefs:size()
+Hyperspace.StatBoostDefinition.statBoostDefs:push_back(defNOCLONE)
+
+local defNOSLOT = Hyperspace.StatBoostDefinition()
+defNOSLOT.stat = Hyperspace.CrewStat.NO_SLOT
+defNOSLOT.value = true
+defNOSLOT.boostType = Hyperspace.StatBoostDefinition.BoostType.SET
+defNOSLOT.boostSource = Hyperspace.StatBoostDefinition.BoostSource.AUGMENT
+defNOSLOT.shipTarget = Hyperspace.StatBoostDefinition.ShipTarget.ALL
+defNOSLOT.crewTarget = Hyperspace.StatBoostDefinition.CrewTarget.ALL
+defNOSLOT.duration = 99
+defNOSLOT.priority = 9999
+defNOSLOT.realBoostId = Hyperspace.StatBoostDefinition.statBoostDefs:size()
+Hyperspace.StatBoostDefinition.statBoostDefs:push_back(defNOSLOT)
+
+local defNOWARNING = Hyperspace.StatBoostDefinition()
+defNOWARNING.stat = Hyperspace.CrewStat.NO_WARNING
+defNOWARNING.value = true
+defNOWARNING.boostType = Hyperspace.StatBoostDefinition.BoostType.SET
+defNOWARNING.boostSource = Hyperspace.StatBoostDefinition.BoostSource.AUGMENT
+defNOWARNING.shipTarget = Hyperspace.StatBoostDefinition.ShipTarget.ALL
+defNOWARNING.crewTarget = Hyperspace.StatBoostDefinition.CrewTarget.ALL
+defNOWARNING.duration = 99
+defNOWARNING.priority = 9999
+defNOWARNING.realBoostId = Hyperspace.StatBoostDefinition.statBoostDefs:size()
+Hyperspace.StatBoostDefinition.statBoostDefs:push_back(defNOWARNING)
+
+
 --Handles tooltips and mousever descriptions per level
 local function get_level_description_lily_infusion_bay(systemId, level, tooltip)
     if systemId == Hyperspace.ShipSystem.NameToSystemId("lily_infusion_bay") then
@@ -618,7 +667,7 @@ script.on_internal_event(Defines.InternalEvents.SHIP_LOOP, function(shipManager)
         local level2 = lily_infusion_bay_system.healthState.first
         local efflevel = lily_infusion_bay_system:GetEffectivePower()
         local multiplier = 1 / (13 - efflevel * 3)
-        if lily_infusion_bay_system.iHackEffect > 0 then
+        if lily_infusion_bay_system.iHackEffect > 1 then
             multiplier = -0.5
         end
         if efflevel == 0 then
@@ -640,6 +689,17 @@ script.on_internal_event(Defines.InternalEvents.SHIP_LOOP, function(shipManager)
 
         if shipManager.iShipId == 0 then
             Hyperspace.playerVariables.lily_infusion_bay = level
+            local cApp = Hyperspace.App
+            local gui = cApp.gui
+
+            -- If player is not in danger
+            local inSafeEnviroment = gui.upgradeButton.bActive
+                and not gui.event_pause
+                and cApp.world.space.projectiles:empty()
+                and not shipManager.bJumping
+            if inSafeEnviroment then
+                multiplier = multiplier * 4
+            end
         end
 
         if storedInfusions < maxStoredInfusions then
@@ -1009,7 +1069,7 @@ script.on_internal_event(Defines.InternalEvents.CALCULATE_STAT_POST, function(cr
                 amount = amount * 1.5
             end
             if stat == Hyperspace.CrewStat.DAMAGE_ENEMIES_AMOUNT then
-                amount = amount * 1.5
+                amount = amount * 3
             end
         elseif type == "gaseous" then
             if stat == Hyperspace.CrewStat.CAN_SUFFOCATE then
@@ -1224,7 +1284,7 @@ local chaoticlist = {
     "chaoticfireborne",
     "chaoticexplosive",
     "chaoticphoenix",
-    --"chaoticsiren"
+    "chaoticsiren"
 }
 
 ---@param crew Hyperspace.CrewMember
@@ -1299,9 +1359,21 @@ local function activateChaotic(crew)
         currentShipManager:StartFire(crew.iRoomId)
         Hyperspace.Sounds:PlaySoundMix("fireBomb", -1, false)
     elseif buff == "chaoticsiren" then
-        local sirenbp = Hyperspace.Blueprints:GetCrewBlueprint("siren")
-        local sirenanim = Hyperspace.CrewAnimation(crew.currentShipId, "siren", currentShipManager:GetRoomCenter(crew.iRoomId), crew.iShipId)
-        local siren = Hyperspace.CrewMember(sirenbp, crew.currentShipId, crew.iShipId ~= 0, sirenanim)
+        local siren1 = currentShipManager:AddCrewMemberFromString("Siren", "siren", crew.currentShipId ~= crew.iShipId, crew.iRoomId, true, false)
+        local siren2 = currentShipManager:AddCrewMemberFromString("Siren", "siren", crew.currentShipId ~= crew.iShipId, crew.iRoomId, true, false)
+        Hyperspace.StatBoostManager.GetInstance():CreateTimedAugmentBoost(Hyperspace.StatBoost(def0XCREWSLOT), siren1)
+        Hyperspace.StatBoostManager.GetInstance():CreateTimedAugmentBoost(Hyperspace.StatBoost(defNOCLONE), siren1)
+        Hyperspace.StatBoostManager.GetInstance():CreateTimedAugmentBoost(Hyperspace.StatBoost(defNOSLOT), siren1)
+        Hyperspace.StatBoostManager.GetInstance():CreateTimedAugmentBoost(Hyperspace.StatBoost(defNOWARNING), siren1)
+        siren1.extend.deathTimer = Hyperspace.TimerHelper(false)
+        siren1.extend.deathTimer:Start(60)
+        Hyperspace.StatBoostManager.GetInstance():CreateTimedAugmentBoost(Hyperspace.StatBoost(def0XCREWSLOT), siren2)
+        Hyperspace.StatBoostManager.GetInstance():CreateTimedAugmentBoost(Hyperspace.StatBoost(defNOCLONE), siren2)
+        Hyperspace.StatBoostManager.GetInstance():CreateTimedAugmentBoost(Hyperspace.StatBoost(defNOSLOT), siren2)
+        Hyperspace.StatBoostManager.GetInstance():CreateTimedAugmentBoost(Hyperspace.StatBoost(defNOWARNING), siren2)
+        siren2.extend.deathTimer = Hyperspace.TimerHelper(false)
+        siren2.extend.deathTimer:Start(60)
+        Hyperspace.Sounds:PlaySoundMix("hc_spawn_1", -1, false)
     else
         
         setInfusionData(crew, buff, 1, "lily_" .. buff .. "_buff")

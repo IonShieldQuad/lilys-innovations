@@ -23,6 +23,7 @@ systemsToAppend["lily_ablative_armor"] = {attributes = {power = 2, start = "fals
         { room_image = "room_lily_ablative_armor_15",  w = 2, h = 2, top = "00", bottom = "01", left = "10", right = "00", manning_slot = 3, manning_direction = "down" },
         { room_image = "room_lily_ablative_armor_16", w = 2, h = 2, top = "00", bottom = "10", left = "00", right = "10", manning_slot = 1, manning_direction = "right" },
         { room_image = "room_lily_ablative_armor_17",  w = 2, h = 2, top = "00", bottom = "11", left = "00",  right = "00",  manning_slot = 3, manning_direction = "down" },
+        { room_image = "room_lily_ablative_armor_18", w = 2, h = 2, top = "00", bottom = "00", left = "00", right = "11", manning_slot = 3, manning_direction = "right" },
         { room_image = "room_lily_ablative_armor_5", w = 2, h = 1, top = "00", bottom = "11", left = "0", right = "0", manning_slot = 1, manning_direction = "down" },
         { room_image = "room_lily_ablative_armor_6", w = 2, h = 1, top = "11", bottom = "00", left = "0", right = "0", manning_slot = 1, manning_direction = "up" },
         { room_image = "room_lily_ablative_armor_11", w = 1, h = 2, top = "0", bottom = "0", left = "00",  right = "11",  manning_slot = 1, manning_direction = "right" },
@@ -42,6 +43,8 @@ systemsToAppend["lily_shock_neutralizer"] = {
         { room_image = "room_shock_3",    w = 2, h = 2, top = "00", bottom = "00", left = "00", right = "00",  manning_slot = 0, manning_direction = "down" },
         { room_image = "room_shock_1",    w = 2, h = 1, top = "00", bottom = "00", left = "0",  right = "0",  manning_slot = 0, manning_direction = "right" },
         { room_image = "room_shock_2",    w = 1, h = 2, top = "0",  bottom = "0",  left = "00", right = "00",  manning_slot = 0, manning_direction = "down" },
+        { room_image = "room_shock_4",    w = 1, h = 1, top = "0",  bottom = "0",  left = "0", right = "0", manning_slot = 0, manning_direction = "down" },
+        { room_image = "room_shock_4",    w = 1, h = 1, top = "0",  bottom = "0",  left = "0",  right = "0",  manning_slot = 0, manning_direction = "up" },
         { room_image = "room_battery",    w = 2, h = 1, top = "11", bottom = "00", left = "0", right = "1", manning_slot = 0, manning_direction = "up" },
         { room_image = "room_battery_1",  w = 2, h = 1, top = "0",  bottom = "0",  left = "1",  right = "0", manning_slot = 0, manning_direction = "left" },
         { room_image = "room_battery_2",  w = 2, h = 1, top = "11", bottom = "00", left = "0",  right = "0", manning_slot = 0, manning_direction = "up" },
@@ -110,7 +113,7 @@ systemsToAppend["lily_shock_neutralizer"] = {
 systemsToAppend["lily_infusion_bay"] = {
     attributes = { power = 1, start = "false" },
     manning = false,
-    replace_sys = "clonebay",
+    replace_sys = "medbay",
     image_list = {
         { room_image = "room_lily_infusion",    w = 2, h = 2, top = "01", bottom = "00", left = "00", right = "10", manning_slot = 1, manning_direction = "up" },
         { room_image = "room_lily_infusion_2",  w = 2, h = 2, top = "11", bottom = "01", left = "00", right = "01", manning_slot = 3, manning_direction = "right" },

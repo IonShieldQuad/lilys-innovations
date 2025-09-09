@@ -112,6 +112,28 @@ script.on_internal_event(Defines.InternalEvents.SHIP_LOOP, function(shipManager)
         end
     end
 
+    if shipManager:HasAugmentation("UPG_LILY_INN_PILOT") > 0 or shipManager:HasAugmentation("EX_LILY_INN_PILOT") > 0 then
+        local sys = shipManager:GetSystem(Hyperspace.ShipSystem.NameToSystemId("pilot"))
+        if sys and not sys:CompletelyDestroyed() then
+            sys.bManned = true
+            sys.iActiveManned = math.max(sys.iActiveManned, 1)
+        end
+
+    end
+    if shipManager:HasAugmentation("UPG_LILY_INN_SENSORS") > 0 or shipManager:HasAugmentation("EX_LILY_INN_SENSORS") > 0 then
+        local sys = shipManager:GetSystem(Hyperspace.ShipSystem.NameToSystemId("sensors"))
+        if sys then
+            sys.bManned = true
+            sys.iActiveManned = math.max(sys.iActiveManned, 1)
+        end
+    end
+    if shipManager:HasAugmentation("UPG_LILY_INN_DOORS") > 0 or shipManager:HasAugmentation("EX_LILY_INN_DOORS") > 0 then
+        local sys = shipManager:GetSystem(Hyperspace.ShipSystem.NameToSystemId("doors"))
+        if sys and sys:Functioning() then
+            sys.bManned = true
+            sys.iActiveManned = math.max(sys.iActiveManned, 1)
+        end
+    end
 
     if shipManager:HasAugmentation("UPG_LILY_BATTERY_SOLAR_POWER") > 0 or shipManager:HasAugmentation("EX_LILY_BATTERY_SOLAR_POWER") > 0 then
         local battery = shipManager.batterySystem
@@ -268,6 +290,9 @@ end)
 
 
 script.on_internal_event(Defines.InternalEvents.GET_DODGE_FACTOR, function(shipManager, value)
+    if value == 0 then
+        return Defines.Chain.CONTINUE, value
+    end
     if shipManager and (shipManager:HasAugmentation("UPG_LILY_BATTERY_SURGE_OVERDRIVE") > 0 or shipManager:HasAugmentation("EX_LILY_BATTERY_SURGE_OVERDRIVE") > 0) then
         local battery = shipManager.batterySystem
 

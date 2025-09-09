@@ -23,6 +23,48 @@
 	<mod:findWithChildLike type="exclusivityGroup" child-type="medbay">
 		<mod-append:lily_infusion_bay/>
 	</mod:findWithChildLike>
+
+	<mod:findLike type="systemPositions">
+		<mod-append:lily_ablative_armor position="0"/>
+		<mod-append:lily_shock_neutralizer staticOffset="123"/>
+		<mod-append:lily_infusion_bay position="3"/>
+	</mod:findLike>
+
+	<mod-append:systemPositions subSystemOffset="1015"> 
+
+
+        <shields position="0"/>
+		<lily_ablative_armor position="0"/>
+        <engines position="1"/>
+        <medbay position="2"/>
+        <clonebay position="3"/>
+		<lily_infusion_bay position="3"/>
+        <oxygen position="4"/>
+        <teleporter position="5"/>
+        <cloaking position="6"/>
+        <artillery position="7"/>
+        <mind position="8"/>
+        <hacking position="9"/>
+        <temporal position="10"/>
+        <weapons position="2147483646"/>
+        <drones position="2147483647"/>
+
+
+        <pilot staticOffset="0"/>
+        <sensors staticOffset="36"/>
+        <doors staticOffset="72"/>
+        <battery staticOffset="123"/>
+		<lily_shock_neutralizer staticOffset="123"/>
+    </mod-append:systemPositions>
+
+
+	<mod:findLike type="systemPositions" start="1">
+		<mod:removeTag />
+	</mod:findLike>
+
+
+
+
 </mod:findLike>
 
 
@@ -48,6 +90,7 @@
 			</mod-append:exclusivityGroup>
 			<mod-append:exclusivityGroup>
 				<medbay/>
+				<clonebay/>
 				<lily_infusion_bay/>
 			</mod-append:exclusivityGroup>
 			<mod:findWithChildLike type="exclusivityGroup" child-type="lily_ablative_armor" start="1">
@@ -467,6 +510,75 @@
 		</statBoosts>
 	</aug>
 
+
+
+	<aug name="UPG_LILY_PILOT_FOCUS">
+		<statBoosts>
+			<statBoost name="resistsMindControl">
+				<boostType>SET</boostType>
+				<shipTarget>ORIGINAL_SHIP</shipTarget>
+				<crewTarget>ALLIES</crewTarget>
+				<droneTarget>CREW</droneTarget>
+				<value>true</value>
+				<priority>999</priority>
+				<systemRoomTarget>ALL</systemRoomTarget>
+				<systemList>
+					<pilot/>
+				</systemList>
+			</statBoost>
+			<statBoost name="stunMultiplier">
+				<boostType>SET</boostType>
+				<shipTarget>ORIGINAL_SHIP</shipTarget>
+				<crewTarget>ALLIES</crewTarget>
+				<droneTarget>CREW</droneTarget>
+				<amount>0</amount>
+				<priority>999</priority>
+				<systemRoomTarget>ALL</systemRoomTarget>
+				<systemList>
+					<pilot/>
+				</systemList>
+			</statBoost>
+		</statBoosts>
+	</aug>
+	<aug name="EX_LILY_PILOT_FOCUS">
+		<statBoosts>
+			<statBoost name="resistsMindControl">
+				<boostType>SET</boostType>
+				<shipTarget>ORIGINAL_SHIP</shipTarget>
+				<crewTarget>ALLIES</crewTarget>
+				<droneTarget>CREW</droneTarget>
+				<value>true</value>
+				<priority>999</priority>
+				<systemRoomTarget>ALL</systemRoomTarget>
+				<systemList>
+					<pilot/>
+				</systemList>
+			</statBoost>
+			<statBoost name="stunMultiplier">
+				<boostType>SET</boostType>
+				<shipTarget>ORIGINAL_SHIP</shipTarget>
+				<crewTarget>ALLIES</crewTarget>
+				<droneTarget>CREW</droneTarget>
+				<amount>0</amount>
+				<priority>999</priority>
+				<systemRoomTarget>ALL</systemRoomTarget>
+				<systemList>
+					<pilot/>
+				</systemList>
+			</statBoost>
+		</statBoosts>
+	</aug>
+
+	<aug name="UPG_LILY_INN_PILOT"/>
+	<aug name="EX_LILY_INN_PILOT"/>
+
+	<aug name="UPG_LILY_INN_SENSORS"/>
+	<aug name="EX_LILY_INN_SENSORS"/>
+
+	<aug name="UPG_LILY_INN_DOORS"/>
+	<aug name="EX_LILY_INN_DOORS"/>
+	
+	
 
 
 </augments>

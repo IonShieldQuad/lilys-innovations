@@ -1,4 +1,12 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.4.4
+Date: 2025-09-09
+  Changes:
+    - Changed positional order of systems in the bar.
+    - Chaotic infusions now has a chance to spawn temporary sirens.
+    - Added new internal upgrades for piloting, doors and sensors.
+    - Many misc fixes.
+---------------------------------------------------------------------------------------------------
 Version: 1.4.3
 Date: 2025-09-06
   Changes:

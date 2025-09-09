@@ -327,7 +327,7 @@ script.on_internal_event(Defines.InternalEvents.GET_AUGMENTATION_VALUE, function
     if augment == "ION_ARMOR" then
         if ship:HasSystem(Hyperspace.ShipSystem.NameToSystemId("lily_ablative_armor")) then
             local lily_ablative_armor_system = ship:GetSystem(Hyperspace.ShipSystem.NameToSystemId("lily_ablative_armor"))
-            if lily_ablative_armor_system.iHackEffect > 0 then
+            if lily_ablative_armor_system.iHackEffect > 1 then
                 return Defines.Chain.CONTINUE, value
             end
             return Defines.Chain.CONTINUE, value + 0.1 * math.max(0, lily_ablative_armor_system:GetEffectivePower() - 3)
@@ -375,7 +375,7 @@ script.on_internal_event(Defines.InternalEvents.SHIP_LOOP, function(shipManager)
 
         
 
-        if lily_ablative_armor_system.iHackEffect > 0 then
+        if lily_ablative_armor_system.iHackEffect > 1 then
             multiplier = -3
         end
 
@@ -565,7 +565,7 @@ script.on_render_event(Defines.RenderEvents.SHIP_STATUS, function() end, functio
 
             local color = Graphics.GL_Color(1, 1, 1, 1)
 
-            if lily_ablative_armor_system.iHackEffect > 0 then
+            if lily_ablative_armor_system.iHackEffect > 1 then
                 color = Graphics.GL_Color(187 / 255.0, 37 / 255.0, 249 / 255.0, 1)
             end
             if shipManager:GetShieldPower().super.first > 0 then

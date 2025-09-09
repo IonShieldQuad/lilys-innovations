@@ -167,7 +167,7 @@ script.on_internal_event(Defines.InternalEvents.SYSTEM_BOX_KEY_DOWN, function(sy
         --print("press key:"..key.." shift:"..tostring(shift))
         local shipManager = Hyperspace.ships.player
         if not Hyperspace.ships.player:HasSystem(Hyperspace.ShipSystem.NameToSystemId("lily_shock_neutralizer")) then return end
-        if key == 110 then
+        if key == 98 then
             if activationTimer[1] >= 1 then
                 userdata_table(shipManager, "mods.lilyinno.shockneutralizer").selectmode = true
             end
@@ -223,8 +223,8 @@ local function lily_shock_neutralizer_render(systemBox, ignoreStatus)
         activateButton.bActive = (not lily_shock_neutralizer_system:CompletelyDestroyed()) and activationTimer[shipManager.iShipId] >= 1
     
         if activateButton.bHover then
-            if Hyperspace.metaVariables.lily_shock_neutralizer_hotkey_enabled == 0 and not Hyperspace.ships.player:HasSystem(10) then
-                Hyperspace.Mouse.tooltip = "Select the target room for Shock Neutralizer.\nHotkey: N"
+            if Hyperspace.metaVariables.lily_shock_neutralizer_hotkey_enabled == 0 and not Hyperspace.ships.player:HasSystem(Hyperspace.ShipSystem.NameToSystemId("battery")) then
+                Hyperspace.Mouse.tooltip = "Select the target room for Shock Neutralizer.\nHotkey: B"
             else
                 Hyperspace.Mouse.tooltip =
                 "Select the target room for Shock Neutralizer.\nHotkey: N/A"
@@ -383,7 +383,7 @@ script.on_internal_event(Defines.InternalEvents.SHIP_LOOP, function(shipManager)
         local level = lily_shock_neutralizer_system.healthState.second
         local efflevel = lily_shock_neutralizer_system:GetEffectivePower()
         local multiplier = 0.15
-                 if lily_shock_neutralizer_system.iHackEffect > 0 then
+                 if lily_shock_neutralizer_system.iHackEffect > 1 then
             multiplier = -1
         end
 

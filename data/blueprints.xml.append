@@ -140,7 +140,7 @@
     <desc>YOU SHOULD NEVER SEE THIS</desc>
     <cost>0</cost>
     <rarity>0</rarity>
-    <stackable>true</stackable>
+    <stackable>false</stackable>
 </augBlueprint>
 <augBlueprint name="EX_LILY_DOORS_FAILSAFE">
     <title>Door Failsafe [X]</title>
@@ -149,7 +149,7 @@
 		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
     <cost>0</cost>
     <rarity>0</rarity>
-    <stackable>true</stackable>
+    <stackable>false</stackable>
 </augBlueprint>
 
 <augBlueprint name="UPG_LILY_BATTERY_SURGE_OVERDRIVE">
@@ -157,7 +157,7 @@
     <desc>YOU SHOULD NEVER SEE THIS</desc>
     <cost>0</cost>
     <rarity>0</rarity>
-    <stackable>true</stackable>
+    <stackable>false</stackable>
 </augBlueprint>
 <augBlueprint name="EX_LILY_BATTERY_SURGE_OVERDRIVE">
     <title>Bat. Surge Overdrive [X]</title>
@@ -167,7 +167,7 @@ Incompatible with performance upgrades.
 		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
     <cost>0</cost>
     <rarity>0</rarity>
-    <stackable>true</stackable>
+    <stackable>false</stackable>
 </augBlueprint>
 
 <augBlueprint name="UPG_LILY_BATTERY_SOLAR_POWER">
@@ -175,7 +175,7 @@ Incompatible with performance upgrades.
     <desc>YOU SHOULD NEVER SEE THIS</desc>
     <cost>0</cost>
     <rarity>0</rarity>
-    <stackable>true</stackable>
+    <stackable>false</stackable>
 </augBlueprint>
 <augBlueprint name="EX_LILY_BATTERY_SOLAR_POWER">
     <title>Solar Battery [X]</title>
@@ -184,9 +184,78 @@ Incompatible with performance upgrades.
 		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
     <cost>0</cost>
     <rarity>0</rarity>
-    <stackable>true</stackable>
+    <stackable>false</stackable>
 </augBlueprint>
 
+
+<augBlueprint name="UPG_LILY_PILOT_FOCUS">
+    <title>Mind Shielding</title>
+    <desc>YOU SHOULD NEVER SEE THIS</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>false</stackable>
+</augBlueprint>
+<augBlueprint name="EX_LILY_PILOT_FOCUS">
+    <title>Mind Shielding [X]</title>
+    <desc>Crew in piloting becomes immune to mind control and stun.
+    
+		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>false</stackable>
+</augBlueprint>
+
+
+<augBlueprint name="UPG_LILY_INN_PILOT">
+    <title>Integrated Neural Network (Piloting)</title>
+    <desc>YOU SHOULD NEVER SEE THIS</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>false</stackable>
+</augBlueprint>
+<augBlueprint name="EX_LILY_INN_PILOT">
+    <title>I.N.N. (Pilot) [X]</title>
+    <desc>Integrated Neural Network can operate Piloting subsystem even in the absense of crew.
+    
+		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>false</stackable>
+</augBlueprint>
+
+<augBlueprint name="UPG_LILY_INN_SENSORS">
+    <title>Integrated Neural Network (Sensors)</title>
+    <desc>YOU SHOULD NEVER SEE THIS</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>false</stackable>
+</augBlueprint>
+<augBlueprint name="EX_LILY_INN_SENSORS">
+    <title>I.N.N. (Sensors) [X]</title>
+    <desc>Integrated Neural Network can operate Sensors subsystem even in the absense of crew.
+    
+		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>false</stackable>
+</augBlueprint>
+
+<augBlueprint name="UPG_LILY_INN_DOORS">
+    <title>Integrated Neural Network (Doors)</title>
+    <desc>YOU SHOULD NEVER SEE THIS</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>false</stackable>
+</augBlueprint>
+<augBlueprint name="EX_LILY_INN_DOORS">
+    <title>I.N.N. (Doors) [X]</title>
+    <desc>Integrated Neural Network can operate Doors subsystem even in the absense of crew.
+    
+		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>false</stackable>
+</augBlueprint>
 
 
 

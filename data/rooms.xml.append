@@ -80,3 +80,7 @@
 <roomLayout name="lily_ablative_armor_17">
     <computerGlow x="43" y="53" dir="DOWN" />
 </roomLayout>
+
+<roomLayout name="lily_ablative_armor_18">
+    <computerGlow x="53" y="43" dir="RIGHT" />
+</roomLayout>
