@@ -10,6 +10,54 @@
 </mod:findLike>
 
 
+
+<mod:findLike type="ships">
+	<mod:findLike type="customShip">
+		<mod-append:subSystemLimit>4</mod-append:subSystemLimit>
+		<mod:findLike type="subSystemLimit" start="1">
+			<mod:removeTag />
+		</mod:findLike>
+
+		<mod:findLike type="subSystemLimit">
+			<mod:selector>9</mod:selector>
+			<mod:setValue>10</mod:setValue>
+		</mod:findLike>
+		<mod:findLike type="subSystemLimit">
+			<mod:selector>8</mod:selector>
+			<mod:setValue>9</mod:setValue>
+		</mod:findLike>
+		<mod:findLike type="subSystemLimit">
+			<mod:selector>7</mod:selector>
+			<mod:setValue>8</mod:setValue>
+		</mod:findLike>
+		<mod:findLike type="subSystemLimit">
+			<mod:selector>6</mod:selector>
+			<mod:setValue>7</mod:setValue>
+		</mod:findLike>
+		<mod:findLike type="subSystemLimit">
+			<mod:selector>5</mod:selector>
+			<mod:setValue>6</mod:setValue>
+		</mod:findLike>
+		<mod:findLike type="subSystemLimit">
+			<mod:selector>4</mod:selector>
+			<mod:setValue>5</mod:setValue>
+		</mod:findLike>
+		<mod:findLike type="subSystemLimit">
+			<mod:selector>3</mod:selector>
+			<mod:setValue>4</mod:setValue>
+		</mod:findLike>
+		<mod:findLike type="subSystemLimit">
+			<mod:selector>2</mod:selector>
+			<mod:setValue>3</mod:setValue>
+		</mod:findLike>
+		<mod:findLike type="subSystemLimit">
+			<mod:selector>1</mod:selector>
+			<mod:setValue>2</mod:setValue>
+		</mod:findLike>
+	</mod:findLike>
+</mod:findLike>
+
+
 <mod:findLike type="customSystems">
 	<mod-append:customSystem id="lily_ablative_armor"/>
 	<mod-append:customSystem id="lily_shock_neutralizer" subSystem="true" mannable="false"/>
@@ -22,7 +70,7 @@
 	</mod:findWithChildLike>
 	<mod:findWithChildLike type="exclusivityGroup" child-type="battery">
 		<mod-append:lily_shock_neutralizer/>
-		<mod-append:lily_system_bracers/>
+		<!--mod-append:lily_system_bracers/-->
 	</mod:findWithChildLike>
 	<mod:findWithChildLike type="exclusivityGroup" child-type="medbay">
 		<mod-append:lily_infusion_bay/>
@@ -59,7 +107,7 @@
         <doors staticOffset="72"/>
         <battery staticOffset="123"/>
 		<lily_shock_neutralizer staticOffset="123"/>
-		<lily_system_bracers staticOffset="123"/>
+		<!--lily_system_bracers staticOffset="123"/-->
 
     </mod-append:systemPositions>
 
@@ -82,7 +130,7 @@
 			</mod:findWithChildLike>
 			<mod:findWithChildLike type="exclusivityGroup" child-type="battery">
 				<mod-append:lily_shock_neutralizer/>
-				<mod-append:lily_system_bracers/>
+				<!--mod-append:lily_system_bracers/-->
 			</mod:findWithChildLike>
 			<mod:findWithChildLike type="exclusivityGroup" child-type="medbay">
 				<mod-append:lily_infusion_bay/>
@@ -94,7 +142,7 @@
 			<mod-append:exclusivityGroup>
 				<battery/>
 				<lily_shock_neutralizer/>
-				<lily_system_bracers/>
+				<!--lily_system_bracers/-->
 			</mod-append:exclusivityGroup>
 			<mod-append:exclusivityGroup>
 				<medbay/>
@@ -107,9 +155,9 @@
 			<mod:findWithChildLike type="exclusivityGroup" child-type="lily_shock_neutralizer" start="1">
 				<mod:removeTag />
 			</mod:findWithChildLike>
-			<mod:findWithChildLike type="exclusivityGroup" child-type="lily_system_bracers" start="1">
+			<!--mod:findWithChildLike type="exclusivityGroup" child-type="lily_system_bracers" start="1">
 				<mod:removeTag />
-			</mod:findWithChildLike>
+			</mod:findWithChildLike-->
 			<mod:findWithChildLike type="exclusivityGroup" child-type="lily_infusion_bay" start="1">
 				<mod:removeTag />
 			</mod:findWithChildLike>
@@ -814,6 +862,7 @@
 			<customTitle>INNOVATION SYSTEMS</customTitle>
 			<guaranteedSystems>
 				<lily_ablative_armor/>
+				<lily_infusion_bay/>
 			</guaranteedSystems>
 			<item>
 				<blueprint>SHOP_ITEM_SYSTEMS_LILYINNO</blueprint>

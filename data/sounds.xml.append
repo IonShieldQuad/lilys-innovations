@@ -2,7 +2,7 @@
 <lily_ablative_armor_restore_1 volume="3">effects_lily/ablative_armor_restore.wav</lily_ablative_armor_restore_1>
 <lily_ablative_armor_hit_1 volume="1">effects_lily/ablative_armor_hit.wav</lily_ablative_armor_hit_1>
 <lily_ablative_armor_hit_breach_1 volume="1">effects_lily/ablative_armor_hit_breach.wav</lily_ablative_armor_hit_breach_1>
-<lily_ablative_armor_bounce_1 volume="1">effects_lily/ablative_armor_bounce_1.wav</lily_ablative_armor_bounce_1>
+<lily_ablative_armor_bounce_1 volume="3">effects_lily/ablative_armor_bounce_1.wav</lily_ablative_armor_bounce_1>
 
 <lily_infusion_recharge_1 volume="3">effects_lily/bp_sfx_infusion_charge.wav</lily_infusion_recharge_1>
 <lily_infusion_pickup_1 volume="3">effects_lily/bp_sfx_infusion_pickup.wav</lily_infusion_pickup_1>

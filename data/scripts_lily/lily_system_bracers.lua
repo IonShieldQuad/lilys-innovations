@@ -186,7 +186,6 @@ local function render_system_bracers_effects(ship, experimental)
         if working then
             local color = Graphics.GL_Color(1, 1, 1, 1)
             Graphics.CSurface.GL_SetColorTint(color)
-
             for room in vter(rooms) do
                 ---@type Hyperspace.Room
                 room = room
@@ -320,15 +319,17 @@ script.on_internal_event(Defines.InternalEvents.CALCULATE_STAT_POST, function(cr
     crew = crew
     ---@type Hyperspace.CrewStat
     stat = stat
-    local currentShipManager = Hyperspace.ships(crew.currentShipId)
+    if crew and (not crew.bOutOfGame) and (crew.currentShipId == 0 or crew.currentShipId == 1) then
+        local currentShipManager = Hyperspace.ships(crew.currentShipId)
 
-    if currentShipManager and currentShipManager:HasSystem(Hyperspace.ShipSystem.NameToSystemId("lily_system_bracers")) then
-        if crew.iRoomId >= 0 and crew.iRoomId == currentShipManager:GetSystemRoom(Hyperspace.ShipSystem.NameToSystemId("lily_system_bracers")) then
-            if stat == Hyperspace.CrewStat.REPAIR_SPEED_MULTIPLIER and currentShipManager:HasAugmentation("BOON_LILY_SYSTEM_BRACERS") == 0 then
-                amount = amount * 0.5
-            end
-            if stat == Hyperspace.CrewStat.SABOTAGE_SPEED_MULTIPLIER then
-                amount = amount * 0.5
+        if currentShipManager and currentShipManager:HasSystem(Hyperspace.ShipSystem.NameToSystemId("lily_system_bracers")) then
+            if crew.iRoomId >= 0 and crew.iRoomId == currentShipManager:GetSystemRoom(Hyperspace.ShipSystem.NameToSystemId("lily_system_bracers")) then
+                if stat == Hyperspace.CrewStat.REPAIR_SPEED_MULTIPLIER and currentShipManager:HasAugmentation("BOON_LILY_SYSTEM_BRACERS") == 0 then
+                    amount = amount * 0.5
+                end
+                if stat == Hyperspace.CrewStat.SABOTAGE_SPEED_MULTIPLIER then
+                    amount = amount * 0.5
+                end
             end
         end
     end
