@@ -1,4 +1,11 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.5.2
+Date: 2025-09-13
+  Changes:
+    - Fixed a bug with installing advanced ventilation internal upgrade.
+    - Added 5th subsystem slots to all ships. Hopefully works this time.
+    - Fixed Selecting boon of Bracing giving boon of shock neutralizer instead.
+---------------------------------------------------------------------------------------------------
 Version: 1.5.1
 Date: 2025-09-13
   Changes:

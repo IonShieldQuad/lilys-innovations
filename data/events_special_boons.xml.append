@@ -31,7 +31,7 @@
 </event>
 <event name="BOON_SELECT_LILY_SYSTEM_BRACERS">
     <text>From nowhere, you hear a voice speaking to you. "Grant of [Bracing] i-i-installed. Installed! Grant provides: Removal of System Bracers r-r-repair speed penalty. If -you- witness p-p-previous challenger; provide thanks. I advise you -visit- me as well."</text>
-    <hiddenAug>BOON_LILY_SHOCK_NEUTRALIZER</hiddenAug>
+    <hiddenAug>BOON_LILY_SYSTEM_BRACERS</hiddenAug>
     <choice hidden="true">
         <text>Continue...</text>
         <event>

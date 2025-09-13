@@ -13,44 +13,44 @@
 
 <mod:findLike type="ships">
 	<mod:findLike type="customShip">
-		<mod-append:subSystemLimit>4</mod-append:subSystemLimit>
-		<mod:findLike type="subSystemLimit" start="1">
+		<mod-append:subsystemLimit>4</mod-append:subsystemLimit>
+		<mod:findLike type="subsystemLimit" start="1">
 			<mod:removeTag />
 		</mod:findLike>
 
-		<mod:findLike type="subSystemLimit">
+		<mod:findLike type="subsystemLimit">
 			<mod:selector>9</mod:selector>
 			<mod:setValue>10</mod:setValue>
 		</mod:findLike>
-		<mod:findLike type="subSystemLimit">
+		<mod:findLike type="subsystemLimit">
 			<mod:selector>8</mod:selector>
 			<mod:setValue>9</mod:setValue>
 		</mod:findLike>
-		<mod:findLike type="subSystemLimit">
+		<mod:findLike type="subsystemLimit">
 			<mod:selector>7</mod:selector>
 			<mod:setValue>8</mod:setValue>
 		</mod:findLike>
-		<mod:findLike type="subSystemLimit">
+		<mod:findLike type="subsystemLimit">
 			<mod:selector>6</mod:selector>
 			<mod:setValue>7</mod:setValue>
 		</mod:findLike>
-		<mod:findLike type="subSystemLimit">
+		<mod:findLike type="subsystemLimit">
 			<mod:selector>5</mod:selector>
 			<mod:setValue>6</mod:setValue>
 		</mod:findLike>
-		<mod:findLike type="subSystemLimit">
+		<mod:findLike type="subsystemLimit">
 			<mod:selector>4</mod:selector>
 			<mod:setValue>5</mod:setValue>
 		</mod:findLike>
-		<mod:findLike type="subSystemLimit">
+		<mod:findLike type="subsystemLimit">
 			<mod:selector>3</mod:selector>
 			<mod:setValue>4</mod:setValue>
 		</mod:findLike>
-		<mod:findLike type="subSystemLimit">
+		<mod:findLike type="subsystemLimit">
 			<mod:selector>2</mod:selector>
 			<mod:setValue>3</mod:setValue>
 		</mod:findLike>
-		<mod:findLike type="subSystemLimit">
+		<mod:findLike type="subsystemLimit">
 			<mod:selector>1</mod:selector>
 			<mod:setValue>2</mod:setValue>
 		</mod:findLike>

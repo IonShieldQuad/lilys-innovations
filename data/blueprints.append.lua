@@ -560,11 +560,11 @@ systemsToAppend["lily_system_bracers"] = {
     manning = false,
     --replace_sys = "battery",
     image_list = {
-        { room_image = "room_bracers_1", w = 2, h = 2, top = "00", bottom = "00", left = "00", right = "00", manning_slot = 0, manning_direction = "down" },
-        { room_image = "room_bracers_2", w = 2, h = 1, top = "00", bottom = "00", left = "0",  right = "0",  manning_slot = 0, manning_direction = "right" },
-        { room_image = "room_bracers_3", w = 1, h = 2, top = "0",  bottom = "0",  left = "00", right = "00", manning_slot = 0, manning_direction = "down" },
-        { room_image = "room_bracers_4", w = 1, h = 1, top = "0",  bottom = "0",  left = "0",  right = "0",  manning_slot = 0, manning_direction = "down" },
-        { room_image = "room_bracers_4", w = 1, h = 1, top = "0",  bottom = "0",  left = "0",  right = "0",  manning_slot = 0, manning_direction = "up" },
+        { room_image = "room_bracers_1", w = 2, h = 2, top = "00", bottom = "00", left = "00", right = "00"},
+        { room_image = "room_bracers_2", w = 2, h = 1, top = "00", bottom = "00", left = "0",  right = "0"},
+        { room_image = "room_bracers_3", w = 1, h = 2, top = "0",  bottom = "0",  left = "00", right = "00"},
+        { room_image = "room_bracers_4", w = 1, h = 1, top = "0",  bottom = "0",  left = "0",  right = "0"},
+        { room_image = "room_bracers_1", w = 2, h = 2, top = "00", bottom = "00", left = "00", right = "00" },
     }
 }
 

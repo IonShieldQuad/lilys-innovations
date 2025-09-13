@@ -1504,11 +1504,11 @@
         <text>Advanced Ventilation. [MAX LVL ALREADY INSTALLED]</text>
         <event load="OPTION_INVALID"/>
     </mod-append:choice>
-    <mod-append:choice req="UPG_CREW_OXYGEN" lvl="3" max_lvl="1" max_group="1" blue="false" hidden="true">
+    <mod-append:choice req="UPG_CREW_OXYGEN" lvl="3" max_lvl="3" max_group="1" blue="false" hidden="true">
         <text>Advanced Ventilation LvL 4. [Cost: 30~]</text>
         <event load="STORAGE_CHECK_SYSTEM_OXYGEN_CREW_OXYGEN"/>
     </mod-append:choice>
-    <mod-append:choice req="UPG_CREW_OXYGEN" lvl="2" max_lvl="0" max_group="1" blue="false" hidden="true">
+    <mod-append:choice req="UPG_CREW_OXYGEN" lvl="2" max_lvl="2" max_group="1" blue="false" hidden="true">
         <text>Advanced Ventilation LvL 3. [Cost: 30~]</text>
         <event load="STORAGE_CHECK_SYSTEM_OXYGEN_CREW_OXYGEN"/>
     </mod-append:choice>
@@ -1540,11 +1540,11 @@
         <text>Advanced Ventilation. [MAX LVL ALREADY INSTALLED]</text>
         <event load="OPTION_INVALID"/>
     </choice>
-    <choice req="UPG_CREW_OXYGEN" lvl="3" max_lvl="1" max_group="1" blue="false" hidden="true">
+    <choice req="UPG_CREW_OXYGEN" lvl="3" max_lvl="3" max_group="1" blue="false" hidden="true">
         <text>Advanced Ventilation LvL 4. [Cost: 30~]</text>
         <event load="STORAGE_CHECK_SYSTEM_OXYGEN_CREW_OXYGEN"/>
     </choice>
-    <choice req="UPG_CREW_OXYGEN" lvl="2" max_lvl="0" max_group="1" blue="false" hidden="true">
+    <choice req="UPG_CREW_OXYGEN" lvl="2" max_lvl="2" max_group="1" blue="false" hidden="true">
         <text>Advanced Ventilation LvL 3. [Cost: 30~]</text>
         <event load="STORAGE_CHECK_SYSTEM_OXYGEN_CREW_OXYGEN"/>
     </choice>
