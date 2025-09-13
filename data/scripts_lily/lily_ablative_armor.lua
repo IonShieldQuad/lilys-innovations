@@ -647,7 +647,7 @@ script.on_internal_event(Defines.InternalEvents.DAMAGE_BEAM, function(ship, proj
                     damage.iDamage = 0
                 end
             else
-                damage.iDamage = damage.iDamage / 2
+                damage.iDamage = math.floor(damage.iDamage / 2.0)
             end 
         end
         if damage.iSystemDamage > 0 then
@@ -656,7 +656,7 @@ script.on_internal_event(Defines.InternalEvents.DAMAGE_BEAM, function(ship, proj
                     damage.iSystemDamage = 0
                 end
             else
-                damage.iSystemDamage = damage.iSystemDamage / 2
+                damage.iSystemDamage = math.floor(damage.iSystemDamage / 2.0)
             end
         end
         if damage.iPersDamage > 0 then
@@ -665,7 +665,7 @@ script.on_internal_event(Defines.InternalEvents.DAMAGE_BEAM, function(ship, proj
                     damage.iPersDamage = 0
                 end
             else
-                damage.iPersDamage = damage.iPersDamage / 2
+                damage.iPersDamage = math.floor(damage.iPersDamage / 2.0)
             end
         end
 

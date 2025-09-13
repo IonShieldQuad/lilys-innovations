@@ -13,6 +13,10 @@
         <text>Shock Neutralizer.</text>
         <event load="STORAGE_CHECK_SYSTEM_LILY_SHOCK_NEUTRALIZER"/>
     </mod-append:choice>
+    <mod-append:choice req="lily_system_bracers" hidden="true" blue="false">
+        <text>System Bracers.</text>
+        <event load="STORAGE_CHECK_SYSTEM_LILY_SYSTEM_BRACERS"/>
+    </mod-append:choice>
     <mod-append:choice req="oxygen" hidden="true" blue="false">
         <text>Life Support.</text>
         <event load="STORAGE_CHECK_SYSTEM_OXYGEN"/>
@@ -69,15 +73,15 @@
         <event load="OPTION_INVALID"/>
     </mod-append:choice>
     <mod-append:choice req="UPG_LILY_INN_PILOT" lvl="0" max_group="6" blue="false" hidden="true">
-        <text>Integrated Neural Network. [Cost: 40~, 6|]</text>
+        <text>Integrated Neural Network. [Cost: 30~, 3|]</text>
         <event load="STORAGE_CHECK_SYSTEM_PILOT_LILY_INN_PILOT"/>
     </mod-append:choice>
 
 </mod:findName>
 
 <event name="STORAGE_CHECK_SYSTEM_PILOT_LILY_PILOT_FOCUS">
-    <text>You are about to install the Fortifications upgrade.
-	[Effects: Allied crew in Pilot room take half damage from all sources, and enemy crew sabotage it at half speed.]</text>
+    <text>You are about to install the Mind Shielding upgrade.
+	[Effects: Crew in piloting becomes immune to mind control and stun.]</text>
 
     <choice req="pilot" lvl="2" max_group="0" blue="false" hidden="true">
         <text>Perform the upgrade. [Cost: 30~, 4{]</text>
@@ -125,12 +129,12 @@
 	[Effects: Integrated Neural Network can operate Pilot subsystem even in the absense of crew.]</text>
 
     <choice req="pilot" lvl="3" max_group="0" blue="false" hidden="true">
-        <text>Perform the upgrade. [Cost: 40~, 6|]</text>
+        <text>Perform the upgrade. [Cost: 30~, 3|]</text>
         <event>
             <text>You install the upgrade.</text>
             <item_modify>
-                <item type="scrap" min="-40" max="-40"/>
-                <item type="drones" min="-6" max="-6"/>
+                <item type="scrap" min="-30" max="-30"/>
+                <item type="drones" min="-3" max="-3"/>
             </item_modify>
             <choice hidden="true">
                 <text>Continue...</text>
@@ -173,7 +177,7 @@
         <event load="OPTION_INVALID"/>
     </mod-append:choice>
     <mod-append:choice req="UPG_LILY_INN_SENSORS" lvl="0" max_group="6" blue="false" hidden="true">
-        <text>Integrated Neural Network. [Cost: 40~, 6|]</text>
+        <text>Integrated Neural Network. [Cost: 30~, 3|]</text>
         <event load="STORAGE_CHECK_SYSTEM_SENSORS_LILY_INN_SENSORS"/>
     </mod-append:choice>
 </mod:findName>
@@ -187,7 +191,7 @@
         <event load="OPTION_INVALID"/>
     </mod-append:choice>
     <mod-append:choice req="UPG_LILY_INN_SENSORS" lvl="0" max_group="6" blue="false" hidden="true">
-        <text>Integrated Neural Network. [Cost: 40~, 6|]</text>
+        <text>Integrated Neural Network. [Cost: 30~, 3|]</text>
         <event load="STORAGE_CHECK_SYSTEM_SENSORS_LILY_INN_SENSORS"/>
     </mod-append:choice>
 
@@ -206,12 +210,12 @@
 	[Effects: Integrated Neural Network can operate Sensors subsystem even in the absense of crew.]</text>
 
     <choice req="sensors" lvl="3" max_group="0" blue="false" hidden="true">
-        <text>Perform the upgrade. [Cost: 40~, 6|]</text>
+        <text>Perform the upgrade. [Cost: 30~, 3|]</text>
         <event>
             <text>You install the upgrade.</text>
             <item_modify>
-                <item type="scrap" min="-40" max="-40"/>
-                <item type="drones" min="-6" max="-6"/>
+                <item type="scrap" min="-30" max="-30"/>
+                <item type="drones" min="-3" max="-3"/>
             </item_modify>
             <choice hidden="true">
                 <text>Continue...</text>
@@ -271,7 +275,7 @@
         <event load="OPTION_INVALID"/>
     </mod-append:choice>
     <mod-append:choice req="UPG_LILY_INN_DOORS" lvl="0" max_group="7" blue="false" hidden="true">
-        <text>Integrated Neural Network. [Cost: 40~, 6|]</text>
+        <text>Integrated Neural Network. [Cost: 30~, 3|]</text>
         <event load="STORAGE_CHECK_SYSTEM_DOORS_LILY_INN_DOORS"/>
     </mod-append:choice>
 
@@ -372,12 +376,12 @@
 	[Effects: Integrated Neural Network can operate Doors subsystem even in the absense of crew.]</text>
 
     <choice req="doors" lvl="3" max_group="0" blue="false" hidden="true">
-        <text>Perform the upgrade. [Cost: 40~, 6|]</text>
+        <text>Perform the upgrade. [Cost: 30~, 3|]</text>
         <event>
             <text>You install the upgrade.</text>
             <item_modify>
-                <item type="scrap" min="-40" max="-40"/>
-                <item type="drones" min="-6" max="-6"/>
+                <item type="scrap" min="-30" max="-30"/>
+                <item type="drones" min="-3" max="-3"/>
             </item_modify>
             <choice hidden="true">
                 <text>Continue...</text>
@@ -1496,9 +1500,17 @@
 
 
 <mod:findName type="event" name="STORAGE_CHECK_SYSTEM_OXYGEN">
-    <mod-append:choice req="UPG_CREW_OXYGEN" lvl="2" max_group="1" blue="false" hidden="true">
+    <mod-append:choice req="UPG_CREW_OXYGEN" lvl="4" max_group="1" blue="false" hidden="true">
         <text>Advanced Ventilation. [MAX LVL ALREADY INSTALLED]</text>
         <event load="OPTION_INVALID"/>
+    </mod-append:choice>
+    <mod-append:choice req="UPG_CREW_OXYGEN" lvl="3" max_lvl="1" max_group="1" blue="false" hidden="true">
+        <text>Advanced Ventilation LvL 4. [Cost: 30~]</text>
+        <event load="STORAGE_CHECK_SYSTEM_OXYGEN_CREW_OXYGEN"/>
+    </mod-append:choice>
+    <mod-append:choice req="UPG_CREW_OXYGEN" lvl="2" max_lvl="0" max_group="1" blue="false" hidden="true">
+        <text>Advanced Ventilation LvL 3. [Cost: 30~]</text>
+        <event load="STORAGE_CHECK_SYSTEM_OXYGEN_CREW_OXYGEN"/>
     </mod-append:choice>
     <mod-append:choice req="UPG_CREW_OXYGEN" lvl="1" max_lvl="1" max_group="1" blue="false" hidden="true">
         <text>Advanced Ventilation LvL 2. [Cost: 30~]</text>
@@ -1524,9 +1536,17 @@
 <event name="STORAGE_CHECK_SYSTEM_OXYGEN">
     <text>What upgrade do you want to install?</text>
 
-    <choice req="UPG_CREW_OXYGEN" lvl="2" max_group="1" blue="false" hidden="true">
+    <choice req="UPG_CREW_OXYGEN" lvl="4" max_group="1" blue="false" hidden="true">
         <text>Advanced Ventilation. [MAX LVL ALREADY INSTALLED]</text>
         <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="UPG_CREW_OXYGEN" lvl="3" max_lvl="1" max_group="1" blue="false" hidden="true">
+        <text>Advanced Ventilation LvL 4. [Cost: 30~]</text>
+        <event load="STORAGE_CHECK_SYSTEM_OXYGEN_CREW_OXYGEN"/>
+    </choice>
+    <choice req="UPG_CREW_OXYGEN" lvl="2" max_lvl="0" max_group="1" blue="false" hidden="true">
+        <text>Advanced Ventilation LvL 3. [Cost: 30~]</text>
+        <event load="STORAGE_CHECK_SYSTEM_OXYGEN_CREW_OXYGEN"/>
     </choice>
     <choice req="UPG_CREW_OXYGEN" lvl="1" max_lvl="1" max_group="1" blue="false" hidden="true">
         <text>Advanced Ventilation LvL 2. [Cost: 30~]</text>
@@ -1668,7 +1688,7 @@
         <event load="OPTION_INVALID"/>
     </mod-append:choice>
     <mod-append:choice req="UPG_LILY_BATTERY_SOLAR_POWER" lvl="0" max_group="6" blue="false" hidden="true">
-        <text>Solar Battery. [Cost: 20~, 3|]</text>
+        <text>Solar Battery. [Cost: 15~, 1|]</text>
         <event load="STORAGE_CHECK_SYSTEM_BATTERY_SOLAR_POWER"/>
     </mod-append:choice>
 </mod:findName>
@@ -1727,12 +1747,12 @@ Incompatible with battery performance upgrades.]</text>
 	[Effects: When close to a sun, backup battery can be active indefinitely.]</text>
 
     <choice req="battery" lvl="1" max_group="0" blue="false" hidden="true">
-        <text>Perform the upgrade. [Cost: 20~, 3|]</text>
+        <text>Perform the upgrade. [Cost: 15~, 1|]</text>
         <event>
             <text>You install the upgrade.</text>
             <item_modify>
-                <item type="scrap" min="-20" max="-20"/>
-                <item type="drones" min="-3" max="-3"/>
+                <item type="scrap" min="-15" max="-15"/>
+                <item type="drones" min="-1" max="-1"/>
             </item_modify>
             <choice hidden="true">
                 <text>Continue...</text>
@@ -1768,7 +1788,66 @@ Incompatible with battery performance upgrades.]</text>
 
 
 
+<event name="STORAGE_CHECK_SYSTEM_LILY_SYSTEM_BRACERS">
+    <text>What upgrade do you want to install?</text>
+    <choice req="UPG_LILY_BUNKER_BRACERS" lvl="1" max_group="6" blue="false" hidden="true">
+        <text>Fortifications. [ALREADY INSTALLED]</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="UPG_LILY_BUNKER_BRACERS" lvl="0" max_group="6" blue="false" hidden="true">
+        <text>Fortifications. [Cost: 30~]</text>
+        <event load="STORAGE_CHECK_SYSTEM_LILY_SYSTEM_BRACERS_BUNKER"/>
+    </choice>
 
+    <choice>
+        <text>Nevermind.</text>
+        <event load="STORAGE_CHECK_SYSTEM_LOAD"/>
+    </choice>
+</event>
+
+
+<event name="STORAGE_CHECK_SYSTEM_LILY_SYSTEM_BRACERS_BUNKER">
+    <text>You are about to install the Fortifications upgrade.
+	[Effects: Allied crew in System Bracers room take half damage from all sources, and enemy crew sabotage it at half speed.]</text>
+
+    <choice req="lily_system_bracers" lvl="1" max_group="0" blue="false" hidden="true">
+        <text>Perform the upgrade. [Cost: 30~]</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <item_modify>
+                <item type="scrap" min="-30" max="-30"/>
+            </item_modify>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_BUNKER_BRACERS"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="lily_system_bracers" max_group="0" blue="false" hidden="true">
+        <text>This upgrade is unavailable. You need System Bracers level 1.</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="EX_LILY_BUNKER_BRACERS" max_group="1" blue="false" hidden="true">
+        <text>Install the External Augment internally.</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <remove name="EX_LILY_BUNKER_BRACERS"/>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_BUNKER_BRACERS"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="pilot" lvl="1" max_group="2" blue="false" hidden="true">
+        <text>Nevermind.</text>
+        <event load="STORAGE_CHECK_SYSTEM_LOAD"/>
+    </choice>
+</event>
+<event name="INSTALL_LILY_BUNKER_BRACERS">
+    <variable name="loc_internal_upgrades" op="add" val="1"/>
+    <hiddenAug>UPG_LILY_BUNKER_BRACERS</hiddenAug>
+    <loadEvent>STORAGE_CHECK_SYSTEM</loadEvent>
+</event>
 
 
 

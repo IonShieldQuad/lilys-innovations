@@ -1,4 +1,11 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.5.0
+Date: 2025-09-09
+  Changes:
+    - Added new System Bracers Subsystem.
+    - Decreased cost of several upgrades, such as INN.
+    - Many many various fixes.
+---------------------------------------------------------------------------------------------------
 Version: 1.4.4
 Date: 2025-09-09
   Changes:

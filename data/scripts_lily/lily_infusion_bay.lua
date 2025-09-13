@@ -702,6 +702,13 @@ script.on_internal_event(Defines.InternalEvents.SHIP_LOOP, function(shipManager)
             end
         end
 
+        if storedInfusions > 0 and lily_infusion_bay_system.iHackEffect > 1 then
+            if rechargeTimer[shipManager.iShipId] == 0 then
+                rechargeTimer[shipManager.iShipId] = 0.99
+                storedInfusions = storedInfusions - 1
+            end
+        end
+
         if storedInfusions < maxStoredInfusions then
             rechargeTimer[shipManager.iShipId] = math.max(0,
             math.min(1, rechargeTimer[shipManager.iShipId] + multiplier * Hyperspace.FPS.SpeedFactor / 16))

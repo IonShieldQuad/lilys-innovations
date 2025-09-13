@@ -40,6 +40,19 @@
             </choice>
         </event>
     </mod-append:choice>
+    <mod-append:choice req="lily_system_bracers" lvl="3" blue="false">
+        <text>Present your System Bracers subsystem.</text>
+        <event>
+            <text>"System Bracers - for p-p-p-protection against system damage! You pilot a: reliable vessel! Reliable vessel! For reliable vessel: I provide Grant of Br-br-bracing! Grant of Bracing! Save it - for the future!"</text>
+            <achievement>ACH_BOON_LILY_SYSTEM_BRACERS</achievement>
+            <metaVariable name="prof_e_boon_lily_system_bracers" op="set" val="1"/>
+            <variable name="ach_boon_lily_system_bracers" op="set" val="1"/>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="THE_JUDGES_ENGI_ADVICE"/>
+            </choice>
+        </event>
+    </mod-append:choice>
 </mod:findName>
 
 </FTL>

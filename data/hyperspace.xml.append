@@ -4,6 +4,7 @@
     <mod-append:script>data/scripts_lily/lily_ablative_armor.lua</mod-append:script>
 	<mod-append:script>data/scripts_lily/lily_shock_neutralizer.lua</mod-append:script>
 	<mod-append:script>data/scripts_lily/lily_infusion_bay.lua</mod-append:script>
+	<mod-append:script>data/scripts_lily/lily_system_bracers.lua</mod-append:script>
 	<mod-append:script>data/scripts_lily/lily_innovation_augments.lua</mod-append:script>
 	<mod-append:script>data/scripts_lily/lily_innovation_events.lua</mod-append:script>
 </mod:findLike>
@@ -13,12 +14,15 @@
 	<mod-append:customSystem id="lily_ablative_armor"/>
 	<mod-append:customSystem id="lily_shock_neutralizer" subSystem="true" mannable="false"/>
 	<mod-append:customSystem id="lily_infusion_bay" mannable="false"/>
+	<mod-append:customSystem id="lily_system_bracers" subSystem="true" mannable="false"/>
+
 
 	<mod:findWithChildLike type="exclusivityGroup" child-type="shields">
 		<mod-append:lily_ablative_armor/>
 	</mod:findWithChildLike>
 	<mod:findWithChildLike type="exclusivityGroup" child-type="battery">
 		<mod-append:lily_shock_neutralizer/>
+		<mod-append:lily_system_bracers/>
 	</mod:findWithChildLike>
 	<mod:findWithChildLike type="exclusivityGroup" child-type="medbay">
 		<mod-append:lily_infusion_bay/>
@@ -55,6 +59,8 @@
         <doors staticOffset="72"/>
         <battery staticOffset="123"/>
 		<lily_shock_neutralizer staticOffset="123"/>
+		<lily_system_bracers staticOffset="123"/>
+
     </mod-append:systemPositions>
 
 
@@ -76,6 +82,7 @@
 			</mod:findWithChildLike>
 			<mod:findWithChildLike type="exclusivityGroup" child-type="battery">
 				<mod-append:lily_shock_neutralizer/>
+				<mod-append:lily_system_bracers/>
 			</mod:findWithChildLike>
 			<mod:findWithChildLike type="exclusivityGroup" child-type="medbay">
 				<mod-append:lily_infusion_bay/>
@@ -87,6 +94,7 @@
 			<mod-append:exclusivityGroup>
 				<battery/>
 				<lily_shock_neutralizer/>
+				<lily_system_bracers/>
 			</mod-append:exclusivityGroup>
 			<mod-append:exclusivityGroup>
 				<medbay/>
@@ -97,6 +105,9 @@
 				<mod:removeTag />
 			</mod:findWithChildLike>
 			<mod:findWithChildLike type="exclusivityGroup" child-type="lily_shock_neutralizer" start="1">
+				<mod:removeTag />
+			</mod:findWithChildLike>
+			<mod:findWithChildLike type="exclusivityGroup" child-type="lily_system_bracers" start="1">
 				<mod:removeTag />
 			</mod:findWithChildLike>
 			<mod:findWithChildLike type="exclusivityGroup" child-type="lily_infusion_bay" start="1">
@@ -110,6 +121,7 @@
 <augments>
 	<aug name="BOON_LILY_ABLATIVE_ARMOR"/>
 	<aug name="BOON_LILY_SHOCK_NEUTRALIZER"/>
+	<aug name="BOON_LILY_SYSTEM_BRACERS"/>
 	<aug name="BOON_LILY_INFUSION_BAY">
 		<statBoosts>
 			<statBoost name="allDamageTakenMultiplier">
@@ -578,8 +590,65 @@
 	<aug name="UPG_LILY_INN_DOORS"/>
 	<aug name="EX_LILY_INN_DOORS"/>
 	
-	
-
+		
+	<aug name="UPG_LILY_BUNKER_BRACERS">
+		<statBoosts>
+			<statBoost name="allDamageTakenMultiplier">
+				<boostType>MULT</boostType>
+				<shipTarget>ORIGINAL_SHIP</shipTarget>
+				<crewTarget>ALLIES</crewTarget>
+				<droneTarget>ALLIES</droneTarget>
+				<amount>0.5</amount>
+				<priority>0</priority>
+				<systemRoomTarget>ALL</systemRoomTarget>
+				<systemList>
+					<lily_system_bracers/>
+				</systemList>
+				<boostAnim>lily_fort_effect</boostAnim>
+			</statBoost>
+			<statBoost name="sabotageSpeedMultiplier">
+				<boostType>MULT</boostType>
+				<shipTarget>ORIGINAL_SHIP</shipTarget>
+				<crewTarget>ALL</crewTarget>
+				<droneTarget>ALL</droneTarget>
+				<amount>0.5</amount>
+				<priority>0</priority>
+				<systemRoomTarget>ALL</systemRoomTarget>
+				<systemList>
+					<lily_system_bracers/>
+				</systemList>
+			</statBoost>
+		</statBoosts>
+	</aug>
+	<aug name="EX_LILY_BUNKER_BRACERS">
+		<statBoosts>
+			<statBoost name="allDamageTakenMultiplier">
+				<boostType>MULT</boostType>
+				<shipTarget>ORIGINAL_SHIP</shipTarget>
+				<crewTarget>ALLIES</crewTarget>
+				<droneTarget>ALLIES</droneTarget>
+				<amount>0.5</amount>
+				<priority>0</priority>
+				<systemRoomTarget>ALL</systemRoomTarget>
+				<systemList>
+					<lily_system_bracers/>
+				</systemList>
+				<boostAnim>lily_fort_effect</boostAnim>
+			</statBoost>
+			<statBoost name="sabotageSpeedMultiplier">
+				<boostType>MULT</boostType>
+				<shipTarget>ORIGINAL_SHIP</shipTarget>
+				<crewTarget>ALL</crewTarget>
+				<droneTarget>ALL</droneTarget>
+				<amount>0.5</amount>
+				<priority>0</priority>
+				<systemRoomTarget>ALL</systemRoomTarget>
+				<systemList>
+					<lily_system_bracers/>
+				</systemList>
+			</statBoost>
+		</statBoosts>
+	</aug>
 
 </augments>
 
@@ -591,11 +660,13 @@
 		<mod-append:name>prof_e_boon_lily_ablative_armor</mod-append:name>
 		<mod-append:name>prof_e_boon_lily_shock_neutralizer</mod-append:name>
 		<mod-append:name>prof_e_boon_lily_infusion_bay</mod-append:name>
+		<mod-append:name>prof_e_boon_lily_system_bracers</mod-append:name>
 	</mod:findName>
 	<mod:findName name="ALL_BOON">
 		<mod-append:name>prof_e_boon_lily_ablative_armor</mod-append:name>
 		<mod-append:name>prof_e_boon_lily_shock_neutralizer</mod-append:name>
 		<mod-append:name>prof_e_boon_lily_infusion_bay</mod-append:name>
+		<mod-append:name>prof_e_boon_lily_system_bracers</mod-append:name>
 	</mod:findName>
 
 
@@ -669,6 +740,10 @@
 <mod-append:variable name="ach_boon_lily_infusion_bay" op="set" val="0"/>
 
 
+<mod-append:metaVariable name="prof_e_boon_lily_system_bracers" op="set" val="0"/>
+<mod-append:variable name="ach_boon_lily_system_bracers" op="set" val="0"/>
+
+
 
 <mod:findLike type="achievements" limit="1">
 	<!--mod:findLike type="section">
@@ -709,6 +784,14 @@
 				<icon>boons/ach_boon_lily_shock_neutralizer</icon>
 				<multiDifficulty>false</multiDifficulty>
 			</mod-append:achievement>
+			<mod-append:achievement name="ACH_BOON_LILY_SYSTEM_BRACERS">
+				<name>Grant of System Bracers</name>
+				<secretDescription>Receive the Grant of System Bracers from Corby.</secretDescription>
+				<description>Show an upgraded System Bracers Subystem to Corby. While in effect; System Bracers repair speed penalty is removed.</description>
+				<header>Grant Received</header>
+				<icon>boons/ach_boon_lily_system_bracers</icon>
+				<multiDifficulty>false</multiDifficulty>
+			</mod-append:achievement>
 		</mod-append:section>
 	</mod-append:page>
 </mod:findLike>
@@ -729,6 +812,9 @@
 		<mod:selector lilys="inno" />
 		<mod-append:category type="SYSTEMS">
 			<customTitle>INNOVATION SYSTEMS</customTitle>
+			<guaranteedSystems>
+				<lily_ablative_armor/>
+			</guaranteedSystems>
 			<item>
 				<blueprint>SHOP_ITEM_SYSTEMS_LILYINNO</blueprint>
 			</item>

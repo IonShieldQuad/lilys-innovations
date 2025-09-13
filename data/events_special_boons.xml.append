@@ -10,7 +10,7 @@
     </choice>
 </event>
 <event name="BOON_SELECT_LILY_SHOCK_NEUTRALIZER">
-    <text>From nowhere, you hear a voice speaking to you. "Grant of [Shock Neutralizer] i-i-installed. Installed! Grant provides: Increase of ion d-d-dissipation rate on your vessel by 10% . If -you- witness p-p-previous challenger; provide thanks. I advise you -visit- me as well."</text>
+    <text>From nowhere, you hear a voice speaking to you. "Grant of [Shock Neutralizer] i-i-installed. Installed! Grant provides: Increase of ion d-d-dissipation rate on your vessel by 10%. If -you- witness p-p-previous challenger; provide thanks. I advise you -visit- me as well."</text>
     <hiddenAug>BOON_LILY_SHOCK_NEUTRALIZER</hiddenAug>
     <choice hidden="true">
         <text>Continue...</text>
@@ -22,6 +22,16 @@
 <event name="BOON_SELECT_LILY_INFUSION_BAY">
     <text>From nowhere, you hear a voice speaking to you. "Grant of [Infusion] i-i-installed. Installed! Grant provides: 0.5x damage resistance and 0.75x max health to allies in your Medical room. If -you- witness p-p-previous challenger; provide thanks. I advise you -visit- me as well."</text>
     <hiddenAug>BOON_LILY_INFUSION_BAY</hiddenAug>
+    <choice hidden="true">
+        <text>Continue...</text>
+        <event>
+            <loadEvent>BOON_SELECT_CONTINUE</loadEvent>
+        </event>
+    </choice>
+</event>
+<event name="BOON_SELECT_LILY_SYSTEM_BRACERS">
+    <text>From nowhere, you hear a voice speaking to you. "Grant of [Bracing] i-i-installed. Installed! Grant provides: Removal of System Bracers r-r-repair speed penalty. If -you- witness p-p-previous challenger; provide thanks. I advise you -visit- me as well."</text>
+    <hiddenAug>BOON_LILY_SHOCK_NEUTRALIZER</hiddenAug>
     <choice hidden="true">
         <text>Continue...</text>
         <event>

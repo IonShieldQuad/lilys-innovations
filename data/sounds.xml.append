@@ -10,4 +10,6 @@
 <lily_infusion_wearoff_1 volume="5">effects_lily/bp_sfx_infusion_wearoff.wav</lily_infusion_wearoff_1>
 
 <lily_shock_neutralizer_select_1 volume="5">effects_lily/shock_neutralizer_select.wav</lily_shock_neutralizer_select_1>
+
+<lily_bracers_hit_1 volume="5">effects_lily/system_bracers_hit_1.wav</lily_bracers_hit_1>
 </FTL>

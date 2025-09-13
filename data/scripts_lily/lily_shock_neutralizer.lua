@@ -378,7 +378,7 @@ script.on_internal_event(Defines.InternalEvents.SHIP_LOOP, function(shipManager)
             activationTimer[shipManager.iShipId] = 0
         end
 
-
+        lily_shock_neutralizer_system.bNeedsPower = false
         lily_shock_neutralizer_system.bBoostable = false
         local level = lily_shock_neutralizer_system.healthState.second
         local efflevel = lily_shock_neutralizer_system:GetEffectivePower()

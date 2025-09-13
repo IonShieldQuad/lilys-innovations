@@ -5,3 +5,5 @@
 <text name="tooltip_lily_shock_neutralizer_enemy">Shock neutralizer: Increases ion dissipation rate of affected rooms and provides bonus power to them in ion storms. Affected rooms have a Green-blue border.</text>
 <text name="tooltip_lily_infusion_bay">Infusion Bay: Produces infusions over time, which then can be picked up by crew and used for a variety of buffs.</text>
 <text name="tooltip_lily_infusion_bay_enemy">Infusion Bay: Produces infusions over time, which then can be picked up by crew and used for a variety of buffs.</text>
+<text name="tooltip_lily_system_bracers">System Bracers: Protects your systems from damage by taking it itself instead. Is repaired at half the usual rate.</text>
+<text name="tooltip_lily_system_bracers_enemy">System Bracers: Protects your enemy's systems from damage by taking it itself instead. Is repaired at half the usual rate.</text>

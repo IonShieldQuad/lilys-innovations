@@ -62,6 +62,42 @@
     <cost>55</cost>
 </systemBlueprint>
 
+<systemBlueprint name="lily_system_bracers">
+    <type>battery</type>
+    <title>System Bracers</title>
+    <desc>Passively protects your systems from damage, redirecting system damage towards itself instead (As long as it isn't destroyed itself). However, it is repaired only at half of normal speed compared to other systems.</desc>
+    <startPower>1</startPower>
+    <maxPower>3</maxPower>
+    <rarity>2</rarity>
+    <upgradeCost>
+        <level>20</level>
+        <level>30</level>
+        <level>50</level>
+        <level>80</level>
+        <level>100</level>
+    </upgradeCost>
+    <cost>30</cost>
+</systemBlueprint>
+
+
+
+
+<augBlueprint name="UPG_LILY_BUNKER_BRACERS">
+    <title>Bracers Fortifications</title>
+    <desc>YOU SHOULD NEVER SEE THIS</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>true</stackable>
+</augBlueprint>
+<augBlueprint name="EX_LILY_BUNKER_BRACERS">
+    <title>Bracers Fort. [X]</title>
+    <desc>Allied crew in System Bracers room take half damage from all sources, and enemy crew sabotage it at half speed.
+    
+		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>true</stackable>
+</augBlueprint>
 
 <augBlueprint name="UPG_LILY_DRONE_BOARDING_SMART">
     <title>Smart boarding deployment</title>
@@ -622,6 +658,14 @@ Core overclock and Parallel processing are mutually exclusive
 
 <augBlueprint name="BOON_LILY_INFUSION_BAY">
     <title>Infusion Bay Grant</title>
+    <desc>YOU SHOULD NEVER SEE THIS</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>false</stackable>
+</augBlueprint>
+
+<augBlueprint name="BOON_LILY_SYSTEM_BRACERS">
+    <title>System Bracers Grant</title>
     <desc>YOU SHOULD NEVER SEE THIS</desc>
     <cost>0</cost>
     <rarity>0</rarity>
