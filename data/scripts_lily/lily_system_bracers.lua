@@ -160,11 +160,30 @@ script.on_internal_event(Defines.InternalEvents.SHIP_LOOP, function(shipManager)
             end
         end
 
+        --[[if shipManager.weaponSystem then
+            if userdata_table(shipManager, "mods.lilyinno.systembracers").weaponRepower then
+                userdata_table(shipManager, "mods.lilyinno.systembracers").weaponRepower = false
+                if userdata_table(shipManager, "mods.lilyinno.systembracers").savedWeapons then
+                    local num = 0
+                    for weapon in vter(shipManager.weaponSystem.weapons) do
+                        ---@type Hyperspace.ProjectileFactory
+                        weapon = weapon
+                        weapon.powered = userdata_table(shipManager, "mods.lilyinno.systembracers").savedWeapons[num] and true or false
+                        num = num + 1
+                    end
+                    userdata_table(shipManager, "mods.lilyinno.systembracers").savedWeapons = {}
+                end
+            end
+        end--]]
 
         if absorbedDamage > 0 then
             --print(absorbedDamage)
 
             --lily_system_bracers_system.healthState.first = math.max(lily_system_bracers_system.healthState.first - absorbedDamage, 0)
+        end
+
+        if shipManager:HasAugmentation("UPG_LILY_BRACERS_REGEN") > 0 or shipManager:HasAugmentation("EX_LILY_BRACERS_REGEN") > 0 then
+            lily_system_bracers_system:PartialRepair(0.75, true)
         end
         
         userdata_table(shipManager, "mods.lilyinno.systembracers").absorbedDamage = 0
@@ -225,6 +244,9 @@ mods.multiverse.systemIcons[Hyperspace.ShipSystem.NameToSystemId("lily_system_br
 script.on_internal_event(Defines.InternalEvents.SYSTEM_ADD_DAMAGE, function(sys, projectile, amount)
     --print(2, Hyperspace.ShipSystem.SystemIdToName(sys:GetId()))
     --print("pre", amount)
+    if not sys then
+        return Defines.Chain.CONTINUE, amount
+    end
     local ship = Hyperspace.ships(sys._shipObj.iShipId)
     if ship and ship:HasSystem(Hyperspace.ShipSystem.NameToSystemId("lily_system_bracers")) then
         local lily_system_bracers = ship:GetSystem(Hyperspace.ShipSystem.NameToSystemId("lily_system_bracers"))
@@ -246,10 +268,18 @@ script.on_internal_event(Defines.InternalEvents.SYSTEM_ADD_DAMAGE, function(sys,
         if absorbedDamage > 0 then
             --userdata_table(ship, "mods.lilyinno.systembracers").absorbedDamage =
             --userdata_table(ship, "mods.lilyinno.systembracers").absorbedDamage + absorbedDamage
-
+            local absorbed = false
+            if ship:HasAugmentation("UPG_LILY_BRACERS_THERMAL") > 0 or ship:HasAugmentation("EX_LILY_BRACERS_THERMAL") > 0 then
+                absorbed = math.random() < 0.5
+            end
+            
             Hyperspace.Sounds:PlaySoundMix("lily_bracers_hit_1", -1, false)
-            lily_system_bracers.healthState.first = math.max(
-            lily_system_bracers.healthState.first - absorbedDamage, 0)
+            if absorbed then
+                ship:StartFire(lily_system_bracers.roomId)
+            else
+                lily_system_bracers.healthState.first = math.max(
+                lily_system_bracers.healthState.first - absorbedDamage, 0)
+            end
             local overflow = Hyperspace.Damage()
             overflow.ownerId = projectile and projectile.ownerId or ship.iShipId
             overflow.iSystemDamage = amount
@@ -276,6 +306,21 @@ script.on_internal_event(Defines.InternalEvents.DAMAGE_SYSTEM, function(shipMana
 
         table.insert(userdata_table(shipManager, "mods.lilyinno.systembracers").systemSaves, {id = sys:GetId(), hp = sys.healthState.first})
 
+        if shipManager.weaponSystem and sys:GetId() == Hyperspace.ShipSystem.NameToSystemId("weapons") then
+            userdata_table(shipManager, "mods.lilyinno.systembracers").weaponRepower = true
+            userdata_table(shipManager, "mods.lilyinno.systembracers").savedWeapons = {}
+            local num = 0
+            for weapon in vter(shipManager.weaponSystem.weapons) do
+                ---@type Hyperspace.ProjectileFactory                
+                weapon = weapon
+                if weapon.powered then
+                    userdata_table(shipManager, "mods.lilyinno.systembracers").savedWeapons[num] = true
+                else
+                    userdata_table(shipManager, "mods.lilyinno.systembracers").savedWeapons[num] = false
+                end
+                num = num + 1
+            end
+        end
 
         --[[if not sys then
             return Defines.Chain.CONTINUE
@@ -334,4 +379,12 @@ script.on_internal_event(Defines.InternalEvents.CALCULATE_STAT_POST, function(cr
         end
     end
     return Defines.Chain.CONTINUE, amount, value
+end)
+
+script.on_internal_event(Defines.InternalEvents.CONSTRUCT_SHIP_SYSTEM, function(system)
+    
+    if system and system:GetId() == Hyperspace.ShipSystem.NameToSystemId("lily_system_bracers") then
+        system.bNeedsPower = false
+        system.bBoostable = false
+    end
 end)

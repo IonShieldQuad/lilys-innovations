@@ -1,5 +1,7 @@
 <FTL>
 
+<version>^1.20.0</version>
+
 <mod:findLike type="scripts">
     <mod-append:script>data/scripts_lily/lily_ablative_armor.lua</mod-append:script>
 	<mod-append:script>data/scripts_lily/lily_shock_neutralizer.lua</mod-append:script>
@@ -697,10 +699,24 @@
 			</statBoost>
 		</statBoosts>
 	</aug>
+	<aug name="UPG_LILY_BRACERS_THERMAL"/>
+	<aug name="EX_LILY_BRACERS_THERMAL"/>
+
+	<aug name="UPG_LILY_BRACERS_REGEN"/>
+	<aug name="EX_LILY_BRACERS_REGEN"/>
+
+
+	<aug name="UPG_LILY_SENSORS_MAPWIDE"/>
+	<aug name="EX_LILY_SENSORS_MAPWIDE"/>
 
 </augments>
 
-
+<mod:findLike type="events" limit="1">
+	<mod:findName type="req" name="LIST_CHECK_AUGMENTS">
+		<mod-append:name>UPG_LILY_SENSORS_MAPWIDE</mod-append:name>
+		<mod-append:name>EX_LILY_SENSORS_MAPWIDE</mod-append:name>
+	</mod:findName>
+</mod:findLike>
 
 
 <mod:findLike type="events">
@@ -819,7 +835,7 @@
 			<mod-append:achievement name="ACH_BOON_LILY_INFUSION_BAY">
 				<name>Grant of Infusion bay</name>
 				<secretDescription>Receive the Grant of Infusion from Corby.</secretDescription>
-				<description>Show an upgraded Infusion Bay Subystem to Corby. While in effect; x0.75 max health and x0.5 all damage taken in your medical facilities.</description>
+				<description>Show an upgraded Infusion Bay System to Corby. While in effect; x0.75 max health and x0.5 all damage taken in your medical facilities.</description>
 				<header>Grant Received</header>
 				<icon>boons/ach_boon_lily_infusion_bay</icon>
 				<multiDifficulty>false</multiDifficulty>
@@ -851,7 +867,7 @@
 	<mod:setAttributes lilys="inno"/>
 </mod:findWithChildLike>
 
-<mod:findLike type="store" limit="1">
+<mod:findLike type="store">
 	<mod:findWithChildLike type="customStore" child-type="category">
 		<mod:selector type="SYSTEMS"/>
 		<mod:setAttributes lilys="inno"/>

@@ -481,6 +481,8 @@ end)
 
 
 --Handles custom rendering
+---@param systemBox Hyperspace.SystemBox
+---@param ignoreStatus boolean
 local function lily_infusion_bay_render(systemBox, ignoreStatus)
     if is_lily_infusion_bay(systemBox) then
         local shipManager = Hyperspace.ships.player
@@ -562,7 +564,11 @@ local function lily_infusion_bay_render(systemBox, ignoreStatus)
                 Graphics.GL_Color(1, 1, 1, 1))
             ---@diagnostic disable-next-line: param-type-mismatch
             Graphics.CSurface.GL_SetStencilMode(Graphics.STENCIL_USE, 1, 1)
-            Graphics.CSurface.GL_RenderPrimitiveWithColor(syringes["full"], Graphics.GL_Color(0.6, 0.8, 1, 0.8))
+            if systemBox.pSystem.iHackEffect > 1 then
+                Graphics.CSurface.GL_RenderPrimitiveWithColor(syringes["full"], Graphics.GL_Color(0.75, 0.15, 1, 1))
+            else
+                Graphics.CSurface.GL_RenderPrimitiveWithColor(syringes["full"], Graphics.GL_Color(0.6, 0.8, 1, 0.8))
+            end
             ---@diagnostic disable-next-line: param-type-mismatch
             Graphics.CSurface.GL_SetStencilMode(Graphics.STENCIL_IGNORE, 1, 1)
             Graphics.CSurface.GL_Translate(-32, -81, 0)
@@ -1262,8 +1268,8 @@ local function activateOverloaded(crew)
             if sys:GetEffectivePower() < sys.originalPower then
                 sys:ForceIncreasePower(1)
             end
-            if sys:GetLocked() then
-                sys.lockTimer.currTime = math.min(sys.lockTimer.currTime + 5, sys.lockTimer.maxTime)
+            if sys.iLockCount > 0 then
+                sys.iLockCount = math.max(0, sys.iLockCount - 1)
             end
         end
     end
@@ -1323,8 +1329,8 @@ local function activateChaotic(crew)
                     if sys:GetEffectivePower() < sys.originalPower then
                         sys:ForceIncreasePower(1)
                     end
-                    if sys:GetLocked() then
-                        sys.lockTimer.currTime = math.min(sys.lockTimer.currTime + 5, sys.lockTimer.maxTime)
+                    if sys.iLockCount > 0 then
+                        sys.iLockCount = math.max(0, sys.iLockCount - 1)
                     end
                 end
             end

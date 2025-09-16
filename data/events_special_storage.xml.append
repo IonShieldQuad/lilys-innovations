@@ -180,6 +180,14 @@
         <text>Integrated Neural Network. [Cost: 30~, 3|]</text>
         <event load="STORAGE_CHECK_SYSTEM_SENSORS_LILY_INN_SENSORS"/>
     </mod-append:choice>
+    <mod-append:choice req="UPG_LILY_SENSORS_MAPWIDE" lvl="1" max_group="7" blue="false" hidden="true">
+        <text>Mapping Suite. [ALREADY INSTALLED]</text>
+        <event load="OPTION_INVALID"/>
+    </mod-append:choice>
+    <mod-append:choice req="UPG_LILY_SENSORS_MAPWIDE" lvl="0" max_group="7" blue="false" hidden="true">
+        <text>Mapping Suite. [Cost: 40~, 3 {, 3|]</text>
+        <event load="STORAGE_CHECK_SYSTEM_SENSORS_LILY_SENSORS_MAPWIDE"/>
+    </mod-append:choice>
 </mod:findName>
 
 
@@ -193,6 +201,14 @@
     <mod-append:choice req="UPG_LILY_INN_SENSORS" lvl="0" max_group="6" blue="false" hidden="true">
         <text>Integrated Neural Network. [Cost: 30~, 3|]</text>
         <event load="STORAGE_CHECK_SYSTEM_SENSORS_LILY_INN_SENSORS"/>
+    </mod-append:choice>
+    <mod-append:choice req="UPG_LILY_SENSORS_MAPWIDE" lvl="1" max_group="7" blue="false" hidden="true">
+        <text>Mapping Suite. [ALREADY INSTALLED]</text>
+        <event load="OPTION_INVALID"/>
+    </mod-append:choice>
+    <mod-append:choice req="UPG_LILY_SENSORS_MAPWIDE" lvl="0" max_group="7" blue="false" hidden="true">
+        <text>Mapping Suite. [Cost: 40~, 3 {, 3|]</text>
+        <event load="STORAGE_CHECK_SYSTEM_SENSORS_LILY_SENSORS_MAPWIDE"/>
     </mod-append:choice>
 
     <choice>
@@ -249,6 +265,50 @@
     <loadEvent>STORAGE_CHECK_SYSTEM</loadEvent>
 </event>
 
+<event name="STORAGE_CHECK_SYSTEM_SENSORS_LILY_SENSORS_MAPWIDE">
+    <text>You are about to install the Mapping Suite upgrade.
+	[Effects: Allows you to collect information about the beacons of the whole sector. Requires the ship to be stationary for some time.]</text>
+
+    <choice req="sensors" lvl="3" max_group="0" blue="false" hidden="true">
+        <text>Perform the upgrade. [Cost: 40~, 3 {, 3|]</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <item_modify>
+                <item type="scrap" min="-40" max="-40"/>
+                <item type="fuel" min="-3" max="-3"/>
+                <item type="drones" min="-3" max="-3"/>
+            </item_modify>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_SENSORS_MAPWIDE"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="sensors" max_group="0" blue="false" hidden="true">
+        <text>This upgrade is unavailable. You need Sensors level 3.</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="EX_LILY_SENSORS_MAPWIDE" max_group="1" blue="false" hidden="true">
+        <text>Install the External Augment internally.</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <remove name="EX_LILY_SENSORS_MAPWIDE"/>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_SENSORS_MAPWIDE"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="sensors" lvl="1" max_group="2" blue="false" hidden="true">
+        <text>Nevermind.</text>
+        <event load="STORAGE_CHECK_SYSTEM_LOAD"/>
+    </choice>
+</event>
+<event name="INSTALL_LILY_SENSORS_MAPWIDE">
+    <variable name="loc_internal_upgrades" op="add" val="1"/>
+    <hiddenAug>UPG_LILY_SENSORS_MAPWIDE</hiddenAug>
+    <loadEvent>STORAGE_CHECK_SYSTEM</loadEvent>
+</event>
 
 
 
@@ -1790,13 +1850,29 @@ Incompatible with battery performance upgrades.]</text>
 
 <event name="STORAGE_CHECK_SYSTEM_LILY_SYSTEM_BRACERS">
     <text>What upgrade do you want to install?</text>
-    <choice req="UPG_LILY_BUNKER_BRACERS" lvl="1" max_group="6" blue="false" hidden="true">
+    <choice req="UPG_LILY_BUNKER_BRACERS" lvl="1" max_group="1" blue="false" hidden="true">
         <text>Fortifications. [ALREADY INSTALLED]</text>
         <event load="OPTION_INVALID"/>
     </choice>
-    <choice req="UPG_LILY_BUNKER_BRACERS" lvl="0" max_group="6" blue="false" hidden="true">
+    <choice req="UPG_LILY_BUNKER_BRACERS" lvl="0" max_group="1" blue="false" hidden="true">
         <text>Fortifications. [Cost: 30~]</text>
         <event load="STORAGE_CHECK_SYSTEM_LILY_SYSTEM_BRACERS_BUNKER"/>
+    </choice>
+    <choice req="UPG_LILY_BRACERS_THERMAL" lvl="1" max_group="2" blue="false" hidden="true">
+        <text>Thermal Kinetic Dischargers. [ALREADY INSTALLED]</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="UPG_LILY_BRACERS_THERMAL" lvl="0" max_group="2" blue="false" hidden="true">
+        <text>Thermal Kinetic Dischargers. [Cost: 15~, 4}]</text>
+        <event load="STORAGE_CHECK_SYSTEM_LILY_SYSTEM_BRACERS_THERMAL"/>
+    </choice>
+    <choice req="UPG_LILY_BRACERS_REGEN" lvl="1" max_group="3" blue="false" hidden="true">
+        <text>Living Metal Bracers. [ALREADY INSTALLED]</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="UPG_LILY_BRACERS_REGEN" lvl="0" max_group="3" blue="false" hidden="true">
+        <text>Living Metal Bracers. [Cost: 40~, 4|]</text>
+        <event load="STORAGE_CHECK_SYSTEM_LILY_SYSTEM_BRACERS_REGEN"/>
     </choice>
 
     <choice>
@@ -1849,6 +1925,93 @@ Incompatible with battery performance upgrades.]</text>
     <loadEvent>STORAGE_CHECK_SYSTEM</loadEvent>
 </event>
 
+<event name="STORAGE_CHECK_SYSTEM_LILY_SYSTEM_BRACERS_THERMAL">
+    <text>You are about to install the Thermal Kinetic Dischargers upgrade.
+	[Effects: System Bracers have a 50% chance to not lose durability but instead catch fire when absorbing damage.]</text>
+
+    <choice req="lily_system_bracers" lvl="1" max_group="0" blue="false" hidden="true">
+        <text>Perform the upgrade. [Cost: 15~, 4}]</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <item_modify>
+                <item type="scrap" min="-15" max="-15"/>
+                <item type="missiles" min="-4" max="-4"/>
+            </item_modify>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_BRACERS_THERMAL"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="lily_system_bracers" max_group="0" blue="false" hidden="true">
+        <text>This upgrade is unavailable. You need System Bracers level 1.</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="EX_LILY_BRACERS_THERMAL" max_group="1" blue="false" hidden="true">
+        <text>Install the External Augment internally.</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <remove name="EX_LILY_BRACERS_THERMAL"/>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_BRACERS_THERMAL"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="pilot" lvl="1" max_group="2" blue="false" hidden="true">
+        <text>Nevermind.</text>
+        <event load="STORAGE_CHECK_SYSTEM_LOAD"/>
+    </choice>
+</event>
+<event name="INSTALL_LILY_BRACERS_THERMAL">
+    <variable name="loc_internal_upgrades" op="add" val="1"/>
+    <hiddenAug>UPG_LILY_BRACERS_THERMAL</hiddenAug>
+    <loadEvent>STORAGE_CHECK_SYSTEM</loadEvent>
+</event>
+
+<event name="STORAGE_CHECK_SYSTEM_LILY_SYSTEM_BRACERS_REGEN">
+    <text>You are about to install the Living Metal Bracers upgrade.
+	[Effects: System Bracers slowly repair themselves even in the absense of crew.]</text>
+
+    <choice req="lily_system_bracers" lvl="3" max_group="0" blue="false" hidden="true">
+        <text>Perform the upgrade. [Cost: 40~, 4|]</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <item_modify>
+                <item type="scrap" min="-40" max="-40"/>
+                <item type="drones" min="-4" max="-4"/>
+            </item_modify>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_BRACERS_REGEN"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="lily_system_bracers" max_group="0" blue="false" hidden="true">
+        <text>This upgrade is unavailable. You need System Bracers level 3.</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="EX_LILY_BRACERS_REGEN" max_group="1" blue="false" hidden="true">
+        <text>Install the External Augment internally.</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <remove name="EX_LILY_BRACERS_REGEN"/>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_BRACERS_REGEN"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="pilot" lvl="1" max_group="2" blue="false" hidden="true">
+        <text>Nevermind.</text>
+        <event load="STORAGE_CHECK_SYSTEM_LOAD"/>
+    </choice>
+</event>
+<event name="INSTALL_LILY_BRACERS_REGEN">
+    <variable name="loc_internal_upgrades" op="add" val="1"/>
+    <hiddenAug>UPG_LILY_BRACERS_REGEN</hiddenAug>
+    <loadEvent>STORAGE_CHECK_SYSTEM</loadEvent>
+</event>
 
 
 <mod:findName type="event" name="COMBAT_CHECK_TOGGLE">
@@ -1866,5 +2029,25 @@ Incompatible with battery performance upgrades.]</text>
     </mod-append:choice>
 
 </mod:findName>
+
+
+
+<mod:findName type="event" name="STORAGE_CHECK_AUG">
+    <mod-append:choice req="UPG_LILY_SENSORS_MAPWIDE">
+        <text>(Mapping Suite) Map the sector. [1 fleet boost]</text>
+        <event load="STORAGE_CHECK_AUG_SENSORS_MAPWIDE_SCAN"/>
+    </mod-append:choice>
+    <mod-append:choice req="EX_LILY_SENSORS_MAPWIDE">
+        <text>(Ex. Mapping Suite) Map the sector. [1 fleet boost]</text>
+       <event load="STORAGE_CHECK_AUG_SENSORS_MAPWIDE_SCAN"/>
+    </mod-append:choice>
+</mod:findName>
+
+<event name="STORAGE_CHECK_AUG_SENSORS_MAPWIDE_SCAN">
+    <text>You unfold your giant mapping sensor array and stay at low power for some time to avoid disturbance. This long process will surely give the fleet some time to catch up, but now you have gathered a detailed map of the whole sector!</text>
+    <modifyPursuit amount="1"/>
+    <reveal_map/>
+</event>
+
 
 </FTL>

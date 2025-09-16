@@ -652,3 +652,10 @@ script.on_render_event(Defines.RenderEvents.SYSTEM_BOX,
             end
         end
     end)
+
+script.on_internal_event(Defines.InternalEvents.CONSTRUCT_SHIP_SYSTEM, function(system)
+    if system and system:GetId() == Hyperspace.ShipSystem.NameToSystemId("lily_shock_neutralizer") then
+        system.bNeedsPower = false
+        system.bBoostable = false
+    end
+end)

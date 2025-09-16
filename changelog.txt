@@ -1,4 +1,12 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.5.3
+Date: 2025-09-17
+  Changes:
+    - Added more room images for System Bracers.
+    - Added Thermal Kinetic Dischargers and Living Metal Bracers internal upgrades for system bracers. 
+    - Added Mapping Suite internal upgrade for sensors.
+    - Minor fixes.
+---------------------------------------------------------------------------------------------------
 Version: 1.5.2
 Date: 2025-09-13
   Changes:
