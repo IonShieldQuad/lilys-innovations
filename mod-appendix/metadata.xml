@@ -30,13 +30,15 @@
 			2.4.1 Hi-res Bkgs
 			1.0 for FTL 1.03.1
 	-->
-	<version><![CDATA[ 1.5.3 ]]></version>
+	<version><![CDATA[ 1.5.4 ]]></version>
 
 
 	<description>
 <![CDATA[
 An addon that add new and alternative SHIP SYSTEMS to allow for new and interesting playstyles.
 
+ATTENTION: Requires FTLMAN mod loader
+Will NOT work properly with SLIPSTREAM
 
 Recommended to patch LAST - or at least after mods that add ships.
 

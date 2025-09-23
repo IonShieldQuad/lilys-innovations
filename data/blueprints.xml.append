@@ -136,6 +136,62 @@
     <stackable>true</stackable>
 </augBlueprint>
 
+<augBlueprint name="UPG_LILY_OXYGEN_FLORAL">
+    <title>Advanced Ventilation</title>
+    <desc>YOU SHOULD NEVER SEE THIS</desc>
+    <cost>30</cost>
+    <rarity>0</rarity>
+    <stackable>true</stackable>
+</augBlueprint>
+
+<augBlueprint name="UPG_LILY_OXYGEN_FACTORY">
+    <title>Advanced Ventilation</title>
+    <desc>YOU SHOULD NEVER SEE THIS</desc>
+    <cost>30</cost>
+    <rarity>0</rarity>
+    <stackable>true</stackable>
+</augBlueprint>
+
+<augBlueprint name="UPG_LILY_OXYGEN_METAL">
+    <title>Advanced Ventilation</title>
+    <desc>YOU SHOULD NEVER SEE THIS</desc>
+    <cost>30</cost>
+    <rarity>0</rarity>
+    <stackable>true</stackable>
+</augBlueprint>
+
+<augBlueprint name="UPG_LILY_OXYGEN_ARCTIC">
+    <title>Advanced Ventilation</title>
+    <desc>YOU SHOULD NEVER SEE THIS</desc>
+    <cost>30</cost>
+    <rarity>0</rarity>
+    <stackable>true</stackable>
+</augBlueprint>
+
+<augBlueprint name="UPG_LILY_OXYGEN_LAZULI">
+    <title>Advanced Ventilation</title>
+    <desc>YOU SHOULD NEVER SEE THIS</desc>
+    <cost>30</cost>
+    <rarity>0</rarity>
+    <stackable>true</stackable>
+</augBlueprint>
+
+<augBlueprint name="UPG_LILY_OXYGEN_BATTERY">
+    <title>Advanced Ventilation</title>
+    <desc>YOU SHOULD NEVER SEE THIS</desc>
+    <cost>30</cost>
+    <rarity>0</rarity>
+    <stackable>true</stackable>
+</augBlueprint>
+
+<augBlueprint name="UPG_LILY_OXYGEN_ALPHA">
+    <title>Advanced Ventilation</title>
+    <desc>YOU SHOULD NEVER SEE THIS</desc>
+    <cost>30</cost>
+    <rarity>0</rarity>
+    <stackable>true</stackable>
+</augBlueprint>
+
 
 <augBlueprint name="UPG_LILY_BUNKER_DOORS">
     <title>Door Fortifications</title>
@@ -613,6 +669,26 @@ Incompatible with performance upgrades.
     <rarity>0</rarity>
     <stackable>true</stackable>
 </augBlueprint>
+
+
+<augBlueprint name="UPG_LILY_BRACERS_COVERAGE">
+    <title>Integrity Field Generator</title>
+    <desc>YOU SHOULD NEVER SEE THIS</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>true</stackable>
+</augBlueprint>
+<augBlueprint name="EX_LILY_BRACERS_COVERAGE">
+    <title>Integrity Field Generator [X]</title>
+    <desc>System Bracers now protect systems from other sources of damage, such as sabotage and fires.
+    
+		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>true</stackable>
+</augBlueprint>
+
+
 
 <augBlueprint name="UPG_LILY_SENSORS_MAPWIDE">
     <title>Mapping Suite</title>

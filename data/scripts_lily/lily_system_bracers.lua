@@ -94,6 +94,8 @@ local function is_lily_system_bracers_enemy(systemBox)
 end
 
 local corners = {}
+local cornersBroken = {}
+local cornersShielded = {}
 script.on_init(function()
 
     corners[1] = Hyperspace.Resources:CreateImagePrimitiveString(
@@ -104,6 +106,24 @@ script.on_init(function()
         "misc/lily_systembrace_3.png", -36, -36, 0, Graphics.GL_Color(1, 1, 1, 1), 1, false)
     corners[4] = Hyperspace.Resources:CreateImagePrimitiveString(
         "misc/lily_systembrace_4.png", 1, -36, 0, Graphics.GL_Color(1, 1, 1, 1), 1, false)
+
+    cornersBroken[1] = Hyperspace.Resources:CreateImagePrimitiveString(
+        "misc/lily_systembrace_broken_1.png", 1, 1, 0, Graphics.GL_Color(1, 1, 1, 1), 1, false)
+    cornersBroken[2] = Hyperspace.Resources:CreateImagePrimitiveString(
+        "misc/lily_systembrace_broken_2.png", -36, 1, 0, Graphics.GL_Color(1, 1, 1, 1), 1, false)
+    cornersBroken[3] = Hyperspace.Resources:CreateImagePrimitiveString(
+        "misc/lily_systembrace_broken_3.png", -36, -36, 0, Graphics.GL_Color(1, 1, 1, 1), 1, false)
+    cornersBroken[4] = Hyperspace.Resources:CreateImagePrimitiveString(
+        "misc/lily_systembrace_broken_4.png", 1, -36, 0, Graphics.GL_Color(1, 1, 1, 1), 1, false)
+
+    cornersShielded[1] = Hyperspace.Resources:CreateImagePrimitiveString(
+        "misc/lily_systembrace_shielded_1.png", 1, 1, 0, Graphics.GL_Color(1, 1, 1, 1), 1, false)
+    cornersShielded[2] = Hyperspace.Resources:CreateImagePrimitiveString(
+        "misc/lily_systembrace_shielded_2.png", -36, 1, 0, Graphics.GL_Color(1, 1, 1, 1), 1, false)
+    cornersShielded[3] = Hyperspace.Resources:CreateImagePrimitiveString(
+        "misc/lily_systembrace_shielded_3.png", -36, -36, 0, Graphics.GL_Color(1, 1, 1, 1), 1, false)
+    cornersShielded[4] = Hyperspace.Resources:CreateImagePrimitiveString(
+        "misc/lily_systembrace_shielded_4.png", 1, -36, 0, Graphics.GL_Color(1, 1, 1, 1), 1, false)
     
 end)
 
@@ -119,6 +139,8 @@ script.on_internal_event(Defines.InternalEvents.SHIP_LOOP, function(shipManager)
             lily_system_bracers_system.iLockCount = 0
             lily_system_bracers_system.lockTimer.currTime = lily_system_bracers_system.lockTimer.currGoal
         end
+
+        lily_system_bracers_system.bExploded = false
 
         local level = lily_system_bracers_system.healthState.second
         lily_system_bracers_system.bNeedsPower = false
@@ -152,6 +174,9 @@ script.on_internal_event(Defines.InternalEvents.SHIP_LOOP, function(shipManager)
                         lily_system_bracers_system.healthState.first = math.max(0, lily_system_bracers_system.healthState.first - repairAmount)
                         absorbedDamage = absorbedDamage + repairAmount
                         fixed = true
+                        if repairAmount > 0 then
+                            sys.bExploded = false
+                        end
                     end
                 end
             end
@@ -189,7 +214,14 @@ script.on_internal_event(Defines.InternalEvents.SHIP_LOOP, function(shipManager)
         userdata_table(shipManager, "mods.lilyinno.systembracers").absorbedDamage = 0
         userdata_table(shipManager, "mods.lilyinno.systembracers").systemSaves = {}
 
-
+        if shipManager:HasAugmentation("UPG_LILY_BRACERS_COVERAGE") > 0 or shipManager:HasAugmentation("EX_LILY_BRACERS_COVERAGE") > 0 then
+            for sys in vter(shipManager.vSystemList) do
+                ---@type Hyperspace.ShipSystem
+                sys = sys
+                table.insert(userdata_table(shipManager, "mods.lilyinno.systembracers").systemSaves,
+                    { id = sys:GetId(), hp = sys.healthState.first })
+            end
+        end
 
     end
 end)
@@ -202,7 +234,16 @@ local function render_system_bracers_effects(ship, experimental)
 
         local working = not shipManager:GetSystem(Hyperspace.ShipSystem.NameToSystemId("lily_system_bracers")):CompletelyDestroyed()
 
-        if working then
+        local usedCorners = corners
+
+        if shipManager:HasAugmentation("UPG_LILY_BRACERS_COVERAGE") > 0 or shipManager:HasAugmentation("EX_LILY_BRACERS_COVERAGE") > 0 then
+            usedCorners = cornersShielded
+        end
+
+        if not working then
+            usedCorners = cornersBroken
+        end
+        if not (Hyperspace.metaVariables.lily_system_bracers_rendering_disabled and Hyperspace.metaVariables.lily_system_bracers_rendering_disabled > 0) then
             local color = Graphics.GL_Color(1, 1, 1, 1)
             Graphics.CSurface.GL_SetColorTint(color)
             for room in vter(rooms) do
@@ -215,13 +256,13 @@ local function render_system_bracers_effects(ship, experimental)
 
 
                     Graphics.CSurface.GL_Translate(rect.x, rect.y)
-                    Graphics.CSurface.GL_RenderPrimitiveWithAlpha(corners[1], 0.5)
+                    Graphics.CSurface.GL_RenderPrimitiveWithAlpha(usedCorners[1], 0.5)
                     Graphics.CSurface.GL_Translate(rect.w, 0)
-                    Graphics.CSurface.GL_RenderPrimitiveWithAlpha(corners[2], 0.5)
+                    Graphics.CSurface.GL_RenderPrimitiveWithAlpha(usedCorners[2], 0.5)
                     Graphics.CSurface.GL_Translate(0, rect.h)
-                    Graphics.CSurface.GL_RenderPrimitiveWithAlpha(corners[3], 0.5)
+                    Graphics.CSurface.GL_RenderPrimitiveWithAlpha(usedCorners[3], 0.5)
                     Graphics.CSurface.GL_Translate(-rect.w, 0)
-                    Graphics.CSurface.GL_RenderPrimitiveWithAlpha(corners[4], 0.5)
+                    Graphics.CSurface.GL_RenderPrimitiveWithAlpha(usedCorners[4], 0.5)
                     Graphics.CSurface.GL_Translate(0, -rect.h)
                     Graphics.CSurface.GL_Translate(-rect.x, -rect.y)
 

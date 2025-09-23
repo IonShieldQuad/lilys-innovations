@@ -437,7 +437,7 @@ end)
 
 script.on_render_event(Defines.RenderEvents.SHIP_SPARKS, function() end, function(ship)
     local shipManager = Hyperspace.ships(ship.iShipId)
-    local enabled = not (Hyperspace.metaVariables.lily_ablative_armor_rendering_disabled > 0)
+    local enabled = not (Hyperspace.metaVariables.lily_ablative_armor_rendering_disabled and Hyperspace.metaVariables.lily_ablative_armor_rendering_disabled > 0)
     if enabled and shipManager:HasSystem(Hyperspace.ShipSystem.NameToSystemId("lily_ablative_armor")) then
         local currentLayers = userdata_table(shipManager, "mods.lilyinno.ablativearmor").first or 0
         local maxLayers = userdata_table(shipManager, "mods.lilyinno.ablativearmor").second or 0
@@ -598,26 +598,35 @@ script.on_internal_event(Defines.InternalEvents.DAMAGE_BEAM, function(ship, proj
         end
 
 
-        if damage.iDamage <= 0 and damage.iPersDamage <= 0 and damage.iSystemDamage <= 0 then
-            return Defines.Chain.CONTINUE, beamHit
-        end
         --print("1:" .. damage.iDamage)
         --[[
-        if ship:GetAugmentationValue("ROCK_ARMOR") < math.random() then
-            damage.iDamage = 0
-        end
-        if ship:GetAugmentationValue("SYSTEM_CASING") < math.random() then
-            damage.iPersDamage = 0
-        end
-        --]]
-
+            if ship:GetAugmentationValue("ROCK_ARMOR") < math.random() then
+                damage.iDamage = 0
+            end
+            if ship:GetAugmentationValue("SYSTEM_CASING") < math.random() then
+                damage.iPersDamage = 0
+            end
+            --]]
+            
         local cdamage = projectile and projectile.extend.customDamage.def or nil
         if cdamage == nil then
             cdamage = Hyperspace.CustomDamageDefinition()
         end
-
+        
         local frac = (currentLayers * 100.0) / (maxLayers * 1.0)
-
+        if damage.iDamage <= 0 and damage.iPersDamage <= 0 and damage.iSystemDamage <= 0 then
+                local neg0
+                if ship:HasAugmentation("UPG_LILY_STRONG_ARMOR") > 0 or ship:HasAugmentation("EX_LILY_STRONG_ARMOR") > 0 then
+                    neg0 = math.min(math.random() * 100, math.random() * 100) < frac
+                else
+                    neg0 = math.max(math.random() * 100, math.random() * 100) < frac
+                end
+                if neg0 then
+                    damage.fireChance = math.max(0, damage.fireChance - currentLayers)
+                end
+            return Defines.Chain.CONTINUE, beamHit
+        end
+            
         local hullres = false
         local sysres = false
         if ship:HasAugmentation("UPG_LILY_AETHER_ARMOR") > 0 or ship:HasAugmentation("EX_LILY_AETHER_ARMOR") > 0 then

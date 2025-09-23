@@ -165,8 +165,8 @@ script.on_internal_event(Defines.InternalEvents.SHIP_LOOP, function(shipManager)
 
     if shipManager:HasAugmentation("UPG_LILY_DRONE_BOARDING_SMART") > 0 or shipManager:HasAugmentation("EX_LILY_DRONE_BOARDING_SMART") > 0 then
         local spaceManager = Hyperspace.App.world.space
-
-        if spaceManager then
+        local otherShipManager = Hyperspace.ships(1 - shipManager.iShipId)
+        if spaceManager and otherShipManager then
             local spacedrones = spaceManager.drones
             if spacedrones then
                 for drone in vter(spacedrones) do
@@ -182,13 +182,15 @@ script.on_internal_event(Defines.InternalEvents.SHIP_LOOP, function(shipManager)
                         if drone:GetBoardingDrone() then
                             local boarder = drone:GetBoardingDrone()
                             --print("Location: " .. drone.currentLocation.x .. "/" .. drone.currentLocation.y)
-                            local otherShipManager = Hyperspace.ships(drone.destinationSpace)
-                            local room = otherShipManager.ship:GetSelectedRoomId(drone.currentLocation.x,
-                                drone.currentLocation.y, false)
+                            --local otherShipManager = Hyperspace.ships(drone.destinationSpace)
+                            local room = otherShipManager and otherShipManager.ship:GetSelectedRoomId(drone.currentLocation.x,
+                                drone.currentLocation.y, false) or -1
                             --print("Room: " .. tostring(room))
                             --print("DestRoom: " .. tostring(otherShipManager.ship:GetSelectedRoomId(drone.destinationLocation.x, drone.destinationLocation.y, false)))
 
+                            --If target is not set yet
                             if room == -1 and (not userdata_table(drone, "mods.lilyinno.dronetarget").target) then
+                                --First, prioritize important rooms
                                 local importantSystemList = {}
                                 importantSystemList["weapons"] = true
                                 importantSystemList["shields"] = true
@@ -210,13 +212,51 @@ script.on_internal_event(Defines.InternalEvents.SHIP_LOOP, function(shipManager)
                                     end
                                 end
 
+                                --room id
                                 local target = nil
                                 if #targets > 0 then
                                     target = targets[math.random(#targets)]
                                 elseif #targets2 > 0 then
                                     target = targets2[math.random(#targets2)]
                                 end
-                                
+
+                                --local sys = otherShipManager:GetSystemInRoom(target or -1)
+                                --print("SYSTEM1: " .. (sys and sys.name or "nil"))
+
+                                --Check if other drones in flight have targets too and sync with them
+                                for odrone in vter(spacedrones) do
+                                    ---@type Hyperspace.SpaceDrone
+                                    odrone = odrone
+                                    if odrone ~= drone and odrone.deployed and 
+                                    odrone:GetBoardingDrone() and 
+                                    otherShipManager.ship:GetSelectedRoomId(odrone.currentLocation.x, odrone.currentLocation.y, false) == -1 and 
+                                    (userdata_table(odrone, "mods.lilyinno.dronetarget").target) then
+                                        if userdata_table(odrone, "mods.lilyinno.dronetarget").target > -1 then
+                                            target = userdata_table(odrone, "mods.lilyinno.dronetarget").target
+                                        end
+
+                                    end
+                                end
+
+                                --local sys = otherShipManager:GetSystemInRoom(target or -1)
+                                --print("SYSTEM2: " .. (sys and sys.name or "nil"))
+
+                                -- Sync with crew already on enemy ship
+                                for crew in vter(otherShipManager.vCrewList) do
+                                    ---@type Hyperspace.CrewMember
+                                    crew = crew
+                                    --print(crew.species, crew.iShipId, shipManager.iShipId)
+                                    if crew.iShipId == shipManager.iShipId then
+                                        if crew.iRoomId > -1 then
+                                            for _, tgt in pairs(targets) do
+                                                if tgt == crew.iRoomId then
+                                                    target = crew.iRoomId
+                                                end
+                                            end
+                                        end
+                                    end
+                                end
+                                --]]
 
                                 if target then
                                     drone.destinationLocation = otherShipManager:GetRoomCenter(target)

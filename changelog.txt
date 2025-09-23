@@ -1,4 +1,15 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.5.4
+Date: 2025-09-20
+  Changes:
+    - Made smart boarding drones even smarter.
+    - Systems list has been split in 2 for less duplicates in stores. 
+    - Added Integrity Field Generator internal upgrade for System Bracers.
+    - Added Particulate Dispersal internal upgrade for oxygen.
+    - Added ability to toggle rendering for system bracers.
+    - Boons should be reset correctly now.
+    - Minor fixes.
+---------------------------------------------------------------------------------------------------
 Version: 1.5.3
 Date: 2025-09-17
   Changes:

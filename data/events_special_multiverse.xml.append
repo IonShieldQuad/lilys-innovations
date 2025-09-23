@@ -55,4 +55,11 @@
     </mod-append:choice>
 </mod:findName>
 
+<mod:findName type="event" name="THE_JUDGES_VARIABLE_CLEAR">
+    <mod-append:metaVariable name="prof_e_boon_lily_ablative_armor" op="set" val="0"/>
+    <mod-append:metaVariable name="prof_e_boon_lily_infusion_bay" op="set" val="0"/>
+    <mod-append:metaVariable name="prof_e_boon_lily_shock_neutralizer" op="set" val="0"/>
+    <mod-append:metaVariable name="prof_e_boon_lily_system_bracers" op="set" val="0"/>
+</mod:findName>
+
 </FTL>

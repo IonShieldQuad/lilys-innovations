@@ -1560,26 +1560,60 @@
 
 
 <mod:findName type="event" name="STORAGE_CHECK_SYSTEM_OXYGEN">
-    <mod-append:choice req="UPG_CREW_OXYGEN" lvl="4" max_group="1" blue="false" hidden="true">
+    <mod-append:choice req="UPG_CREW_OXYGEN" lvl="4" max_group="4" blue="false" hidden="true">
         <text>Advanced Ventilation. [MAX LVL ALREADY INSTALLED]</text>
         <event load="OPTION_INVALID"/>
     </mod-append:choice>
-    <mod-append:choice req="UPG_CREW_OXYGEN" lvl="3" max_lvl="3" max_group="1" blue="false" hidden="true">
+    <mod-append:choice req="UPG_CREW_OXYGEN" lvl="3" max_lvl="3" max_group="4" blue="false" hidden="true">
         <text>Advanced Ventilation LvL 4. [Cost: 30~]</text>
         <event load="STORAGE_CHECK_SYSTEM_OXYGEN_CREW_OXYGEN"/>
     </mod-append:choice>
-    <mod-append:choice req="UPG_CREW_OXYGEN" lvl="2" max_lvl="2" max_group="1" blue="false" hidden="true">
+    <mod-append:choice req="UPG_CREW_OXYGEN" lvl="2" max_lvl="2" max_group="4" blue="false" hidden="true">
         <text>Advanced Ventilation LvL 3. [Cost: 30~]</text>
         <event load="STORAGE_CHECK_SYSTEM_OXYGEN_CREW_OXYGEN"/>
     </mod-append:choice>
-    <mod-append:choice req="UPG_CREW_OXYGEN" lvl="1" max_lvl="1" max_group="1" blue="false" hidden="true">
+    <mod-append:choice req="UPG_CREW_OXYGEN" lvl="1" max_lvl="1" max_group="4" blue="false" hidden="true">
         <text>Advanced Ventilation LvL 2. [Cost: 30~]</text>
         <event load="STORAGE_CHECK_SYSTEM_OXYGEN_CREW_OXYGEN"/>
     </mod-append:choice>
-    <mod-append:choice req="UPG_CREW_OXYGEN" lvl="0" max_lvl="0" max_group="1" blue="false" hidden="true">
+    <mod-append:choice req="UPG_CREW_OXYGEN" lvl="0" max_lvl="0" max_group="4" blue="false" hidden="true">
         <text>Advanced Ventilation LvL 1. [Cost: 30~]</text>
         <event load="STORAGE_CHECK_SYSTEM_OXYGEN_CREW_OXYGEN"/>
     </mod-append:choice>
+
+    <mod-append:choice req="UPG_LILY_OXYGEN_FLORAL" lvl="1" max_group="5" blue="false" hidden="true">
+        <text>Particulate Dispersal - Floral Bouquet. [ALREADY INSTALLED]</text>
+        <event load="OPTION_INVALID"/>
+    </mod-append:choice>
+    <mod-append:choice req="UPG_LILY_OXYGEN_FACTORY" lvl="1" max_group="5" blue="false" hidden="true">
+        <text>Particulate Dispersal - Factory Grease. [ALREADY INSTALLED]</text>
+        <event load="OPTION_INVALID"/>
+    </mod-append:choice>
+    <mod-append:choice req="UPG_LILY_OXYGEN_METAL" lvl="1" max_group="5" blue="false" hidden="true">
+        <text>Particulate Dispersal - Metal and Gunpowder. [ALREADY INSTALLED]</text>
+        <event load="OPTION_INVALID"/>
+    </mod-append:choice>    
+    <mod-append:choice req="UPG_LILY_OXYGEN_ARCTIC" lvl="1" max_group="5" blue="false" hidden="true">
+        <text>Particulate Dispersal - Arctic Wind. [ALREADY INSTALLED]</text>
+        <event load="OPTION_INVALID"/>
+    </mod-append:choice>
+    <mod-append:choice req="UPG_LILY_OXYGEN_LAZULI" lvl="1" max_group="5" blue="false" hidden="true">
+        <text>Particulate Dispersal - Lapis Lazuli. [ALREADY INSTALLED]</text>
+        <event load="OPTION_INVALID"/>
+    </mod-append:choice>
+    <mod-append:choice req="UPG_LILY_OXYGEN_BATTERY" lvl="1" max_group="5" blue="false" hidden="true">
+        <text>Particulate Dispersal - 9V Battery. [ALREADY INSTALLED]</text>
+        <event load="OPTION_INVALID"/>
+    </mod-append:choice>
+    <mod-append:choice req="UPG_LILY_OXYGEN_ALPHA" lvl="1" max_group="5" blue="false" hidden="true">
+        <text>Particulate Dispersal - Alpha-Methylphenethylamine. [ALREADY INSTALLED]</text>
+        <event load="OPTION_INVALID"/>
+    </mod-append:choice>
+    <mod-append:choice req="OXYGEN_FLAVOR_ANY" lvl="0" max_lvl="0" max_group="5" blue="false" hidden="true">
+        <text>Particulate Dispersal.</text>
+        <event load="STORAGE_CHECK_SYSTEM_OXYGEN_LILY_OXYGEN_FLAVOR"/>
+    </mod-append:choice>
+
 
     <mod-append:choice req="UPG_LILY_OXYGEN_BACKUP" lvl="1" max_group="6" blue="false" hidden="true">
         <text>Backup Oxygen. [ALREADY INSTALLED]</text>
@@ -1587,7 +1621,7 @@
     </mod-append:choice>
     <mod-append:choice req="UPG_LILY_OXYGEN_BACKUP" lvl="0" max_group="6" blue="false" hidden="true">
         <text>Backup Oxygen. [Cost: 10~, 2{]</text>
-        <event load="STORAGE_CHECK_SYSTEM_DOORS_LILY_OXYGEN_BACKUP"/>
+        <event load="STORAGE_CHECK_SYSTEM_OXYGEN_LILY_OXYGEN_BACKUP"/>
     </mod-append:choice>
 </mod:findName>
 
@@ -1596,26 +1630,60 @@
 <event name="STORAGE_CHECK_SYSTEM_OXYGEN">
     <text>What upgrade do you want to install?</text>
 
-    <choice req="UPG_CREW_OXYGEN" lvl="4" max_group="1" blue="false" hidden="true">
+    <choice req="UPG_CREW_OXYGEN" lvl="4" max_group="4" blue="false" hidden="true">
         <text>Advanced Ventilation. [MAX LVL ALREADY INSTALLED]</text>
         <event load="OPTION_INVALID"/>
     </choice>
-    <choice req="UPG_CREW_OXYGEN" lvl="3" max_lvl="3" max_group="1" blue="false" hidden="true">
+    <choice req="UPG_CREW_OXYGEN" lvl="3" max_lvl="3" max_group="4" blue="false" hidden="true">
         <text>Advanced Ventilation LvL 4. [Cost: 30~]</text>
         <event load="STORAGE_CHECK_SYSTEM_OXYGEN_CREW_OXYGEN"/>
     </choice>
-    <choice req="UPG_CREW_OXYGEN" lvl="2" max_lvl="2" max_group="1" blue="false" hidden="true">
+    <choice req="UPG_CREW_OXYGEN" lvl="2" max_lvl="2" max_group="4" blue="false" hidden="true">
         <text>Advanced Ventilation LvL 3. [Cost: 30~]</text>
         <event load="STORAGE_CHECK_SYSTEM_OXYGEN_CREW_OXYGEN"/>
     </choice>
-    <choice req="UPG_CREW_OXYGEN" lvl="1" max_lvl="1" max_group="1" blue="false" hidden="true">
+    <choice req="UPG_CREW_OXYGEN" lvl="1" max_lvl="1" max_group="4" blue="false" hidden="true">
         <text>Advanced Ventilation LvL 2. [Cost: 30~]</text>
         <event load="STORAGE_CHECK_SYSTEM_OXYGEN_CREW_OXYGEN"/>
     </choice>
-    <choice req="UPG_CREW_OXYGEN" lvl="0" max_lvl="0" max_group="1" blue="false" hidden="true">
+    <choice req="UPG_CREW_OXYGEN" lvl="0" max_lvl="0" max_group="4" blue="false" hidden="true">
         <text>Advanced Ventilation LvL 1. [Cost: 30~]</text>
         <event load="STORAGE_CHECK_SYSTEM_OXYGEN_CREW_OXYGEN"/>
     </choice>
+
+    <choice req="UPG_LILY_OXYGEN_FLORAL" lvl="1" max_group="5" blue="false" hidden="true">
+        <text>Particulate Dispersal - Floral Bouquet. [ALREADY INSTALLED]</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="UPG_LILY_OXYGEN_FACTORY" lvl="1" max_group="5" blue="false" hidden="true">
+        <text>Particulate Dispersal - Factory Grease. [ALREADY INSTALLED]</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="UPG_LILY_OXYGEN_METAL" lvl="1" max_group="5" blue="false" hidden="true">
+        <text>Particulate Dispersal - Metal and Gunpowder. [ALREADY INSTALLED]</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="UPG_LILY_OXYGEN_ARCTIC" lvl="1" max_group="5" blue="false" hidden="true">
+        <text>Particulate Dispersal - Arctic Wind. [ALREADY INSTALLED]</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="UPG_LILY_OXYGEN_LAZULI" lvl="1" max_group="5" blue="false" hidden="true">
+        <text>Particulate Dispersal - Lapis Lazuli. [ALREADY INSTALLED]</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="UPG_LILY_OXYGEN_BATTERY" lvl="1" max_group="5" blue="false" hidden="true">
+        <text>Particulate Dispersal - 9V Battery. [ALREADY INSTALLED]</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="UPG_LILY_OXYGEN_ALPHA" lvl="1" max_group="5" blue="false" hidden="true">
+        <text>Particulate Dispersal - Alpha-Methylphenethylamine. [ALREADY INSTALLED]</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="OXYGEN_FLAVOR_ANY" lvl="0" max_lvl="0" max_group="5" blue="false" hidden="true">
+        <text>Particulate Dispersal.</text>
+        <event load="STORAGE_CHECK_SYSTEM_OXYGEN_LILY_OXYGEN_FLAVOR"/>
+    </choice>
+
 
     <choice req="UPG_LILY_OXYGEN_BACKUP" lvl="1" max_group="6" blue="false" hidden="true">
         <text>Backup Oxygen. [ALREADY INSTALLED]</text>
@@ -1623,7 +1691,7 @@
     </choice>
     <choice req="UPG_LILY_OXYGEN_BACKUP" lvl="0" max_group="6" blue="false" hidden="true">
         <text>Backup Oxygen. [Cost: 10~, 2{]</text>
-        <event load="STORAGE_CHECK_SYSTEM_DOORS_LILY_OXYGEN_BACKUP"/>
+        <event load="STORAGE_CHECK_SYSTEM_OXYGEN_LILY_OXYGEN_BACKUP"/>
     </choice>
 
     <choice>
@@ -1635,6 +1703,371 @@
 <mod:findName type="event" name="STORAGE_CHECK_SYSTEM_OXYGEN" start="1">
     <mod:removeTag/>
 </mod:findName>
+
+
+
+<event name="STORAGE_CHECK_SYSTEM_OXYGEN_LILY_OXYGEN_FLAVOR">
+    <text>Installing dispersal system for particulates - which provide varuious morale and health boosts to allied crew onboard your ships.
+Select which particular flavor do you want to install.
+[The options are mutually exclusive, scale will power provided to life support system, and will only apply to rooms with oxygen on your own ship.]</text>
+    <choice req="UPG_LILY_OXYGEN_FLORAL" lvl="0" blue="false" hidden="true">
+        <text>Particulate Dispersal - Floral Bouquet. [45~, 5{, 3|]</text>
+        <event load="STORAGE_CHECK_SYSTEM_OXYGEN_LILY_OXYGEN_FLORAL"/>
+    </choice>
+    <choice req="UPG_LILY_OXYGEN_FACTORY" lvl="0" blue="false" hidden="true">
+        <text>Particulate Dispersal - Factory Grease. [50~, 6|]</text>
+        <event load="STORAGE_CHECK_SYSTEM_OXYGEN_LILY_OXYGEN_FACTORY"/>
+    </choice>
+    <choice req="UPG_LILY_OXYGEN_METAL" lvl="0" blue="false" hidden="true">
+        <text>Particulate Dispersal - Metal and Gunpowder. [50~, 5}, 3|]</text>
+        <event load="STORAGE_CHECK_SYSTEM_OXYGEN_LILY_OXYGEN_METAL"/>
+    </choice>
+    <choice req="UPG_LILY_OXYGEN_ARCTIC" lvl="0" blue="false" hidden="true">
+        <text>Particulate Dispersal - Arctic Wind. [45~, 3|]</text>
+        <event load="STORAGE_CHECK_SYSTEM_OXYGEN_LILY_OXYGEN_ARCTIC"/>
+    </choice>
+    <choice req="UPG_LILY_OXYGEN_LAZULI" lvl="0" blue="false" hidden="true">
+        <text>Particulate Dispersal - Lapis Lazuli. [75~, 5|]</text>
+        <event load="STORAGE_CHECK_SYSTEM_OXYGEN_LILY_OXYGEN_LAZULI"/>
+    </choice>
+    <choice req="UPG_LILY_OXYGEN_BATTERY" lvl="0" blue="false" hidden="true">
+        <text>Particulate Dispersal - 9V Battery. [45~, 7{, 3|]</text>
+        <event load="STORAGE_CHECK_SYSTEM_OXYGEN_LILY_OXYGEN_BATTERY"/>
+    </choice>
+    <choice req="UPG_LILY_OXYGEN_ALPHA" lvl="0" blue="false" hidden="true">
+        <text>Particulate Dispersal - Alpha-Methylphenethylamine. [25~, 4{, 4}, 4|]</text>
+        <event load="STORAGE_CHECK_SYSTEM_OXYGEN_LILY_OXYGEN_ALPHA"/>
+    </choice>
+
+
+    <choice>
+        <text>Nevermind.</text>
+        <event load="STORAGE_CHECK_SYSTEM_LOAD"/>
+    </choice>
+</event>
+
+
+<event name="STORAGE_CHECK_SYSTEM_OXYGEN_LILY_OXYGEN_FLORAL">
+    <text>You are about to install the Particulate Dispersal - Floral Bouquet upgrade.
+A fine concoction of aromas developed Orchid Caretakers, designed to improve the well-being of your crew.
+[Effects: +5% max health and +10% healing speed for each powered level of life support. Only works on your ship, in rooms that have at least 20% oxygen.]</text>
+
+    <choice req="oxygen" lvl="1" max_group="0" blue="false" hidden="true">
+        <text>Perform the upgrade. [Cost: 45~, 5{, 3|]</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <item_modify>
+                <item type="scrap" min="-45" max="-45"/>
+                <item type="fuel" min="-5" max="-5"/>
+                <item type="drones" min="-5" max="-5"/>
+            </item_modify>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_OXYGEN_FLORAL"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="oxygen" max_group="0" blue="false" hidden="true">
+        <text>This upgrade is unavailable. You need Oxygen level 1.</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="EX_LILY_OXYGEN_FLORAL" max_group="1" blue="false" hidden="true">
+        <text>Install the External Augment internally.</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <remove name="EX_LILY_OXYGEN_FLORAL"/>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_OXYGEN_FLORAL"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="pilot" lvl="1" max_group="2" blue="false" hidden="true">
+        <text>Nevermind.</text>
+        <event load="STORAGE_CHECK_SYSTEM_LOAD"/>
+    </choice>
+</event>
+<event name="INSTALL_LILY_OXYGEN_FLORAL">
+    <variable name="loc_internal_upgrades" op="add" val="1"/>
+    <hiddenAug>UPG_LILY_OXYGEN_FLORAL</hiddenAug>
+    <loadEvent>STORAGE_CHECK_SYSTEM</loadEvent>
+</event>
+
+<event name="STORAGE_CHECK_SYSTEM_OXYGEN_LILY_OXYGEN_FACTORY">
+    <text>You are about to install the Particulate Dispersal - Factory Grease upgrade.
+A concoction often dispersed in Vampweed facilities, as it was discovered to inspire workers to be more productive.
+[Effects: +10% repair speed and +5% movement speed for each powered level of life support. Only works on your ship, in rooms that have at least 20% oxygen.]</text>
+
+    <choice req="oxygen" lvl="1" max_group="0" blue="false" hidden="true">
+        <text>Perform the upgrade. [Cost: 50~, 6|]</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <item_modify>
+                <item type="scrap" min="-50" max="-50"/>
+                <item type="drones" min="-6" max="-6"/>
+            </item_modify>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_OXYGEN_FACTORY"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="oxygen" max_group="0" blue="false" hidden="true">
+        <text>This upgrade is unavailable. You need Oxygen level 1.</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="EX_LILY_OXYGEN_FACTORY" max_group="1" blue="false" hidden="true">
+        <text>Install the External Augment internally.</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <remove name="EX_LILY_OXYGEN_FACTORY"/>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_OXYGEN_FACTORY"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="pilot" lvl="1" max_group="2" blue="false" hidden="true">
+        <text>Nevermind.</text>
+        <event load="STORAGE_CHECK_SYSTEM_LOAD"/>
+    </choice>
+</event>
+<event name="INSTALL_LILY_OXYGEN_FACTORY">
+    <variable name="loc_internal_upgrades" op="add" val="1"/>
+    <hiddenAug>UPG_LILY_OXYGEN_FACTORY</hiddenAug>
+    <loadEvent>STORAGE_CHECK_SYSTEM</loadEvent>
+</event>
+
+<event name="STORAGE_CHECK_SYSTEM_OXYGEN_LILY_OXYGEN_METAL">
+    <text>You are about to install the Particulate Dispersal - Metal and Gunpowder upgrade.
+A mixture known well around hardened pirates, its harch flavor helps steel your crew for combat.
+[Effects: +5% combat damage and -5% combat damage taken for each powered level of life support. Only works on your ship, in rooms that have at least 20% oxygen.]</text>
+
+    <choice req="oxygen" lvl="1" max_group="0" blue="false" hidden="true">
+        <text>Perform the upgrade. [Cost: 50~, 5}, 3|]</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <item_modify>
+                <item type="scrap" min="-50" max="-50"/>
+                <item type="missiles" min="-5" max="-5"/>
+                <item type="drones" min="-3" max="-3"/>
+            </item_modify>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_OXYGEN_METAL"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="oxygen" max_group="0" blue="false" hidden="true">
+        <text>This upgrade is unavailable. You need Oxygen level 1.</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="EX_LILY_OXYGEN_METAL" max_group="1" blue="false" hidden="true">
+        <text>Install the External Augment internally.</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <remove name="EX_LILY_OXYGEN_METAL"/>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_OXYGEN_METAL"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="pilot" lvl="1" max_group="2" blue="false" hidden="true">
+        <text>Nevermind.</text>
+        <event load="STORAGE_CHECK_SYSTEM_LOAD"/>
+    </choice>
+</event>
+<event name="INSTALL_LILY_OXYGEN_METAL">
+    <variable name="loc_internal_upgrades" op="add" val="1"/>
+    <hiddenAug>UPG_LILY_OXYGEN_METAL</hiddenAug>
+    <loadEvent>STORAGE_CHECK_SYSTEM</loadEvent>
+</event>
+
+<event name="STORAGE_CHECK_SYSTEM_OXYGEN_LILY_OXYGEN_ARCTIC">
+    <text>You are about to install the Particulate Dispersal - Arctic Wind upgrade.
+A very refreshing flavor of this will make your crew move like the wind and deal with fires easily.
+[Effects: +10% movement speed, -20% fire damage taken and +20% fire extinguishing speed for each powered level of life support. Only works on your ship, in rooms that have at least 20% oxygen.]</text>
+
+    <choice req="oxygen" lvl="1" max_group="0" blue="false" hidden="true">
+        <text>Perform the upgrade. [Cost: 45~, 3|]</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <item_modify>
+                <item type="scrap" min="-45" max="-45"/>
+                <item type="drones" min="-3" max="-3"/>
+            </item_modify>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_OXYGEN_ARCTIC"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="oxygen" max_group="0" blue="false" hidden="true">
+        <text>This upgrade is unavailable. You need Oxygen level 1.</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="EX_LILY_OXYGEN_ARCTIC" max_group="1" blue="false" hidden="true">
+        <text>Install the External Augment internally.</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <remove name="EX_LILY_OXYGEN_ARCTIC"/>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_OXYGEN_ARCTIC"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="pilot" lvl="1" max_group="2" blue="false" hidden="true">
+        <text>Nevermind.</text>
+        <event load="STORAGE_CHECK_SYSTEM_LOAD"/>
+    </choice>
+</event>
+<event name="INSTALL_LILY_OXYGEN_ARCTIC">
+    <variable name="loc_internal_upgrades" op="add" val="1"/>
+    <hiddenAug>UPG_LILY_OXYGEN_ARCTIC</hiddenAug>
+    <loadEvent>STORAGE_CHECK_SYSTEM</loadEvent>
+</event>
+
+<event name="STORAGE_CHECK_SYSTEM_OXYGEN_LILY_OXYGEN_LAZULI">
+    <text>You are about to install the Particulate Dispersal - Lapis Lazuli upgrade.
+The calming and focusing effects of this expesive mixture will help to make minds of your crew unmovable as the mountains.
+[Effects: -20% stun duration for each powered level of life support. At level 2, crew resists madness, and at level 3, crew resists mind control. (Note: extra effects require oxygen in the room to be at least 95%) Only works on your ship, in rooms that have at least 20% oxygen.]</text>
+
+    <choice req="oxygen" lvl="1" max_group="0" blue="false" hidden="true">
+        <text>Perform the upgrade. [Cost: 75~, 5|]</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <item_modify>
+                <item type="scrap" min="-75" max="-75"/>
+                <item type="drones" min="-5" max="-5"/>
+            </item_modify>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_OXYGEN_LAZULI"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="oxygen" max_group="0" blue="false" hidden="true">
+        <text>This upgrade is unavailable. You need Oxygen level 1.</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="EX_LILY_OXYGEN_LAZULI" max_group="1" blue="false" hidden="true">
+        <text>Install the External Augment internally.</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <remove name="EX_LILY_OXYGEN_LAZULI"/>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_OXYGEN_LAZULI"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="pilot" lvl="1" max_group="2" blue="false" hidden="true">
+        <text>Nevermind.</text>
+        <event load="STORAGE_CHECK_SYSTEM_LOAD"/>
+    </choice>
+</event>
+<event name="INSTALL_LILY_OXYGEN_LAZULI">
+    <variable name="loc_internal_upgrades" op="add" val="1"/>
+    <hiddenAug>UPG_LILY_OXYGEN_LAZULI</hiddenAug>
+    <loadEvent>STORAGE_CHECK_SYSTEM</loadEvent>
+</event>
+
+<event name="STORAGE_CHECK_SYSTEM_OXYGEN_LILY_OXYGEN_BATTERY">
+    <text>You are about to install the Particulate Dispersal - 9V Battery upgrade.
+It is uncertain how you can make a battery considered a "flavor". But most of the test subject agree that the effect was "positively jolting".
+[Effects: +15% power recharge rate for each powered level of life support. At level 3, all Zoltan crew provide an extra bar of power. Only works on your ship, in rooms that have at least 20% oxygen.]</text>
+
+    <choice req="oxygen" lvl="1" max_group="0" blue="false" hidden="true">
+        <text>Perform the upgrade. [Cost: 45~, 7{, 3|]</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <item_modify>
+                <item type="scrap" min="-45" max="-45"/>
+                <item type="fuel" min="-7" max="-7"/>
+                <item type="drones" min="-3" max="-3"/>
+            </item_modify>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_OXYGEN_BATTERY"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="oxygen" max_group="0" blue="false" hidden="true">
+        <text>This upgrade is unavailable. You need Oxygen level 1.</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="EX_LILY_OXYGEN_BATTERY" max_group="1" blue="false" hidden="true">
+        <text>Install the External Augment internally.</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <remove name="EX_LILY_OXYGEN_BATTERY"/>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_OXYGEN_BATTERY"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="pilot" lvl="1" max_group="2" blue="false" hidden="true">
+        <text>Nevermind.</text>
+        <event load="STORAGE_CHECK_SYSTEM_LOAD"/>
+    </choice>
+</event>
+<event name="INSTALL_LILY_OXYGEN_BATTERY">
+    <variable name="loc_internal_upgrades" op="add" val="1"/>
+    <hiddenAug>UPG_LILY_OXYGEN_BATTERY</hiddenAug>
+    <loadEvent>STORAGE_CHECK_SYSTEM</loadEvent>
+</event>
+
+<event name="STORAGE_CHECK_SYSTEM_OXYGEN_LILY_OXYGEN_ALPHA">
+    <text>You are about to install the Particulate Dispersal - Alpha-Methylphenethylamine upgrade.
+A classic and proven solution, this should DEFINITELY give your crew a boost.
+SIDE EFFECTS INCLUDE: Excessive agressiveness, restlessness, sleep problems, addiction, hallucinations, teeth grinding, and poor decision making. But hey, if it works, it works.
+[Effects: +20 % movemens speed, +15% damage, +50% sabotage damage, +10% repair speed, and +5% power recharge rate, but also -5% max health, -10% healing speed and +10% combat damage taken for your crew for each powered level of life support. Only works on your ship, in rooms that have at least 10% oxygen.]</text>
+
+    <choice req="oxygen" lvl="1" max_group="0" blue="false" hidden="true">
+        <text>Perform the upgrade. [Cost: 25~, 4{, 4}, 4|]</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <item_modify>
+                <item type="scrap" min="-25" max="-25"/>
+                <item type="fuel" min="-4" max="-4"/>
+                <item type="missiles" min="-4" max="-4"/>
+                <item type="drones" min="-4" max="-4"/>
+            </item_modify>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_OXYGEN_ALPHA"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="oxygen" max_group="0" blue="false" hidden="true">
+        <text>This upgrade is unavailable. You need Oxygen level 1.</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="EX_LILY_OXYGEN_ALPHA" max_group="1" blue="false" hidden="true">
+        <text>Install the External Augment internally.</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <remove name="EX_LILY_OXYGEN_ALPHA"/>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_OXYGEN_ALPHA"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="pilot" lvl="1" max_group="2" blue="false" hidden="true">
+        <text>Nevermind.</text>
+        <event load="STORAGE_CHECK_SYSTEM_LOAD"/>
+    </choice>
+</event>
+<event name="INSTALL_LILY_OXYGEN_ALPHA">
+    <variable name="loc_internal_upgrades" op="add" val="1"/>
+    <hiddenAug>UPG_LILY_OXYGEN_ALPHA</hiddenAug>
+    <loadEvent>STORAGE_CHECK_SYSTEM</loadEvent>
+</event>
+
 
 
 <event name="STORAGE_CHECK_SYSTEM_OXYGEN_CREW_OXYGEN">
@@ -1680,7 +2113,7 @@
     <loadEvent>STORAGE_CHECK_SYSTEM</loadEvent>
 </event>
 
-<event name="STORAGE_CHECK_SYSTEM_DOORS_LILY_OXYGEN_BACKUP">
+<event name="STORAGE_CHECK_SYSTEM_OXYGEN_LILY_OXYGEN_BACKUP">
     <text>You are about to install the Oxygen Backup upgrade.
 	[Effects: Life Support system provides a tiny amount of oxygen in the system room even if it's destroyed or disabled.]</text>
 
@@ -1874,6 +2307,17 @@ Incompatible with battery performance upgrades.]</text>
         <text>Living Metal Bracers. [Cost: 40~, 4|]</text>
         <event load="STORAGE_CHECK_SYSTEM_LILY_SYSTEM_BRACERS_REGEN"/>
     </choice>
+    <choice req="UPG_LILY_BRACERS_COVERAGE" lvl="1" max_group="4" blue="false" hidden="true">
+        <text>Integrity Field Generator. [ALREADY INSTALLED]</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="UPG_LILY_BRACERS_COVERAGE" lvl="0" max_group="4" blue="false" hidden="true">
+        <text>Integrity Field Generator. [Cost: 60~, 5{]</text>
+        <event load="STORAGE_CHECK_SYSTEM_LILY_SYSTEM_BRACERS_COVERAGE"/>
+    </choice>
+
+
+    
 
     <choice>
         <text>Nevermind.</text>
@@ -2014,6 +2458,51 @@ Incompatible with battery performance upgrades.]</text>
 </event>
 
 
+<event name="STORAGE_CHECK_SYSTEM_LILY_SYSTEM_BRACERS_COVERAGE">
+    <text>You are about to install the Integrity Field Generator upgrade.
+	[Effects: System Bracers now protect systems from other sources of damage, such as sabotage and fires.]</text>
+
+    <choice req="lily_system_bracers" lvl="3" max_group="0" blue="false" hidden="true">
+        <text>Perform the upgrade. [Cost: 60~, 5{]</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <item_modify>
+                <item type="scrap" min="-60" max="-60"/>
+                <item type="fuel" min="-5" max="-5"/>
+            </item_modify>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_BRACERS_COVERAGE"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="lily_system_bracers" max_group="0" blue="false" hidden="true">
+        <text>This upgrade is unavailable. You need System Bracers level 3.</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="EX_LILY_BRACERS_COVERAGE" max_group="1" blue="false" hidden="true">
+        <text>Install the External Augment internally.</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <remove name="EX_LILY_BRACERS_COVERAGE"/>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_BRACERS_COVERAGE"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="pilot" lvl="1" max_group="2" blue="false" hidden="true">
+        <text>Nevermind.</text>
+        <event load="STORAGE_CHECK_SYSTEM_LOAD"/>
+    </choice>
+</event>
+<event name="INSTALL_LILY_BRACERS_COVERAGE">
+    <variable name="loc_internal_upgrades" op="add" val="1"/>
+    <hiddenAug>UPG_LILY_BRACERS_COVERAGE</hiddenAug>
+    <loadEvent>STORAGE_CHECK_SYSTEM</loadEvent>
+</event>
+
+
 <mod:findName type="event" name="COMBAT_CHECK_TOGGLE">
     <mod-append:choice req="lily_ablative_armor_rendering_disabled" lvl="0" max_lvl="0" blue="false">
         <text>Disable ablative armor rendering.</text>
@@ -2027,6 +2516,20 @@ Incompatible with battery performance upgrades.]</text>
             <metaVariable name="lily_ablative_armor_rendering_disabled" op="set" value="0"/>
         </event>
     </mod-append:choice>
+
+    <mod-append:choice req="lily_system_bracers_rendering_disabled" lvl="0" max_lvl="0" blue="false">
+        <text>Disable system bracers rendering.</text>
+        <event>
+            <metaVariable name="lily_system_bracers_rendering_disabled" op="set" value="1"/>
+        </event>
+    </mod-append:choice>
+    <mod-append:choice req="lily_system_bracers_rendering_disabled" lvl="1" blue="false">
+        <text>Enable system bracers rendering.</text>
+        <event>
+            <metaVariable name="lily_system_bracers_rendering_disabled" op="set" value="0"/>
+        </event>
+    </mod-append:choice>
+
 
 </mod:findName>
 
