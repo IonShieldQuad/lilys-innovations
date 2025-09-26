@@ -707,6 +707,39 @@ Incompatible with performance upgrades.
     <stackable>true</stackable>
 </augBlueprint>
 
+<augBlueprint name="UPG_LILY_SECTOR_SCANNER">
+    <title>Sector Scanner</title>
+    <desc>YOU SHOULD NEVER SEE THIS</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>true</stackable>
+</augBlueprint>
+<augBlueprint name="EX_LILY_SECTOR_SCANNER">
+    <title>Sector Scanner [X]</title>
+    <desc>Allows you to collect more information about sectors on you journey, revealing the exact names of all of them when making an inter-sector jump.
+    
+		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>true</stackable>
+</augBlueprint>
+
+<augBlueprint name="UPG_LILY_TELEPORT_RECALL">
+    <title>Emergency Teleport Recall</title>
+    <desc>YOU SHOULD NEVER SEE THIS</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>true</stackable>
+</augBlueprint>
+<augBlueprint name="EX_LILY_TELEPORT_RECALL">
+    <title>Emergency Teleport Recall [X]</title>
+    <desc>Automatically teleports your crew back to your ship if the enemy ship is destroyed or jumping.
+    
+		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>true</stackable>
+</augBlueprint>
 
 
 <!--

@@ -1,6 +1,18 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.5.5
+Date: 2025-09-26
+  Changes:
+    - Added a basic system state save/load mechanic.
+    - Phoenix infusions will now always trigger on timeout, preventing your crew from being left in dangerous situations on the brink of death. 
+    - Lowered the scrap costs of Particulate Dispersal internal upgrades across the board.
+    - Added Sector Scanner and Teleport Recall as internal upgrades.
+    - Added extra room graphics for bigger rooms for Shock Neutralizer.
+    - Cloaking and hacking now always receive only "secondary benefit" from shock neutralizer, even if directly targeted
+    - Added a promo poster in the hangar that allows you to accesss a "deal" once per run.
+    - Minor fixes.
+---------------------------------------------------------------------------------------------------
 Version: 1.5.4
-Date: 2025-09-20
+Date: 2025-09-23
   Changes:
     - Made smart boarding drones even smarter.
     - Systems list has been split in 2 for less duplicates in stores. 

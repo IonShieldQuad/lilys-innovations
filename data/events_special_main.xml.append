@@ -7,4 +7,138 @@
         <mod-append:event name="BOON_SELECT_LILY_SYSTEM_BRACERS" req="prof_e_boon_lily_system_bracers" />
     </mod:findLike>
 </mod:findName>
+
+
+<mod:findName type="event" name="START_BEACON_PREP_LOAD">
+    <mod-append:backgroundObject name="LILYINNO_PROMO">
+        <layer z="0">background</layer>
+        <spawnArea x="1180" y="425" w="0" h="0" center="true"/>
+        <anim>lilyinno_promo</anim>
+        <hoverAnim>lilyinno_promo_hover</hoverAnim>
+        <inactiveAnim hide="true"/>
+        <tooltip>A Lily's Innovations promotion poster.</tooltip>
+        <clickAction>
+            <event load="LILYINNO_PROMO_CLICKED"/>
+        </clickAction>
+    </mod-append:backgroundObject>
+</mod:findName>
+
+<event name="LILYINNO_PROMO_CLICKED">
+    <text>You approach the promotional poster to examine it further:
+Lily's Innovations presents:
+SPECIAL PROMOTIONAL OFFER - GET YOUR NEW INNOVATIVE SYSTEM OF CHOICE FOR FREE* TODAY!
+
+Note: Promotional offer's rules:
+1) In order to be eligible for the offer, your ship must possess one of the "standard" systems already - included systems are: Shields, Medbay, Clonebay, Backup Battery
+2) The corresponding system, barring special cases**, will be removed to make space for your new INNOVATIVE one.
+3) The offer applies only ONCE per ship/captain.
+
+You notice an input interface located below the poster, which has already recognized you and your ship's ID.</text>
+
+    <playSound>lilyinno_promo_select</playSound>
+
+    <choice hidden="true" req="lilyinno_promo_used" lvl="1" max_lvl="1" blue="false">
+        <text>You have already received the promotional offer.</text>
+        <event load="OPTION_INVALID"/>
+
+    </choice>
+    <choice hidden="true" req="lilyinno_promo_used" lvl="0" max_lvl="0" blue="false">
+        <text>Check your eligibility...</text>
+        <event>
+            <text>You quickly prompt the terminal to scan your ship and it gives you a selection of the following options:</text>
+            <choice req="LILYINNO_PROMO_REQ_SYSTEMS" lvl="0" max_lvl="0"hidden="true">
+                <text>Your ship is not eligible for the offer.</text>
+                <event load="OPTION_INVALID"/>
+            </choice>
+
+            <choice req="shields" hidden="true">
+                <text>(Shields) Install Ablative Armor System.</text>
+                <event>
+                    <text>You prompt the terminal to install the new system on you ship.
+"Acknowledged. The work on your ship will begin shortly..."</text>
+                    <choice hidden="true">
+                        <text>Continue...</text>
+                        <event>
+                            <text>The system begins to work on refitting your ship, and shortly finishes.
+"The establilshed work quota: Done. Pleasure doing business with you." </text>
+                            <system name="lily_ablative_armor"/>
+                            <modifyPursuit amount="1"/>
+                            <variable name="lilyinno_promo_used" op="set" value="1"/>
+                        </event>
+                    </choice>
+                </event>
+            </choice>
+
+            <choice req="medbay" hidden="true">
+                <text>(Medbay) Install Infusion Bay System.</text>
+                <event>
+                    <text>You prompt the terminal to install the new system on you ship.
+"Acknowledged. The work on your ship will begin shortly..."</text>
+                    <choice hidden="true">
+                        <text>Continue...</text>
+                        <event>
+                            <text>The system begins to work on refitting your ship, and shortly finishes.
+"The establilshed work quota: Done. Pleasure doing business with you." </text>
+                            <system name="lily_infusion_bay"/>
+                            <modifyPursuit amount="1"/>
+                            <variable name="lilyinno_promo_used" op="set" value="1"/>
+                        </event>
+                    </choice>
+                </event>
+            </choice>
+
+            <choice req="clonebay" hidden="true">
+                <text>(Clonebay) Install Infusion Bay System.</text>
+                <event>
+                    <text>You prompt the terminal to install the new system on you ship.
+"Acknowledged. The work on your ship will begin shortly..."</text>
+                    <choice hidden="true">
+                        <text>Continue...</text>
+                        <event>
+                            <text>The system begins to work on refitting your ship, and shortly finishes.
+"The establilshed work quota: Done. Pleasure doing business with you." </text>
+                            <system name="lily_infusion_bay"/>
+                            <modifyPursuit amount="1"/>
+                            <variable name="lilyinno_promo_used" op="set" value="1"/>
+                        </event>
+                    </choice>
+                </event>
+            </choice>
+
+            <choice req="battery" hidden="true">
+                <text>(Backup Battery) Install Shock Neutralizer Subsystem.</text>
+                <event>
+                    <text>You prompt the terminal to install the new subsystem on you ship.
+"Acknowledged. The work on your ship will begin shortly..."</text>
+                    <choice hidden="true">
+                        <text>Continue...</text>
+                        <event>
+                            <text>The system begins to work on refitting your ship, and shortly finishes.
+"The establilshed work quota: Done. Pleasure doing business with you." </text>
+                            <system name="lily_shock_neutralizer"/>
+                            <modifyPursuit amount="1"/>
+                            <variable name="lilyinno_promo_used" op="set" value="1"/>
+                        </event>
+                    </choice>
+                </event>
+            </choice>
+
+
+            <choice hidden="true">
+                <text>Nevermind...</text>
+                <event/>
+            </choice>
+        </event>
+    </choice>
+
+    <choice hidden="true">
+        <text>Nevermind...</text>
+        <event/>
+    </choice>
+
+    
+
+
+
+</event>
 </FTL>

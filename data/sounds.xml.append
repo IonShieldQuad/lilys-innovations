@@ -1,4 +1,6 @@
 <FTL>
+<lilyinno_promo_select volume="5">effects_lily/lilyinno_promo_select.wav</lilyinno_promo_select>
+
 <lily_ablative_armor_restore_1 volume="3">effects_lily/ablative_armor_restore.wav</lily_ablative_armor_restore_1>
 <lily_ablative_armor_hit_1 volume="1">effects_lily/ablative_armor_hit.wav</lily_ablative_armor_hit_1>
 <lily_ablative_armor_hit_breach_1 volume="1">effects_lily/ablative_armor_hit_breach.wav</lily_ablative_armor_hit_breach_1>

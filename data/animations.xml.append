@@ -1,5 +1,17 @@
 <FTL>
 
+<animSheet name="lilyinno_promo" w="40" h="30" fw="40" fh="30">decor/lilyinno_promo.png</animSheet>
+<anim name="lilyinno_promo">
+    <sheet>lilyinno_promo</sheet>
+    <desc length="1" x="0" y="0"/>
+    <time>1</time>
+</anim>
+<animSheet name="lilyinno_promo_hover" w="40" h="30" fw="40" fh="30">decor/lilyinno_promo_hover.png</animSheet>
+<anim name="lilyinno_promo_hover">
+    <sheet>lilyinno_promo_hover</sheet>
+    <desc length="1" x="0" y="0"/>
+    <time>1</time>
+</anim>
 
 <animSheet fh="64" fw="64" h="64" name="explosion_big1_ion_chaos" w="640">effects_lily/explosion_big1_strip10_ion_chaos.png</animSheet>
 <anim name="explosion_big1_ion_chaos">

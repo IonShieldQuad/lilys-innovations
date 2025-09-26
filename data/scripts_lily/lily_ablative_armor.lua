@@ -118,6 +118,7 @@ local armorTimer = {}
 armorTimer[0] = 0
 armorTimer[1] = 0
 
+local loadValues = {}
 
 --Handles tooltips and mousever descriptions per level
 local function get_level_description_lily_ablative_armor(systemId, level, tooltip)
@@ -248,6 +249,11 @@ script.on_init(function()
         0, 0,
         Graphics.GL_Color(1, 1, 1, 1), 1,
         false)
+
+    for i = 0, 1, 1 do
+        loadValues[i] = Hyperspace.metaVariables["mods_lilyinno_ablativearmor_" .. i]
+    end
+
     --buttonBase = Hyperspace.Resources:CreateImagePrimitiveString("systemUI/button_artillery1.png",
     --    lily_ablative_armorButtonOffset_x, lily_ablative_armorButtonOffset_y, 0, Graphics.GL_Color(1, 1, 1, 1), 1, false)
 end)
@@ -400,12 +406,18 @@ script.on_internal_event(Defines.InternalEvents.SHIP_LOOP, function(shipManager)
         if not userdata_table(shipManager, "mods.lilyinno.ablativearmor").first then
                 userdata_table(shipManager, "mods.lilyinno.ablativearmor").first = userdata_table(shipManager,"mods.lilyinno.ablativearmor").second
             --userdata_table(shipManager, "mods.lilyinno.ablativearmor").first = 0
-            end
+        end
 
         --if shipManager.iShipId == 1 then multiplier = multiplier * 0.7 end
         local currentLayers = userdata_table(shipManager, "mods.lilyinno.ablativearmor").first or 0
             --print(currentLayers)
 
+        if loadValues[shipManager.iShipId] then
+            currentLayers = loadValues[(shipManager.iShipId > 0.5 and 1 or 0)]
+            userdata_table(shipManager, "mods_lilyinno_ablativearmor").first = currentLayers
+            loadValues[(shipManager.iShipId > 0.5 and 1 or 0)] = nil
+        end
+        
         if currentLayers == 0 then
             multiplier = multiplier * 0.25
         end
@@ -417,7 +429,7 @@ script.on_internal_event(Defines.InternalEvents.SHIP_LOOP, function(shipManager)
                 --if manningCrew and Hyperspace.ships.enemy and Hyperspace.ships.enemy._targetable.hostile then
                 --    manningCrew:IncreaseSkill(4)
                 --end
-
+                
                 if manningCrew and math.random(2) == 2 then
                     manningCrew:IncreaseSkill(4)
                 end
@@ -432,6 +444,7 @@ script.on_internal_event(Defines.InternalEvents.SHIP_LOOP, function(shipManager)
         else
             armorTimer[shipManager.iShipId] = 0
         end
+        Hyperspace.metaVariables["mods_lilyinno_ablativearmor_" .. (shipManager.iShipId > 0.5 and 1 or 0)] = currentLayers
     end
 end)
 

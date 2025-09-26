@@ -1,4 +1,5 @@
 local userdata_table = mods.multiverse.userdata_table
+local time_increment = mods.multiverse.time_increment
 
 -- Find ID of a room at the given location
 local function get_room_at_location(shipManager, location, includeWalls)
@@ -80,7 +81,9 @@ local extraAnimations = {}
 local rechargeTimer = {}
 rechargeTimer[0] = 0
 rechargeTimer[1] = 0
-
+local loadValues = {}
+loadValues[0] = -1
+loadValues[1] = -1
 
 local def0XCREWSLOT = Hyperspace.StatBoostDefinition()
 def0XCREWSLOT.stat = Hyperspace.CrewStat.CREW_SLOTS
@@ -431,7 +434,11 @@ script.on_init(function()
     syringes["taken"] = Hyperspace.Resources:CreateImagePrimitiveString("systemUI/infusion_taken.png",
         lily_infusion_bayBaseOffset_x, lily_infusion_bayBaseOffset_y, 0, Graphics.GL_Color(1, 1, 1, 1), 1, false)
     
-
+    for i = 0, 1, 1 do
+        loadValues[i] = Hyperspace.metaVariables["mods_lilyinno_infusionbay_" .. i]
+        --print("Loaded:", "mods_lilyinno_infusionbay_" .. i,
+        --    Hyperspace.metaVariables["mods_lilyinno_infusionbay_" .. i])
+    end
 end)
 
 
@@ -687,6 +694,12 @@ script.on_internal_event(Defines.InternalEvents.SHIP_LOOP, function(shipManager)
 
         local maxStoredInfusions = maxTotalInfusions - dormantInfusions
 
+        if loadValues[shipManager.iShipId] and loadValues[shipManager.iShipId] >= 0 then
+            --print("A:", loadValues[shipManager.iShipId])
+            storedInfusions = loadValues[shipManager.iShipId]
+            loadValues[shipManager.iShipId] = nil
+        end
+
         storedInfusions = math.max(0, math.min(maxStoredInfusions, storedInfusions))
         if maxStoredInfusions == storedInfusions then
             multiplier = 0
@@ -749,7 +762,12 @@ script.on_internal_event(Defines.InternalEvents.SHIP_LOOP, function(shipManager)
                 end
             end
         end
-        
+        if not loadValues[shipManager.iShipId] then
+            Hyperspace.metaVariables["mods_lilyinno_infusionbay_" .. (shipManager.iShipId > 0.5 and 1 or 0)] = math.floor(storedInfusions +
+            dormantInfusions)
+            --print("Set", "mods_lilyinno_infusionbay_" .. (shipManager.iShipId > 0.5 and 1 or 0),
+            --Hyperspace.metaVariables["mods_lilyinno_infusionbay_" .. (shipManager.iShipId > 0.5 and 1 or 0)])
+        end
     end
 end)
 
@@ -766,6 +784,54 @@ script.on_internal_event(Defines.InternalEvents.CREW_LOOP, function(crew)
         if userdata_table(crew, "mods.lilyinno.infusionbay").hasDormantInfusion == nil then
             userdata_table(crew, "mods.lilyinno.infusionbay").hasDormantInfusion = false
         end
+
+
+        --phoenix infusion LILY_FORCE_RECALL
+        if userdata_table(crew, "mods.lilyinno.infusionbay").infusionType then
+            local type = userdata_table(crew, "mods.lilyinno.infusionbay").infusionType
+            if type == "phoenix" or type == "chaoticphoenix" and (not phoenixBlacklist[crew.species]) then
+                --local otherShipManager = Hyperspace.ships(1 - crew.iShipId)
+                ---@type Hyperspace.TimerHelper
+                local timer = userdata_table(crew, "mods.lilyinno.infusionbay").infusionTimer
+                local force = false
+                if timer.currTime + time_increment() >= timer.currGoal and type == "phoenix" then
+                    force = true
+                end
+                if crew.health.first < 4 or crew.bDead or force then
+                    local currentShipManager = Hyperspace.ships(crew.currentShipId)
+                    for cr in vter(currentShipManager.vCrewList) do
+                        ---@type Hyperspace.CrewMember
+                        cr = cr
+                        if cr.iRoomId == crew.iRoomId and cr.iShipId == crew.iShipId then
+                            healCrewmember(cr, 2)
+                        end
+                    end
+                    crew.bDead = false
+                    crew.bOutOfGame = false
+                    crew.bFrozen = false
+                    --crew.currentShipId = crew.iShipId
+                    --crew.iRoomId = lily_infusion_bay_system.roomId
+                    if crew.extend.deathTimer then
+                        crew.extend.deathTimer.currTime = 0
+                        crew.extend.deathTimer:Stop()
+                    end
+                    crew.health.first = crew.health.second
+                    crew:DirectModifyHealth(crew:GetMaxHealth())
+                    crew.extend:InitiateTeleport(crew.iShipId, lily_infusion_bay_system.roomId)
+                    if lily_infusion_bay_system:GetLocked() then
+                        lily_infusion_bay_system:AddLock(2)
+                    else
+                        lily_infusion_bay_system:LockSystem(2)
+                    end
+                    lily_infusion_bay_system:ForceDecreasePower(1)
+                    if timer then
+                        timer.currTime = timer.currGoal
+                    end
+                end
+            end
+        end
+
+
         if crew:IsCrew() and (not crew.bOutOfGame) then
             if userdata_table(crew, "mods.lilyinno.infusionbay").infusionTimer then
                 userdata_table(crew, "mods.lilyinno.infusionbay").infusionTimer:Update()
@@ -810,41 +876,7 @@ script.on_internal_event(Defines.InternalEvents.CREW_LOOP, function(crew)
             end
         end
 
-        --phoenix infusion LILY_FORCE_RECALL
-        if userdata_table(crew, "mods.lilyinno.infusionbay").infusionType then
-            local type = userdata_table(crew, "mods.lilyinno.infusionbay").infusionType
-            if type == "phoenix" or type == "chaoticphoenix" and (not phoenixBlacklist[crew.species]) then
-                --local otherShipManager = Hyperspace.ships(1 - crew.iShipId)
-                if crew.health.first < 4 or crew.bDead then
-                    local currentShipManager = Hyperspace.ships(crew.currentShipId)
-                    for cr in vter(currentShipManager.vCrewList) do
-                        ---@type Hyperspace.CrewMember
-                        cr = cr
-                        if cr.iRoomId == crew.iRoomId and cr.iShipId == crew.iShipId then
-                            healCrewmember(cr, 2)
-                        end
-                    end
-                    crew.bDead = false
-                    crew.bOutOfGame = false
-                    crew.bFrozen = false
-                    --crew.currentShipId = crew.iShipId
-                    --crew.iRoomId = lily_infusion_bay_system.roomId
-                    if crew.extend.deathTimer then
-                        crew.extend.deathTimer:Stop()
-                    end
-                    crew.health.first = crew.health.second
-                    crew:DirectModifyHealth(crew:GetMaxHealth())
-                    crew.extend:InitiateTeleport(crew.iShipId, lily_infusion_bay_system.roomId)
-                    ---@type Hyperspace.TimerHelper
-                    local timer = userdata_table(crew, "mods.lilyinno.infusionbay").infusionTimer
-                    lily_infusion_bay_system:LockSystem(2)
-                    lily_infusion_bay_system:ForceDecreasePower(1)
-                    if timer then
-                        timer.currTime = timer.currGoal
-                    end
-                end
-            end
-        end
+        
 
         if shipManager:HasAugmentation("UPG_LILY_SICKNESS_RECOVERY") > 0 or shipManager:HasAugmentation("EX_LILY_SICKNESS_RECOVERY") > 0 then
             if userdata_table(crew, "mods.lilyinno.infusionbay").infusionType then

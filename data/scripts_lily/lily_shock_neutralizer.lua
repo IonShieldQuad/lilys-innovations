@@ -81,6 +81,7 @@ local activationTimer = {}
 activationTimer[0] = 0
 activationTimer[1] = 0
 local sfxPlayed = false
+local loadValues = {}
 
 --Handles tooltips and mousever descriptions per level
 local function get_level_description_lily_shock_neutralizer(systemId, level, tooltip)
@@ -212,6 +213,14 @@ script.on_init(function()
         "systemUI/shock_neutralizer_sub_" .. i .. ".png", 8, 8, 0, Graphics.GL_Color(1, 1, 1, 1), 1, false)
         i = i + 1
     end
+
+    for i = 0, 1, 1 do
+        loadValues[i] = Hyperspace.metaVariables["mods_lilyinno_shockneutralizer_" .. i]
+        --print("L:", i, Hyperspace.metaVariables["mods_lilyinno_shockneutralizer_" .. i])
+        --print("mods_lilyinno_shockneutralizer_" .. i)
+    end
+    --print("Loaded:", loadValues[0])
+
 end)
 
 --Handles custom rendering
@@ -322,6 +331,29 @@ script.on_render_event(Defines.RenderEvents.MOUSE_CONTROL, function()
     end
 end, function() end)
 
+---Click on a room to select it
+---@param shipManager Hyperspace.ShipManager
+---@param roomId integer
+local function selectRoom(shipManager, roomId)
+    if roomId == -1 or roomId >= shipManager.ship.vRoomList:size() then
+        userdata_table(shipManager, "mods.lilyinno.shockneutralizer").targetroom = nil
+        userdata_table(shipManager, "mods.lilyinno.shockneutralizer").selectmode = false
+        userdata_table(shipManager, "mods.lilyinno.shockneutralizer").bonusrooms = {}
+    else
+        userdata_table(shipManager, "mods.lilyinno.shockneutralizer").targetroom = roomId
+        userdata_table(shipManager, "mods.lilyinno.shockneutralizer").selectmode = false
+        --if shipManager:HasAugmentation("UPG_LILY_WIDE_NEUTRALIZE") > 0 or shipManager:HasAugmentation("EX_LILY_WIDE_NEUTRALIZE") > 0 then
+        local adjRooms
+        if (shipManager:HasAugmentation("UPG_LILY_WIDE_NEUTRALIZE") + shipManager:HasAugmentation("EX_LILY_WIDE_NEUTRALIZE")) >= 2 then
+            adjRooms = get_adjacent_rooms(shipManager.iShipId, roomId, true)
+        else
+            adjRooms = get_adjacent_rooms(shipManager.iShipId, roomId, false)
+        end
+        userdata_table(shipManager, "mods.lilyinno.shockneutralizer").bonusrooms = adjRooms
+    end
+end
+
+
 script.on_internal_event(Defines.InternalEvents.ON_MOUSE_L_BUTTON_DOWN, function(x, y)
     local commandGui = Hyperspace.App.gui
     local shipManager = Hyperspace.ships.player
@@ -339,24 +371,10 @@ script.on_internal_event(Defines.InternalEvents.ON_MOUSE_L_BUTTON_DOWN, function
         --print(Hyperspace.playerVariables.lily_beam_active == 1 .. " " .. Hyperspace.playerVariables.lily_ion_active == 1)
         --print("Count: " .. count)
         if shipAtMouse == 0 and roomAtMouse > -1 then
-            userdata_table(shipManager, "mods.lilyinno.shockneutralizer").targetroom = roomAtMouse
+            selectRoom(shipManager, roomAtMouse)
             userdata_table(shipManager, "mods.lilyinno.shockneutralizer").selectmode = false
             activationTimer[shipManager.iShipId] = 0
             Hyperspace.Sounds:PlaySoundMix("lily_shock_neutralizer_select_1", -1, false)
-            --if shipManager:HasAugmentation("UPG_LILY_WIDE_NEUTRALIZE") > 0 or shipManager:HasAugmentation("EX_LILY_WIDE_NEUTRALIZE") > 0 then
-            local adjRooms
-            if (shipManager:HasAugmentation("UPG_LILY_WIDE_NEUTRALIZE") + shipManager:HasAugmentation("EX_LILY_WIDE_NEUTRALIZE")) >= 2 then
-                adjRooms = get_adjacent_rooms(shipManager.iShipId, roomAtMouse, true)
-            else
-                adjRooms = get_adjacent_rooms(shipManager.iShipId, roomAtMouse, false)
-            end
-            userdata_table(shipManager, "mods.lilyinno.shockneutralizer").bonusrooms = adjRooms
-            --print("count: " .. #adjRooms)
-            --for id, point in pairs(adjRooms) do
-            --    print(id)
-            --end
-            --end
-            --print(roomAtMouse)
         end
     end
     return Defines.Chain.CONTINUE
@@ -391,8 +409,11 @@ script.on_internal_event(Defines.InternalEvents.SHIP_LOOP, function(shipManager)
             Hyperspace.playerVariables.lily_shock_neutralizer = level
         end
 
-
-        
+        if loadValues[shipManager.iShipId] then
+            --print("ASDF", shipManager.iShipId, loadValues[shipManager.iShipId])
+            selectRoom(shipManager, loadValues[(shipManager.iShipId > 0.5 and 1 or 0)])
+            loadValues[(shipManager.iShipId > 0.5 and 1 or 0)] = nil
+        end
 
 
 
@@ -407,9 +428,14 @@ script.on_internal_event(Defines.InternalEvents.SHIP_LOOP, function(shipManager)
         end
 
         local targetroom = userdata_table(shipManager, "mods.lilyinno.shockneutralizer").targetroom
-        if targetroom and targetroom > 0 then
+        if targetroom and targetroom >= 0 then
             local sys = shipManager:GetSystemInRoom(targetroom)
+
             local deionizationBoost = activationTimer[shipManager.iShipId] * efflevel * 0.15
+            if sys:GetId() == Hyperspace.ShipSystem.NameToSystemId("cloaking") or sys:GetId() == Hyperspace.ShipSystem.NameToSystemId("cloaking") then
+                deionizationBoost = deionizationBoost * 0.5
+            end
+
             if sys and sys.iLockCount > 0 then
                 
                 sys.lockTimer.currTime = sys.lockTimer.currTime + Hyperspace.FPS.SpeedFactor / 16 * deionizationBoost
@@ -448,8 +474,10 @@ script.on_internal_event(Defines.InternalEvents.SHIP_LOOP, function(shipManager)
 
             end
         end
-
-
+        Hyperspace.metaVariables["mods_lilyinno_shockneutralizer_" .. (shipManager.iShipId > 0.5 and 1 or 0)] = targetroom or
+        -1
+        --print(targetroom, Hyperspace.metaVariables["mods_lilyinno_shockneutralizer_" .. shipManager.iShipId])
+        --print("mods_lilyinno_shockneutralizer_" .. shipManager.iShipId)
     end
 end)
 
@@ -493,7 +521,7 @@ local function render_shock_neutralizer_effects(ship, experimental)
                 yellow = true
             end
 
-            if targetroom and targetroom > 0 then
+            if targetroom and targetroom >= 0 then
                 local roomdata = rooms[targetroom]
                 local rect = roomdata.rect
                 local color1 = Graphics.GL_Color(68 / 255, math.min(1, (25 * level + 154) / 255), 136 / 255,
@@ -624,12 +652,16 @@ script.on_render_event(Defines.RenderEvents.SYSTEM_BOX,
             if level > 0 then
                 local sys = targetroom and shipManager:GetSystemInRoom(targetroom)
                 if sys and sys:GetId() == systemBox.pSystem:GetId() then
+                    local rl = level * 2
+                    if sys:GetId() == Hyperspace.ShipSystem.NameToSystemId("cloaking") or sys:GetId() == Hyperspace.ShipSystem.NameToSystemId("cloaking") then
+                        rl = level
+                    end
 
                     if not sys.bNeedsPower then
-                        Graphics.CSurface.GL_RenderPrimitiveWithAlpha(indicatorsSubsys[math.min(8, level * 2)],
+                        Graphics.CSurface.GL_RenderPrimitiveWithAlpha(indicatorsSubsys[math.min(8, rl)],
                         activationTimer[shipManager.iShipId])
                     else
-                        Graphics.CSurface.GL_RenderPrimitiveWithAlpha(indicatorsSys[math.min(8, level * 2)],
+                        Graphics.CSurface.GL_RenderPrimitiveWithAlpha(indicatorsSys[math.min(8, rl)],
                             activationTimer[shipManager.iShipId])
                     end
 

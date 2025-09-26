@@ -171,6 +171,63 @@
 
 
 
+<mod:findName type="event" name="STORAGE_CHECK_SYSTEM_TELEPORTER">
+    <mod-append:choice req="UPG_LILY_TELEPORT_RECALL" lvl="1" max_group="6" blue="false" hidden="true">
+        <text>Emergency Teleport Recall. [ALREADY INSTALLED]</text>
+        <event load="OPTION_INVALID"/>
+    </mod-append:choice>
+    <mod-append:choice req="UPG_LILY_TELEPORT_RECALL" lvl="0" max_group="6" blue="false" hidden="true">
+        <text>Emergency Teleport Recall. [Cost: 30~, 3{, 3|]</text>
+        <event load="STORAGE_CHECK_SYSTEM_TELEPORTER_LILY_TELEPORT_RECALL"/>
+    </mod-append:choice>
+</mod:findName>
+
+<event name="STORAGE_CHECK_SYSTEM_TELEPORTER_LILY_TELEPORT_RECALL">
+    <text>You are about to install the Emergency Teleport Recall upgrade.
+	[Effects: Automatically teleports your crew back to your ship if the enemy ship is destroyed or jumping.]</text>
+
+    <choice req="teleporter" lvl="2" max_group="0" blue="false" hidden="true">
+        <text>Perform the upgrade. [Cost: 30~, 3{, 3|]</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <item_modify>
+                <item type="scrap" min="-30" max="-30"/>
+                <item type="fuel" min="-3" max="-3"/>
+                <item type="drones" min="-3" max="-3"/>
+            </item_modify>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_TELEPORT_RECALL"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="teleporter" max_group="0" blue="false" hidden="true">
+        <text>This upgrade is unavailable. You need Teleporter level 2.</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="EX_LILY_TELEPORT_RECALL" max_group="1" blue="false" hidden="true">
+        <text>Install the External Augment internally.</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <remove name="EX_LILY_TELEPORT_RECALL"/>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_TELEPORT_RECALL"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="teleporter" lvl="1" max_group="2" blue="false" hidden="true">
+        <text>Nevermind.</text>
+        <event load="STORAGE_CHECK_SYSTEM_LOAD"/>
+    </choice>
+</event>
+<event name="INSTALL_LILY_TELEPORT_RECALL">
+    <variable name="loc_internal_upgrades" op="add" val="1"/>
+    <hiddenAug>UPG_LILY_TELEPORT_RECALL</hiddenAug>
+    <loadEvent>STORAGE_CHECK_SYSTEM</loadEvent>
+</event>
+
+
 <mod:findName type="event" name="STORAGE_CHECK_SYSTEM_SENSORS">
     <mod-append:choice req="UPG_LILY_INN_SENSORS" lvl="1" max_group="6" blue="false" hidden="true">
         <text>Integrated Neural Network. [ALREADY INSTALLED]</text>
@@ -185,8 +242,16 @@
         <event load="OPTION_INVALID"/>
     </mod-append:choice>
     <mod-append:choice req="UPG_LILY_SENSORS_MAPWIDE" lvl="0" max_group="7" blue="false" hidden="true">
-        <text>Mapping Suite. [Cost: 40~, 3 {, 3|]</text>
+        <text>Mapping Suite. [Cost: 40~, 3{, 3|]</text>
         <event load="STORAGE_CHECK_SYSTEM_SENSORS_LILY_SENSORS_MAPWIDE"/>
+    </mod-append:choice>
+    <mod-append:choice req="UPG_LILY_SECTOR_SCANNER" lvl="1" max_group="8" blue="false" hidden="true">
+        <text>Sector Scanner. [ALREADY INSTALLED]</text>
+        <event load="OPTION_INVALID"/>
+    </mod-append:choice>
+    <mod-append:choice req="UPG_LILY_SECTOR_SCANNER" lvl="0" max_group="8" blue="false" hidden="true">
+        <text>Sector Scanner. [Cost: 20~, 3|]</text>
+        <event load="STORAGE_CHECK_SYSTEM_SENSORS_LILY_SECTOR_SCANNER"/>
     </mod-append:choice>
 </mod:findName>
 
@@ -194,22 +259,30 @@
 <event name="STORAGE_CHECK_SYSTEM_SENSORS">
     <text>What upgrade do you want to install?</text>
 
-    <mod-append:choice req="UPG_LILY_INN_SENSORS" lvl="1" max_group="6" blue="false" hidden="true">
+    <choice req="UPG_LILY_INN_SENSORS" lvl="1" max_group="6" blue="false" hidden="true">
         <text>Integrated Neural Network. [ALREADY INSTALLED]</text>
         <event load="OPTION_INVALID"/>
-    </mod-append:choice>
-    <mod-append:choice req="UPG_LILY_INN_SENSORS" lvl="0" max_group="6" blue="false" hidden="true">
+    </choice>
+    <choice req="UPG_LILY_INN_SENSORS" lvl="0" max_group="6" blue="false" hidden="true">
         <text>Integrated Neural Network. [Cost: 30~, 3|]</text>
         <event load="STORAGE_CHECK_SYSTEM_SENSORS_LILY_INN_SENSORS"/>
-    </mod-append:choice>
-    <mod-append:choice req="UPG_LILY_SENSORS_MAPWIDE" lvl="1" max_group="7" blue="false" hidden="true">
+    </choice>
+    <choice req="UPG_LILY_SENSORS_MAPWIDE" lvl="1" max_group="7" blue="false" hidden="true">
         <text>Mapping Suite. [ALREADY INSTALLED]</text>
         <event load="OPTION_INVALID"/>
-    </mod-append:choice>
-    <mod-append:choice req="UPG_LILY_SENSORS_MAPWIDE" lvl="0" max_group="7" blue="false" hidden="true">
-        <text>Mapping Suite. [Cost: 40~, 3 {, 3|]</text>
+    </choice>
+    <choice req="UPG_LILY_SENSORS_MAPWIDE" lvl="0" max_group="7" blue="false" hidden="true">
+        <text>Mapping Suite. [Cost: 40~, 3{, 3|]</text>
         <event load="STORAGE_CHECK_SYSTEM_SENSORS_LILY_SENSORS_MAPWIDE"/>
-    </mod-append:choice>
+    </choice>
+    <choice req="UPG_LILY_SENSORS_SECTOR_SCANNER" lvl="1" max_group="8" blue="false" hidden="true">
+        <text>Sector Scanner. [ALREADY INSTALLED]</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="UPG_LILY_SENSORS_SECTOR_SCANNER" lvl="0" max_group="8" blue="false" hidden="true">
+        <text>Sector Scanner. [Cost: 20~, 3|]</text>
+        <event load="STORAGE_CHECK_SYSTEM_SENSORS_LILY_SECTOR_SCANNER"/>
+    </choice>
 
     <choice>
         <text>Nevermind.</text>
@@ -270,7 +343,7 @@
 	[Effects: Allows you to collect information about the beacons of the whole sector. Requires the ship to be stationary for some time.]</text>
 
     <choice req="sensors" lvl="3" max_group="0" blue="false" hidden="true">
-        <text>Perform the upgrade. [Cost: 40~, 3 {, 3|]</text>
+        <text>Perform the upgrade. [Cost: 40~, 3{, 3|]</text>
         <event>
             <text>You install the upgrade.</text>
             <item_modify>
@@ -307,6 +380,51 @@
 <event name="INSTALL_LILY_SENSORS_MAPWIDE">
     <variable name="loc_internal_upgrades" op="add" val="1"/>
     <hiddenAug>UPG_LILY_SENSORS_MAPWIDE</hiddenAug>
+    <loadEvent>STORAGE_CHECK_SYSTEM</loadEvent>
+</event>
+
+
+<event name="STORAGE_CHECK_SYSTEM_SENSORS_LILY_SECTOR_SCANNER">
+    <text>You are about to install the Sector Scanner upgrade.
+	[Effects: Allows you to collect more information about sectors on you journey, revealing the exact names of all of them when making an inter-sector jump.]</text>
+
+    <choice req="sensors" lvl="2" max_group="0" blue="false" hidden="true">
+        <text>Perform the upgrade. [Cost: 20~, 3|]</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <item_modify>
+                <item type="scrap" min="-20" max="-20"/>
+                <item type="drones" min="-3" max="-3"/>
+            </item_modify>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_SECTOR_SCANNER"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="sensors" max_group="0" blue="false" hidden="true">
+        <text>This upgrade is unavailable. You need Sensors level 2.</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="EX_LILY_SECTOR_SCANNER" max_group="1" blue="false" hidden="true">
+        <text>Install the External Augment internally.</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <remove name="EX_LILY_SECTOR_SCANNER"/>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_SECTOR_SCANNER"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="sensors" lvl="1" max_group="2" blue="false" hidden="true">
+        <text>Nevermind.</text>
+        <event load="STORAGE_CHECK_SYSTEM_LOAD"/>
+    </choice>
+</event>
+<event name="INSTALL_LILY_SECTOR_SCANNER">
+    <variable name="loc_internal_upgrades" op="add" val="1"/>
+    <hiddenAug>UPG_LILY_SECTOR_SCANNER</hiddenAug>
     <loadEvent>STORAGE_CHECK_SYSTEM</loadEvent>
 </event>
 
@@ -1707,35 +1825,35 @@
 
 
 <event name="STORAGE_CHECK_SYSTEM_OXYGEN_LILY_OXYGEN_FLAVOR">
-    <text>Installing dispersal system for particulates - which provide varuious morale and health boosts to allied crew onboard your ships.
+    <text>Installing dispersal system for particulates - which provide various morale and health boosts to allied crew onboard your ships.
 Select which particular flavor do you want to install.
 [The options are mutually exclusive, scale will power provided to life support system, and will only apply to rooms with oxygen on your own ship.]</text>
     <choice req="UPG_LILY_OXYGEN_FLORAL" lvl="0" blue="false" hidden="true">
-        <text>Particulate Dispersal - Floral Bouquet. [45~, 5{, 3|]</text>
+        <text>Particulate Dispersal - Floral Bouquet. [20~, 5{, 3|]</text>
         <event load="STORAGE_CHECK_SYSTEM_OXYGEN_LILY_OXYGEN_FLORAL"/>
     </choice>
     <choice req="UPG_LILY_OXYGEN_FACTORY" lvl="0" blue="false" hidden="true">
-        <text>Particulate Dispersal - Factory Grease. [50~, 6|]</text>
+        <text>Particulate Dispersal - Factory Grease. [25~, 6|]</text>
         <event load="STORAGE_CHECK_SYSTEM_OXYGEN_LILY_OXYGEN_FACTORY"/>
     </choice>
     <choice req="UPG_LILY_OXYGEN_METAL" lvl="0" blue="false" hidden="true">
-        <text>Particulate Dispersal - Metal and Gunpowder. [50~, 5}, 3|]</text>
+        <text>Particulate Dispersal - Metal and Gunpowder. [25~, 5}, 3|]</text>
         <event load="STORAGE_CHECK_SYSTEM_OXYGEN_LILY_OXYGEN_METAL"/>
     </choice>
     <choice req="UPG_LILY_OXYGEN_ARCTIC" lvl="0" blue="false" hidden="true">
-        <text>Particulate Dispersal - Arctic Wind. [45~, 3|]</text>
+        <text>Particulate Dispersal - Arctic Wind. [25~, 3|]</text>
         <event load="STORAGE_CHECK_SYSTEM_OXYGEN_LILY_OXYGEN_ARCTIC"/>
     </choice>
     <choice req="UPG_LILY_OXYGEN_LAZULI" lvl="0" blue="false" hidden="true">
-        <text>Particulate Dispersal - Lapis Lazuli. [75~, 5|]</text>
+        <text>Particulate Dispersal - Lapis Lazuli. [50~, 5|]</text>
         <event load="STORAGE_CHECK_SYSTEM_OXYGEN_LILY_OXYGEN_LAZULI"/>
     </choice>
     <choice req="UPG_LILY_OXYGEN_BATTERY" lvl="0" blue="false" hidden="true">
-        <text>Particulate Dispersal - 9V Battery. [45~, 7{, 3|]</text>
+        <text>Particulate Dispersal - 9V Battery. [25~, 7{, 3|]</text>
         <event load="STORAGE_CHECK_SYSTEM_OXYGEN_LILY_OXYGEN_BATTERY"/>
     </choice>
     <choice req="UPG_LILY_OXYGEN_ALPHA" lvl="0" blue="false" hidden="true">
-        <text>Particulate Dispersal - Alpha-Methylphenethylamine. [25~, 4{, 4}, 4|]</text>
+        <text>Particulate Dispersal - Alpha-Methylphenethylamine. [15~, 4{, 4}, 4|]</text>
         <event load="STORAGE_CHECK_SYSTEM_OXYGEN_LILY_OXYGEN_ALPHA"/>
     </choice>
 
@@ -1749,15 +1867,15 @@ Select which particular flavor do you want to install.
 
 <event name="STORAGE_CHECK_SYSTEM_OXYGEN_LILY_OXYGEN_FLORAL">
     <text>You are about to install the Particulate Dispersal - Floral Bouquet upgrade.
-A fine concoction of aromas developed Orchid Caretakers, designed to improve the well-being of your crew.
+A fine concoction of aromas developed by Orchid Caretakers, designed to improve the well-being of your crew.
 [Effects: +5% max health and +10% healing speed for each powered level of life support. Only works on your ship, in rooms that have at least 20% oxygen.]</text>
 
     <choice req="oxygen" lvl="1" max_group="0" blue="false" hidden="true">
-        <text>Perform the upgrade. [Cost: 45~, 5{, 3|]</text>
+        <text>Perform the upgrade. [Cost: 20~, 5{, 3|]</text>
         <event>
             <text>You install the upgrade.</text>
             <item_modify>
-                <item type="scrap" min="-45" max="-45"/>
+                <item type="scrap" min="-20" max="-20"/>
                 <item type="fuel" min="-5" max="-5"/>
                 <item type="drones" min="-5" max="-5"/>
             </item_modify>
@@ -1799,11 +1917,11 @@ A concoction often dispersed in Vampweed facilities, as it was discovered to ins
 [Effects: +10% repair speed and +5% movement speed for each powered level of life support. Only works on your ship, in rooms that have at least 20% oxygen.]</text>
 
     <choice req="oxygen" lvl="1" max_group="0" blue="false" hidden="true">
-        <text>Perform the upgrade. [Cost: 50~, 6|]</text>
+        <text>Perform the upgrade. [Cost: 25~, 6|]</text>
         <event>
             <text>You install the upgrade.</text>
             <item_modify>
-                <item type="scrap" min="-50" max="-50"/>
+                <item type="scrap" min="-25" max="-25"/>
                 <item type="drones" min="-6" max="-6"/>
             </item_modify>
             <choice hidden="true">
@@ -1840,15 +1958,15 @@ A concoction often dispersed in Vampweed facilities, as it was discovered to ins
 
 <event name="STORAGE_CHECK_SYSTEM_OXYGEN_LILY_OXYGEN_METAL">
     <text>You are about to install the Particulate Dispersal - Metal and Gunpowder upgrade.
-A mixture known well around hardened pirates, its harch flavor helps steel your crew for combat.
+A mixture known well around hardened pirates, its harsh flavor helps steel your crew for combat.
 [Effects: +5% combat damage and -5% combat damage taken for each powered level of life support. Only works on your ship, in rooms that have at least 20% oxygen.]</text>
 
     <choice req="oxygen" lvl="1" max_group="0" blue="false" hidden="true">
-        <text>Perform the upgrade. [Cost: 50~, 5}, 3|]</text>
+        <text>Perform the upgrade. [Cost: 25~, 5}, 3|]</text>
         <event>
             <text>You install the upgrade.</text>
             <item_modify>
-                <item type="scrap" min="-50" max="-50"/>
+                <item type="scrap" min="-25" max="-25"/>
                 <item type="missiles" min="-5" max="-5"/>
                 <item type="drones" min="-3" max="-3"/>
             </item_modify>
@@ -1890,11 +2008,11 @@ A very refreshing flavor of this will make your crew move like the wind and deal
 [Effects: +10% movement speed, -20% fire damage taken and +20% fire extinguishing speed for each powered level of life support. Only works on your ship, in rooms that have at least 20% oxygen.]</text>
 
     <choice req="oxygen" lvl="1" max_group="0" blue="false" hidden="true">
-        <text>Perform the upgrade. [Cost: 45~, 3|]</text>
+        <text>Perform the upgrade. [Cost: 20~, 3|]</text>
         <event>
             <text>You install the upgrade.</text>
             <item_modify>
-                <item type="scrap" min="-45" max="-45"/>
+                <item type="scrap" min="-20" max="-20"/>
                 <item type="drones" min="-3" max="-3"/>
             </item_modify>
             <choice hidden="true">
@@ -1935,11 +2053,11 @@ The calming and focusing effects of this expesive mixture will help to make mind
 [Effects: -20% stun duration for each powered level of life support. At level 2, crew resists madness, and at level 3, crew resists mind control. (Note: extra effects require oxygen in the room to be at least 95%) Only works on your ship, in rooms that have at least 20% oxygen.]</text>
 
     <choice req="oxygen" lvl="1" max_group="0" blue="false" hidden="true">
-        <text>Perform the upgrade. [Cost: 75~, 5|]</text>
+        <text>Perform the upgrade. [Cost: 50~, 5|]</text>
         <event>
             <text>You install the upgrade.</text>
             <item_modify>
-                <item type="scrap" min="-75" max="-75"/>
+                <item type="scrap" min="-50" max="-50"/>
                 <item type="drones" min="-5" max="-5"/>
             </item_modify>
             <choice hidden="true">
@@ -1980,11 +2098,11 @@ It is uncertain how you can make a battery considered a "flavor". But most of th
 [Effects: +15% power recharge rate for each powered level of life support. At level 3, all Zoltan crew provide an extra bar of power. Only works on your ship, in rooms that have at least 20% oxygen.]</text>
 
     <choice req="oxygen" lvl="1" max_group="0" blue="false" hidden="true">
-        <text>Perform the upgrade. [Cost: 45~, 7{, 3|]</text>
+        <text>Perform the upgrade. [Cost: 20~, 7{, 3|]</text>
         <event>
             <text>You install the upgrade.</text>
             <item_modify>
-                <item type="scrap" min="-45" max="-45"/>
+                <item type="scrap" min="-20" max="-20"/>
                 <item type="fuel" min="-7" max="-7"/>
                 <item type="drones" min="-3" max="-3"/>
             </item_modify>
@@ -2024,14 +2142,14 @@ It is uncertain how you can make a battery considered a "flavor". But most of th
     <text>You are about to install the Particulate Dispersal - Alpha-Methylphenethylamine upgrade.
 A classic and proven solution, this should DEFINITELY give your crew a boost.
 SIDE EFFECTS INCLUDE: Excessive agressiveness, restlessness, sleep problems, addiction, hallucinations, teeth grinding, and poor decision making. But hey, if it works, it works.
-[Effects: +20 % movemens speed, +15% damage, +50% sabotage damage, +10% repair speed, and +5% power recharge rate, but also -5% max health, -10% healing speed and +10% combat damage taken for your crew for each powered level of life support. Only works on your ship, in rooms that have at least 10% oxygen.]</text>
+[Effects: +20% movement speed, +20% damage, +50% sabotage damage, +15% repair speed, and +5% power recharge rate, but also -5% max health, -10% healing speed and +10% combat damage taken for your crew for each powered level of life support. Only works on your ship, in rooms that have at least 10% oxygen.]</text>
 
     <choice req="oxygen" lvl="1" max_group="0" blue="false" hidden="true">
-        <text>Perform the upgrade. [Cost: 25~, 4{, 4}, 4|]</text>
+        <text>Perform the upgrade. [Cost: 15~, 4{, 4}, 4|]</text>
         <event>
             <text>You install the upgrade.</text>
             <item_modify>
-                <item type="scrap" min="-25" max="-25"/>
+                <item type="scrap" min="-15" max="-15"/>
                 <item type="fuel" min="-4" max="-4"/>
                 <item type="missiles" min="-4" max="-4"/>
                 <item type="drones" min="-4" max="-4"/>

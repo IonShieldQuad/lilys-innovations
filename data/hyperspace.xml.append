@@ -832,7 +832,7 @@
 				<shipTarget>ORIGINAL_SHIP</shipTarget>
 				<crewTarget>ORIGINAL_ALLIES</crewTarget>
 				<droneTarget>CREW</droneTarget>
-				<priority>0</priority>
+				<priority>10</priority>
 				<systemPowerDependency>
 					<oxygen/>
 				</systemPowerDependency>
@@ -986,7 +986,7 @@
 			</statBoost>
 			<statBoost name="moveSpeedMultiplier">
 				<boostType>MULT</boostType>
-				<amount>1.2</amount>
+				<amount>1.25</amount>
 				<shipTarget>ORIGINAL_SHIP</shipTarget>
 				<crewTarget>ORIGINAL_ALLIES</crewTarget>
 				<droneTarget>CREW</droneTarget>
@@ -1007,7 +1007,7 @@
 			</statBoost>
 			<statBoost name="repairSpeed">
 				<boostType>MULT</boostType>
-				<amount>1.1</amount>
+				<amount>1.15</amount>
 				<shipTarget>ORIGINAL_SHIP</shipTarget>
 				<crewTarget>ORIGINAL_ALLIES</crewTarget>
 				<droneTarget>CREW</droneTarget>
@@ -1028,7 +1028,7 @@
 			</statBoost>
 			<statBoost name="damageMultiplier">
 				<boostType>MULT</boostType>
-				<amount>1.15</amount>
+				<amount>1.2</amount>
 				<shipTarget>ORIGINAL_SHIP</shipTarget>
 				<crewTarget>ORIGINAL_ALLIES</crewTarget>
 				<droneTarget>CREW</droneTarget>
@@ -1050,6 +1050,27 @@
 			<statBoost name="sabotageSpeedMultiplier">
 				<boostType>MULT</boostType>
 				<amount>1.5</amount>
+				<shipTarget>ORIGINAL_SHIP</shipTarget>
+				<crewTarget>ORIGINAL_ALLIES</crewTarget>
+				<droneTarget>CREW</droneTarget>
+				<priority>0</priority>
+				<systemPowerDependency>
+					<oxygen/>
+				</systemPowerDependency>
+				<systemPowerScaling>
+					<noSys>0</noSys>
+					<noPwr>0</noPwr>
+					<onePwr>1</onePwr>
+					<twoPwr>2</twoPwr>
+					<threePwr>3</threePwr>
+					<fourPwr>4</fourPwr>
+				</systemPowerScaling>
+				<maxStacks>1</maxStacks>
+				<oxygenReq min="10.0" />
+			</statBoost>
+			<statBoost name="stunMultiplier">
+				<boostType>MULT</boostType>
+				<amount>0.9</amount>
 				<shipTarget>ORIGINAL_SHIP</shipTarget>
 				<crewTarget>ORIGINAL_ALLIES</crewTarget>
 				<droneTarget>CREW</droneTarget>
@@ -1213,6 +1234,19 @@
 	<aug name="UPG_LILY_SENSORS_MAPWIDE"/>
 	<aug name="EX_LILY_SENSORS_MAPWIDE"/>
 
+	<aug name="UPG_LILY_SECTOR_SCANNER">
+		<function name="SECTOR_SCANNER" value="7"/>
+	</aug>
+	<aug name="EX_LILY_SECTOR_SCANNER">
+		<function name="SECTOR_SCANNER" value="7"/>
+	</aug>
+	<aug name="UPG_LILY_TELEPORT_RECALL">
+		<function name="TELEPORT_RECALL" useForReqs="true" warning="false"/>
+	</aug>
+	<aug name="EX_LILY_TELEPORT_RECALL">
+		<function name="TELEPORT_RECALL" useForReqs="true" warning="false"/>
+	</aug>
+
 </augments>
 
 <mod:findLike type="events" limit="1">
@@ -1304,6 +1338,15 @@
 		<name>UPG_LILY_OXYGEN_BATTERY</name>
 		<name>UPG_LILY_OXYGEN_ALPHA</name>
 	</mod-append:req>
+
+	<mod-append:req name="LILYINNO_PROMO_REQ_SYSTEMS" type="any">
+		<name>shields</name>
+		<name>medbay</name>
+		<name>clonebay</name>
+		<name>battery</name>
+	</mod-append:req>
+
+	
 
 </mod:findLike>
 
