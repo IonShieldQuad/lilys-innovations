@@ -13,11 +13,13 @@
     <name>lily_shock_neutralizer</name>
     <name>lily_infusion_bay</name>
     <name>lily_system_bracers</name>
+    <name>lily_targeting_core</name>
 </blueprintList>
 
 <blueprintList name="SHOP_ITEM_SYSTEMS_LILYINNO_2">
     <name>lily_shock_neutralizer</name>
     <name>lily_system_bracers</name>
+    <name>lily_targeting_core</name>
 </blueprintList>
     
 </FTL>

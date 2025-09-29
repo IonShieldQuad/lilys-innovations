@@ -5,6 +5,10 @@
         <text>Ablative Armor.</text>
         <event load="STORAGE_CHECK_SYSTEM_LILY_ABLATIVE_ARMOR"/>
     </mod-append:choice>
+    <mod-append:choice req="lily_targeting_core" hidden="true" blue="false">
+        <text>Dedicated Targeting Core.</text>
+        <event load="STORAGE_CHECK_SYSTEM_LILY_TARGETING_CORE"/>
+    </mod-append:choice>
     <mod-append:choice req="lily_infusion_bay" hidden="true" blue="false">
         <text>Infusion Bay.</text>
         <event load="STORAGE_CHECK_SYSTEM_LILY_INFUSION_BAY"/>
@@ -57,6 +61,62 @@
         <event load="STORAGE_CHECK_SYSTEM_DRONES_LILY_DRONE_BOARDING_SMART"/>
     </mod-append:choice>
 </mod:findName>
+
+<mod:findName type="event" name="STORAGE_CHECK_SYSTEM_CLONEBAY">
+    <mod-append:choice req="UPG_LILY_CLONEBAY_REGEN" lvl="1" max_group="10" blue="false" hidden="true">
+        <text>Backup Repair Protocols. [ALREADY INSTALLED]</text>
+        <event load="OPTION_INVALID"/>
+    </mod-append:choice>
+    <mod-append:choice req="UPG_LILY_CLONEBAY_REGEN" lvl="0" max_group="10" blue="false" hidden="true">
+        <text>Backup Repair Protocols. [Cost: 20~, 4|]</text>
+        <event load="STORAGE_CHECK_SYSTEM_CLONEBAY_LILY_CLONEBAY_REGEN"/>
+    </mod-append:choice>
+</mod:findName>
+
+
+<event name="STORAGE_CHECK_SYSTEM_CLONEBAY_LILY_CLONEBAY_REGEN">
+    <text>You are about to install the Backup Repair Protocols upgrade.
+	[Effects: Slowly repairs your clonebay system even with absense of crew.]</text>
+
+    <choice req="BACKUP_DNA" lvl="1" max_group="0" blue="false" hidden="true">
+        <text>Perform the upgrade. [Cost: 20~, 4|]</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <item_modify>
+                <item type="scrap" min="-20" max="-20"/>
+                <item type="drones" min="-4" max="-4"/>
+            </item_modify>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_CLONEBAY_REGEN"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="BACKUP_DNA" lvl="0" max_lvl="0" max_group="0" blue="false" hidden="true">
+        <text>This upgrade is unavailable. You need to have Backup DNA installed.</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="EX_LILY_CLONEBAY_REGEN" max_group="1" blue="false" hidden="true">
+        <text>Install the External Augment internally.</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <remove name="EX_LILY_CLONEBAY_REGEN"/>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_CLONEBAY_REGEN"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="pilot" lvl="1" max_group="2" blue="false" hidden="true">
+        <text>Nevermind.</text>
+        <event load="STORAGE_CHECK_SYSTEM_LOAD"/>
+    </choice>
+</event>
+<event name="INSTALL_LILY_CLONEBAY_REGEN">
+    <variable name="loc_internal_upgrades" op="add" val="1"/>
+    <hiddenAug>UPG_LILY_CLONEBAY_REGEN</hiddenAug>
+    <loadEvent>STORAGE_CHECK_SYSTEM</loadEvent>
+</event>
 
 
 <mod:findName type="event" name="STORAGE_CHECK_SYSTEM_PILOT">
@@ -2619,6 +2679,344 @@ Incompatible with battery performance upgrades.]</text>
     <hiddenAug>UPG_LILY_BRACERS_COVERAGE</hiddenAug>
     <loadEvent>STORAGE_CHECK_SYSTEM</loadEvent>
 </event>
+
+
+
+<event name="STORAGE_CHECK_SYSTEM_LILY_TARGETING_CORE">
+    <text>What upgrade do you want to install?</text>
+    <choice req="UPG_LILY_TARGETING_ANTICLOAK" lvl="1" max_group="0" blue="false" hidden="true">
+        <text>Full Spectrum Array. [ALREADY INSTALLED]</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="UPG_LILY_TARGETING_ANTICLOAK" lvl="0" max_group="0" blue="false" hidden="true">
+        <text>Full Spectrum Array. [Cost: 100~, 8{, 6|]</text>
+        <event load="STORAGE_CHECK_SYSTEM_LILY_TARGETING_CORE_ANTICLOAK"/>
+    </choice>
+
+    <choice req="UPG_LILY_TARGETING_RELOAD" lvl="1" max_group="1" blue="false" hidden="true">
+        <text>Weapon Charging Optimization. [ALREADY INSTALLED]</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="UPG_LILY_TARGETING_RELOAD" lvl="0" max_group="1" blue="false" hidden="true">
+        <text>Weapon Charging Optimization. [Cost: 60~, 10}]</text>
+        <event load="STORAGE_CHECK_SYSTEM_LILY_TARGETING_CORE_RELOAD"/>
+    </choice>
+
+    <choice req="UPG_LILY_TARGETING_HOMING" lvl="1" max_group="2" blue="false" hidden="true">
+        <text>Nano-Guidance System. [ALREADY INSTALLED]</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="UPG_LILY_TARGETING_HOMING" lvl="0" max_group="2" blue="false" hidden="true">
+        <text>Nano-Guidance System. [Cost: 40~, 5}, 2|]</text>
+        <event load="STORAGE_CHECK_SYSTEM_LILY_TARGETING_CORE_HOMING"/>
+    </choice>
+
+    <choice req="UPG_LILY_TARGETING_UPLINK" lvl="1" max_group="3" blue="false" hidden="true">
+        <text>Weakpoint Data Uplink. [ALREADY INSTALLED]</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="UPG_LILY_TARGETING_UPLINK" lvl="0" max_group="3" blue="false" hidden="true">
+        <text>Weakpoint Data Uplink. [Cost: 50~, 5|]</text>
+        <event load="STORAGE_CHECK_SYSTEM_LILY_TARGETING_CORE_UPLINK"/>
+    </choice>
+
+    <choice req="UPG_LILY_TARGETING_OVERCLOCK" lvl="1" max_group="5" blue="false" hidden="true">
+        <text>Processor Overclocking. [ALREADY INSTALLED]</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="LILY_TARGETING_ADVANCED" lvl="0" max_lvl="0" max_group="5" blue="false" hidden="true">
+        <text>Processor Overclocking. [Cost: 30~, 10{]</text>
+        <event load="STORAGE_CHECK_SYSTEM_LILY_TARGETING_CORE_OVERCLOCK"/>
+    </choice>
+
+    <choice req="UPG_LILY_TARGETING_MULTITHREAD" lvl="1" max_group="6" blue="false" hidden="true">
+        <text>Multithreaded Targeting. [ALREADY INSTALLED]</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="LILY_TARGETING_ADVANCED" lvl="0" max_lvl="0" max_group="6" blue="false" hidden="true">
+        <text>Multithreaded Targeting. [Cost: 45~, 5|]</text>
+        <event load="STORAGE_CHECK_SYSTEM_LILY_TARGETING_CORE_MULTITHREAD"/>
+    </choice>
+
+    <choice>
+        <text>Nevermind.</text>
+        <event load="STORAGE_CHECK_SYSTEM_LOAD"/>
+    </choice>
+</event>
+
+
+<event name="STORAGE_CHECK_SYSTEM_LILY_TARGETING_CORE_ANTICLOAK">
+    <text>You are about to install the Full Spectrum Array upgrade.
+	[Effects: Doubles the accuracy bonus of Dedicated Targeting Core and allows charging of weapons at 20% of regular speed per level when target is cloaked. Also expands provided vision to adjacent rooms.]</text>
+
+    <choice req="lily_targeting_core" lvl="3" max_group="0" blue="false" hidden="true">
+        <text>Perform the upgrade. [Cost: 100~, 8{, 6|]</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <item_modify>
+                <item type="scrap" min="-100" max="-100"/>
+                <item type="fuel" min="-8" max="-8"/>
+                <item type="drones" min="-6" max="-6"/>
+            </item_modify>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_TARGETING_ANTICLOAK"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="lily_targeting_core" max_group="0" blue="false" hidden="true">
+        <text>This upgrade is unavailable. You need Dedicated Targeting Core level 3.</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="EX_LILY_TARGETING_ANTICLOAK" max_group="1" blue="false" hidden="true">
+        <text>Install the External Augment internally.</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <remove name="EX_LILY_TARGETING_ANTICLOAK"/>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_TARGETING_ANTICLOAK"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="pilot" lvl="1" max_group="2" blue="false" hidden="true">
+        <text>Nevermind.</text>
+        <event load="STORAGE_CHECK_SYSTEM_LOAD"/>
+    </choice>
+</event>
+<event name="INSTALL_LILY_TARGETING_ANTICLOAK">
+    <variable name="loc_internal_upgrades" op="add" val="1"/>
+    <hiddenAug>UPG_LILY_TARGETING_ANTICLOAK</hiddenAug>
+    <loadEvent>STORAGE_CHECK_SYSTEM</loadEvent>
+</event>
+
+<event name="STORAGE_CHECK_SYSTEM_LILY_TARGETING_CORE_RELOAD">
+    <text>You are about to install the Weapon Charging Optimization upgrade.
+	[Effects: Dedicated Targeting Core now provides extra 5% weapon reload boost per level.]</text>
+
+    <choice req="lily_targeting_core" lvl="2" max_group="0" blue="false" hidden="true">
+        <text>Perform the upgrade. [Cost: 60~, 10}]</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <item_modify>
+                <item type="scrap" min="-60" max="-60"/>
+                <item type="missiles" min="-10" max="-10"/>
+            </item_modify>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_TARGETING_RELOAD"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="lily_targeting_core" max_group="0" blue="false" hidden="true">
+        <text>This upgrade is unavailable. You need Dedicated Targeting Core level 2.</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="EX_LILY_TARGETING_RELOAD" max_group="1" blue="false" hidden="true">
+        <text>Install the External Augment internally.</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <remove name="EX_LILY_TARGETING_RELOAD"/>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_TARGETING_RELOAD"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="pilot" lvl="1" max_group="2" blue="false" hidden="true">
+        <text>Nevermind.</text>
+        <event load="STORAGE_CHECK_SYSTEM_LOAD"/>
+    </choice>
+</event>
+<event name="INSTALL_LILY_TARGETING_RELOAD">
+    <variable name="loc_internal_upgrades" op="add" val="1"/>
+    <hiddenAug>UPG_LILY_TARGETING_RELOAD</hiddenAug>
+    <loadEvent>STORAGE_CHECK_SYSTEM</loadEvent>
+</event>
+
+<event name="STORAGE_CHECK_SYSTEM_LILY_TARGETING_CORE_HOMING">
+    <text>You are about to install the Nano-Guidance System upgrade.
+	[Effects: Weapons with spread (such as flak) will now attempt to hit closer to the target, by 10 units per level.]</text>
+
+    <choice req="lily_targeting_core" lvl="1" max_group="0" blue="false" hidden="true">
+        <text>Perform the upgrade. [Cost: 40~, 5}, 2|]</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <item_modify>
+                <item type="scrap" min="-40" max="-40"/>
+                <item type="missiles" min="-5" max="-5"/>
+                <item type="drones" min="-2" max="-2"/>
+            </item_modify>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_TARGETING_HOMING"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="lily_targeting_core" max_group="0" blue="false" hidden="true">
+        <text>This upgrade is unavailable. You need Dedicated Targeting Core level 1.</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="EX_LILY_TARGETING_HOMING" max_group="1" blue="false" hidden="true">
+        <text>Install the External Augment internally.</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <remove name="EX_LILY_TARGETING_HOMING"/>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_TARGETING_HOMING"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="pilot" lvl="1" max_group="2" blue="false" hidden="true">
+        <text>Nevermind.</text>
+        <event load="STORAGE_CHECK_SYSTEM_LOAD"/>
+    </choice>
+</event>
+<event name="INSTALL_LILY_TARGETING_HOMING">
+    <variable name="loc_internal_upgrades" op="add" val="1"/>
+    <hiddenAug>UPG_LILY_TARGETING_HOMING</hiddenAug>
+    <loadEvent>STORAGE_CHECK_SYSTEM</loadEvent>
+</event>
+
+<event name="STORAGE_CHECK_SYSTEM_LILY_TARGETING_CORE_UPLINK">
+    <text>You are about to install the Weakpoint Data Uplink upgrade.
+	[Effects: Allied crew in targeted rooms will deal 20% more sabotage damage and 5% more combat damage per level of Dedicated Targeting Core.]</text>
+
+    <choice req="lily_targeting_core" lvl="1" max_group="0" blue="false" hidden="true">
+        <text>Perform the upgrade. [Cost: 50~, 5|]</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <item_modify>
+                <item type="scrap" min="-50" max="-50"/>
+                <item type="drones" min="-5" max="-5"/>
+            </item_modify>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_TARGETING_UPLINK"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="lily_targeting_core" max_group="0" blue="false" hidden="true">
+        <text>This upgrade is unavailable. You need Dedicated Targeting Core level 1.</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="EX_LILY_TARGETING_UPLINK" max_group="1" blue="false" hidden="true">
+        <text>Install the External Augment internally.</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <remove name="EX_LILY_TARGETING_UPLINK"/>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_TARGETING_UPLINK"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="pilot" lvl="1" max_group="2" blue="false" hidden="true">
+        <text>Nevermind.</text>
+        <event load="STORAGE_CHECK_SYSTEM_LOAD"/>
+    </choice>
+</event>
+<event name="INSTALL_LILY_TARGETING_UPLINK">
+    <variable name="loc_internal_upgrades" op="add" val="1"/>
+    <hiddenAug>UPG_LILY_TARGETING_UPLINK</hiddenAug>
+    <loadEvent>STORAGE_CHECK_SYSTEM</loadEvent>
+</event>
+
+<event name="STORAGE_CHECK_SYSTEM_LILY_TARGETING_CORE_OVERCLOCK">
+    <text>You are about to install the Processor Overclocking upgrade.
+	[Effects: Reduces time it takes for Dedicated Targeting Core to lock onto a room from 12 to 2 seconds. Incompatible with Multithreaded targeting.]</text>
+
+    <choice req="lily_targeting_core" lvl="2" max_group="0" blue="false" hidden="true">
+        <text>Perform the upgrade. [Cost: 30~, 10{]</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <item_modify>
+                <item type="scrap" min="-30" max="-30"/>
+                <item type="fuel" min="-10" max="-10"/>
+            </item_modify>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_TARGETING_OVERCLOCK"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="lily_targeting_core" max_group="0" blue="false" hidden="true">
+        <text>This upgrade is unavailable. You need Dedicated Targeting Core level 2.</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="EX_LILY_TARGETING_OVERCLOCK" max_group="1" blue="false" hidden="true">
+        <text>Install the External Augment internally.</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <remove name="EX_LILY_TARGETING_OVERCLOCK"/>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_TARGETING_OVERCLOCK"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="pilot" lvl="1" max_group="2" blue="false" hidden="true">
+        <text>Nevermind.</text>
+        <event load="STORAGE_CHECK_SYSTEM_LOAD"/>
+    </choice>
+</event>
+<event name="INSTALL_LILY_TARGETING_OVERCLOCK">
+    <variable name="loc_internal_upgrades" op="add" val="1"/>
+    <hiddenAug>UPG_LILY_TARGETING_OVERCLOCK</hiddenAug>
+    <loadEvent>STORAGE_CHECK_SYSTEM</loadEvent>
+</event>
+
+<event name="STORAGE_CHECK_SYSTEM_LILY_TARGETING_CORE_MULTITHREAD">
+    <text>You are about to install the Multithreaded Targeting upgrade.
+	[Effects: Dedicated Targeting Core now also applies its full effects to rooms adjacent to directly targeted. Incompatible with Processor Overclocking.]</text>
+
+    <choice req="lily_targeting_core" lvl="3" max_group="0" blue="false" hidden="true">
+        <text>Perform the upgrade. [Cost: 45~, 5|]</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <item_modify>
+                <item type="scrap" min="-100" max="-100"/>
+                <item type="fuel" min="-8" max="-8"/>
+                <item type="drones" min="-6" max="-6"/>
+            </item_modify>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_TARGETING_MULTITHREAD"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="lily_targeting_core" max_group="0" blue="false" hidden="true">
+        <text>This upgrade is unavailable. You need Dedicated Targeting Core level 3.</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="EX_LILY_TARGETING_MULTITHREAD" max_group="1" blue="false" hidden="true">
+        <text>Install the External Augment internally.</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <remove name="EX_LILY_TARGETING_MULTITHREAD"/>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_TARGETING_MULTITHREAD"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="pilot" lvl="1" max_group="2" blue="false" hidden="true">
+        <text>Nevermind.</text>
+        <event load="STORAGE_CHECK_SYSTEM_LOAD"/>
+    </choice>
+</event>
+<event name="INSTALL_LILY_TARGETING_MULTITHREAD">
+    <variable name="loc_internal_upgrades" op="add" val="1"/>
+    <hiddenAug>UPG_LILY_TARGETING_MULTITHREAD</hiddenAug>
+    <loadEvent>STORAGE_CHECK_SYSTEM</loadEvent>
+</event>
+
+
+
+
+
+
 
 
 <mod:findName type="event" name="COMBAT_CHECK_TOGGLE">

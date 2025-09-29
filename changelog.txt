@@ -1,4 +1,11 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.6.0
+Date: 2025-09-30
+  Changes:
+    - Introducing new system yet again - Dedicated Targeting Core!
+    - Added the backup repair protocols clonebay internal upgrade.
+    - Minor fixes.
+---------------------------------------------------------------------------------------------------
 Version: 1.5.5
 Date: 2025-09-26
   Changes:
@@ -8,7 +15,7 @@ Date: 2025-09-26
     - Added Sector Scanner and Teleport Recall as internal upgrades.
     - Added extra room graphics for bigger rooms for Shock Neutralizer.
     - Cloaking and hacking now always receive only "secondary benefit" from shock neutralizer, even if directly targeted
-    - Added a promo poster in the hangar that allows you to accesss a "deal" once per run.
+    - Added a promo poster in the hangar that allows you to access a "deal" once per run.
     - Minor fixes.
 ---------------------------------------------------------------------------------------------------
 Version: 1.5.4

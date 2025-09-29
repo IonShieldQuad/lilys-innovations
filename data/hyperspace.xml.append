@@ -4,6 +4,7 @@
 
 <mod:findLike type="scripts">
     <mod-append:script>data/scripts_lily/lily_ablative_armor.lua</mod-append:script>
+	<mod-append:script>data/scripts_lily/lily_targeting_core.lua</mod-append:script>
 	<mod-append:script>data/scripts_lily/lily_shock_neutralizer.lua</mod-append:script>
 	<mod-append:script>data/scripts_lily/lily_infusion_bay.lua</mod-append:script>
 	<mod-append:script>data/scripts_lily/lily_system_bracers.lua</mod-append:script>
@@ -62,10 +63,14 @@
 
 <mod:findLike type="customSystems">
 	<mod-append:customSystem id="lily_ablative_armor"/>
+	<mod-append:customSystem id="lily_targeting_core"/>
 	<mod-append:customSystem id="lily_shock_neutralizer" subSystem="true" mannable="false"/>
 	<mod-append:customSystem id="lily_infusion_bay" mannable="false"/>
 	<mod-append:customSystem id="lily_system_bracers" subSystem="true" mannable="false"/>
 
+	<mod-append:exclusivityGroup>
+		<lily_targeting_core/>
+	</mod-append:exclusivityGroup>
 
 	<mod:findWithChildLike type="exclusivityGroup" child-type="shields">
 		<mod-append:lily_ablative_armor/>
@@ -82,6 +87,8 @@
 		<mod-append:lily_ablative_armor position="0"/>
 		<mod-append:lily_shock_neutralizer staticOffset="123"/>
 		<mod-append:lily_infusion_bay position="3"/>
+		<mod-append:lily_targeting_core position="6"/>
+
 	</mod:findLike>
 
 	<mod-append:systemPositions subSystemOffset="1015"> 
@@ -96,6 +103,7 @@
         <oxygen position="4"/>
         <teleporter position="5"/>
         <cloaking position="6"/>
+		<lily_targeting_core position="6"/>
         <artillery position="7"/>
         <mind position="8"/>
         <hacking position="9"/>
@@ -170,6 +178,7 @@
 
 <augments>
 	<aug name="BOON_LILY_ABLATIVE_ARMOR"/>
+	<aug name="BOON_LILY_TARGETING_CORE"/>
 	<aug name="BOON_LILY_SHOCK_NEUTRALIZER"/>
 	<aug name="BOON_LILY_SYSTEM_BRACERS"/>
 	<aug name="BOON_LILY_INFUSION_BAY">
@@ -1247,6 +1256,32 @@
 		<function name="TELEPORT_RECALL" useForReqs="true" warning="false"/>
 	</aug>
 
+	<aug name="UPG_LILY_CLONEBAY_REGEN"/>
+	<aug name="EX_LILY_CLONEBAY_REGEN"/>
+
+
+
+	<aug name="UPG_LILY_TARGETING_ANTICLOAK"/>
+	<aug name="EX_LILY_TARGETING_ANTICLOAK"/>
+
+	<aug name="UPG_LILY_TARGETING_RELOAD"/>
+	<aug name="EX_LILY_TARGETING_RELOAD"/>
+
+	<aug name="UPG_LILY_TARGETING_HOMING"/>
+	<aug name="EX_LILY_TARGETING_HOMING"/>
+
+	<aug name="UPG_LILY_TARGETING_UPLINK"/>
+	<aug name="EX_LILY_TARGETING_UPLINK"/>
+
+	<aug name="UPG_LILY_TARGETING_OVERCLOCK"/>
+	<aug name="EX_LILY_TARGETING_OVERCLOCK"/>
+
+	<aug name="UPG_LILY_TARGETING_MULTITHREAD"/>
+	<aug name="EX_LILY_TARGETING_MULTITHREAD"/>
+
+
+		
+
 </augments>
 
 <mod:findLike type="events" limit="1">
@@ -1260,12 +1295,14 @@
 <mod:findLike type="events">
 	<mod:findName name="ANY_BOON">
 		<mod-append:name>prof_e_boon_lily_ablative_armor</mod-append:name>
+		<mod-append:name>prof_e_boon_lily_targeting_core</mod-append:name>
 		<mod-append:name>prof_e_boon_lily_shock_neutralizer</mod-append:name>
 		<mod-append:name>prof_e_boon_lily_infusion_bay</mod-append:name>
 		<mod-append:name>prof_e_boon_lily_system_bracers</mod-append:name>
 	</mod:findName>
 	<mod:findName name="ALL_BOON">
 		<mod-append:name>prof_e_boon_lily_ablative_armor</mod-append:name>
+		<mod-append:name>prof_e_boon_lily_targeting_core</mod-append:name>
 		<mod-append:name>prof_e_boon_lily_shock_neutralizer</mod-append:name>
 		<mod-append:name>prof_e_boon_lily_infusion_bay</mod-append:name>
 		<mod-append:name>prof_e_boon_lily_system_bracers</mod-append:name>
@@ -1301,6 +1338,11 @@
 	<mod-append:req name="LILY_BATTERY_ADVANCED" type="any">
 		<name>UPG_BATTERY_BOOSTER</name>
 		<name>UPG_LILY_BATTERY_SURGE_OVERDRIVE</name>
+	</mod-append:req>
+
+	<mod-append:req name="LILY_TARGETING_ADVANCED" type="any">
+		<name>UPG_LILY_TARGETING_OVERCLOCK</name>
+		<name>UPG_LILY_TARGETING_MULTITHREAD</name>
 	</mod-append:req>
 
 
@@ -1353,12 +1395,14 @@
 <mod-append:metaVariable name="prof_e_boon_lily_ablative_armor" op="set" val="0"/>
 <mod-append:variable name="ach_boon_lily_ablative_armor" op="set" val="0"/>
 
+<mod-append:metaVariable name="prof_e_boon_lily_targeting_core" op="set" val="0"/>
+<mod-append:variable name="ach_boon_lily_targeting_core" op="set" val="0"/>
+
 <mod-append:metaVariable name="prof_e_boon_lily_shock_neutralizer" op="set" val="0"/>
 <mod-append:variable name="ach_boon_lily_shock_neutralizer" op="set" val="0"/>
 
 <mod-append:metaVariable name="prof_e_boon_lily_infusion_bay" op="set" val="0"/>
 <mod-append:variable name="ach_boon_lily_infusion_bay" op="set" val="0"/>
-
 
 <mod-append:metaVariable name="prof_e_boon_lily_system_bracers" op="set" val="0"/>
 <mod-append:variable name="ach_boon_lily_system_bracers" op="set" val="0"/>
@@ -1381,15 +1425,23 @@
 	<mod-append:page>
 		<mod-append:section text="Corby's Grants (LilyInno)" hidden="false">
 			<mod-append:achievement name="ACH_BOON_LILY_ABLATIVE_ARMOR">
-				<name>Grant of Ablative Armor</name>
-				<secretDescription>Receive the Grant of Ablative Armor from Corby.</secretDescription>
+				<name>Grant of Ablation</name>
+				<secretDescription>Receive the Grant of Ablation from Corby.</secretDescription>
 				<description>Show an upgraded Ablative Armor System to Corby. While in effect; Repair 1 Hull point for free every jump.</description>
 				<header>Grant Received</header>
 				<icon>boons/ach_boon_lily_ablative_armor</icon>
 				<multiDifficulty>false</multiDifficulty>
 			</mod-append:achievement>
+			<mod-append:achievement name="ACH_BOON_LILY_TARGETING_CORE">
+				<name>Grant of Targeting</name>
+				<secretDescription>Receive the Grant of Targeting from Corby.</secretDescription>
+				<description>Show an upgraded Dedicated Targeting Core System to Corby. While in effect; Grants +10 extra accuracy to all your weapons and drones.</description>
+				<header>Grant Received</header>
+				<icon>boons/ach_boon_lily_targeting_core</icon>
+				<multiDifficulty>false</multiDifficulty>
+			</mod-append:achievement>
 			<mod-append:achievement name="ACH_BOON_LILY_INFUSION_BAY">
-				<name>Grant of Infusion bay</name>
+				<name>Grant of Infusion</name>
 				<secretDescription>Receive the Grant of Infusion from Corby.</secretDescription>
 				<description>Show an upgraded Infusion Bay System to Corby. While in effect; x0.75 max health and x0.5 all damage taken in your medical facilities.</description>
 				<header>Grant Received</header>
@@ -1397,16 +1449,16 @@
 				<multiDifficulty>false</multiDifficulty>
 			</mod-append:achievement>
 			<mod-append:achievement name="ACH_BOON_LILY_SHOCK_NEUTRALIZER">
-				<name>Grant of Shock Neutralizer</name>
-				<secretDescription>Receive the Grant of Shock Neutralizer from Corby.</secretDescription>
+				<name>Grant of Neutralization</name>
+				<secretDescription>Receive the Grant of Neutralization from Corby.</secretDescription>
 				<description>Show an upgraded Shock Neutralizer Subystem to Corby. While in effect; Ion timers on your ship dissipate 10% faster.</description>
 				<header>Grant Received</header>
 				<icon>boons/ach_boon_lily_shock_neutralizer</icon>
 				<multiDifficulty>false</multiDifficulty>
 			</mod-append:achievement>
 			<mod-append:achievement name="ACH_BOON_LILY_SYSTEM_BRACERS">
-				<name>Grant of System Bracers</name>
-				<secretDescription>Receive the Grant of System Bracers from Corby.</secretDescription>
+				<name>Grant of Bracing</name>
+				<secretDescription>Receive the Grant of Bracing from Corby.</secretDescription>
 				<description>Show an upgraded System Bracers Subystem to Corby. While in effect; System Bracers repair speed penalty is removed.</description>
 				<header>Grant Received</header>
 				<icon>boons/ach_boon_lily_system_bracers</icon>

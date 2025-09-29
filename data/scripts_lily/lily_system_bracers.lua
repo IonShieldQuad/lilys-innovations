@@ -344,10 +344,11 @@ script.on_internal_event(Defines.InternalEvents.DAMAGE_SYSTEM, function(shipMana
         if not userdata_table(shipManager, "mods.lilyinno.systembracers").systemSaves then
             userdata_table(shipManager, "mods.lilyinno.systembracers").systemSaves = {}
         end
+        if sys then
+            table.insert(userdata_table(shipManager, "mods.lilyinno.systembracers").systemSaves, {id = sys:GetId(), hp = sys.healthState.first})
+        end 
 
-        table.insert(userdata_table(shipManager, "mods.lilyinno.systembracers").systemSaves, {id = sys:GetId(), hp = sys.healthState.first})
-
-        if shipManager.weaponSystem and sys:GetId() == Hyperspace.ShipSystem.NameToSystemId("weapons") then
+        if sys and shipManager.weaponSystem and sys:GetId() == Hyperspace.ShipSystem.NameToSystemId("weapons") then
             userdata_table(shipManager, "mods.lilyinno.systembracers").weaponRepower = true
             userdata_table(shipManager, "mods.lilyinno.systembracers").savedWeapons = {}
             local num = 0
@@ -425,6 +426,7 @@ end)
 script.on_internal_event(Defines.InternalEvents.CONSTRUCT_SHIP_SYSTEM, function(system)
     
     if system and system:GetId() == Hyperspace.ShipSystem.NameToSystemId("lily_system_bracers") then
+        system:ForceDecreasePower(system.healthState.second)
         system.bNeedsPower = false
         system.bBoostable = false
     end

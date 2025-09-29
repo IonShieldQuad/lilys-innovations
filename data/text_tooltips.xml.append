@@ -7,3 +7,5 @@
 <text name="tooltip_lily_infusion_bay_enemy">Infusion Bay: Produces infusions over time, which then can be picked up by crew and used for a variety of buffs.</text>
 <text name="tooltip_lily_system_bracers">System Bracers: Protects your systems from damage by taking it itself instead. Is repaired at half the usual rate.</text>
 <text name="tooltip_lily_system_bracers_enemy">System Bracers: Protects your enemy's systems from damage by taking it itself instead. Is repaired at half the usual rate.</text>
+<text name="tooltip_lily_targeting_core">Dedicated Targeting Core: Marks rooms on the enemy ship. Marked rooms are more likely to be targeted, and projectiles aimed at them have bonus accuracy.</text>
+<text name="tooltip_lily_targeting_core_enemy">Dedicated Targeting Core: Marks rooms on your ship. Marked rooms are more likely to be targeted, and projectiles aimed at them have bonus accuracy.</text>

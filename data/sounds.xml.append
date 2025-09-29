@@ -13,5 +13,8 @@
 
 <lily_shock_neutralizer_select_1 volume="5">effects_lily/shock_neutralizer_select.wav</lily_shock_neutralizer_select_1>
 
+<lily_targeting_core_locking_on volume="5">effects_lily/targeting_core_locking_on.wav</lily_targeting_core_locking_on>
+<lily_targeting_core_locked_on volume="5">effects_lily/targeting_core_locked_on.wav</lily_targeting_core_locked_on>
+
 <lily_bracers_hit_1 volume="5">effects_lily/system_bracers_hit_1.wav</lily_bracers_hit_1>
 </FTL>

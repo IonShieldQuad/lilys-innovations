@@ -29,6 +29,21 @@
     <cost>80</cost>
 </systemBlueprint>
 
+<systemBlueprint name="lily_targeting_core">
+    <type>targeting</type>
+    <title>Dedicated Targeting Core</title>
+    <desc>Locks onto rooms on the enemy ship. Locked on rooms are more likely to be targeted by drones, always have visibility, and projectiles aimed at them have bonus accuracy.</desc>
+    <startPower>1</startPower>
+    <maxPower>4</maxPower>
+    <rarity>2</rarity>
+    <upgradeCost>
+        <level>40</level>
+        <level>50</level>
+        <level>60</level>
+    </upgradeCost>
+    <cost>70</cost>
+</systemBlueprint>
+
 <systemBlueprint name="lily_shock_neutralizer">
     <type>battery</type>
     <title>Shock Neutralizer</title>
@@ -741,6 +756,130 @@ Incompatible with performance upgrades.
     <stackable>true</stackable>
 </augBlueprint>
 
+<augBlueprint name="UPG_LILY_CLONEBAY_REGEN">
+    <title>Backup Repair Protocols</title>
+    <desc>YOU SHOULD NEVER SEE THIS</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>true</stackable>
+</augBlueprint>
+<augBlueprint name="EX_LILY_CLONEBAY_REGEN">
+    <title>Backup Repair Protocols [X]</title>
+    <desc>Slowly repairs your clonebay system even with absense of crew.
+    
+		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>true</stackable>
+</augBlueprint>
+
+
+<augBlueprint name="UPG_LILY_TARGETING_ANTICLOAK">
+    <title>Full Spectrum Array</title>
+    <desc>YOU SHOULD NEVER SEE THIS</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>false</stackable>
+</augBlueprint>
+<augBlueprint name="EX_LILY_TARGETING_ANTICLOAK">
+    <title>Full Spectrum Array [X]</title>
+    <desc>Doubles the accuracy bonus of Dedicated Targeting Core and allows charging of weapons at 20% of regular speed per level when target is cloaked. Also expands provided vision to adjacent rooms.
+    
+		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>false</stackable>
+</augBlueprint>
+
+<augBlueprint name="UPG_LILY_TARGETING_RELOAD">
+    <title>Weapon Charging Optimization</title>
+    <desc>YOU SHOULD NEVER SEE THIS</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>false</stackable>
+</augBlueprint>
+<augBlueprint name="EX_LILY_TARGETING_RELOAD">
+    <title>Weapon Charging Optimization [X]</title>
+    <desc>Dedicated Targeting Core now provides extra 5% weapon reload boost per level.
+    
+		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>false</stackable>
+</augBlueprint>
+
+
+<augBlueprint name="UPG_LILY_TARGETING_HOMING">
+    <title>Nano-Guidance System</title>
+    <desc>YOU SHOULD NEVER SEE THIS</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>false</stackable>
+</augBlueprint>
+<augBlueprint name="EX_LILY_TARGETING_HOMING">
+    <title>Nano-Guidance System [X]</title>
+    <desc>Weapons with spread (such as flak) will now attempt to hit closer to the target, by 10 units per level.
+    
+		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>false</stackable>
+</augBlueprint>
+
+<augBlueprint name="UPG_LILY_TARGETING_UPLINK">
+    <title>Weakpoint Data Uplink</title>
+    <desc>YOU SHOULD NEVER SEE THIS</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>false</stackable>
+</augBlueprint>
+<augBlueprint name="EX_LILY_TARGETING_UPLINK">
+    <title>Weakpoint Data Uplink [X]</title>
+    <desc>Allied crew in targeted rooms will deal 20% more sabotage damage and 5% more combat damage per level of Dedicated Targeting Core.
+    
+		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>false</stackable>
+</augBlueprint>
+
+<augBlueprint name="UPG_LILY_TARGETING_OVERCLOCK">
+    <title>Processor Overclocking</title>
+    <desc>YOU SHOULD NEVER SEE THIS</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>false</stackable>
+</augBlueprint>
+<augBlueprint name="EX_LILY_TARGETING_OVERCLOCK">
+    <title>Processor Overclocking [X]</title>
+    <desc>Reduces time it takes for Dedicated Targeting Core to lock onto a room from 12 to 2 seconds.
+    
+		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>false</stackable>
+</augBlueprint>
+
+<augBlueprint name="UPG_LILY_TARGETING_MULTITHREAD">
+    <title>Multithreaded Targeting</title>
+    <desc>YOU SHOULD NEVER SEE THIS</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>false</stackable>
+</augBlueprint>
+<augBlueprint name="EX_LILY_TARGETING_MULTITHREAD">
+    <title>Multithreaded Targeting [X]</title>
+    <desc>Dedicated Targeting Core now also applies its full effects to rooms adjacent to directly targeted.
+    
+		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>false</stackable>
+</augBlueprint>
+
+
+
+
 
 <!--
     1) Aux. Compact Reactor:
@@ -815,6 +954,14 @@ Core overclock and Parallel processing are mutually exclusive
 
 <augBlueprint name="BOON_LILY_SHOCK_NEUTRALIZER">
     <title>Ablative Armor Grant</title>
+    <desc>YOU SHOULD NEVER SEE THIS</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>false</stackable>
+</augBlueprint>
+
+<augBlueprint name="BOON_LILY_TARGETING_CORE">
+    <title>Dedicated Targeting Core Grant</title>
     <desc>YOU SHOULD NEVER SEE THIS</desc>
     <cost>0</cost>
     <rarity>0</rarity>

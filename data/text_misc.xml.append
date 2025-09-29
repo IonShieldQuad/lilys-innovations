@@ -8,4 +8,6 @@
 <text name="lily_infusion_bay_installed">Infusion Bay System installed</text>
 <text name="lily_system_bracers">System Bracers</text>
 <text name="lily_system_bracers_installed">System Bracers Subsystem installed</text>
+<text name="lily_targeting_core">Dedicated Targeting Core</text>
+<text name="lily_targeting_core_installed">Dedicated Targeting Core System installed</text>
 </FTL>

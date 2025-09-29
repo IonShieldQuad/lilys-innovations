@@ -1,6 +1,6 @@
 <FTL>
 <event name="BOON_SELECT_LILY_ABLATIVE_ARMOR">
-    <text>From nowhere, you hear a voice speaking to you. "Grant of [Ablative Armor] i-i-installed. Installed! Grant provides: Repair of one (1) point of hull damage every jump. If -you- witness p-p-previous challenger; provide thanks. I advise you -visit- me as well."</text>
+    <text>From nowhere, you hear a voice speaking to you. "Grant of [Ablation] i-i-installed. Installed! Grant provides: Repair of one (1) point of hull damage every jump. If -you- witness p-p-previous challenger; provide thanks. I advise you -visit- me as well."</text>
     <hiddenAug>BOON_LILY_ABLATIVE_ARMOR</hiddenAug>
     <choice hidden="true">
         <text>Continue...</text>
@@ -9,8 +9,18 @@
         </event>
     </choice>
 </event>
+<event name="BOON_SELECT_LILY_TARGETING_CORE">
+    <text>From nowhere, you hear a voice speaking to you. "Grant of [Targeting] i-i-installed. Installed! Grant provides: +10 (%) extra accuracy to all your weapons and drones.. If -you- witness p-p-previous challenger; provide thanks. I advise you -visit- me as well."</text>
+    <hiddenAug>BOON_LILY_TARGETING_CORE</hiddenAug>
+    <choice hidden="true">
+        <text>Continue...</text>
+        <event>
+            <loadEvent>BOON_SELECT_CONTINUE</loadEvent>
+        </event>
+    </choice>
+</event>
 <event name="BOON_SELECT_LILY_SHOCK_NEUTRALIZER">
-    <text>From nowhere, you hear a voice speaking to you. "Grant of [Shock Neutralizer] i-i-installed. Installed! Grant provides: Increase of ion d-d-dissipation rate on your vessel by 10%. If -you- witness p-p-previous challenger; provide thanks. I advise you -visit- me as well."</text>
+    <text>From nowhere, you hear a voice speaking to you. "Grant of [Neutralization] i-i-installed. Installed! Grant provides: Increase of ion d-d-dissipation rate on your vessel by 10%. If -you- witness p-p-previous challenger; provide thanks. I advise you -visit- me as well."</text>
     <hiddenAug>BOON_LILY_SHOCK_NEUTRALIZER</hiddenAug>
     <choice hidden="true">
         <text>Continue...</text>

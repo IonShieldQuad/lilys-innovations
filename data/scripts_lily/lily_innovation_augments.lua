@@ -64,6 +64,13 @@ script.on_game_event("BLUE_GIANT_FLARE", false, function() sun = true end)
 script.on_internal_event(Defines.InternalEvents.JUMP_LEAVE, function() sun = false end)
 
 script.on_internal_event(Defines.InternalEvents.SHIP_LOOP, function(shipManager)
+
+    if shipManager.cloneSystem and shipManager.cloneSystem.healthState.second > 0 then
+        if shipManager:HasAugmentation("UPG_LILY_CLONEBAY_REGEN") > 0 or shipManager:HasAugmentation("EX_LILY_CLONEBAY_REGEN") > 0 then
+            shipManager.cloneSystem:PartialRepair(0.25, true)
+        end
+    end
+
     if shipManager:HasAugmentation("UPG_CREW_OXYGEN") > 0 or shipManager:HasAugmentation("CREW_OXYGEN") > 0 then
         local mult = 0.8 * shipManager:HasAugmentation("UPG_CREW_OXYGEN") + shipManager:HasAugmentation("CREW_OXYGEN")
 

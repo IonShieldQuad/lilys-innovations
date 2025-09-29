@@ -4,10 +4,23 @@
     <mod-append:choice req="lily_ablative_armor" lvl="8" blue="false">
         <text>Present your Ablative Armor system.</text>
         <event>
-            <text>"Ablative Armor - defensive p-p-p-procedures it ensures! You pilot a: well protected vessel! Well protected vessel! For well protected vessel: I provide Grant of Ab-Ab-ablative Armor! Grant of Ablative Armor! Save it - for the future!"</text>
+            <text>"Ablative Armor - defensive p-p-p-procedures it ensures! You pilot a: well protected vessel! Well protected vessel! For well protected vessel: I provide Grant of Ab-Ab-ablation! Grant of Ablation! Save it - for the future!"</text>
             <achievement>ACH_BOON_LILY_ABLATIVE_ARMOR</achievement>
             <metaVariable name="prof_e_boon_lily_ablative_armor" op="set" val="1"/>
             <variable name="ach_boon_lily_ablative_armor" op="set" val="1"/>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="THE_JUDGES_ENGI_ADVICE"/>
+            </choice>
+        </event>
+    </mod-append:choice>
+    <mod-append:choice req="lily_targeting_core" lvl="4" blue="false">
+        <text>Present your Dedicated Targeting Core system.</text>
+        <event>
+            <text>"Dedicated Targeting Core - for a d-d-dedicated sharpshooter! No enemy can: evade you now! For dedicated sharpshooter: I provide Grant of T-t-targeting! Grant of Targeting! Save it - for the future!"</text>
+            <achievement>ACH_BOON_LILY_TARGETING_CORE</achievement>
+            <metaVariable name="prof_e_boon_lily_targeting_core" op="set" val="1"/>
+            <variable name="ach_boon_lily_targeting_core" op="set" val="1"/>
             <choice hidden="true">
                 <text>Continue...</text>
                 <event load="THE_JUDGES_ENGI_ADVICE"/>
@@ -30,7 +43,7 @@
     <mod-append:choice req="lily_shock_neutralizer" lvl="4" blue="false">
         <text>Present your Shock Neutralizer subsystem.</text>
         <event>
-            <text>"Shock Neutralizer - for p-p-p-protection against ions! Ions! A Technology - for [helping] other technology! Technology!!! For this: I [proudly] provide Grant of Shock Neutralizer! Grant of Shock Neutralizer! Save it - for the future!"</text>
+            <text>"Shock Neutralizer - for p-p-p-protection against ions! Ions! A Technology - for [helping] other technology! Technology!!! For this: I [proudly] provide Grant of Neutralization! Grant of Neutralization! Save it - for the future!"</text>
             <achievement>ACH_BOON_LILY_SHOCK_NEUTRALIZER</achievement>
             <metaVariable name="prof_e_boon_lily_shock_neutralizer" op="set" val="1"/>
             <variable name="ach_boon_lily_shock_neutralizer" op="set" val="1"/>
@@ -57,6 +70,7 @@
 
 <mod:findName type="event" name="THE_JUDGES_VARIABLE_CLEAR">
     <mod-append:metaVariable name="prof_e_boon_lily_ablative_armor" op="set" val="0"/>
+    <mod-append:metaVariable name="prof_e_boon_lily_targeting_core" op="set" val="0"/>
     <mod-append:metaVariable name="prof_e_boon_lily_infusion_bay" op="set" val="0"/>
     <mod-append:metaVariable name="prof_e_boon_lily_shock_neutralizer" op="set" val="0"/>
     <mod-append:metaVariable name="prof_e_boon_lily_system_bracers" op="set" val="0"/>
