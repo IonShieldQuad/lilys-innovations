@@ -671,6 +671,11 @@ script.on_internal_event(Defines.InternalEvents.PROJECTILE_FIRE, function(projec
         local shipManager = Hyperspace.ships(projectile.ownerId)
         local otherShipManager = Hyperspace.ships(1 - projectile.ownerId)
         if shipManager and otherShipManager then
+            if shipManager:HasAugmentation("BOON_LILY_TARGETING_CORE") > 0 then
+                projectile.extend.customDamage.accuracyMod = projectile.extend.customDamage.accuracyMod + 10
+            end
+
+
             local targetroom = userdata_table(shipManager, "mods.lilyinno.targetingcore").targetroom
             --print("TGT:", targetroom or "nil")
             if shipManager:HasSystem(Hyperspace.ShipSystem.NameToSystemId("lily_targeting_core")) and targetroom and targetroom > -1 then
@@ -715,7 +720,7 @@ script.on_internal_event(Defines.InternalEvents.PROJECTILE_FIRE, function(projec
                     projectile.extend.customDamage.accuracyMod = projectile.extend.customDamage.accuracyMod +
                     5 * efflevel * activationTimer[shipManager.iShipId] * activationTimer[shipManager.iShipId]
                     if otherShipManager.cloakSystem and otherShipManager.cloakSystem.bTurnedOn and (shipManager:HasAugmentation("UPG_LILY_TARGETING_ANTICLOAK") > 0 or shipManager:HasAugmentation("EX_LILY_TARGETING_ANTICLOAK") > 0) then
-                        projectile.extend.customDamage.accuracyMod = projectile.extend.customDamage.accuracyMod +
+                        projectile.extend.customDamage.accuracyMod = projectile.extend.customDamage.accuracyMod + 10 +
                         5 * efflevel * activationTimer[shipManager.iShipId] * activationTimer[shipManager.iShipId]
                     end
                 end
@@ -727,7 +732,7 @@ script.on_internal_event(Defines.InternalEvents.PROJECTILE_FIRE, function(projec
                                 5 * efflevel * activationTimer[shipManager.iShipId] *
                                 activationTimer[shipManager.iShipId]
                             if otherShipManager.cloakSystem and otherShipManager.cloakSystem.bTurnedOn and (shipManager:HasAugmentation("UPG_LILY_TARGETING_ANTICLOAK") > 0 or shipManager:HasAugmentation("EX_LILY_TARGETING_ANTICLOAK") > 0) then
-                                projectile.extend.customDamage.accuracyMod = projectile.extend.customDamage.accuracyMod +
+                                projectile.extend.customDamage.accuracyMod = projectile.extend.customDamage.accuracyMod + 10 +
                                     5 * efflevel * (activationTimer[shipManager.iShipId] >= 1 and 1 or 0)
                             end
                         end
@@ -744,6 +749,9 @@ script.on_internal_event(Defines.InternalEvents.DRONE_FIRE, function(projectile,
         local shipManager = Hyperspace.ships(projectile.ownerId)
         local otherShipManager = Hyperspace.ships(1 - projectile.ownerId)
         if shipManager and otherShipManager then
+            if shipManager:HasAugmentation("BOON_LILY_TARGETING_CORE") > 0 then
+                projectile.extend.customDamage.accuracyMod = projectile.extend.customDamage.accuracyMod + 10
+            end
             local targetroom = userdata_table(shipManager, "mods.lilyinno.targetingcore").targetroom
             --print("TGT:", targetroom or "nil")
             if shipManager:HasSystem(Hyperspace.ShipSystem.NameToSystemId("lily_targeting_core")) and targetroom and targetroom > -1 then
@@ -761,7 +769,7 @@ script.on_internal_event(Defines.InternalEvents.DRONE_FIRE, function(projectile,
                     projectile.extend.customDamage.accuracyMod = projectile.extend.customDamage.accuracyMod +
                         5 * efflevel * activationTimer[shipManager.iShipId] * activationTimer[shipManager.iShipId]
                     if otherShipManager.cloakSystem and otherShipManager.cloakSystem.bTurnedOn and (shipManager:HasAugmentation("UPG_LILY_TARGETING_ANTICLOAK") > 0 or shipManager:HasAugmentation("EX_LILY_TARGETING_ANTICLOAK") > 0) then
-                        projectile.extend.customDamage.accuracyMod = projectile.extend.customDamage.accuracyMod +
+                        projectile.extend.customDamage.accuracyMod = projectile.extend.customDamage.accuracyMod + 10 +
                         5 * efflevel * activationTimer[shipManager.iShipId] * activationTimer[shipManager.iShipId]
                     end
                 end
@@ -773,7 +781,7 @@ script.on_internal_event(Defines.InternalEvents.DRONE_FIRE, function(projectile,
                                 5 * efflevel * activationTimer[shipManager.iShipId] *
                                 activationTimer[shipManager.iShipId]
                             if otherShipManager.cloakSystem and otherShipManager.cloakSystem.bTurnedOn and (shipManager:HasAugmentation("UPG_LILY_TARGETING_ANTICLOAK") > 0 or shipManager:HasAugmentation("EX_LILY_TARGETING_ANTICLOAK") > 0) then
-                                projectile.extend.customDamage.accuracyMod = projectile.extend.customDamage.accuracyMod +
+                                projectile.extend.customDamage.accuracyMod = projectile.extend.customDamage.accuracyMod + 10 +
                                     5 * efflevel * (activationTimer[shipManager.iShipId] >= 1 and 1 or 0)
                             end
                         end
@@ -993,7 +1001,7 @@ script.on_internal_event(Defines.InternalEvents.CALCULATE_STAT_PRE, function(cre
                     local sys = shipManager:GetSystem(Hyperspace.ShipSystem.NameToSystemId("lily_targeting_core"))
                     local effPower = getEffectiveTargetingLevel(sys)
                     if stat == Hyperspace.CrewStat.DAMAGE_MULTIPLIER then
-                        amount = amount * (1 + effPower * 0.05)
+                        amount = amount * (1 + effPower * 0.1)
                     end
                     if stat == Hyperspace.CrewStat.SABOTAGE_SPEED_MULTIPLIER then
                         amount = amount * (1 + effPower * 0.2)

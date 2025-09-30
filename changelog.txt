@@ -1,4 +1,10 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.6.1
+Date: 2025-09-30
+  Changes:
+    - Fixed the bug with Boon of Targeting not actually doing anything.
+    - Buffed Weakpoint Data Uplink damage per level from 5% to 10% - Since Dedicated Targeting Core faces a lot of competition on boarding ships.
+---------------------------------------------------------------------------------------------------
 Version: 1.6.0
 Date: 2025-09-30
   Changes:

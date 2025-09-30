@@ -2881,7 +2881,7 @@ Incompatible with battery performance upgrades.]</text>
 
 <event name="STORAGE_CHECK_SYSTEM_LILY_TARGETING_CORE_UPLINK">
     <text>You are about to install the Weakpoint Data Uplink upgrade.
-	[Effects: Allied crew in targeted rooms will deal 20% more sabotage damage and 5% more combat damage per level of Dedicated Targeting Core.]</text>
+	[Effects: Allied crew in targeted rooms will deal 20% more sabotage damage and 10% more combat damage per level of Dedicated Targeting Core.]</text>
 
     <choice req="lily_targeting_core" lvl="1" max_group="0" blue="false" hidden="true">
         <text>Perform the upgrade. [Cost: 50~, 5|]</text>
