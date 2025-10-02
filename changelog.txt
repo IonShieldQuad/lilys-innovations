@@ -1,4 +1,11 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.6.2
+Date: 2025-10-02
+  Changes:
+    - Added an option to add an extra system slot for the current run via handy LilyInno hangar button! (Experimental. If the game crashes on load, back it up and then try again. Should load eventually.)
+    - Added / rotated some 3x1 rooms graphics for Dedicated Targeting Core to better fit some ships (and avoid central manning slot if possible).
+    - Minor fixes.
+---------------------------------------------------------------------------------------------------
 Version: 1.6.1
 Date: 2025-09-30
   Changes:

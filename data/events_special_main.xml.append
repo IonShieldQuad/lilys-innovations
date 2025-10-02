@@ -34,6 +34,10 @@ Note: Promotional offer's rules:
 2) The corresponding system, barring special cases**, will be removed to make space for your new INNOVATIVE one.
 3) The offer applies only ONCE per ship/captain.
 
+ADDITIONAL OFFER: SYSTEM EXPANDER
+A new cutting edge technology that will allow your ship to support the whole new extra system!
+Get one for free today!***
+
 You notice an input interface located below the poster, which has already recognized you and your ship's ID.</text>
 
     <playSound>lilyinno_promo_select</playSound>
@@ -132,14 +136,39 @@ You notice an input interface located below the poster, which has already recogn
         </event>
     </choice>
 
+    <choice req="mods_lilyinno_systemslotbonus" lvl="1"hidden="true">
+        <text>Bonus system slot already installed.</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+
+    <choice req="mods_lilyinno_systemslotbonus" lvl="0" max_lvl="0" hidden="true">
+        <text>Install a bonus system slot.</text>
+        <event>
+            <text>You prompt the terminal to increase yous ships's system capacity.
+"Acknowledged. The work on your ship will begin shortly..."</text>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event>
+                    <loadEvent>LILYINNO_EXTRA_SYSSLOT</loadEvent>
+                </event>
+            </choice>
+        </event>
+    </choice>
+
+
     <choice hidden="true">
         <text>Nevermind...</text>
         <event/>
     </choice>
 
-    
-
-
 
 </event>
+
+<event name="LILYINNO_EXTRA_SYSSLOT">
+<text>The system begins to work on modifying your ship, and shortly finishes.
+"The established work quota: Done. Pleasure doing business with you." </text>
+<modifyPursuit amount="1"/>
+</event>
+
+
 </FTL>

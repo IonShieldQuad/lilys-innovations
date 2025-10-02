@@ -10,6 +10,7 @@
 	<mod-append:script>data/scripts_lily/lily_system_bracers.lua</mod-append:script>
 	<mod-append:script>data/scripts_lily/lily_innovation_augments.lua</mod-append:script>
 	<mod-append:script>data/scripts_lily/lily_innovation_events.lua</mod-append:script>
+	<mod-append:script>data/scripts_lily/lily_extra_slots.lua</mod-append:script>
 </mod:findLike>
 
 

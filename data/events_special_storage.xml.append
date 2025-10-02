@@ -335,11 +335,11 @@
         <text>Mapping Suite. [Cost: 40~, 3{, 3|]</text>
         <event load="STORAGE_CHECK_SYSTEM_SENSORS_LILY_SENSORS_MAPWIDE"/>
     </choice>
-    <choice req="UPG_LILY_SENSORS_SECTOR_SCANNER" lvl="1" max_group="8" blue="false" hidden="true">
+    <choice req="UPG_LILY_SECTOR_SCANNER" lvl="1" max_group="8" blue="false" hidden="true">
         <text>Sector Scanner. [ALREADY INSTALLED]</text>
         <event load="OPTION_INVALID"/>
     </choice>
-    <choice req="UPG_LILY_SENSORS_SECTOR_SCANNER" lvl="0" max_group="8" blue="false" hidden="true">
+    <choice req="UPG_LILY_SECTOR_SCANNER" lvl="0" max_group="8" blue="false" hidden="true">
         <text>Sector Scanner. [Cost: 20~, 3|]</text>
         <event load="STORAGE_CHECK_SYSTEM_SENSORS_LILY_SECTOR_SCANNER"/>
     </choice>
