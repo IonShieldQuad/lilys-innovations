@@ -36,7 +36,8 @@ Note: Promotional offer's rules:
 
 ADDITIONAL OFFER: SYSTEM EXPANDER
 A new cutting edge technology that will allow your ship to support the whole new extra system!
-Get one for free today!***
+Get one for free today!
+(Note: the extra slot comes at the expense of weakening hull integrity by 1/3 to make necessarry room for it)
 
 You notice an input interface located below the poster, which has already recognized you and your ship's ID.</text>
 
@@ -56,7 +57,7 @@ You notice an input interface located below the poster, which has already recogn
                 <event load="OPTION_INVALID"/>
             </choice>
 
-            <choice req="shields" hidden="true">
+            <choice req="shields" lvl="2" hidden="true">
                 <text>(Shields) Install Ablative Armor System.</text>
                 <event>
                     <text>You prompt the terminal to install the new system on you ship.
@@ -167,7 +168,7 @@ You notice an input interface located below the poster, which has already recogn
 <event name="LILYINNO_EXTRA_SYSSLOT">
 <text>The system begins to work on modifying your ship, and shortly finishes.
 "The established work quota: Done. Pleasure doing business with you." </text>
-<modifyPursuit amount="1"/>
+<!--modifyPursuit amount="1"/-->
 </event>
 
 

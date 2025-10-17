@@ -120,7 +120,9 @@ local activationTimer = {}
 activationTimer[0] = 0
 activationTimer[1] = 0
 local sfxPlayed = false
-local loadValues = {}
+local loadComplete = {}
+loadComplete[0] = false
+loadComplete[1] = false
 
 local skillTimers = {}
 skillTimers[0] = Hyperspace.TimerHelper(true)
@@ -263,7 +265,7 @@ script.on_init(function()
     sfxPlayed = true
 
     for i = 0, 1, 1 do
-        loadValues[i] = Hyperspace.metaVariables["mods_lilyinno_targetingcore_" .. i]
+        loadComplete[i] = false
         --print("LOAD:", i, Hyperspace.metaVariables["mods_lilyinno_targetingcore_" .. i])
         --print("mods_lilyinno_targetingcore_" .. i)
     end
@@ -289,6 +291,8 @@ local function lily_targeting_core_render(systemBox, ignoreStatus)
                     Hyperspace.Mouse.tooltip =
                     "Select the room for Targeting Core to lock on to.\nHotkey: N/A"
                 end
+            elseif activationTimer[shipManager.iShipId] < 1 then
+                Hyperspace.Mouse.tooltip = "System not ready."
             else
                 Hyperspace.Mouse.tooltip = "No hostile ship present to target."
             end
@@ -491,7 +495,7 @@ script.on_internal_event(Defines.InternalEvents.SHIP_LOOP, function(shipManager)
 
         local level = lily_targeting_core_system.healthState.second
         local efflevel = getEffectiveTargetingLevel(lily_targeting_core_system)
-        local multiplier = 1 / 12.0
+        local multiplier = 1 / 8.0
 
         if shipManager:HasAugmentation("UPG_LILY_TARGETING_OVERCLOCK") > 0 or shipManager:HasAugmentation("EX_LILY_TARGETING_OVERCLOCK") > 0 then
             multiplier = 1 / 2.0
@@ -506,10 +510,14 @@ script.on_internal_event(Defines.InternalEvents.SHIP_LOOP, function(shipManager)
             Hyperspace.playerVariables.lily_targeting_core = level
         end
 
-        if loadValues[shipManager.iShipId] and otherShipManager and otherShipManager._targetable.hostile then
-            --print("SEL", loadValues[shipManager.iShipId])
-            selectRoom(shipManager, loadValues[shipManager.iShipId])
-            loadValues[shipManager.iShipId] = nil
+
+        if mods.lilyinno.checkVarsOK() and not loadComplete[shipManager.iShipId] then
+            local v = Hyperspace.playerVariables
+                ["mods_lilyinno_targetingcore_" .. (shipManager.iShipId > 0.5 and "1" or "0")]
+            if v > 0 then
+                selectRoom(shipManager, v - 1)
+            end
+            loadComplete[shipManager.iShipId] = true
         end
 
 
@@ -520,7 +528,9 @@ script.on_internal_event(Defines.InternalEvents.SHIP_LOOP, function(shipManager)
             sfxPlayed = false
         end
         if activationTimer[0] >= 1 and not sfxPlayed then
-            Hyperspace.Sounds:PlaySoundMix("lily_targeting_core_locked_on", -1, false)
+            if otherShipManager and targetroom and targetroom > -1 then
+                Hyperspace.Sounds:PlaySoundMix("lily_targeting_core_locked_on", -1, false)
+            end
             sfxPlayed = true
         end
 
@@ -594,16 +604,9 @@ script.on_internal_event(Defines.InternalEvents.SHIP_LOOP, function(shipManager)
                 end
             end
         end--]]
-
-        if not loadValues[shipManager.iShipId] then
-
-            if activationTimer[shipManager.iShipId] >= 0 then
-                Hyperspace.metaVariables["mods_lilyinno_targetingcore_" .. (shipManager.iShipId > 0.5 and 1 or 0)] = targetroom or -1
-            else
-                Hyperspace.metaVariables["mods_lilyinno_targetingcore_" .. (shipManager.iShipId > 0.5 and 1 or 0)] = -1
-            end
-            --print("SET", targetroom, Hyperspace.metaVariables["mods_lilyinno_targetingcore_" .. (shipManager.iShipId > 0.5 and 1 or 0)])
-            --print("mods_lilyinno_targetingcore_" .. shipManager.iShipId) 
+        if mods.lilyinno.checkVarsOK() and loadComplete[shipManager.iShipId] then
+            Hyperspace.playerVariables["mods_lilyinno_targetingcore_" .. (shipManager.iShipId > 0.5 and "1" or "0")] =
+                activationTimer[shipManager.iShipId] >= 0 and (targetroom + 1 or 0) or 0
         end
     end
 
@@ -831,6 +834,11 @@ script.on_internal_event(Defines.InternalEvents.SHIP_LOOP, function(shipManager)
             local sys = shipManager:GetSystem(Hyperspace.ShipSystem.NameToSystemId("lily_targeting_core"))
             local effPower = getEffectiveTargetingLevel(sys)
             local mult = effPower * 0.2 * (1 + shipManager:GetAugmentationValue("AUTO_COOLDOWN"))
+            local manning = 1.0
+            if shipManager.weaponSystem and shipManager.weaponSystem.iActiveManned > 0 then
+                manning = math.max(0.1, 1 - 0.05 - 0.05 * shipManager.weaponSystem.iActiveManned)
+            end
+            mult = mult / manning
 
             if shipManager.weaponSystem and shipManager.weaponSystem.weapons and shipManager.weaponSystem.iHackEffect < 2 then
                 for weapon in vter(shipManager.weaponSystem.weapons) do
@@ -1001,6 +1009,9 @@ script.on_internal_event(Defines.InternalEvents.CALCULATE_STAT_PRE, function(cre
                     local sys = shipManager:GetSystem(Hyperspace.ShipSystem.NameToSystemId("lily_targeting_core"))
                     local effPower = getEffectiveTargetingLevel(sys)
                     if stat == Hyperspace.CrewStat.DAMAGE_MULTIPLIER then
+                        amount = amount * (1 + effPower * 0.1)
+                    end
+                    if stat == Hyperspace.CrewStat.DAMAGE_ENEMIES_AMOUNT then
                         amount = amount * (1 + effPower * 0.1)
                     end
                     if stat == Hyperspace.CrewStat.SABOTAGE_SPEED_MULTIPLIER then

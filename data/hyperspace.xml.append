@@ -3,6 +3,7 @@
 <version>^1.20.0</version>
 
 <mod:findLike type="scripts">
+	<mod-append:script>data/scripts_lily/lily_innovation_init.lua</mod-append:script>
     <mod-append:script>data/scripts_lily/lily_ablative_armor.lua</mod-append:script>
 	<mod-append:script>data/scripts_lily/lily_targeting_core.lua</mod-append:script>
 	<mod-append:script>data/scripts_lily/lily_shock_neutralizer.lua</mod-append:script>

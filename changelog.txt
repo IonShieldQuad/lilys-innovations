@@ -1,4 +1,12 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.6.3
+Date: 2025-10-18
+  Changes:
+    - Increased battery level cap to 4 - the same as shock neutralizer - More power for everyone!
+    - Surge overdrive battery upgrade now also increases downtime by 25%, on top of being incompatible with performance upgrade. Choose wisely whether you want it just for reliable power or an occasional performance surge!
+    - An option to add an extra system slot for the current run via handy LilyInno hangar button now no longer boosts fleet, but instead reduces your max hull by 1/3
+    - Reworked saving / loading code to work better and crash less... hopefully (but apparently not fixed completely unfortunately)
+---------------------------------------------------------------------------------------------------
 Version: 1.6.2
 Date: 2025-10-02
   Changes:

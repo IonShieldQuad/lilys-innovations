@@ -1,5 +1,12 @@
 <FTL>
 
+
+<mod:findName name="battery" type="systemBlueprint">
+    <mod:findLike type="upgradeCost">
+        <mod-append:level>95</mod-append:level>
+    </mod:findLike>
+</mod:findName>
+
 <systemBlueprint name="lily_ablative_armor">
     <type>shields</type>
     <title>Ablative Armor</title>
@@ -13,18 +20,17 @@
         <level>20</level>
         <level>30</level>
         <level>40</level>
+        <level>50</level>
         <level>60</level>
         <level>70</level>
         <level>80</level>
-        <level>90</level>
-        <level>100</level>
-        <level>110</level>
-        <level>120</level>
-        <level>130</level>
-        <level>140</level>
-        <level>150</level>
-        <level>160</level>
-        <level>170</level>
+        <level>80</level>
+        <level>80</level>
+        <level>80</level>
+        <level>80</level>
+        <level>80</level>
+        <level>80</level>
+        <level>80</level>
     </upgradeCost>
     <cost>80</cost>
 </systemBlueprint>
@@ -78,14 +84,13 @@
 </systemBlueprint>
 
 <systemBlueprint name="lily_system_bracers">
-    <type>battery</type>
+    <type>doors</type>
     <title>System Bracers</title>
     <desc>Passively protects your systems from damage, redirecting system damage towards itself instead (As long as it isn't destroyed itself). However, it is repaired only at half of normal speed compared to other systems.</desc>
     <startPower>1</startPower>
     <maxPower>3</maxPower>
     <rarity>2</rarity>
     <upgradeCost>
-        <level>20</level>
         <level>30</level>
         <level>50</level>
         <level>80</level>
@@ -152,7 +157,7 @@
 </augBlueprint>
 
 <augBlueprint name="UPG_LILY_OXYGEN_FLORAL">
-    <title>Advanced Ventilation</title>
+    <title>Floral Bouquet</title>
     <desc>YOU SHOULD NEVER SEE THIS</desc>
     <cost>30</cost>
     <rarity>0</rarity>
@@ -160,7 +165,7 @@
 </augBlueprint>
 
 <augBlueprint name="UPG_LILY_OXYGEN_FACTORY">
-    <title>Advanced Ventilation</title>
+    <title>Factory Grease</title>
     <desc>YOU SHOULD NEVER SEE THIS</desc>
     <cost>30</cost>
     <rarity>0</rarity>
@@ -168,7 +173,7 @@
 </augBlueprint>
 
 <augBlueprint name="UPG_LILY_OXYGEN_METAL">
-    <title>Advanced Ventilation</title>
+    <title>Metal and Gunpowder</title>
     <desc>YOU SHOULD NEVER SEE THIS</desc>
     <cost>30</cost>
     <rarity>0</rarity>
@@ -176,7 +181,7 @@
 </augBlueprint>
 
 <augBlueprint name="UPG_LILY_OXYGEN_ARCTIC">
-    <title>Advanced Ventilation</title>
+    <title>Arctic Wind</title>
     <desc>YOU SHOULD NEVER SEE THIS</desc>
     <cost>30</cost>
     <rarity>0</rarity>
@@ -184,7 +189,7 @@
 </augBlueprint>
 
 <augBlueprint name="UPG_LILY_OXYGEN_LAZULI">
-    <title>Advanced Ventilation</title>
+    <title>Lapis Lazuli</title>
     <desc>YOU SHOULD NEVER SEE THIS</desc>
     <cost>30</cost>
     <rarity>0</rarity>
@@ -192,7 +197,7 @@
 </augBlueprint>
 
 <augBlueprint name="UPG_LILY_OXYGEN_BATTERY">
-    <title>Advanced Ventilation</title>
+    <title>9V Battery</title>
     <desc>YOU SHOULD NEVER SEE THIS</desc>
     <cost>30</cost>
     <rarity>0</rarity>
@@ -200,7 +205,7 @@
 </augBlueprint>
 
 <augBlueprint name="UPG_LILY_OXYGEN_ALPHA">
-    <title>Advanced Ventilation</title>
+    <title>Alpha-Methylphenethylamine</title>
     <desc>YOU SHOULD NEVER SEE THIS</desc>
     <cost>30</cost>
     <rarity>0</rarity>
@@ -1070,5 +1075,14 @@ Core overclock and Parallel processing are mutually exclusive
     <iconReplace>shotgun_3_icon</iconReplace>
     <iconImage>flak</iconImage>
 </weaponBlueprint>
+
+<mod:findLike type="shipBlueprint">
+    <mod:findLike type="systemList">
+        <mod:findLike type="battery">
+            <mod:setAttributes max="4"/>
+        </mod:findLike>
+    </mod:findLike>
+</mod:findLike>
+
 
 </FTL>

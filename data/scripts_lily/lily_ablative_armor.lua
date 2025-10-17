@@ -117,8 +117,9 @@ local vter = mods.multiverse.vter
 local armorTimer = {}
 armorTimer[0] = 0
 armorTimer[1] = 0
-
-local loadValues = {}
+local loadComplete = {}
+loadComplete[0] = false
+loadComplete[1] = false
 
 --Handles tooltips and mousever descriptions per level
 local function get_level_description_lily_ablative_armor(systemId, level, tooltip)
@@ -250,8 +251,9 @@ script.on_init(function()
         Graphics.GL_Color(1, 1, 1, 1), 1,
         false)
 
+    
     for i = 0, 1, 1 do
-        loadValues[i] = Hyperspace.metaVariables["mods_lilyinno_ablativearmor_" .. i]
+        loadComplete[i] = false
     end
 
     --buttonBase = Hyperspace.Resources:CreateImagePrimitiveString("systemUI/button_artillery1.png",
@@ -412,10 +414,13 @@ script.on_internal_event(Defines.InternalEvents.SHIP_LOOP, function(shipManager)
         local currentLayers = userdata_table(shipManager, "mods.lilyinno.ablativearmor").first or 0
             --print(currentLayers)
 
-        if loadValues[shipManager.iShipId] then
-            currentLayers = loadValues[(shipManager.iShipId > 0.5 and 1 or 0)]
+        if mods.lilyinno.checkVarsOK() and not loadComplete[shipManager.iShipId] then
+            local v = Hyperspace.playerVariables["mods_lilyinno_ablativearmor_" .. (shipManager.iShipId > 0.5 and "1" or "0")]
+            if v > 0 then
+                currentLayers = v - 1
+            end
             userdata_table(shipManager, "mods_lilyinno_ablativearmor").first = currentLayers
-            loadValues[(shipManager.iShipId > 0.5 and 1 or 0)] = nil
+            loadComplete[shipManager.iShipId] = true
         end
         
         if currentLayers == 0 then
@@ -444,7 +449,9 @@ script.on_internal_event(Defines.InternalEvents.SHIP_LOOP, function(shipManager)
         else
             armorTimer[shipManager.iShipId] = 0
         end
-        Hyperspace.metaVariables["mods_lilyinno_ablativearmor_" .. (shipManager.iShipId > 0.5 and 1 or 0)] = currentLayers
+        if mods.lilyinno.checkVarsOK() and loadComplete[shipManager.iShipId] then
+            Hyperspace.playerVariables["mods_lilyinno_ablativearmor_" .. (shipManager.iShipId > 0.5 and "1" or "0")] = currentLayers + 1
+        end
     end
 end)
 
@@ -643,8 +650,8 @@ script.on_internal_event(Defines.InternalEvents.DAMAGE_BEAM, function(ship, proj
         local hullres = false
         local sysres = false
         if ship:HasAugmentation("UPG_LILY_AETHER_ARMOR") > 0 or ship:HasAugmentation("EX_LILY_AETHER_ARMOR") > 0 then
-            hullres = math.random() < ship:GetAugmentationValue("ROCK_ARMOR")
-            sysres = math.random() < ship:GetAugmentationValue("SYSTEM_CASING")
+            hullres = math.random() < math.min(ship:GetAugmentationValue("ROCK_ARMOR"), 0.9)
+            sysres = math.random() < math.min(ship:GetAugmentationValue("SYSTEM_CASING"), 0.9)
         end
 
         --polished armor gives -1 to beam dmg
@@ -937,8 +944,8 @@ script.on_internal_event(Defines.InternalEvents.DAMAGE_AREA, function(ship, proj
         local hullres = false
         local sysres = false
         if ship:HasAugmentation("UPG_LILY_AETHER_ARMOR") > 0 or ship:HasAugmentation("EX_LILY_AETHER_ARMOR") > 0 then
-            hullres = math.random() < ship:GetAugmentationValue("ROCK_ARMOR")
-            sysres = math.random() < ship:GetAugmentationValue("SYSTEM_CASING")
+            hullres = math.random() < math.min(ship:GetAugmentationValue("ROCK_ARMOR"), 0.9)
+            sysres = math.random() < math.min(ship:GetAugmentationValue("SYSTEM_CASING"), 0.9)
         end
 
         local neg2

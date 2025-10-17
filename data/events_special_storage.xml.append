@@ -745,7 +745,7 @@
         <event load="OPTION_INVALID"/>
     </choice>
     <choice req="UPG_LILY_VENGEANCE_ARMOR" lvl="0" max_group="5" blue="false" hidden="true">
-        <text>Vengeance Adapter. [Cost: 20~, 4|]</text>
+        <text>Vengeance Adapter. [Cost: 20~, 4}]</text>
         <event load="STORAGE_CHECK_SYSTEM_LILY_ABLATIVE_ARMOR_VENGEANCE"/>
     </choice>
 
@@ -2367,7 +2367,7 @@ SIDE EFFECTS INCLUDE: Excessive agressiveness, restlessness, sleep problems, add
 
 <event name="STORAGE_CHECK_SYSTEM_BATTERY_SURGE_OVERDRIVE">
     <text>You are about to install the Surge Overdrive upgrade.
-	[Effects: While your backup battery is active, receive +10% weapon charge rate, +20% shield recharge rate and +5% evasion for each backup battery level. 
+	[Effects: While your backup battery is active, receive +10% weapon charge rate, +20% shield recharge rate and +5% evasion for each backup battery level, but battery cooldown is increased by 25%.
 Incompatible with battery performance upgrades.]</text>
 
     <choice req="battery" lvl="2" max_group="0" blue="false" hidden="true">
@@ -2925,7 +2925,7 @@ Incompatible with battery performance upgrades.]</text>
 
 <event name="STORAGE_CHECK_SYSTEM_LILY_TARGETING_CORE_OVERCLOCK">
     <text>You are about to install the Processor Overclocking upgrade.
-	[Effects: Reduces time it takes for Dedicated Targeting Core to lock onto a room from 12 to 2 seconds. Incompatible with Multithreaded targeting.]</text>
+	[Effects: Reduces time it takes for Dedicated Targeting Core to lock onto a room from 8 to 2 seconds. Incompatible with Multithreaded targeting.]</text>
 
     <choice req="lily_targeting_core" lvl="2" max_group="0" blue="false" hidden="true">
         <text>Perform the upgrade. [Cost: 30~, 10{]</text>
@@ -2976,9 +2976,8 @@ Incompatible with battery performance upgrades.]</text>
         <event>
             <text>You install the upgrade.</text>
             <item_modify>
-                <item type="scrap" min="-100" max="-100"/>
-                <item type="fuel" min="-8" max="-8"/>
-                <item type="drones" min="-6" max="-6"/>
+                <item type="scrap" min="-45" max="-45"/>
+                <item type="drones" min="-5" max="-5"/>
             </item_modify>
             <choice hidden="true">
                 <text>Continue...</text>

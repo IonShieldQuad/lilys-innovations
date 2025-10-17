@@ -81,7 +81,9 @@ local activationTimer = {}
 activationTimer[0] = 0
 activationTimer[1] = 0
 local sfxPlayed = false
-local loadValues = {}
+local loadComplete = {}
+loadComplete[0] = false
+loadComplete[1] = false
 
 --Handles tooltips and mousever descriptions per level
 local function get_level_description_lily_shock_neutralizer(systemId, level, tooltip)
@@ -215,7 +217,7 @@ script.on_init(function()
     end
 
     for i = 0, 1, 1 do
-        loadValues[i] = Hyperspace.metaVariables["mods_lilyinno_shockneutralizer_" .. i]
+        loadComplete[i] = false
         --print("L:", i, Hyperspace.metaVariables["mods_lilyinno_shockneutralizer_" .. i])
         --print("mods_lilyinno_shockneutralizer_" .. i)
     end
@@ -409,10 +411,14 @@ script.on_internal_event(Defines.InternalEvents.SHIP_LOOP, function(shipManager)
             Hyperspace.playerVariables.lily_shock_neutralizer = level
         end
 
-        if loadValues[shipManager.iShipId] then
-            --print("ASDF", shipManager.iShipId, loadValues[shipManager.iShipId])
-            selectRoom(shipManager, loadValues[(shipManager.iShipId > 0.5 and 1 or 0)])
-            loadValues[(shipManager.iShipId > 0.5 and 1 or 0)] = nil
+
+        if mods.lilyinno.checkVarsOK() and not loadComplete[shipManager.iShipId] then
+            local v = Hyperspace.playerVariables
+            ["mods_lilyinno_shockneutralizer_" .. (shipManager.iShipId > 0.5 and "1" or "0")]
+            if v > 0 then
+                selectRoom(shipManager, v - 1)
+            end
+            loadComplete[shipManager.iShipId] = true
         end
 
 
@@ -474,8 +480,9 @@ script.on_internal_event(Defines.InternalEvents.SHIP_LOOP, function(shipManager)
 
             end
         end
-        Hyperspace.metaVariables["mods_lilyinno_shockneutralizer_" .. (shipManager.iShipId > 0.5 and 1 or 0)] = targetroom or
-        -1
+        if mods.lilyinno.checkVarsOK() and loadComplete[shipManager.iShipId] then
+            Hyperspace.playerVariables["mods_lilyinno_shockneutralizer_" .. (shipManager.iShipId > 0.5 and "1" or "0")] = targetroom + 1 or 0
+        end
         --print(targetroom, Hyperspace.metaVariables["mods_lilyinno_shockneutralizer_" .. shipManager.iShipId])
         --print("mods_lilyinno_shockneutralizer_" .. shipManager.iShipId)
     end

@@ -219,7 +219,7 @@ script.on_internal_event(Defines.InternalEvents.SHIP_LOOP, function(shipManager)
                 ---@type Hyperspace.ShipSystem
                 sys = sys
                 table.insert(userdata_table(shipManager, "mods.lilyinno.systembracers").systemSaves,
-                    { id = sys:GetId(), hp = sys.healthState.first })
+                    { id = sys:GetId(), hp = math.min(sys.healthState.first, sys.healthState.second) })
             end
         end
 
@@ -345,7 +345,8 @@ script.on_internal_event(Defines.InternalEvents.DAMAGE_SYSTEM, function(shipMana
             userdata_table(shipManager, "mods.lilyinno.systembracers").systemSaves = {}
         end
         if sys then
-            table.insert(userdata_table(shipManager, "mods.lilyinno.systembracers").systemSaves, {id = sys:GetId(), hp = sys.healthState.first})
+            table.insert(userdata_table(shipManager, "mods.lilyinno.systembracers").systemSaves,
+                { id = sys:GetId(), hp = math.min(sys.healthState.first, sys.healthState.second) })
         end 
 
         if sys and shipManager.weaponSystem and sys:GetId() == Hyperspace.ShipSystem.NameToSystemId("weapons") then

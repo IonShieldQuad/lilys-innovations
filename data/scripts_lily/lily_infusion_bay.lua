@@ -81,9 +81,9 @@ local extraAnimations = {}
 local rechargeTimer = {}
 rechargeTimer[0] = 0
 rechargeTimer[1] = 0
-local loadValues = {}
-loadValues[0] = -1
-loadValues[1] = -1
+local loadComplete = {}
+loadComplete[0] = false
+loadComplete[1] = false
 
 local def0XCREWSLOT = Hyperspace.StatBoostDefinition()
 def0XCREWSLOT.stat = Hyperspace.CrewStat.CREW_SLOTS
@@ -435,7 +435,7 @@ script.on_init(function()
         lily_infusion_bayBaseOffset_x, lily_infusion_bayBaseOffset_y, 0, Graphics.GL_Color(1, 1, 1, 1), 1, false)
     
     for i = 0, 1, 1 do
-        loadValues[i] = Hyperspace.metaVariables["mods_lilyinno_infusionbay_" .. i]
+        loadComplete[i] = false
         --print("Loaded:", "mods_lilyinno_infusionbay_" .. i,
         --    Hyperspace.metaVariables["mods_lilyinno_infusionbay_" .. i])
     end
@@ -694,10 +694,13 @@ script.on_internal_event(Defines.InternalEvents.SHIP_LOOP, function(shipManager)
 
         local maxStoredInfusions = maxTotalInfusions - dormantInfusions
 
-        if loadValues[shipManager.iShipId] and loadValues[shipManager.iShipId] >= 0 then
-            --print("A:", loadValues[shipManager.iShipId])
-            storedInfusions = loadValues[shipManager.iShipId]
-            loadValues[shipManager.iShipId] = nil
+        if mods.lilyinno.checkVarsOK() and not loadComplete[shipManager.iShipId] then
+            local v = Hyperspace.playerVariables
+            ["mods_lilyinno_infusionbay_" .. (shipManager.iShipId > 0.5 and "1" or "0")]
+            if v > 0 then
+                storedInfusions = v - 1
+            end
+            loadComplete[shipManager.iShipId] = true
         end
 
         storedInfusions = math.max(0, math.min(maxStoredInfusions, storedInfusions))
@@ -721,6 +724,9 @@ script.on_internal_event(Defines.InternalEvents.SHIP_LOOP, function(shipManager)
             end
         end
 
+        if not mods.lilyinno.checkVarsOK() then
+            multiplier = 0
+        end
         if storedInfusions > 0 and lily_infusion_bay_system.iHackEffect > 1 then
             if rechargeTimer[shipManager.iShipId] == 0 then
                 rechargeTimer[shipManager.iShipId] = 0.99
@@ -762,11 +768,9 @@ script.on_internal_event(Defines.InternalEvents.SHIP_LOOP, function(shipManager)
                 end
             end
         end
-        if not loadValues[shipManager.iShipId] then
-            Hyperspace.metaVariables["mods_lilyinno_infusionbay_" .. (shipManager.iShipId > 0.5 and 1 or 0)] = math.floor(storedInfusions +
-            dormantInfusions)
-            --print("Set", "mods_lilyinno_infusionbay_" .. (shipManager.iShipId > 0.5 and 1 or 0),
-            --Hyperspace.metaVariables["mods_lilyinno_infusionbay_" .. (shipManager.iShipId > 0.5 and 1 or 0)])
+        if mods.lilyinno.checkVarsOK() and loadComplete[shipManager.iShipId] then
+            Hyperspace.playerVariables["mods_lilyinno_infusionbay_" .. (shipManager.iShipId > 0.5 and "1" or "0")] =
+            math.floor(storedInfusions + dormantInfusions) + 1
         end
     end
 end)

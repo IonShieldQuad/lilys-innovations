@@ -141,7 +141,14 @@ script.on_internal_event(Defines.InternalEvents.SHIP_LOOP, function(shipManager)
             sys.iActiveManned = math.max(sys.iActiveManned, 1)
         end
     end
-
+    
+    if shipManager:HasAugmentation("UPG_LILY_BATTERY_SURGE_OVERDRIVE") > 0 or shipManager:HasAugmentation("EX_LILY_BATTERY_SURGE_OVERDRIVE") > 0 then
+        local battery = shipManager.batterySystem
+        if battery and battery.lockTimer then
+            local deionizationBoost = -0.20
+            battery.lockTimer.currTime = battery.lockTimer.currTime + Hyperspace.FPS.SpeedFactor / 16 * deionizationBoost
+        end
+    end
     if shipManager:HasAugmentation("UPG_LILY_BATTERY_SOLAR_POWER") > 0 or shipManager:HasAugmentation("EX_LILY_BATTERY_SOLAR_POWER") > 0 then
         local battery = shipManager.batterySystem
         local space = Hyperspace.App.world.space
@@ -154,6 +161,7 @@ script.on_internal_event(Defines.InternalEvents.SHIP_LOOP, function(shipManager)
 
         end 
     end
+
     --]]
     --[[
             ---@type Hyperspace.Room
