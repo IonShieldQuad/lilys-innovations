@@ -722,6 +722,27 @@
 				<maxStacks>1</maxStacks>
 				<oxygenReq min="20.0" />
 			</statBoost>
+			<statBoost name="damageEnemiesAmount">
+				<boostType>MULT</boostType>
+				<amount>1.1</amount>
+				<shipTarget>ORIGINAL_SHIP</shipTarget>
+				<crewTarget>ORIGINAL_ALLIES</crewTarget>
+				<droneTarget>CREW</droneTarget>
+				<priority>0</priority>
+				<systemPowerDependency>
+					<oxygen/>
+				</systemPowerDependency>
+				<systemPowerScaling>
+					<noSys>0</noSys>
+					<noPwr>0</noPwr>
+					<onePwr>1</onePwr>
+					<twoPwr>2</twoPwr>
+					<threePwr>3</threePwr>
+					<fourPwr>4</fourPwr>
+				</systemPowerScaling>
+				<maxStacks>1</maxStacks>
+				<oxygenReq min="20.0" />
+			</statBoost>
 		</statBoosts>
 	</aug>
 
@@ -887,7 +908,11 @@
 			<statBoost name="bonusPower">
 				<boostType>FLAT</boostType>
 				<amount>1</amount>
-				<whiteList load="LIST_CREW_ZOLTAN"/>
+				<whiteList>
+					<blueprintList load="LIST_CREW_ZOLTAN"/>
+					<blueprintList load="LIST_CREW_COGNITIVE_ALL"/>
+					<blueprintList load="LIST_CREW_DDTEMPEST_ALIGNED"/>
+				</whiteList>
 				<shipTarget>ORIGINAL_SHIP</shipTarget>
 				<crewTarget>ORIGINAL_ALLIES</crewTarget>
 				<droneTarget>CREW</droneTarget>
@@ -1040,6 +1065,27 @@
 			<statBoost name="damageMultiplier">
 				<boostType>MULT</boostType>
 				<amount>1.2</amount>
+				<shipTarget>ORIGINAL_SHIP</shipTarget>
+				<crewTarget>ORIGINAL_ALLIES</crewTarget>
+				<droneTarget>CREW</droneTarget>
+				<priority>0</priority>
+				<systemPowerDependency>
+					<oxygen/>
+				</systemPowerDependency>
+				<systemPowerScaling>
+					<noSys>0</noSys>
+					<noPwr>0</noPwr>
+					<onePwr>1</onePwr>
+					<twoPwr>2</twoPwr>
+					<threePwr>3</threePwr>
+					<fourPwr>4</fourPwr>
+				</systemPowerScaling>
+				<maxStacks>1</maxStacks>
+				<oxygenReq min="10.0" />
+			</statBoost>
+			<statBoost name="damageEnemiesAmount">
+				<boostType>MULT</boostType>
+				<amount>1.5</amount>
 				<shipTarget>ORIGINAL_SHIP</shipTarget>
 				<crewTarget>ORIGINAL_ALLIES</crewTarget>
 				<droneTarget>CREW</droneTarget>

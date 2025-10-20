@@ -118,8 +118,8 @@ local armorTimer = {}
 armorTimer[0] = 0
 armorTimer[1] = 0
 local loadComplete = {}
-loadComplete[0] = false
-loadComplete[1] = false
+--loadComplete[0] = false
+--loadComplete[1] = false
 
 --Handles tooltips and mousever descriptions per level
 local function get_level_description_lily_ablative_armor(systemId, level, tooltip)
@@ -202,6 +202,7 @@ end
 --Initializes primitive for UI elements
 local buttonBase
 local armorTop
+local armorCoverBar
 local squareFull
 local squareEmpty
 local hulltile
@@ -217,6 +218,11 @@ script.on_init(function()
         false)
     armorTop = Hyperspace.Resources:CreateImagePrimitive(
         Hyperspace.Resources:GetImageId("statusUI/top_armor16.png"), 0,
+        0, 0,
+        Graphics.GL_Color(1, 1, 1, 1), 1,
+        false)
+    armorCoverBar = Hyperspace.Resources:CreateImagePrimitive(
+        Hyperspace.Resources:GetImageId("statusUI/top_armor_coverbar.png"), 0,
         0, 0,
         Graphics.GL_Color(1, 1, 1, 1), 1,
         false)
@@ -252,9 +258,9 @@ script.on_init(function()
         false)
 
     
-    for i = 0, 1, 1 do
-        loadComplete[i] = false
-    end
+    --for i = 0, 1, 1 do
+    --    loadComplete[i] = false
+    --end
 
     --buttonBase = Hyperspace.Resources:CreateImagePrimitiveString("systemUI/button_artillery1.png",
     --    lily_ablative_armorButtonOffset_x, lily_ablative_armorButtonOffset_y, 0, Graphics.GL_Color(1, 1, 1, 1), 1, false)
@@ -413,6 +419,9 @@ script.on_internal_event(Defines.InternalEvents.SHIP_LOOP, function(shipManager)
         --if shipManager.iShipId == 1 then multiplier = multiplier * 0.7 end
         local currentLayers = userdata_table(shipManager, "mods.lilyinno.ablativearmor").first or 0
             --print(currentLayers)
+        if not mods.lilyinno.checkVarsOK() then
+            loadComplete[shipManager.iShipId] = false
+        end
 
         if mods.lilyinno.checkVarsOK() and not loadComplete[shipManager.iShipId] then
             local v = Hyperspace.playerVariables["mods_lilyinno_ablativearmor_" .. (shipManager.iShipId > 0.5 and "1" or "0")]
@@ -592,7 +601,8 @@ script.on_render_event(Defines.RenderEvents.SHIP_STATUS, function() end, functio
                 if shields then
                     --Graphics.CSurface.GL_DrawRect(0, 0, 92, 6, Graphics.GL_Color(22 / 255.0, 30 / 255.0, 37 / 255.0, 1));
                 else
-                    Graphics.CSurface.GL_DrawRect(0, 0, 92, 3, Graphics.GL_Color(22 / 255.0, 30 / 255.0, 37 / 255.0, 1));
+                    Graphics.CSurface.GL_RenderPrimitive(armorCoverBar)
+                    --Graphics.CSurface.GL_DrawRect(0, 0, 92, 3, Graphics.GL_Color(22 / 255.0, 30 / 255.0, 37 / 255.0, 1));
                 end
             end
             Graphics.CSurface.GL_DrawRect(0, 0, (armorTimer[0] / (10)) * 92, barHeight, color);

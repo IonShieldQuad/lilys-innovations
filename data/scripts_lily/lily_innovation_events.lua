@@ -9,7 +9,7 @@ local INT_MAX = 2147483647
 script.on_internal_event(Defines.InternalEvents.PRE_CREATE_CHOICEBOX, function(event)
     local shipManager = Hyperspace.ships.player
     if event.eventName ~= "THE_JUDGES_ENGI_REAL" then
-        Choices = event:GetChoices()
+        local Choices = event:GetChoices()
         for choice in vter(Choices) do
             ---@type Hyperspace.Choice
             choice = choice
@@ -24,7 +24,7 @@ script.on_internal_event(Defines.InternalEvents.PRE_CREATE_CHOICEBOX, function(e
                     req.object = "lily_infusion_bay"
                     req.min_level = choice.requirement.min_level
                     req.max_level = choice.requirement.max_level
-                    event:AddChoice(ev, txt, req, true)                
+                    event:AddChoice(ev, txt, req, true)
                 end
             end
         end

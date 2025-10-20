@@ -8,6 +8,12 @@
 </mod:findName>
 -->
 
+<mod:findName type="blueprintList" name="BLUELIST_ARMOR">
+    <mod-append:name>UPG_LILY_STRONG_ARMOR</mod-append:name>
+    <mod-append:name>EX_LILY_STRONG_ARMOR</mod-append:name>
+</mod:findName>
+
+
 <blueprintList name="SHOP_ITEM_SYSTEMS_LILYINNO">
     <name>lily_ablative_armor</name>
     <name>lily_shock_neutralizer</name>

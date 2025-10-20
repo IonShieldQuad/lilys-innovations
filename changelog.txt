@@ -1,4 +1,9 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.6.4
+Date: 2025-10-20
+  Changes:
+    - Debugged and fixed the sources of crashes, at least most of them. The "Continue" button should work far more stable now. (Managed to load the game 20 times in a row with no crashes.) Please report if you think there are still conditions that can cause a crash.
+---------------------------------------------------------------------------------------------------
 Version: 1.6.3
 Date: 2025-10-18
   Changes:

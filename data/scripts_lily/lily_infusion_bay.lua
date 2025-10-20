@@ -88,11 +88,12 @@ loadComplete[1] = false
 local def0XCREWSLOT = Hyperspace.StatBoostDefinition()
 def0XCREWSLOT.stat = Hyperspace.CrewStat.CREW_SLOTS
 def0XCREWSLOT.value = true
+def0XCREWSLOT.amount = 0.0
 def0XCREWSLOT.boostType = Hyperspace.StatBoostDefinition.BoostType.MULT
 def0XCREWSLOT.boostSource = Hyperspace.StatBoostDefinition.BoostSource.AUGMENT
 def0XCREWSLOT.shipTarget = Hyperspace.StatBoostDefinition.ShipTarget.ALL
 def0XCREWSLOT.crewTarget = Hyperspace.StatBoostDefinition.CrewTarget.ALL
-def0XCREWSLOT.duration = 1
+def0XCREWSLOT.duration = 99
 def0XCREWSLOT.priority = 999999
 def0XCREWSLOT.realBoostId = Hyperspace.StatBoostDefinition.statBoostDefs:size()
 Hyperspace.StatBoostDefinition.statBoostDefs:push_back(def0XCREWSLOT)
@@ -818,6 +819,7 @@ script.on_internal_event(Defines.InternalEvents.CREW_LOOP, function(crew)
                     if crew.extend.deathTimer then
                         crew.extend.deathTimer.currTime = 0
                         crew.extend.deathTimer:Stop()
+                        crew.extend.deathTimer = nil
                     end
                     crew.health.first = crew.health.second
                     crew:DirectModifyHealth(crew:GetMaxHealth())

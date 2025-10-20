@@ -72,7 +72,7 @@ script.on_internal_event(Defines.InternalEvents.SHIP_LOOP, function(shipManager)
     end
 
     if shipManager:HasAugmentation("UPG_CREW_OXYGEN") > 0 or shipManager:HasAugmentation("CREW_OXYGEN") > 0 then
-        local mult = 0.8 * shipManager:HasAugmentation("UPG_CREW_OXYGEN") + shipManager:HasAugmentation("CREW_OXYGEN")
+        local mult = 0.8 * (shipManager:HasAugmentation("UPG_CREW_OXYGEN") + shipManager:HasAugmentation("CREW_OXYGEN"))
 
         local rooms = shipManager.ship.vRoomList
 
@@ -354,7 +354,9 @@ script.on_internal_event(Defines.InternalEvents.GET_DODGE_FACTOR, function(shipM
         if battery and battery.bTurnedOn then
             local level = battery.healthState.first
             
-            value = value + level * 5
+            if value > 0 then
+                value = value + level * 5
+            end
             
         end
     end
