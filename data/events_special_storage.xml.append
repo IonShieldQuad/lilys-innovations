@@ -2684,38 +2684,56 @@ Incompatible with battery performance upgrades.]</text>
 
 <event name="STORAGE_CHECK_SYSTEM_LILY_TARGETING_CORE">
     <text>What upgrade do you want to install?</text>
-    <choice req="UPG_LILY_TARGETING_ANTICLOAK" lvl="1" max_group="0" blue="false" hidden="true">
+    <!--choice req="UPG_LILY_TARGETING_ANTICLOAK" lvl="1" max_group="0" blue="false" hidden="true">
         <text>Full Spectrum Array. [ALREADY INSTALLED]</text>
         <event load="OPTION_INVALID"/>
     </choice>
     <choice req="UPG_LILY_TARGETING_ANTICLOAK" lvl="0" max_group="0" blue="false" hidden="true">
         <text>Full Spectrum Array. [Cost: 100~, 8{, 6|]</text>
         <event load="STORAGE_CHECK_SYSTEM_LILY_TARGETING_CORE_ANTICLOAK"/>
+    </choice-->
+
+    <choice req="UPG_LILY_TARGETING_AUTOLOCK" lvl="1" max_group="0" blue="false" hidden="true">
+        <text>Preemptive lock-on. [ALREADY INSTALLED]</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="UPG_LILY_TARGETING_AUTOLOCK" lvl="0" max_group="0" blue="false" hidden="true">
+        <text>Preemptive lock-on. [Cost: 30~, 3}, 3|]</text>
+        <event load="STORAGE_CHECK_SYSTEM_LILY_TARGETING_CORE_AUTOLOCK"/>
     </choice>
 
-    <choice req="UPG_LILY_TARGETING_RELOAD" lvl="1" max_group="1" blue="false" hidden="true">
+    <choice req="UPG_LILY_TARGETING_STATUS" lvl="1" max_group="1" blue="false" hidden="true">
+        <text>Enhanced Weapon Tuning. [ALREADY INSTALLED]</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="UPG_LILY_TARGETING_STATUS" lvl="0" max_group="1" blue="false" hidden="true">
+        <text>Enhanced Weapon Tuning. [Cost: 60~, 6{, 6}]</text>
+        <event load="STORAGE_CHECK_SYSTEM_LILY_TARGETING_CORE_STATUS"/>
+    </choice>
+
+    <choice req="UPG_LILY_TARGETING_RELOAD" lvl="1" max_group="2" blue="false" hidden="true">
         <text>Weapon Charging Optimization. [ALREADY INSTALLED]</text>
         <event load="OPTION_INVALID"/>
     </choice>
-    <choice req="UPG_LILY_TARGETING_RELOAD" lvl="0" max_group="1" blue="false" hidden="true">
+    <choice req="UPG_LILY_TARGETING_RELOAD" lvl="0" max_group="2" blue="false" hidden="true">
         <text>Weapon Charging Optimization. [Cost: 60~, 10}]</text>
         <event load="STORAGE_CHECK_SYSTEM_LILY_TARGETING_CORE_RELOAD"/>
     </choice>
 
-    <choice req="UPG_LILY_TARGETING_HOMING" lvl="1" max_group="2" blue="false" hidden="true">
+    <choice req="UPG_LILY_TARGETING_HOMING" lvl="1" max_group="3" blue="false" hidden="true">
         <text>Nano-Guidance System. [ALREADY INSTALLED]</text>
         <event load="OPTION_INVALID"/>
     </choice>
-    <choice req="UPG_LILY_TARGETING_HOMING" lvl="0" max_group="2" blue="false" hidden="true">
+    <choice req="UPG_LILY_TARGETING_HOMING" lvl="0" max_group="3" blue="false" hidden="true">
         <text>Nano-Guidance System. [Cost: 40~, 5}, 2|]</text>
         <event load="STORAGE_CHECK_SYSTEM_LILY_TARGETING_CORE_HOMING"/>
     </choice>
 
-    <choice req="UPG_LILY_TARGETING_UPLINK" lvl="1" max_group="3" blue="false" hidden="true">
+    <choice req="UPG_LILY_TARGETING_UPLINK" lvl="1" max_group="4" blue="false" hidden="true">
         <text>Weakpoint Data Uplink. [ALREADY INSTALLED]</text>
         <event load="OPTION_INVALID"/>
     </choice>
-    <choice req="UPG_LILY_TARGETING_UPLINK" lvl="0" max_group="3" blue="false" hidden="true">
+    <choice req="UPG_LILY_TARGETING_UPLINK" lvl="0" max_group="4" blue="false" hidden="true">
         <text>Weakpoint Data Uplink. [Cost: 50~, 5|]</text>
         <event load="STORAGE_CHECK_SYSTEM_LILY_TARGETING_CORE_UPLINK"/>
     </choice>
@@ -2725,7 +2743,7 @@ Incompatible with battery performance upgrades.]</text>
         <event load="OPTION_INVALID"/>
     </choice>
     <choice req="LILY_TARGETING_ADVANCED" lvl="0" max_lvl="0" max_group="5" blue="false" hidden="true">
-        <text>Processor Overclocking. [Cost: 30~, 10{]</text>
+        <text>Processor Overclocking. [Cost: 30~, 5{]</text>
         <event load="STORAGE_CHECK_SYSTEM_LILY_TARGETING_CORE_OVERCLOCK"/>
     </choice>
 
@@ -2790,9 +2808,99 @@ Incompatible with battery performance upgrades.]</text>
     <loadEvent>STORAGE_CHECK_SYSTEM</loadEvent>
 </event>
 
+<event name="STORAGE_CHECK_SYSTEM_LILY_TARGETING_CORE_AUTOLOCK">
+    <text>You are about to install the Preemptive lock-on upgrade.
+	[Effects: If enemy ship has cloaking system, automatically and instantly locks onto it at the start of the battle.]</text>
+
+    <choice req="lily_targeting_core" lvl="1" max_group="0" blue="false" hidden="true">
+        <text>Perform the upgrade. [Cost: 30~, 3}, 3|]</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <item_modify>
+                <item type="scrap" min="-30" max="-30"/>
+                <item type="missiles" min="-3" max="-3"/>
+                <item type="drones" min="-3" max="-3"/>
+            </item_modify>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_TARGETING_AUTOLOCK"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="lily_targeting_core" max_group="0" blue="false" hidden="true">
+        <text>This upgrade is unavailable. You need Dedicated Targeting Core level 1.</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="EX_LILY_TARGETING_AUTOLOCK" max_group="1" blue="false" hidden="true">
+        <text>Install the External Augment internally.</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <remove name="EX_LILY_TARGETING_AUTOLOCK"/>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_TARGETING_AUTOLOCK"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="pilot" lvl="1" max_group="2" blue="false" hidden="true">
+        <text>Nevermind.</text>
+        <event load="STORAGE_CHECK_SYSTEM_LOAD"/>
+    </choice>
+</event>
+<event name="INSTALL_LILY_TARGETING_AUTOLOCK">
+    <variable name="loc_internal_upgrades" op="add" val="1"/>
+    <hiddenAug>UPG_LILY_TARGETING_AUTOLOCK</hiddenAug>
+    <loadEvent>STORAGE_CHECK_SYSTEM</loadEvent>
+</event>
+
+<event name="STORAGE_CHECK_SYSTEM_LILY_TARGETING_CORE_STATUS">
+    <text>You are about to install the Enhanced Weapon Tuning upgrade. 
+	[Effects: If a weapon has fire/breach/stun chance, this chance is increased by Core Strength * 5%. (Rounded up to nearest 10%)]</text>
+
+    <choice req="lily_targeting_core" lvl="2" max_group="0" blue="false" hidden="true">
+        <text>Perform the upgrade. [Cost: 60~, 6{, 6}]</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <item_modify>
+                <item type="scrap" min="-60" max="-60"/>
+                <item type="fuel" min="-6" max="-6"/>
+                <item type="missiles" min="-6" max="-6"/>
+            </item_modify>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_TARGETING_STATUS"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="lily_targeting_core" max_group="0" blue="false" hidden="true">
+        <text>This upgrade is unavailable. You need Dedicated Targeting Core level 2.</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="EX_LILY_TARGETING_STATUS" max_group="1" blue="false" hidden="true">
+        <text>Install the External Augment internally.</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <remove name="EX_LILY_TARGETING_STATUS"/>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_TARGETING_STATUS"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="pilot" lvl="1" max_group="2" blue="false" hidden="true">
+        <text>Nevermind.</text>
+        <event load="STORAGE_CHECK_SYSTEM_LOAD"/>
+    </choice>
+</event>
+<event name="INSTALL_LILY_TARGETING_STATUS">
+    <variable name="loc_internal_upgrades" op="add" val="1"/>
+    <hiddenAug>UPG_LILY_TARGETING_STATUS</hiddenAug>
+    <loadEvent>STORAGE_CHECK_SYSTEM</loadEvent>
+</event>
+
 <event name="STORAGE_CHECK_SYSTEM_LILY_TARGETING_CORE_RELOAD">
     <text>You are about to install the Weapon Charging Optimization upgrade.
-	[Effects: Dedicated Targeting Core now provides extra 5% weapon reload boost per level.]</text>
+	[Effects: Dedicated Targeting Core now provides extra 5% weapon reload boost per Core Strength.]</text>
 
     <choice req="lily_targeting_core" lvl="2" max_group="0" blue="false" hidden="true">
         <text>Perform the upgrade. [Cost: 60~, 10}]</text>
@@ -2836,7 +2944,7 @@ Incompatible with battery performance upgrades.]</text>
 
 <event name="STORAGE_CHECK_SYSTEM_LILY_TARGETING_CORE_HOMING">
     <text>You are about to install the Nano-Guidance System upgrade.
-	[Effects: Weapons with spread (such as flak) will now attempt to hit closer to the target, by 10 units per level.]</text>
+	[Effects: Weapons with spread (such as flak) will now attempt to hit closer to the target, by 10 units per Core Strength.]</text>
 
     <choice req="lily_targeting_core" lvl="1" max_group="0" blue="false" hidden="true">
         <text>Perform the upgrade. [Cost: 40~, 5}, 2|]</text>
@@ -2881,7 +2989,7 @@ Incompatible with battery performance upgrades.]</text>
 
 <event name="STORAGE_CHECK_SYSTEM_LILY_TARGETING_CORE_UPLINK">
     <text>You are about to install the Weakpoint Data Uplink upgrade.
-	[Effects: Allied crew in targeted rooms will deal 20% more sabotage damage and 10% more combat damage per level of Dedicated Targeting Core.]</text>
+	[Effects: Allied crew in targeted rooms will deal 20% more sabotage damage and 10% more combat damage per Core Strength.]</text>
 
     <choice req="lily_targeting_core" lvl="1" max_group="0" blue="false" hidden="true">
         <text>Perform the upgrade. [Cost: 50~, 5|]</text>
@@ -2925,15 +3033,15 @@ Incompatible with battery performance upgrades.]</text>
 
 <event name="STORAGE_CHECK_SYSTEM_LILY_TARGETING_CORE_OVERCLOCK">
     <text>You are about to install the Processor Overclocking upgrade.
-	[Effects: Reduces time it takes for Dedicated Targeting Core to lock onto a room from 8 to 2 seconds. Incompatible with Multithreaded targeting.]</text>
+	[Effects: Reduces time it takes for Dedicated Targeting Core to lock onto a room from 6 to 1.5 seconds. Incompatible with Multithreaded targeting.]</text>
 
     <choice req="lily_targeting_core" lvl="2" max_group="0" blue="false" hidden="true">
-        <text>Perform the upgrade. [Cost: 30~, 10{]</text>
+        <text>Perform the upgrade. [Cost: 30~, 5{]</text>
         <event>
             <text>You install the upgrade.</text>
             <item_modify>
                 <item type="scrap" min="-30" max="-30"/>
-                <item type="fuel" min="-10" max="-10"/>
+                <item type="fuel" min="-5" max="-5"/>
             </item_modify>
             <choice hidden="true">
                 <text>Continue...</text>
@@ -3042,6 +3150,19 @@ Incompatible with battery performance upgrades.]</text>
         <text>Enable system bracers rendering.</text>
         <event>
             <metaVariable name="lily_system_bracers_rendering_disabled" op="set" value="0"/>
+        </event>
+    </mod-append:choice>
+
+    <mod-append:choice req="lily_targeting_core_sounds_disabled" lvl="0" max_lvl="0" blue="false">
+        <text>Disable targeting core sounds.</text>
+        <event>
+            <metaVariable name="lily_targeting_core_sounds_disabled" op="set" value="1"/>
+        </event>
+    </mod-append:choice>
+    <mod-append:choice req="lily_targeting_core_sounds_disabled" lvl="1" blue="false">
+        <text>Enable targeting core sounds.</text>
+        <event>
+            <metaVariable name="lily_targeting_core_sounds_disabled" op="set" value="0"/>
         </event>
     </mod-append:choice>
 

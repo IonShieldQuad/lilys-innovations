@@ -26,6 +26,18 @@ defNOTGT.priority = 9999
 defNOTGT.realBoostId = Hyperspace.StatBoostDefinition.statBoostDefs:size()
 Hyperspace.StatBoostDefinition.statBoostDefs:push_back(defNOTGT)
 
+local defNOAI = Hyperspace.StatBoostDefinition()
+defNOAI.stat = Hyperspace.CrewStat.NO_AI
+defNOAI.value = true
+defNOAI.boostType = Hyperspace.StatBoostDefinition.BoostType.SET
+defNOAI.boostSource = Hyperspace.StatBoostDefinition.BoostSource.AUGMENT
+defNOAI.shipTarget = Hyperspace.StatBoostDefinition.ShipTarget.ALL
+defNOAI.crewTarget = Hyperspace.StatBoostDefinition.CrewTarget.ALL
+defNOAI.duration = 99
+defNOAI.priority = 9999
+defNOAI.realBoostId = Hyperspace.StatBoostDefinition.statBoostDefs:size()
+Hyperspace.StatBoostDefinition.statBoostDefs:push_back(defNOAI)
+
 -- Find ID of a room at the given location
 local function get_room_at_location(shipManager, location, includeWalls)
     return Hyperspace.ShipGraph.GetShipInfo(shipManager.iShipId):GetSelectedRoom(location.x, location.y, includeWalls)
@@ -135,9 +147,9 @@ local function get_level_description_lily_targeting_core(systemId, level, toolti
             if level == 0 then
                 return "Disabled." .. "\n\nManning bonuses: +0.5/0.75/1 effective levels."
             end
-            return ("Accuracy: +" .. tostring(level * 5) .. "%" .. "\n\nManning bonuses: +0.5/0.75/1 effective levels.")
+            return ("Core Strength: " .. tostring(level + 1) .. "\n\nManning bonuses: +0.5/0.75/1 Core Strength.")
         end
-        return ("Accuracy: +" .. tostring(level * 5) .. "%")
+        return ("Core Strength: " .. tostring(level + 1) )
     end
 end
 
@@ -427,7 +439,9 @@ script.on_internal_event(Defines.InternalEvents.ON_MOUSE_L_BUTTON_DOWN, function
             selectRoom(shipManager, roomAtMouse)
             userdata_table(shipManager, "mods.lilyinno.targetingcore").selectmode = false
             activationTimer[shipManager.iShipId] = 0
-            Hyperspace.Sounds:PlaySoundMix("lily_targeting_core_locking_on", -1, false)
+            if not (Hyperspace.metaVariables.lily_targeting_core_sounds_disabled and Hyperspace.metaVariables.lily_targeting_core_sounds_disabled > 0) then
+                Hyperspace.Sounds:PlaySoundMix("lily_targeting_core_locking_on", -1, false)
+            end
         end
     end
     return Defines.Chain.CONTINUE
@@ -437,13 +451,16 @@ end)
 ---@param targetingCore Hyperspace.ShipSystem
 ---@return number
 local function getEffectiveTargetingLevel(targetingCore)
+
+    if targetingCore:GetEffectivePower() == 0 then return 0 end
+
     local manningLevel = targetingCore.iActiveManned
     local manningBonus = 0
     if manningLevel > 0 then
         manningBonus = 0.5 + 0.25 * (manningLevel - 1)
     end
 
-    return targetingCore:GetEffectivePower() + manningBonus
+    return targetingCore:GetEffectivePower() + 1 + manningBonus
 end
 
 
@@ -511,10 +528,10 @@ script.on_internal_event(Defines.InternalEvents.SHIP_LOOP, function(shipManager)
 
         local level = lily_targeting_core_system.healthState.second
         local efflevel = getEffectiveTargetingLevel(lily_targeting_core_system)
-        local multiplier = 1 / 8.0
+        local multiplier = 1 / 6.0
 
         if shipManager:HasAugmentation("UPG_LILY_TARGETING_OVERCLOCK") > 0 or shipManager:HasAugmentation("EX_LILY_TARGETING_OVERCLOCK") > 0 then
-            multiplier = 1 / 2.0
+            multiplier = 1 / 1.5
         end
 
 
@@ -540,16 +557,24 @@ script.on_internal_event(Defines.InternalEvents.SHIP_LOOP, function(shipManager)
         end
         if activationTimer[0] >= 1 and not sfxPlayed then
             if otherShipManager and targetroom and targetroom > -1 then
-                Hyperspace.Sounds:PlaySoundMix("lily_targeting_core_locked_on", -1, false)
+                if not (Hyperspace.metaVariables.lily_targeting_core_sounds_disabled and Hyperspace.metaVariables.lily_targeting_core_sounds_disabled > 0) then
+                    Hyperspace.Sounds:PlaySoundMix("lily_targeting_core_locked_on", -1, false)
+                end
             end
             sfxPlayed = true
         end
 
-        if otherShipManager and otherShipManager._targetable.hostile and otherShipManager:HasSystem(Hyperspace.ShipSystem.NameToSystemId("cloaking")) and not (targetroom and targetroom > -1) and activationTimer[shipManager.iShipId] >= 1 then
-            selectRoom(shipManager, otherShipManager:GetSystem(Hyperspace.ShipSystem.NameToSystemId("cloaking")).roomId)
-            userdata_table(shipManager, "mods.lilyinno.targetingcore").selectmode = false
-            activationTimer[shipManager.iShipId] = 0
-            Hyperspace.Sounds:PlaySoundMix("lily_targeting_core_locking_on", -1, false)
+        -- Auto target cloaking
+        if shipManager and (shipManager:HasAugmentation("UPG_LILY_TARGETING_AUTOLOCK") > 0 or shipManager:HasAugmentation("EX_LILY_TARGETING_AUTOLOCK") > 0) then
+            if otherShipManager and otherShipManager._targetable.hostile and otherShipManager:HasSystem(Hyperspace.ShipSystem.NameToSystemId("cloaking")) and not (targetroom and targetroom > -1) and activationTimer[shipManager.iShipId] >= 1 then
+                selectRoom(shipManager, otherShipManager:GetSystem(Hyperspace.ShipSystem.NameToSystemId("cloaking")).roomId)
+                userdata_table(shipManager, "mods.lilyinno.targetingcore").selectmode = false
+                --activationTimer[shipManager.iShipId] = 0
+                if not (Hyperspace.metaVariables.lily_targeting_core_sounds_disabled and Hyperspace.metaVariables.lily_targeting_core_sounds_disabled > 0) then
+                    Hyperspace.Sounds:PlaySoundMix("lily_targeting_core_locked_on", -1, false)
+                end
+            end
+
         end
 
         if userdata_table(shipManager, "mods.lilyinno.targetingcore").hologram then
@@ -565,13 +590,15 @@ script.on_internal_event(Defines.InternalEvents.SHIP_LOOP, function(shipManager)
                 local sys = otherShipManager:GetSystemInRoom(targetroom)
                 --print("Set:", sys and Hyperspace.ShipSystem.SystemIdToName(sys:GetId()) or "empty" )
                 otherShipManager.ship:SetRoomBlackout(targetroom, false)
-                if otherShipManager.cloakSystem and otherShipManager.cloakSystem.bTurnedOn and (shipManager:HasAugmentation("UPG_LILY_TARGETING_ANTICLOAK") > 0 or shipManager:HasAugmentation("EX_LILY_TARGETING_ANTICLOAK") > 0) then
+                if otherShipManager.cloakSystem and otherShipManager.cloakSystem.bTurnedOn and (true or shipManager:HasAugmentation("UPG_LILY_TARGETING_ANTICLOAK") > 0 or shipManager:HasAugmentation("EX_LILY_TARGETING_ANTICLOAK") > 0) then
                     if not userdata_table(shipManager, "mods.lilyinno.targetingcore").hologram then
                         local holo = otherShipManager:AddCrewMemberFromString("Hologram", "hologram", true, targetroom, true, false)
                         Hyperspace.StatBoostManager.GetInstance():CreateTimedAugmentBoost(
                             Hyperspace.StatBoost(defNOCTRL), holo)
                         Hyperspace.StatBoostManager.GetInstance():CreateTimedAugmentBoost(
                             Hyperspace.StatBoost(defNOTGT), holo)
+                        Hyperspace.StatBoostManager.GetInstance():CreateTimedAugmentBoost(
+                            Hyperspace.StatBoost(defNOAI), holo)
                         userdata_table(shipManager, "mods.lilyinno.targetingcore").hologram = holo
                     end
                 else
@@ -616,7 +643,7 @@ script.on_internal_event(Defines.InternalEvents.SHIP_LOOP, function(shipManager)
             end
         end--]]
         if mods.lilyinno.checkVarsOK() and loadComplete[shipManager.iShipId] then
-            Hyperspace.playerVariables["mods_lilyinno_targetingcore_" .. (shipManager.iShipId > 0.5 and "1" or "0")] = (targetroom  + 1 or 0)
+            Hyperspace.playerVariables["mods_lilyinno_targetingcore_" .. (shipManager.iShipId > 0.5 and "1" or "0")] = (targetroom and (targetroom + 1) or 0)
             --print("set", (targetroom + 1 or 0))
         end
     end
@@ -637,7 +664,7 @@ script.on_internal_event(Defines.InternalEvents.SHIP_LOOP, function(shipManager)
 
         local targetroom = userdata_table(otherShipManager, "mods.lilyinno.targetingcore").targetroom
         if targetroom and targetroom >= 0 then
-            if (otherShipManager:HasAugmentation("UPG_LILY_TARGETING_ANTICLOAK") > 0 or otherShipManager:HasAugmentation("EX_LILY_TARGETING_ANTICLOAK") > 0) then
+            if (true or otherShipManager:HasAugmentation("UPG_LILY_TARGETING_ANTICLOAK") > 0 or otherShipManager:HasAugmentation("EX_LILY_TARGETING_ANTICLOAK") > 0) then
                 if activationTimer[otherShipManager.iShipId] > 0 then
                     shipManager.ship:SetRoomBlackout(targetroom, false)
                 end
@@ -658,7 +685,7 @@ script.on_internal_event(Defines.InternalEvents.SHIP_LOOP, function(shipManager)
         local bonusrooms = userdata_table(otherShipManager, "mods.lilyinno.targetingcore").bonusrooms
         if bonusrooms and (otherShipManager:HasAugmentation("UPG_LILY_TARGETING_MULTITHREAD") > 0 or otherShipManager:HasAugmentation("EX_LILY_TARGETING_MULTITHREAD") > 0) then
             for id, coord in pairs(bonusrooms) do
-                if (otherShipManager:HasAugmentation("UPG_LILY_TARGETING_ANTICLOAK") > 0 or otherShipManager:HasAugmentation("EX_LILY_TARGETING_ANTICLOAK") > 0) then
+                if (true or otherShipManager:HasAugmentation("UPG_LILY_TARGETING_ANTICLOAK") > 0 or otherShipManager:HasAugmentation("EX_LILY_TARGETING_ANTICLOAK") > 0) then
                     if activationTimer[otherShipManager.iShipId] > 0 then
                         shipManager.ship:SetRoomBlackout(id, false)
                     end
@@ -733,7 +760,7 @@ script.on_internal_event(Defines.InternalEvents.PROJECTILE_FIRE, function(projec
                 if targetroom == projTargetRoom then
                     projectile.extend.customDamage.accuracyMod = projectile.extend.customDamage.accuracyMod +
                     5 * efflevel * activationTimer[shipManager.iShipId] * activationTimer[shipManager.iShipId]
-                    if otherShipManager.cloakSystem and otherShipManager.cloakSystem.bTurnedOn and (shipManager:HasAugmentation("UPG_LILY_TARGETING_ANTICLOAK") > 0 or shipManager:HasAugmentation("EX_LILY_TARGETING_ANTICLOAK") > 0) then
+                    if otherShipManager.cloakSystem and otherShipManager.cloakSystem.bTurnedOn and (true or shipManager:HasAugmentation("UPG_LILY_TARGETING_ANTICLOAK") > 0 or shipManager:HasAugmentation("EX_LILY_TARGETING_ANTICLOAK") > 0) then
                         projectile.extend.customDamage.accuracyMod = projectile.extend.customDamage.accuracyMod + 10 +
                         5 * efflevel * activationTimer[shipManager.iShipId] * activationTimer[shipManager.iShipId]
                     end
@@ -745,7 +772,7 @@ script.on_internal_event(Defines.InternalEvents.PROJECTILE_FIRE, function(projec
                             projectile.extend.customDamage.accuracyMod = projectile.extend.customDamage.accuracyMod +
                                 5 * efflevel * activationTimer[shipManager.iShipId] *
                                 activationTimer[shipManager.iShipId]
-                            if otherShipManager.cloakSystem and otherShipManager.cloakSystem.bTurnedOn and (shipManager:HasAugmentation("UPG_LILY_TARGETING_ANTICLOAK") > 0 or shipManager:HasAugmentation("EX_LILY_TARGETING_ANTICLOAK") > 0) then
+                            if otherShipManager.cloakSystem and otherShipManager.cloakSystem.bTurnedOn and (true or shipManager:HasAugmentation("UPG_LILY_TARGETING_ANTICLOAK") > 0 or shipManager:HasAugmentation("EX_LILY_TARGETING_ANTICLOAK") > 0) then
                                 projectile.extend.customDamage.accuracyMod = projectile.extend.customDamage.accuracyMod + 10 +
                                     5 * efflevel * (activationTimer[shipManager.iShipId] >= 1 and 1 or 0)
                             end
@@ -782,7 +809,7 @@ script.on_internal_event(Defines.InternalEvents.DRONE_FIRE, function(projectile,
                 if targetroom == projTargetRoom then
                     projectile.extend.customDamage.accuracyMod = projectile.extend.customDamage.accuracyMod +
                         5 * efflevel * activationTimer[shipManager.iShipId] * activationTimer[shipManager.iShipId]
-                    if otherShipManager.cloakSystem and otherShipManager.cloakSystem.bTurnedOn and (shipManager:HasAugmentation("UPG_LILY_TARGETING_ANTICLOAK") > 0 or shipManager:HasAugmentation("EX_LILY_TARGETING_ANTICLOAK") > 0) then
+                    if otherShipManager.cloakSystem and otherShipManager.cloakSystem.bTurnedOn and (true or shipManager:HasAugmentation("UPG_LILY_TARGETING_ANTICLOAK") > 0 or shipManager:HasAugmentation("EX_LILY_TARGETING_ANTICLOAK") > 0) then
                         projectile.extend.customDamage.accuracyMod = projectile.extend.customDamage.accuracyMod + 10 +
                         5 * efflevel * activationTimer[shipManager.iShipId] * activationTimer[shipManager.iShipId]
                     end
@@ -794,7 +821,7 @@ script.on_internal_event(Defines.InternalEvents.DRONE_FIRE, function(projectile,
                             projectile.extend.customDamage.accuracyMod = projectile.extend.customDamage.accuracyMod +
                                 5 * efflevel * activationTimer[shipManager.iShipId] *
                                 activationTimer[shipManager.iShipId]
-                            if otherShipManager.cloakSystem and otherShipManager.cloakSystem.bTurnedOn and (shipManager:HasAugmentation("UPG_LILY_TARGETING_ANTICLOAK") > 0 or shipManager:HasAugmentation("EX_LILY_TARGETING_ANTICLOAK") > 0) then
+                            if otherShipManager.cloakSystem and otherShipManager.cloakSystem.bTurnedOn and (true or shipManager:HasAugmentation("UPG_LILY_TARGETING_ANTICLOAK") > 0 or shipManager:HasAugmentation("EX_LILY_TARGETING_ANTICLOAK") > 0) then
                                 projectile.extend.customDamage.accuracyMod = projectile.extend.customDamage.accuracyMod + 10 +
                                     5 * efflevel * (activationTimer[shipManager.iShipId] >= 1 and 1 or 0)
                             end
@@ -829,13 +856,43 @@ script.on_internal_event(Defines.InternalEvents.DRONE_FIRE, function(projectile,
 end, 128)
 
 
+script.on_internal_event(Defines.InternalEvents.PROJECTILE_INITIALIZE, function(projectile)
+    --print("INIT")
+    if projectile then
+        local ownerShip = Hyperspace.ships(projectile:GetOwnerId())
+        --print("ID:", projectile:GetOwnerId())
+        if ownerShip and ownerShip:HasSystem(Hyperspace.ShipSystem.NameToSystemId("lily_targeting_core")) and (ownerShip:HasAugmentation("UPG_LILY_TARGETING_STATUS") > 0 or ownerShip:HasAugmentation("EX_LILY_TARGETING_STATUS") > 0) then
+            local sys = ownerShip:GetSystem(Hyperspace.ShipSystem.NameToSystemId("lily_targeting_core"))
+            --print("SYS:", sys and "OK" or "FAIL")
+            --print("STR:", getEffectiveTargetingLevel(sys))
+            if projectile.damage.breachChance > 0 then
+                projectile.damage.breachChance = projectile.damage.breachChance +
+                math.ceil(getEffectiveTargetingLevel(sys) * 0.5)
+                ---print("BR:", projectile.damage.breachChance)
+            end
+            if projectile.damage.fireChance > 0 then
+                projectile.damage.fireChance = projectile.damage.fireChance +
+                math.ceil(getEffectiveTargetingLevel(sys) * 0.5)
+                --print("FI:", projectile.damage.fireChance)
+            end
+            if projectile.damage.stunChance > 0 then
+                projectile.damage.stunChance = projectile.damage.stunChance +
+                math.ceil(getEffectiveTargetingLevel(sys) * 0.5)
+                --print("ST:", projectile.damage.stunChance)
+            end
+            
+        end
+    end
+end)
+
+
 -- Cloak charging
 script.on_internal_event(Defines.InternalEvents.SHIP_LOOP, function(shipManager)
     local otherShipManager = Hyperspace.ships(1 - shipManager.iShipId)
     if shipManager and otherShipManager and shipManager:HasSystem(Hyperspace.ShipSystem.NameToSystemId("lily_targeting_core")) then
 
         -- Check for cloak charge
-        local cloakCharge = (shipManager:HasAugmentation("UPG_LILY_TARGETING_ANTICLOAK") > 0 or shipManager:HasAugmentation("EX_LILY_TARGETING_ANTICLOAK") > 0) and
+        local cloakCharge = (true or shipManager:HasAugmentation("UPG_LILY_TARGETING_ANTICLOAK") > 0 or shipManager:HasAugmentation("EX_LILY_TARGETING_ANTICLOAK") > 0) and
             otherShipManager and
             otherShipManager.cloakSystem and
             otherShipManager.cloakSystem.bTurnedOn

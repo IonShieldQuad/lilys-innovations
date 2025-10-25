@@ -1,4 +1,16 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.6.5
+Date: 2025-10-25
+  Changes:
+    - Minor fixes mostly related to target prediction.
+    - Buffed Dedicated Targeting Core:
+    - Reduced lock-on time to 6 / 1.5 seconds with / without upgrade respectively.
+    - "Full spectrum array" upgrade effects are now included in the system by default. Removed the ability to buy the internal upgrade as such.
+    - Core now has 2 "Strength" at level 1, as opposed to just 1.
+    - System no longer auto-locks on enemy cloaking by default. Added a "Preemptive lock-on" internal upgrade to enable this behaviour.
+    - Added "Enhanced Weapon Tuning" internal upgrade that increases breach/fire/stun chance of projectiles depending on Core Strength.
+    - Added the ability to disable locking on sounds.
+---------------------------------------------------------------------------------------------------
 Version: 1.6.4
 Date: 2025-10-20
   Changes:

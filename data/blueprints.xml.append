@@ -38,7 +38,9 @@
 <systemBlueprint name="lily_targeting_core">
     <type>targeting</type>
     <title>Dedicated Targeting Core</title>
-    <desc>Locks onto rooms on the enemy ship. Locked on rooms are more likely to be targeted by drones, always have visibility, and projectiles aimed at them have bonus accuracy.</desc>
+    <desc>Locks onto rooms on the enemy ship. Locked on rooms are more likely to be targeted by drones, always have visibility, and projectiles aimed at them have bonus accuracy.
+Each Core Strength provides +5% accuracy, and may have other effects with internal upgrades.
+When enemy is cloaked, the bonus accuracy provided by system is doubled, weapons charge at Core Strength * 20% rate, and a hologram is spawned to provide room vsibility.</desc>
     <startPower>1</startPower>
     <maxPower>4</maxPower>
     <rarity>2</rarity>
@@ -788,13 +790,50 @@ Incompatible with performance upgrades.
 </augBlueprint>
 <augBlueprint name="EX_LILY_TARGETING_ANTICLOAK">
     <title>Full Spectrum Array [X]</title>
-    <desc>Doubles the accuracy bonus of Dedicated Targeting Core and allows charging of weapons at 20% of regular speed per level when target is cloaked. Also expands provided vision to adjacent rooms.
+    <desc>Doubles the accuracy bonus of Dedicated Targeting Core and allows charging of weapons at 20% of regular speed per Core Strength when target is cloaked. Also expands provided vision to adjacent rooms.
     
 		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
     <cost>0</cost>
     <rarity>0</rarity>
     <stackable>false</stackable>
 </augBlueprint>
+
+<augBlueprint name="UPG_LILY_TARGETING_AUTOLOCK">
+    <title>Preemptive lock-on</title>
+    <desc>YOU SHOULD NEVER SEE THIS</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>false</stackable>
+</augBlueprint>
+<augBlueprint name="EX_LILY_TARGETING_AUTOLOCK">
+    <title>Preemptive lock-on [X]</title>
+    <desc>If enemy ship has cloaking system, automatically and instantly locks onto it at the start of the battle.
+    
+		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>false</stackable>
+</augBlueprint>
+
+
+<augBlueprint name="UPG_LILY_TARGETING_STATUS">
+    <title>Enhanced Weapon Tuning</title>
+    <desc>YOU SHOULD NEVER SEE THIS</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>false</stackable>
+</augBlueprint>
+<augBlueprint name="EX_LILY_TARGETING_STATUS">
+    <title>Enhanced Weapon Tuning [X]</title>
+    <desc>If a weapon has fire/breach/stun chance, this chance is increased by Core Strength * 5%. (Rounded up to nearest 10%)
+    
+		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>false</stackable>
+</augBlueprint>
+
+
 
 <augBlueprint name="UPG_LILY_TARGETING_RELOAD">
     <title>Weapon Charging Optimization</title>
@@ -805,7 +844,7 @@ Incompatible with performance upgrades.
 </augBlueprint>
 <augBlueprint name="EX_LILY_TARGETING_RELOAD">
     <title>Weapon Charging Optimization [X]</title>
-    <desc>Dedicated Targeting Core now provides extra 5% weapon reload boost per level.
+    <desc>Dedicated Targeting Core now provides extra 5% weapon reload boost per Core Strength.
     
 		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
     <cost>0</cost>
@@ -823,7 +862,7 @@ Incompatible with performance upgrades.
 </augBlueprint>
 <augBlueprint name="EX_LILY_TARGETING_HOMING">
     <title>Nano-Guidance System [X]</title>
-    <desc>Weapons with spread (such as flak) will now attempt to hit closer to the target, by 10 units per level.
+    <desc>Weapons with spread (such as flak) will now attempt to hit closer to the target, by 10 units per Core Strength.
     
 		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
     <cost>0</cost>
@@ -840,7 +879,7 @@ Incompatible with performance upgrades.
 </augBlueprint>
 <augBlueprint name="EX_LILY_TARGETING_UPLINK">
     <title>Weakpoint Data Uplink [X]</title>
-    <desc>Allied crew in targeted rooms will deal 20% more sabotage damage and 5% more combat damage per level of Dedicated Targeting Core.
+    <desc>Allied crew in targeted rooms will deal 20% more sabotage damage and 5% more combat damage per Core Strength.
     
 		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
     <cost>0</cost>
@@ -857,7 +896,7 @@ Incompatible with performance upgrades.
 </augBlueprint>
 <augBlueprint name="EX_LILY_TARGETING_OVERCLOCK">
     <title>Processor Overclocking [X]</title>
-    <desc>Reduces time it takes for Dedicated Targeting Core to lock onto a room from 12 to 2 seconds.
+    <desc>Reduces time it takes for Dedicated Targeting Core to lock onto a room from 6 to 1.5 seconds.
     
 		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
     <cost>0</cost>

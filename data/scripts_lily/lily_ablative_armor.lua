@@ -1,5 +1,6 @@
 
 local userdata_table = mods.multiverse.userdata_table
+local time_increment = mods.multiverse.time_increment
 local create_damage_message = mods.multiverse.create_damage_message
 local damageMessages = mods.multiverse.damageMessages
 local INT_MAX = 2147483647
@@ -1152,8 +1153,10 @@ script.on_internal_event(Defines.InternalEvents.DAMAGE_AREA_HIT, function(ship, 
                     local targets = {}
                     if spaceManager.drones then
                         for drone in vter(spaceManager.drones) do
+                            ---@type Hyperspace.SpaceDrone
+                            drone = drone
                             if drone._collideable and drone._targetable and drone.currentSpace == ship.iShipId and drone.iShipId ~= ship.iShipId then
-                                targets[#targets + 1] = { location = drone.currentLocation, velocity = drone.speedVector }
+                                targets[#targets + 1] = { location = drone.currentLocation, velocity = drone.speedVector}
                             end
                         end
                     end
@@ -1162,6 +1165,12 @@ script.on_internal_event(Defines.InternalEvents.DAMAGE_AREA_HIT, function(ship, 
                             if proj._targetable and proj.currentSpace == ship.iShipId and proj.ownerId ~= ship.iShipId and not proj.passedTarget then
                                 targets[#targets + 1] = { location = proj.position, velocity = proj.speed }
                             end
+                        end
+                    end
+
+                    for _, target in pairs(targets) do
+                        if target and target.velocity then
+                            target.velocity = Hyperspace.Pointf(target.velocity.x / (18.333 * time_increment(true)), target.velocity.y / (18.333 * time_increment(true)))
                         end
                     end
                     Hyperspace.Sounds:PlaySoundMix("smallExplosion", -1, false)
