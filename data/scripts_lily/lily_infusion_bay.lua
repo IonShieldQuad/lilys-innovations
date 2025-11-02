@@ -163,14 +163,15 @@ local function is_lily_infusion_bay_enemy(systemBox)
 end
 
 ---@param shipManager Hyperspace.ShipManager
+---@param crewFilter? boolean
 ---@return number
-local function get_taken_infusions_count(shipManager)
+local function get_taken_infusions_count(shipManager, crewFilter)
     local otherShipManager = Hyperspace.ships(1 - shipManager.iShipId)
     local count = 0
     for crew in vter(shipManager.vCrewList) do
         ---@type Hyperspace.CrewMember
         crew = crew
-        if crew.iShipId == shipManager.iShipId and userdata_table(crew, "mods.lilyinno.infusionbay") and userdata_table(crew, "mods.lilyinno.infusionbay").hasDormantInfusion then
+        if crew.iShipId == shipManager.iShipId and userdata_table(crew, "mods.lilyinno.infusionbay") and userdata_table(crew, "mods.lilyinno.infusionbay").hasDormantInfusion and (not crewFilter or crew.selectionState > 0.1) then
             count = count + 1
         end
     end
@@ -178,7 +179,7 @@ local function get_taken_infusions_count(shipManager)
         for crew in vter(otherShipManager.vCrewList) do
             ---@type Hyperspace.CrewMember
             crew = crew
-            if crew.iShipId == shipManager.iShipId and userdata_table(crew, "mods.lilyinno.infusionbay") and userdata_table(crew, "mods.lilyinno.infusionbay").hasDormantInfusion then
+            if crew.iShipId == shipManager.iShipId and userdata_table(crew, "mods.lilyinno.infusionbay") and userdata_table(crew, "mods.lilyinno.infusionbay").hasDormantInfusion and (not crewFilter or crew.selectionState > 0.1) then
                 count = count + 1
             end
         end
@@ -367,13 +368,37 @@ local function lily_infusion_bay_click(systemBox, shift)
             ---@type Hyperspace.Button
             activateButton = activateButton
             local shipManager = Hyperspace.ships.player
-            if activateButton.bHover and activateButton.bActive and get_taken_infusions_count(shipManager) > 0 then
+            local crewControl = Hyperspace.App.gui.crewControl
+
+            local crewFilter = Hyperspace.App.gui.crewControl.selectedCrew:size() > 0
+            
+            --[[for cmem in vter(crewControl.selectedCrew) do
+                ---@type Hyperspace.CrewMember
+                cmem = cmem
+                if not crewFilter then
+                    crewFilter = {}
+                end
+                crewFilter[cmem] = true
+            end--]]
+
+            --print("Filter", crewFilter == nil and "nil" or "ok")
+            --[[if crewFilter then
+                for index, value in pairs(crewFilter) do
+                    ---@type Hyperspace.CrewMember
+                    index = index
+                    print(index, index:GetName())
+                end
+            end--]]
+            if activateButton.bHover and activateButton.bActive and get_taken_infusions_count(shipManager, crewFilter) > 0 then
                 local lily_infusion_bay_system = shipManager:GetSystem(Hyperspace.ShipSystem.NameToSystemId(
                     "lily_infusion_bay"))
                 if name ~= "locked" then
                     Hyperspace.Sounds:PlaySoundMix("lily_infusion_activation_1", -1, false)
                     for crew in vter(shipManager.vCrewList) do
-                        if crew.iShipId == shipManager.iShipId and userdata_table(crew, "mods.lilyinno.infusionbay").hasDormantInfusion then
+                        ---@type Hyperspace.CrewMember
+                        crew = crew
+                        --print("A: ", crew, crew.selectionState, crew:GetName(), crewFilter and "true" or "false", crewFilter[crew])
+                        if crew.iShipId == shipManager.iShipId and userdata_table(crew, "mods.lilyinno.infusionbay").hasDormantInfusion and (not crewFilter or crew.selectionState > 0.1) then
                             userdata_table(crew, "mods.lilyinno.infusionbay").hasDormantInfusion = false
                             if userdata_table(crew, "mods.lilyinno.infusionbay").animationLoop then
                                 userdata_table(crew, "mods.lilyinno.infusionbay").animationLoop = false
@@ -388,7 +413,9 @@ local function lily_infusion_bay_click(systemBox, shift)
                     local otherShipManager = Hyperspace.ships(1 - shipManager.iShipId)
                     if otherShipManager then
                         for crew in vter(otherShipManager.vCrewList) do
-                            if crew.iShipId == shipManager.iShipId and userdata_table(crew, "mods.lilyinno.infusionbay").hasDormantInfusion then
+                            ---@type Hyperspace.CrewMember
+                            crew = crew
+                            if crew.iShipId == shipManager.iShipId and userdata_table(crew, "mods.lilyinno.infusionbay").hasDormantInfusion and (not crewFilter or crew.selectionState > 0.1) then
                                 userdata_table(crew, "mods.lilyinno.infusionbay").hasDormantInfusion = false
                                 if userdata_table(crew, "mods.lilyinno.infusionbay").animationLoop then
                                     userdata_table(crew, "mods.lilyinno.infusionbay").animationLoop = false
@@ -448,6 +475,32 @@ end)
 local function get_fourth_button_name(shipManager)
     local name = "locked"
     
+    if shipManager and Hyperspace.playerVariables then
+        local var = Hyperspace.playerVariables.lily_infusion_bay_fourthtype_select
+        
+        if var and var == 1 then
+            name = "overloaded"
+        elseif var and var == 2 then
+            name = "chaotic"
+        elseif var and var == 3 then
+            name = "fireborne"
+        elseif var and var == 4 then
+            name = "explosive"
+        elseif var and var == 5 then
+            name = "phoenix"
+        end
+        
+    end
+
+    return name
+end
+
+--[[
+---@param shipManager Hyperspace.ShipManager
+---@return string
+local function get_fourth_button_name(shipManager)
+    local name = "locked"
+
     if shipManager:HasAugmentation("UPG_LILY_INFUSION_OVERLOADED_UNLOCK") > 0 then
         name = "overloaded"
     elseif shipManager:HasAugmentation("UPG_LILY_INFUSION_CHAOTIC_UNLOCK") > 0 then
@@ -463,7 +516,7 @@ local function get_fourth_button_name(shipManager)
 
     return name
 end
-
+--]]
 
 script.on_render_event(Defines.RenderEvents.SHIP_BREACHES, function() end, function(ship)
     local commandGui = Hyperspace.App.gui

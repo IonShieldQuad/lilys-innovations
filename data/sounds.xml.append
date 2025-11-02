@@ -17,4 +17,6 @@
 <lily_targeting_core_locked_on volume="5">effects_lily/targeting_core_locked_on.wav</lily_targeting_core_locked_on>
 
 <lily_bracers_hit_1 volume="5">effects_lily/system_bracers_hit_1.wav</lily_bracers_hit_1>
+
+<lily_fiber_liner_hit_1 volume="5">effects_lily/fiber_liner_hit_1.wav</lily_fiber_liner_hit_1>
 </FTL>

@@ -159,7 +159,7 @@ script.on_internal_event(Defines.InternalEvents.SYSTEM_BOX_MOUSE_CLICK, lily_sho
 script.on_internal_event(Defines.InternalEvents.ON_MOUSE_R_BUTTON_DOWN, function (x, y)
     local shipManager = Hyperspace.ships.player
     userdata_table(shipManager, "mods.lilyinno.shockneutralizer").selectmode = false
-end) 
+end)
 
 local lastKeyDown = nil
 
@@ -232,7 +232,7 @@ local function lily_shock_neutralizer_render(systemBox, ignoreStatus)
         local shipManager = Hyperspace.ships.player
         local lily_shock_neutralizer_system = shipManager:GetSystem(Hyperspace.ShipSystem.NameToSystemId("lily_shock_neutralizer"))
         activateButton.bActive = (not lily_shock_neutralizer_system:CompletelyDestroyed()) and activationTimer[shipManager.iShipId] >= 1
-    
+
         if activateButton.bHover then
             if Hyperspace.metaVariables.lily_shock_neutralizer_hotkey_enabled == 0 and not Hyperspace.ships.player:HasSystem(Hyperspace.ShipSystem.NameToSystemId("battery")) then
                 Hyperspace.Mouse.tooltip = "Select the target room for Shock Neutralizer.\nHotkey: B"
@@ -286,7 +286,7 @@ script.on_internal_event(Defines.InternalEvents.ON_TICK, function()
 
 
     if shipManager and userdata_table(shipManager, "mods.lilyinno.shockneutralizer").selectmode then
-    
+
         if not playerCursorRestore then
             playerCursorRestore = Hyperspace.Mouse.validPointer
             playerCursorRestoreInvalid = Hyperspace.Mouse.invalidPointer
@@ -312,7 +312,7 @@ script.on_render_event(Defines.RenderEvents.MOUSE_CONTROL, function()
         local roomAtMouse = -1
         --print("MOUSE POS X:"..mousePos.x.." Y:"..mousePos.y.." LOCAL X:"..mousePosLocal.x.." Y:"..mousePosLocal.y)
         roomAtMouse = get_room_at_location(Hyperspace.ships.player, mousePosLocal, true)
-        
+
         Hyperspace.Mouse.valid = shipAtMouse == 0 and roomAtMouse > -1
         --print(shipAtMouse .. " " .. roomAtMouse)
         --print(Hyperspace.playerVariables.lily_beam_active == 1 .. " " .. Hyperspace.playerVariables.lily_ion_active == 1)
@@ -393,7 +393,7 @@ script.on_internal_event(Defines.InternalEvents.SHIP_LOOP, function(shipManager)
             lily_shock_neutralizer_system.iLockCount = 0
             lily_shock_neutralizer_system.lockTimer.currTime = lily_shock_neutralizer_system.lockTimer.currGoal
         end
-        
+
         if lily_shock_neutralizer_system:CompletelyDestroyed() then
             activationTimer[shipManager.iShipId] = 0
         end
@@ -443,7 +443,7 @@ script.on_internal_event(Defines.InternalEvents.SHIP_LOOP, function(shipManager)
             end
 
             if sys and sys.iLockCount > 0 then
-                
+
                 sys.lockTimer.currTime = sys.lockTimer.currTime + Hyperspace.FPS.SpeedFactor / 16 * deionizationBoost
 
             end
@@ -483,6 +483,27 @@ script.on_internal_event(Defines.InternalEvents.SHIP_LOOP, function(shipManager)
         if mods.lilyinno.checkVarsOK() and loadComplete[shipManager.iShipId] then
             Hyperspace.playerVariables["mods_lilyinno_shockneutralizer_" .. (shipManager.iShipId > 0.5 and "1" or "0")] = targetroom + 1 or 0
         end
+
+        if shipManager.iShipId == 1 then
+            if targetroom == nil or targetroom == -1 or not shipManager:GetSystemInRoom(targetroom) or shipManager:GetSystemInRoom(targetroom).iLockCount == 0 then
+                local systems = {}
+                for system in vter(shipManager.vSystemList) do
+                    ---@type Hyperspace.ShipSystem
+                    system = system
+                    if system.iLockCount > 0 then
+                        systems[#systems + 1] = system:GetId()
+                    end
+                end
+
+                if #systems > 0 then
+                    selectRoom(shipManager, shipManager:GetSystem(math.random(#systems)).roomId)
+                    activationTimer[shipManager.iShipId] = 0
+                end
+
+            end
+        end
+
+
         --print(targetroom, Hyperspace.metaVariables["mods_lilyinno_shockneutralizer_" .. shipManager.iShipId])
         --print("mods_lilyinno_shockneutralizer_" .. shipManager.iShipId)
     end
@@ -552,7 +573,7 @@ local function render_shock_neutralizer_effects(ship, experimental)
                     (level + 1) * activationTimer[shipManager.iShipId])
                 Graphics.CSurface.GL_PopMatrix()
             end
-    
+
             local bonusrooms = userdata_table(shipManager, "mods.lilyinno.shockneutralizer").bonusrooms
             if bonusrooms and (shipManager:HasAugmentation("UPG_LILY_WIDE_NEUTRALIZE") > 0 or shipManager:HasAugmentation("EX_LILY_WIDE_NEUTRALIZE") > 0) then
                 for id, coord in pairs(bonusrooms) do

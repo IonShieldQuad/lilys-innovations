@@ -66,6 +66,19 @@
             </choice>
         </event>
     </mod-append:choice>
+    <mod-append:choice req="lily_fiber_liner" lvl="3" blue="false">
+        <text>Present your Fiber Liner subsystem.</text>
+        <event>
+            <text>"Fiber Liner - for p-p-p-protecting your crew against harm! You are a: b-b-benevolent captain! For your kindness: I provide Grant of F-Fibers! Grant of Fibers! Save it - for the future!"</text>
+            <achievement>ACH_BOON_LILY_FIBER_LINER</achievement>
+            <metaVariable name="prof_e_boon_lily_fiber_liner" op="set" val="1"/>
+            <variable name="ach_boon_lily_fiber_liner" op="set" val="1"/>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="THE_JUDGES_ENGI_ADVICE"/>
+            </choice>
+        </event>
+    </mod-append:choice>
 </mod:findName>
 
 <mod:findName type="event" name="THE_JUDGES_VARIABLE_CLEAR">
@@ -74,6 +87,7 @@
     <mod-append:metaVariable name="prof_e_boon_lily_infusion_bay" op="set" val="0"/>
     <mod-append:metaVariable name="prof_e_boon_lily_shock_neutralizer" op="set" val="0"/>
     <mod-append:metaVariable name="prof_e_boon_lily_system_bracers" op="set" val="0"/>
+    <mod-append:metaVariable name="prof_e_boon_lily_fiber_liner" op="set" val="0"/>
 </mod:findName>
 
 </FTL>

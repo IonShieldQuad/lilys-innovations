@@ -1,4 +1,16 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.7.0
+Date: 2025-11-01
+  Changes:
+    - Improvements to dedicated targeting core: 
+    - Now you can no longer select an enemy room while they are cloaked and you have no vision.
+    - Preemptive lock-on upgrade now instantly locks on a random enemy system at the start of battle, or cloaking if they have it
+    - Improvements to infusion bay:
+    - Now when clicking an infusion button, only selected crew will use the infusion. If you have no crew selected, they will all use the infusion like before.
+    - Added 2 new Aether upgrades. They also now show what system they require in order to install them.
+    - Introducing another new subsystem: Fiber Liner! (System bracers alternative)
+    - While the System Bracers protect your systems, Fiber Liner protects your crew! (with an upgrade to protect your ship from fires and breaches too!)
+---------------------------------------------------------------------------------------------------
 Version: 1.6.5
 Date: 2025-10-25
   Changes:

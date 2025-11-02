@@ -21,11 +21,15 @@
         <text>System Bracers.</text>
         <event load="STORAGE_CHECK_SYSTEM_LILY_SYSTEM_BRACERS"/>
     </mod-append:choice>
+    <mod-append:choice req="lily_fiber_liner" hidden="true" blue="false">
+        <text>Fiber Liner.</text>
+        <event load="STORAGE_CHECK_SYSTEM_LILY_FIBER_LINER"/>
+    </mod-append:choice>
     <mod-append:choice req="oxygen" hidden="true" blue="false">
         <text>Life Support.</text>
         <event load="STORAGE_CHECK_SYSTEM_OXYGEN"/>
     </mod-append:choice>
-    <mod:findLike type="choice" start="1">
+    <mod:findLike type="choice" reverse="false" start="1">
         <mod:selector req="oxygen"/>
         <mod:removeTag/>
     </mod:findLike>
@@ -33,11 +37,13 @@
         <text>Sensors.</text>
         <event load="STORAGE_CHECK_SYSTEM_SENSORS"/>
     </mod-append:choice>
-    <mod:findLike type="choice" start="1">
+    <mod:findLike type="choice" reverse="false" start="1">
         <mod:selector req="sensors"/>
         <mod:removeTag/>
     </mod:findLike>
 </mod:findName>
+
+
 
 <mod:findName type="event" name="STORAGE_CHECK_SYSTEM_AETHER">
     <mod-append:choice req="UPG_LILY_AETHER_ARMOR" lvl="1" max_group="10" blue="false" hidden="true">
@@ -48,6 +54,24 @@
         <text>Aether Infused Armor. [Cost: 65~, 5|]</text>
         <event load="STORAGE_CHECK_SYSTEM_AETHER_LILY_AETHER_ARMOR"/>
     </mod-append:choice>
+    <mod-append:choice req="UPG_LILY_BRACERS_AETHER" lvl="1" max_group="11" blue="false" hidden="true">
+        <text>Aether Integrity Field. [ALREADY INSTALLED]</text>
+        <event load="OPTION_INVALID"/>
+    </mod-append:choice>
+    <mod-append:choice req="UPG_LILY_BRACERS_AETHER" lvl="0" max_group="11" blue="false" hidden="true">
+        <text>Aether Integrity Field. [Cost: 50~, 5{, 5|]</text>
+        <event load="STORAGE_CHECK_SYSTEM_AETHER_LILY_BRACERS_AETHER"/>
+    </mod-append:choice>
+    <mod-append:choice req="UPG_LILY_FIBER_AETHER" lvl="1" max_group="12" blue="false" hidden="true">
+        <text>Aether Fiber Clothing. [ALREADY INSTALLED]</text>
+        <event load="OPTION_INVALID"/>
+    </mod-append:choice>
+    <mod-append:choice req="UPG_LILY_FIBER_AETHER" lvl="0" max_group="12" blue="false" hidden="true">
+        <text>Aether Fiber Clothing. [Cost: 40~, 8{, 6|]</text>
+        <event load="STORAGE_CHECK_SYSTEM_AETHER_LILY_FIBER_AETHER"/>
+    </mod-append:choice>
+        
+
 </mod:findName>
 
 
@@ -350,7 +374,7 @@
     </choice>
 </event>
 
-<mod:findName type="event" name="STORAGE_CHECK_SYSTEM_SENSORS" start="1">
+<mod:findName type="event" name="STORAGE_CHECK_SYSTEM_SENSORS" reverse="false" start="1">
     <mod:removeTag/>
 </mod:findName>
 
@@ -1054,7 +1078,7 @@
         </event>
     </choice>
     <choice req="UPG_LILY_STRONG_ARMOR" lvl="0" max_lvl="0" max_group="0" blue="false" hidden="true">
-        <text>This upgrade is unavailable. You need Double-Strength Armor installed first.</text>
+        <text>This upgrade is unavailable. You need Double-Strength Armor installed first. (Ablative Armor)</text>
         <event load="OPTION_INVALID"/>
     </choice>
     <choice req="EX_LILY_AETHER_ARMOR" max_group="1" blue="false" hidden="true">
@@ -1316,7 +1340,7 @@
 
 <event name="STORAGE_CHECK_SYSTEM_LILY_INFUSION_BAY">
     <text>What upgrade do you want to install?</text>
-    <choice req="UPG_LILY_INFUSION_OVERLOADED_UNLOCK" lvl="1" max_group="0" blue="false" hidden="true">
+    <!--choice req="UPG_LILY_INFUSION_OVERLOADED_UNLOCK" lvl="1" max_group="0" blue="false" hidden="true">
         <text>Overloaded Infusions. [ALREADY INSTALLED]</text>
         <event load="OPTION_INVALID"/>
     </choice>
@@ -1335,16 +1359,15 @@
     <choice req="UPG_LILY_INFUSION_PHOENIX_UNLOCK" lvl="1" max_group="0" blue="false" hidden="true">
         <text>Phoenix Infusions. [ALREADY INSTALLED]</text>
         <event load="OPTION_INVALID"/>
-    </choice>
-    <choice req="INFUSION_BAY_FOURTH" lvl="1" max_group="1" blue="false" hidden="true">
+    </choice-->
+    <!--choice req="INFUSION_BAY_FOURTH" lvl="1" max_group="1" blue="false" hidden="true">
         <text>Dismantle the installed extra infusions to free up the slot for other ones.</text>
         <event load="STORAGE_CHECK_SYSTEM_LILY_INFUSION_BAY_UNINSTALL_FOURTH"/>
-    </choice>
-    <choice req="INFUSION_BAY_FOURTH" lvl="0" max_lvl="0" max_group="1" blue="false" hidden="true">
-        <text>Install extra infusions in the fourth slot of the system.</text>
+    </choice-->
+    <choice req="INFUSION_BAY_FOURTH" max_group="1" blue="false" hidden="true">
+        <text>Install extra infusions for the fourth slot of the system.</text>
         <event load="STORAGE_CHECK_SYSTEM_LILY_INFUSION_BAY_INSTALL_FOURTH"/>
     </choice>
-
 
     <choice req="UPG_LILY_SICKNESS_RECOVERY" lvl="1" max_group="2" blue="false" hidden="true">
         <text>Sickness Treatment. [ALREADY INSTALLED]</text>
@@ -1368,6 +1391,99 @@
         <text>Nevermind.</text>
         <event load="STORAGE_CHECK_SYSTEM_LOAD"/>
     </choice>
+</event>
+
+
+<mod:findName type="event" name="STORAGE_CHECK_BUTTON">
+    <mod-append:choice req="INFUSION_BAY_FOURTH" lvl="1" max_group="1" blue="false" hidden="true">
+        <text>Select the infusion type to use for the 4th slot of infusion bay.</text>
+        <event load="STORAGE_CHECK_LILY_INFUSION_BAY_SELECT_FOURTH"/>
+    </mod-append:choice>
+</mod:findName>
+
+
+<event name="STORAGE_CHECK_LILY_INFUSION_BAY_SELECT_FOURTH">
+    <text>Here you can select which infusion type to use for 4th slot of infusion bay. (You need to have intalled the corresponding internal upgrade first.)</text>
+    <choice req="UPG_LILY_INFUSION_OVERLOADED_UNLOCK" lvl="0" max_lvl="0" blue="false" hidden="true">
+        <text>Overloaded Infusions. [NOT INSTALLED]</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="UPG_LILY_INFUSION_OVERLOADED_UNLOCK" lvl="1" blue="false" hidden="true">
+        <text>Overloaded Infusions.</text>
+        <event>
+            <text>You set the infusion bay to use Overloaded Infusions.</text>
+            <variable name="lily_infusion_bay_fourthtype_select" op="set" val="1"/>
+            <choice>
+                <text>Continue...</text>
+                <event load="STORAGE_CHECK"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="UPG_LILY_INFUSION_CHAOTIC_UNLOCK" lvl="0" max_lvl="0" blue="false" hidden="true">
+        <text>Chaotic Infusions. [NOT INSTALLED]</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="UPG_LILY_INFUSION_CHAOTIC_UNLOCK" lvl="1" blue="false" hidden="true">
+        <text>Chaotic Infusions.</text>
+        <event>
+            <text>You set the infusion bay to use Chaotic Infusions.</text>
+            <variable name="lily_infusion_bay_fourthtype_select" op="set" val="2"/>
+            <choice>
+                <text>Continue...</text>
+                <event load="STORAGE_CHECK"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="UPG_LILY_INFUSION_FIREBORNE_UNLOCK" lvl="0" max_lvl="0" blue="false" hidden="true">
+        <text>Fireborne Infusions. [NOT INSTALLED]</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="UPG_LILY_INFUSION_FIREBORNE_UNLOCK" lvl="1" blue="false" hidden="true">
+        <text>Fireborne Infusions.</text>
+        <event>
+            <text>You set the infusion bay to use Fireborne Infusions.</text>
+            <variable name="lily_infusion_bay_fourthtype_select" op="set" val="3"/>
+            <choice>
+                <text>Continue...</text>
+                <event load="STORAGE_CHECK"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="UPG_LILY_INFUSION_EXPLOSIVE_UNLOCK" lvl="0" max_lvl="0" blue="false" hidden="true">
+        <text>Explosive Infusions. [NOT INSTALLED]</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="UPG_LILY_INFUSION_EXPLOSIVE_UNLOCK" lvl="1" blue="false" hidden="true">
+        <text>Explosive Infusions.</text>
+        <event>
+            <text>You set the infusion bay to use Explosive Infusions.</text>
+            <variable name="lily_infusion_bay_fourthtype_select" op="set" val="4"/>
+            <choice>
+                <text>Continue...</text>
+                <event load="STORAGE_CHECK"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="UPG_LILY_INFUSION_PHOENIX_UNLOCK" lvl="0" max_lvl="0" blue="false" hidden="true">
+        <text>Phoenix Infusions. [NOT INSTALLED]</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="UPG_LILY_INFUSION_PHOENIX_UNLOCK" lvl="1" blue="false" hidden="true">
+        <text>Phoenix Infusions.</text>
+        <event>
+            <text>You set the infusion bay to use Overloaded Infusions.</text>
+            <variable name="lily_infusion_bay_fourthtype_select" op="set" val="5"/>
+            <choice>
+                <text>Continue...</text>
+                <event load="STORAGE_CHECK"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="pilot" lvl="1" blue="false" hidden="true">
+        <text>Nevermind.</text>
+        <event load="STORAGE_CHECK"/>
+    </choice>
+
 </event>
 
 
@@ -1529,24 +1645,44 @@
 
 
 <event name="STORAGE_CHECK_SYSTEM_LILY_INFUSION_BAY_INSTALL_FOURTH">
-    <text>Which infusions do you want to install? [Mutually Exclusive]</text>
-    <choice req="UPG_LILY_INFUSION_OVERLOADED_UNLOCK" lvl="0" blue="false" hidden="true">
+    <text>Which infusions do you want to install? [Installing multiple allows you to switch between them outside of combat.]</text>
+    <choice req="UPG_LILY_INFUSION_OVERLOADED_UNLOCK" lvl="1" max_group="0" blue="false" hidden="true">
+        <text>Overloaded Infusions. [ALREADY INSTALLED]</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="UPG_LILY_INFUSION_OVERLOADED_UNLOCK" lvl="0" max_group="0"  blue="false" hidden="true">
         <text>Overloaded Infusions. [50~, 5{]</text>
         <event load="STORAGE_CHECK_SYSTEM_LILY_INFUSION_BAY_OVERLOADED"/>
     </choice>
-    <choice req="UPG_LILY_INFUSION_CHAOTIC_UNLOCK" lvl="0" blue="false" hidden="true">
+    <choice req="UPG_LILY_INFUSION_CHAOTIC_UNLOCK" lvl="1" max_group="1"  blue="false" hidden="true">
+        <text>Chaotic Infusions. [ALREADY INSTALLED]</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="UPG_LILY_INFUSION_CHAOTIC_UNLOCK" lvl="0" max_group="1"  blue="false" hidden="true">
         <text>Chaotic Infusions. [20~, 5{, 5}, 5|]</text>
         <event load="STORAGE_CHECK_SYSTEM_LILY_INFUSION_BAY_CHAOTIC"/>
     </choice>
-    <choice req="UPG_LILY_INFUSION_FIREBORNE_UNLOCK" lvl="0" blue="false" hidden="true">
+    <choice req="UPG_LILY_INFUSION_FIREBORNE_UNLOCK" lvl="1" max_group="2"  blue="false" hidden="true">
+        <text>Fireborne Infusions. [ALREADY INSTALLED]</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="UPG_LILY_INFUSION_FIREBORNE_UNLOCK" lvl="0" max_group="2"  blue="false" hidden="true">
         <text>Fireborne Infusions. [40~, 3{, 4}]</text>
         <event load="STORAGE_CHECK_SYSTEM_LILY_INFUSION_BAY_FIREBORNE"/>
     </choice>
-    <choice req="UPG_LILY_INFUSION_EXPLOSIVE_UNLOCK" lvl="0" blue="false" hidden="true">
+    <choice req="UPG_LILY_INFUSION_EXPLOSIVE_UNLOCK" lvl="1" max_group="3"  blue="false" hidden="true">
+        <text>Explosive Infusions. [ALREADY INSTALLED]</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="UPG_LILY_INFUSION_EXPLOSIVE_UNLOCK" lvl="0" max_group="3"  blue="false" hidden="true">
         <text>Explosive Infusions. [50~, 8}]</text>
         <event load="STORAGE_CHECK_SYSTEM_LILY_INFUSION_BAY_EXPLOSIVE"/>
     </choice>
-    <choice req="UPG_LILY_INFUSION_PHOENIX_UNLOCK" lvl="0" blue="false" hidden="true">
+    <choice req="UPG_LILY_INFUSION_PHOENIX_UNLOCK" lvl="1" max_group="4"  blue="false" hidden="true">
+        <text>Phoenix Infusions. [ALREADY INSTALLED]</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="UPG_LILY_INFUSION_PHOENIX_UNLOCK" lvl="0" max_group="4"  blue="false" hidden="true">
         <text>Phoenix Infusions. [50~, 5|]</text>
         <event load="STORAGE_CHECK_SYSTEM_LILY_INFUSION_BAY_PHOENIX"/>
     </choice>
@@ -1588,6 +1724,7 @@
 </event>
 <event name="INSTALL_LILY_INFUSION_OVERLOADED">
     <variable name="loc_internal_upgrades" op="add" val="1"/>
+    <variable name="lily_infusion_bay_fourthtype_select" op="set" val="1"/>
     <hiddenAug>UPG_LILY_INFUSION_OVERLOADED_UNLOCK</hiddenAug>
     <loadEvent>STORAGE_CHECK_SYSTEM</loadEvent>
 </event>
@@ -1626,6 +1763,7 @@
 </event>
 <event name="INSTALL_LILY_INFUSION_CHAOTIC">
     <variable name="loc_internal_upgrades" op="add" val="1"/>
+    <variable name="lily_infusion_bay_fourthtype_select" op="set" val="2"/>
     <hiddenAug>UPG_LILY_INFUSION_CHAOTIC_UNLOCK</hiddenAug>
     <loadEvent>STORAGE_CHECK_SYSTEM</loadEvent>
 </event>
@@ -1662,6 +1800,7 @@
 </event>
 <event name="INSTALL_LILY_INFUSION_FIREBORNE">
     <variable name="loc_internal_upgrades" op="add" val="1"/>
+    <variable name="lily_infusion_bay_fourthtype_select" op="set" val="3"/>
     <hiddenAug>UPG_LILY_INFUSION_FIREBORNE_UNLOCK</hiddenAug>
     <loadEvent>STORAGE_CHECK_SYSTEM</loadEvent>
 </event>
@@ -1697,6 +1836,7 @@
 </event>
 <event name="INSTALL_LILY_INFUSION_EXPLOSIVE">
     <variable name="loc_internal_upgrades" op="add" val="1"/>
+    <variable name="lily_infusion_bay_fourthtype_select" op="set" val="4"/>
     <hiddenAug>UPG_LILY_INFUSION_EXPLOSIVE_UNLOCK</hiddenAug>
     <loadEvent>STORAGE_CHECK_SYSTEM</loadEvent>
 </event>
@@ -1732,6 +1872,7 @@
 </event>
 <event name="INSTALL_LILY_INFUSION_PHOENIX">
     <variable name="loc_internal_upgrades" op="add" val="1"/>
+    <variable name="lily_infusion_bay_fourthtype_select" op="set" val="5"/>
     <hiddenAug>UPG_LILY_INFUSION_PHOENIX_UNLOCK</hiddenAug>
     <loadEvent>STORAGE_CHECK_SYSTEM</loadEvent>
 </event>
@@ -1878,7 +2019,7 @@
     </choice>
 </event>
 
-<mod:findName type="event" name="STORAGE_CHECK_SYSTEM_OXYGEN" start="1">
+<mod:findName type="event" name="STORAGE_CHECK_SYSTEM_OXYGEN" reverse="false" start="1">
     <mod:removeTag/>
 </mod:findName>
 
@@ -2593,7 +2734,7 @@ Incompatible with battery performance upgrades.]</text>
 
 <event name="STORAGE_CHECK_SYSTEM_LILY_SYSTEM_BRACERS_REGEN">
     <text>You are about to install the Living Metal Bracers upgrade.
-	[Effects: System Bracers slowly repair themselves even in the absense of crew.]</text>
+	[Effects: Made out of special metal that can "remember" shapes, System Bracers will slowly repair themselves even in the absense of crew.]</text>
 
     <choice req="lily_system_bracers" lvl="3" max_group="0" blue="false" hidden="true">
         <text>Perform the upgrade. [Cost: 40~, 4|]</text>
@@ -2677,6 +2818,318 @@ Incompatible with battery performance upgrades.]</text>
 <event name="INSTALL_LILY_BRACERS_COVERAGE">
     <variable name="loc_internal_upgrades" op="add" val="1"/>
     <hiddenAug>UPG_LILY_BRACERS_COVERAGE</hiddenAug>
+    <loadEvent>STORAGE_CHECK_SYSTEM</loadEvent>
+</event>
+
+<event name="STORAGE_CHECK_SYSTEM_AETHER_LILY_BRACERS_AETHER">
+    <text>You are about to install the Aether Integrity Field upgrade.
+	[Effects: Systems protected by System Bracers are now sabotaged at half speed, and deal 2 hp/s damage to intruders.]</text>
+
+    <choice req="UPG_LILY_BRACERS_COVERAGE" lvl="1" max_group="0" blue="false" hidden="true">
+        <text>Perform the upgrade. [Cost: 50~, 5{, 5|]</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <item_modify>
+                <item type="scrap" min="-50" max="-50"/>
+                <item type="fuel" min="-5" max="-5"/>
+                <item type="drones" min="-5" max="-5"/>
+            </item_modify>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_BRACERS_AETHER"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="UPG_LILY_BRACERS_COVERAGE" lvl="0" max_lvl="0" max_group="0" blue="false" hidden="true">
+        <text>This upgrade is unavailable. You need to have Integrity Field Generator internal upgrade. (System Bracers)</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="EX_LILY_BRACERS_AETHER" max_group="1" blue="false" hidden="true">
+        <text>Install the External Augment internally.</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <remove name="EX_LILY_BRACERS_AETHER"/>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_BRACERS_AETHER"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="pilot" lvl="1" max_group="2" blue="false" hidden="true">
+        <text>Nevermind.</text>
+        <event load="STORAGE_CHECK_SYSTEM_LOAD"/>
+    </choice>
+</event>
+<event name="INSTALL_LILY_BRACERS_AETHER">
+    <variable name="loc_internal_upgrades" op="add" val="1"/>
+    <hiddenAug>UPG_LILY_BRACERS_AETHER</hiddenAug>
+    <loadEvent>STORAGE_CHECK_SYSTEM</loadEvent>
+</event>
+
+
+
+<event name="STORAGE_CHECK_SYSTEM_LILY_FIBER_LINER">
+    <text>What upgrade do you want to install?</text>
+    <choice req="UPG_LILY_FIBER_STRONG" lvl="1" max_group="1" blue="false" hidden="true">
+        <text>Double Weaving. [ALREADY INSTALLED]</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="UPG_LILY_FIBER_STRONG" lvl="0" max_group="1" blue="false" hidden="true">
+        <text>Double Weaving. [Cost: 40~, 4|]</text>
+        <event load="STORAGE_CHECK_SYSTEM_LILY_FIBER_LINER_STRONG"/>
+    </choice>
+    <choice req="UPG_LILY_FIBER_HAZARD" lvl="1" max_group="2" blue="false" hidden="true">
+        <text>Hazmat Layer. [ALREADY INSTALLED]</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="UPG_LILY_FIBER_HAZARD" lvl="0" max_group="2" blue="false" hidden="true">
+        <text>Hazmat Layer. [Cost: 40~, 5{, 3}]</text>
+        <event load="STORAGE_CHECK_SYSTEM_LILY_FIBER_LINER_HAZARD"/>
+    </choice>
+    <choice req="UPG_LILY_FIBER_PRIORITY" lvl="1" max_group="3" blue="false" hidden="true">
+        <text>Dynamic Priority. [ALREADY INSTALLED]</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="UPG_LILY_FIBER_PRIORITY" lvl="0" max_group="3" blue="false" hidden="true">
+        <text>Dynamic Priority. [Cost: 25~, 4|]</text>
+        <event load="STORAGE_CHECK_SYSTEM_LILY_FIBER_LINER_PRIORITY"/>
+    </choice>
+    <choice req="UPG_LILY_FIBER_REGEN" lvl="1" max_group="4" blue="false" hidden="true">
+        <text>Living Fibers. [ALREADY INSTALLED]</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="UPG_LILY_FIBER_REGEN" lvl="0" max_group="4" blue="false" hidden="true">
+        <text>Living Fibers. [Cost: 80~, 6{]</text>
+        <event load="STORAGE_CHECK_SYSTEM_LILY_FIBER_LINER_REGEN"/>
+    </choice>
+
+
+    <choice>
+        <text>Nevermind.</text>
+        <event load="STORAGE_CHECK_SYSTEM_LOAD"/>
+    </choice>
+</event>
+
+<event name="STORAGE_CHECK_SYSTEM_LILY_FIBER_LINER_STRONG">
+    <text>You are about to install the Double Weaving upgrade.
+	[Effects: Fiber Lining protection is now twice as effective, but is repaired by crew at halved speed.]</text>
+
+    <choice req="lily_fiber_liner" lvl="1" max_group="0" blue="false" hidden="true">
+        <text>Perform the upgrade. [Cost: 40~, 4|]</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <item_modify>
+                <item type="scrap" min="-40" max="-40"/>
+                <item type="drones" min="-4" max="-4"/>
+            </item_modify>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_FIBER_STRONG"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="lily_fiber_liner" max_group="0" blue="false" hidden="true">
+        <text>This upgrade is unavailable. You need Fiber Liner level 1.</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="EX_LILY_FIBER_STRONG" max_group="1" blue="false" hidden="true">
+        <text>Install the External Augment internally.</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <remove name="EX_LILY_FIBER_STRONG"/>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_FIBER_STRONG"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="pilot" lvl="1" max_group="2" blue="false" hidden="true">
+        <text>Nevermind.</text>
+        <event load="STORAGE_CHECK_SYSTEM_LOAD"/>
+    </choice>
+</event>
+<event name="INSTALL_LILY_FIBER_STRONG">
+    <variable name="loc_internal_upgrades" op="add" val="1"/>
+    <hiddenAug>UPG_LILY_FIBER_STRONG</hiddenAug>
+    <loadEvent>STORAGE_CHECK_SYSTEM</loadEvent>
+</event>
+
+<event name="STORAGE_CHECK_SYSTEM_LILY_FIBER_LINER_HAZARD">
+    <text>You are about to install the Hazmat Layer upgrade.
+	[Effects: Fiber Lining now also reduces status chance (fire, breach, stun) of projectiles and beams hitting your hull.]</text>
+
+    <choice req="lily_fiber_liner" lvl="2" max_group="0" blue="false" hidden="true">
+        <text>Perform the upgrade. [Cost: 40~, 5{, 3}]</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <item_modify>
+                <item type="scrap" min="-40" max="-40"/>
+                <item type="fuel" min="-5" max="-5"/>
+                <item type="missiles" min="-3" max="-3"/>
+            </item_modify>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_FIBER_HAZARD"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="lily_fiber_liner" max_group="0" blue="false" hidden="true">
+        <text>This upgrade is unavailable. You need Fiber Liner level 2.</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="EX_LILY_FIBER_HAZARD" max_group="1" blue="false" hidden="true">
+        <text>Install the External Augment internally.</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <remove name="EX_LILY_FIBER_HAZARD"/>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_FIBER_HAZARD"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="pilot" lvl="1" max_group="2" blue="false" hidden="true">
+        <text>Nevermind.</text>
+        <event load="STORAGE_CHECK_SYSTEM_LOAD"/>
+    </choice>
+</event>
+<event name="INSTALL_LILY_FIBER_HAZARD">
+    <variable name="loc_internal_upgrades" op="add" val="1"/>
+    <hiddenAug>UPG_LILY_FIBER_HAZARD</hiddenAug>
+    <loadEvent>STORAGE_CHECK_SYSTEM</loadEvent>
+</event>
+
+<event name="STORAGE_CHECK_SYSTEM_LILY_FIBER_LINER_PRIORITY">
+    <text>You are about to install the Dynamic Priority upgrade.
+	[Effects: Fiber Lining now only applies its protection (and therefore takes damage) to rooms with allied crew present.]</text>
+
+    <choice req="lily_fiber_liner" lvl="1" max_group="0" blue="false" hidden="true">
+        <text>Perform the upgrade. [Cost: 25~, 4|]</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <item_modify>
+                <item type="scrap" min="-25" max="-25"/>
+                <item type="drones" min="-4" max="-4"/>
+            </item_modify>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_FIBER_PRIORITY"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="lily_fiber_liner" max_group="0" blue="false" hidden="true">
+        <text>This upgrade is unavailable. You need Fiber Liner level 1.</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="EX_LILY_FIBER_PRIORITY" max_group="1" blue="false" hidden="true">
+        <text>Install the External Augment internally.</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <remove name="EX_LILY_FIBER_PRIORITY"/>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_FIBER_PRIORITY"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="pilot" lvl="1" max_group="2" blue="false" hidden="true">
+        <text>Nevermind.</text>
+        <event load="STORAGE_CHECK_SYSTEM_LOAD"/>
+    </choice>
+</event>
+<event name="INSTALL_LILY_FIBER_PRIORITY">
+    <variable name="loc_internal_upgrades" op="add" val="1"/>
+    <hiddenAug>UPG_LILY_FIBER_PRIORITY</hiddenAug>
+    <loadEvent>STORAGE_CHECK_SYSTEM</loadEvent>
+</event>
+
+<event name="STORAGE_CHECK_SYSTEM_LILY_FIBER_LINER_REGEN">
+    <text>You are about to install the Living Fibers upgrade.
+	[Effects: A special living fiber liner material is capable of feeding off power leaks on your ship, and regenerate itself naturally even in the absence of crew.]</text>
+
+    <choice req="lily_fiber_liner" lvl="3" max_group="0" blue="false" hidden="true">
+        <text>Perform the upgrade. [Cost: 80~, 6{]</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <item_modify>
+                <item type="scrap" min="-80" max="-80"/>
+                <item type="fuel" min="-6" max="-6"/>
+            </item_modify>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_FIBER_REGEN"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="lily_fiber_liner" max_group="0" blue="false" hidden="true">
+        <text>This upgrade is unavailable. You need Fiber Liner level 3.</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="EX_LILY_FIBER_REGEN" max_group="1" blue="false" hidden="true">
+        <text>Install the External Augment internally.</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <remove name="EX_LILY_FIBER_REGEN"/>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_FIBER_REGEN"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="pilot" lvl="1" max_group="2" blue="false" hidden="true">
+        <text>Nevermind.</text>
+        <event load="STORAGE_CHECK_SYSTEM_LOAD"/>
+    </choice>
+</event>
+<event name="INSTALL_LILY_FIBER_REGEN">
+    <variable name="loc_internal_upgrades" op="add" val="1"/>
+    <hiddenAug>UPG_LILY_FIBER_REGEN</hiddenAug>
+    <loadEvent>STORAGE_CHECK_SYSTEM</loadEvent>
+</event>
+
+
+<event name="STORAGE_CHECK_SYSTEM_AETHER_LILY_FIBER_AETHER">
+    <text>You are about to install the Aether Fiber Clothing upgrade.
+	[Effects: Special clothing made from living fibers infused with aether. Provides your crew with 20% damage reduction from all sources and constant 2 hp/s regeneration.]</text>
+
+    <choice req="UPG_LILY_FIBER_REGEN" lvl="1" max_group="0" blue="false" hidden="true">
+        <text>Perform the upgrade. [Cost: 40~, 8{, 6|]</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <item_modify>
+                <item type="scrap" min="-40" max="-40"/>
+                <item type="fuel" min="-8" max="-8"/>
+                <item type="drones" min="-6" max="-6"/>
+            </item_modify>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_FIBER_AETHER"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="UPG_LILY_FIBER_REGEN" lvl="0" max_lvl="0" max_group="0" blue="false" hidden="true">
+        <text>This upgrade is unavailable. You need to have Living Fibers internal upgrade. (Fiber Liner)</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="EX_LILY_FIBER_AETHER" max_group="1" blue="false" hidden="true">
+        <text>Install the External Augment internally.</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <remove name="EX_LILY_FIBER_AETHER"/>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_FIBER_AETHER"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="pilot" lvl="1" max_group="2" blue="false" hidden="true">
+        <text>Nevermind.</text>
+        <event load="STORAGE_CHECK_SYSTEM_LOAD"/>
+    </choice>
+</event>
+<event name="INSTALL_LILY_FIBER_AETHER">
+    <variable name="loc_internal_upgrades" op="add" val="1"/>
+    <hiddenAug>UPG_LILY_FIBER_AETHER</hiddenAug>
     <loadEvent>STORAGE_CHECK_SYSTEM</loadEvent>
 </event>
 
@@ -3150,6 +3603,19 @@ Incompatible with battery performance upgrades.]</text>
         <text>Enable system bracers rendering.</text>
         <event>
             <metaVariable name="lily_system_bracers_rendering_disabled" op="set" value="0"/>
+        </event>
+    </mod-append:choice>
+
+    <mod-append:choice req="lily_fiber_liner_rendering_disabled" lvl="0" max_lvl="0" blue="false">
+        <text>Disable fiber liner rendering.</text>
+        <event>
+            <metaVariable name="lily_fiber_liner_rendering_disabled" op="set" value="1"/>
+        </event>
+    </mod-append:choice>
+    <mod-append:choice req="lily_fiber_liner_rendering_disabled" lvl="1" blue="false">
+        <text>Enable fiber liner rendering.</text>
+        <event>
+            <metaVariable name="lily_fiber_liner_rendering_disabled" op="set" value="0"/>
         </event>
     </mod-append:choice>
 

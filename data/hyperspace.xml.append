@@ -9,6 +9,7 @@
 	<mod-append:script>data/scripts_lily/lily_shock_neutralizer.lua</mod-append:script>
 	<mod-append:script>data/scripts_lily/lily_infusion_bay.lua</mod-append:script>
 	<mod-append:script>data/scripts_lily/lily_system_bracers.lua</mod-append:script>
+	<mod-append:script>data/scripts_lily/lily_fiber_liner.lua</mod-append:script>
 	<mod-append:script>data/scripts_lily/lily_innovation_augments.lua</mod-append:script>
 	<mod-append:script>data/scripts_lily/lily_innovation_events.lua</mod-append:script>
 	<mod-append:script>data/scripts_lily/lily_extra_slots.lua</mod-append:script>
@@ -19,7 +20,7 @@
 <mod:findLike type="ships">
 	<mod:findLike type="customShip">
 		<mod-append:subsystemLimit>4</mod-append:subsystemLimit>
-		<mod:findLike type="subsystemLimit" start="1">
+		<mod:findLike type="subsystemLimit" reverse="false" start="1">
 			<mod:removeTag />
 		</mod:findLike>
 
@@ -69,9 +70,14 @@
 	<mod-append:customSystem id="lily_shock_neutralizer" subSystem="true" mannable="false"/>
 	<mod-append:customSystem id="lily_infusion_bay" mannable="false"/>
 	<mod-append:customSystem id="lily_system_bracers" subSystem="true" mannable="false"/>
+	<mod-append:customSystem id="lily_fiber_liner" subSystem="true" mannable="false"/>
 
 	<mod-append:exclusivityGroup>
 		<lily_targeting_core/>
+	</mod-append:exclusivityGroup>
+	<mod-append:exclusivityGroup>
+		<lily_system_bracers/>
+		<lily_fiber_liner/>
 	</mod-append:exclusivityGroup>
 
 	<mod:findWithChildLike type="exclusivityGroup" child-type="shields">
@@ -79,7 +85,6 @@
 	</mod:findWithChildLike>
 	<mod:findWithChildLike type="exclusivityGroup" child-type="battery">
 		<mod-append:lily_shock_neutralizer/>
-		<!--mod-append:lily_system_bracers/-->
 	</mod:findWithChildLike>
 	<mod:findWithChildLike type="exclusivityGroup" child-type="medbay">
 		<mod-append:lily_infusion_bay/>
@@ -124,7 +129,7 @@
     </mod-append:systemPositions>
 
 
-	<mod:findLike type="systemPositions" start="1">
+	<mod:findLike type="systemPositions" reverse="false" start="1">
 		<mod:removeTag />
 	</mod:findLike>
 
@@ -154,23 +159,26 @@
 			<mod-append:exclusivityGroup>
 				<battery/>
 				<lily_shock_neutralizer/>
-				<!--lily_system_bracers/-->
 			</mod-append:exclusivityGroup>
 			<mod-append:exclusivityGroup>
 				<medbay/>
 				<clonebay/>
 				<lily_infusion_bay/>
 			</mod-append:exclusivityGroup>
-			<mod:findWithChildLike type="exclusivityGroup" child-type="lily_ablative_armor" start="1">
+			<mod-append:exclusivityGroup>
+				<lily_system_bracers/>
+				<lily_fiber_liner/>
+			</mod-append:exclusivityGroup>
+			<mod:findWithChildLike type="exclusivityGroup" reverse="false" child-type="lily_ablative_armor" start="1">
 				<mod:removeTag />
 			</mod:findWithChildLike>
-			<mod:findWithChildLike type="exclusivityGroup" child-type="lily_shock_neutralizer" start="1">
+			<mod:findWithChildLike type="exclusivityGroup" reverse="false" child-type="lily_shock_neutralizer" start="1">
 				<mod:removeTag />
 			</mod:findWithChildLike>
-			<!--mod:findWithChildLike type="exclusivityGroup" child-type="lily_system_bracers" start="1">
+			<mod:findWithChildLike type="exclusivityGroup" reverse="false" child-type="lily_system_bracers" start="1">
 				<mod:removeTag />
-			</mod:findWithChildLike-->
-			<mod:findWithChildLike type="exclusivityGroup" child-type="lily_infusion_bay" start="1">
+			</mod:findWithChildLike>
+			<mod:findWithChildLike type="exclusivityGroup" reverse="false" child-type="lily_infusion_bay" start="1">
 				<mod:removeTag />
 			</mod:findWithChildLike>
 		</mod:findLike>
@@ -212,6 +220,18 @@
 					<medbay/>
 					<clonebay/>
 				</systemList>
+			</statBoost>
+		</statBoosts>
+	</aug>
+	<aug name="BOON_LILY_FIBER_LINER">
+		<statBoosts>
+			<statBoost name="allDamageTakenMultiplier">
+				<boostType>MULT</boostType>
+				<shipTarget>ALL</shipTarget>
+				<crewTarget>ALLIES</crewTarget>
+				<droneTarget>ALL</droneTarget>
+				<amount>0.85</amount>
+				<priority>0</priority>
 			</statBoost>
 		</statBoosts>
 	</aug>
@@ -1288,6 +1308,153 @@
 	<aug name="UPG_LILY_BRACERS_COVERAGE"/>
 	<aug name="EX_LILY_BRACERS_COVERAGE"/>
 
+	<aug name="UPG_LILY_BRACERS_AETHER">
+		<function name="SYSTEM_CASING" value="0.1" useForReqs="true" warning="false" />
+	</aug>
+	<aug name="EX_LILY_BRACERS_AETHER">
+		<function name="UPG_LILY_BRACERS_AETHER" value="1" useForReqs="true" warning="false" />
+		<function name="SYSTEM_CASING" value="0.1" useForReqs="true" warning="false" />
+	</aug>
+
+	<aug name="UPG_LILY_BUNKER_FIBER">
+		<statBoosts>
+			<statBoost name="allDamageTakenMultiplier">
+				<boostType>MULT</boostType>
+				<shipTarget>ORIGINAL_SHIP</shipTarget>
+				<crewTarget>ALLIES</crewTarget>
+				<droneTarget>ALLIES</droneTarget>
+				<amount>0.5</amount>
+				<priority>0</priority>
+				<systemRoomTarget>ALL</systemRoomTarget>
+				<systemList>
+					<lily_fiber_liner/>
+				</systemList>
+				<boostAnim>lily_fort_effect</boostAnim>
+			</statBoost>
+			<statBoost name="sabotageSpeedMultiplier">
+				<boostType>MULT</boostType>
+				<shipTarget>ORIGINAL_SHIP</shipTarget>
+				<crewTarget>ALL</crewTarget>
+				<droneTarget>ALL</droneTarget>
+				<amount>0.5</amount>
+				<priority>0</priority>
+				<systemRoomTarget>ALL</systemRoomTarget>
+				<systemList>
+					<lily_fiber_liner/>
+				</systemList>
+			</statBoost>
+		</statBoosts>
+	</aug>
+
+	<aug name="UPG_LILY_FIBER_STRONG">
+		<statBoosts>
+			<statBoost name="repairSpeed">
+				<boostType>MULT</boostType>
+				<shipTarget>ORIGINAL_SHIP</shipTarget>
+				<crewTarget>ALL</crewTarget>
+				<droneTarget>ALL</droneTarget>
+				<amount>0.5</amount>
+				<priority>0</priority>
+				<systemRoomTarget>ALL</systemRoomTarget>
+				<systemList>
+					<lily_fiber_liner/>
+				</systemList>
+			</statBoost>
+			<statBoost name="sabotageSpeedMultiplier">
+				<boostType>MULT</boostType>
+				<shipTarget>ORIGINAL_SHIP</shipTarget>
+				<crewTarget>ALL</crewTarget>
+				<droneTarget>ALL</droneTarget>
+				<amount>0.5</amount>
+				<priority>0</priority>
+				<systemRoomTarget>ALL</systemRoomTarget>
+				<systemList>
+					<lily_fiber_liner/>
+				</systemList>
+			</statBoost>
+		</statBoosts>
+	</aug>
+	<aug name="EX_LILY_FIBER_STRONG">
+		<statBoosts>
+			<statBoost name="repairSpeed">
+				<boostType>MULT</boostType>
+				<shipTarget>ORIGINAL_SHIP</shipTarget>
+				<crewTarget>ALL</crewTarget>
+				<droneTarget>ALL</droneTarget>
+				<amount>0.5</amount>
+				<priority>0</priority>
+				<systemRoomTarget>ALL</systemRoomTarget>
+				<systemList>
+					<lily_fiber_liner/>
+				</systemList>
+			</statBoost>
+			<statBoost name="sabotageSpeedMultiplier">
+				<boostType>MULT</boostType>
+				<shipTarget>ORIGINAL_SHIP</shipTarget>
+				<crewTarget>ALL</crewTarget>
+				<droneTarget>ALL</droneTarget>
+				<amount>0.5</amount>
+				<priority>0</priority>
+				<systemRoomTarget>ALL</systemRoomTarget>
+				<systemList>
+					<lily_fiber_liner/>
+				</systemList>
+			</statBoost>
+		</statBoosts>
+	</aug>
+
+	<aug name="UPG_LILY_FIBER_REGEN"/>
+	<aug name="EX_LILY_FIBER_REGEN"/>
+
+	<aug name="UPG_LILY_FIBER_HAZARD"/>
+	<aug name="EX_LILY_FIBER_HAZARD"/>
+
+	<aug name="UPG_LILY_FIBER_PRIORITY"/>
+	<aug name="EX_LILY_FIBER_PRIORITY"/>
+
+	<aug name="UPG_LILY_FIBER_AETHER">
+		<statBoosts>
+			<statBoost name="healAmount">
+				<boostType>FLAT</boostType>
+				<shipTarget>ALL</shipTarget>
+				<crewTarget>ORIGINAL_ALLIES</crewTarget>
+				<droneTarget>CREW</droneTarget>
+				<amount>2</amount>
+				<priority>0</priority>
+			</statBoost>
+			<statBoost name="allDamageTakenMultiplier">
+				<boostType>MULT</boostType>
+				<shipTarget>ALL</shipTarget>
+				<crewTarget>ORIGINAL_ALLIES</crewTarget>
+				<droneTarget>CREW</droneTarget>
+				<amount>0.8</amount>
+				<priority>0</priority>
+			</statBoost>
+		</statBoosts>
+	</aug>
+	<aug name="EX_LILY_FIBER_AETHER">
+		<function name="UPG_LILY_FIBER_AETHER" value="1" useForReqs="true" warning="false" />
+		<statBoosts>
+			<statBoost name="healAmount">
+				<boostType>FLAT</boostType>
+				<shipTarget>ALL</shipTarget>
+				<crewTarget>ORIGINAL_ALLIES</crewTarget>
+				<droneTarget>CREW</droneTarget>
+				<amount>2</amount>
+				<priority>0</priority>
+			</statBoost>
+			<statBoost name="allDamageTakenMultiplier">
+				<boostType>MULT</boostType>
+				<shipTarget>ALL</shipTarget>
+				<crewTarget>ORIGINAL_ALLIES</crewTarget>
+				<droneTarget>CREW</droneTarget>
+				<amount>0.8</amount>
+				<priority>0</priority>
+			</statBoost>
+		</statBoosts>
+	</aug>
+
+
 	<aug name="UPG_LILY_SENSORS_MAPWIDE"/>
 	<aug name="EX_LILY_SENSORS_MAPWIDE"/>
 
@@ -1353,6 +1520,7 @@
 		<mod-append:name>prof_e_boon_lily_shock_neutralizer</mod-append:name>
 		<mod-append:name>prof_e_boon_lily_infusion_bay</mod-append:name>
 		<mod-append:name>prof_e_boon_lily_system_bracers</mod-append:name>
+		<mod-append:name>prof_e_boon_lily_fiber_liner</mod-append:name>
 	</mod:findName>
 	<mod:findName name="ALL_BOON">
 		<mod-append:name>prof_e_boon_lily_ablative_armor</mod-append:name>
@@ -1360,6 +1528,7 @@
 		<mod-append:name>prof_e_boon_lily_shock_neutralizer</mod-append:name>
 		<mod-append:name>prof_e_boon_lily_infusion_bay</mod-append:name>
 		<mod-append:name>prof_e_boon_lily_system_bracers</mod-append:name>
+		<mod-append:name>prof_e_boon_lily_fiber_liner</mod-append:name>
 	</mod:findName>
 
 
@@ -1381,12 +1550,16 @@
 		</req>
 	</mod-append:req>
 
-	<mod-append:req name="INFUSION_BAY_FOURTH" type="any">
-		<name>UPG_LILY_INFUSION_OVERLOADED_UNLOCK</name>
-		<name>UPG_LILY_INFUSION_CHAOTIC_UNLOCK</name>
-		<name>UPG_LILY_INFUSION_FIREBORNE_UNLOCK</name>
-		<name>UPG_LILY_INFUSION_EXPLOSIVE_UNLOCK</name>
-		<name>UPG_LILY_INFUSION_PHOENIX_UNLOCK</name>
+	<mod-append:req name="INFUSION_BAY_FOURTH" type="all">
+		<name>lily_infusion_bay</name>
+		<req type="any">
+			<name>UPG_LILY_INFUSION_PHOENIX_UNLOCK</name>
+			<name>UPG_LILY_INFUSION_OVERLOADED_UNLOCK</name>
+			<name>UPG_LILY_INFUSION_CHAOTIC_UNLOCK</name>
+			<name>UPG_LILY_INFUSION_FIREBORNE_UNLOCK</name>
+			<name>UPG_LILY_INFUSION_EXPLOSIVE_UNLOCK</name>
+			<name>UPG_LILY_INFUSION_PHOENIX_UNLOCK</name>
+		</req>
 	</mod-append:req>
 
 	<mod-append:req name="LILY_BATTERY_ADVANCED" type="any">
@@ -1461,6 +1634,10 @@
 <mod-append:metaVariable name="prof_e_boon_lily_system_bracers" op="set" val="0"/>
 <mod-append:variable name="ach_boon_lily_system_bracers" op="set" val="0"/>
 
+<mod-append:metaVariable name="prof_e_boon_lily_fiber_liner" op="set" val="0"/>
+<mod-append:variable name="ach_boon_lily_fiber_liner" op="set" val="0"/>
+
+
 
 
 <mod:findLike type="achievements" limit="1">
@@ -1516,6 +1693,14 @@
 				<description>Show an upgraded System Bracers Subystem to Corby. While in effect; System Bracers repair speed penalty is removed.</description>
 				<header>Grant Received</header>
 				<icon>boons/ach_boon_lily_system_bracers</icon>
+				<multiDifficulty>false</multiDifficulty>
+			</mod-append:achievement>
+			<mod-append:achievement name="ACH_BOON_LILY_FIBER_LINER">
+				<name>Grant of Fibers</name>
+				<secretDescription>Receive the Grant of Fibers from Corby.</secretDescription>
+				<description>Show an upgraded Fiber Liner Subystem to Corby. While in effect; Your crew takes x0.85 damage from all sources.</description>
+				<header>Grant Received</header>
+				<icon>boons/ach_boon_lily_fiber_liner</icon>
 				<multiDifficulty>false</multiDifficulty>
 			</mod-append:achievement>
 		</mod-append:section>

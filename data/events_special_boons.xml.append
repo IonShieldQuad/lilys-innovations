@@ -49,4 +49,14 @@
         </event>
     </choice>
 </event>
+<event name="BOON_SELECT_LILY_FIBER_LINER">
+    <text>From nowhere, you hear a voice speaking to you. "Grant of [Fibers] i-i-installed. Installed! Grant provides: Your crew now takes only x0.85 damage from all sources. If -you- witness p-p-previous challenger; provide thanks. I advise you -visit- me as well."</text>
+    <hiddenAug>BOON_LILY_FIBER_LINER</hiddenAug>
+    <choice hidden="true">
+        <text>Continue...</text>
+        <event>
+            <loadEvent>BOON_SELECT_CONTINUE</loadEvent>
+        </event>
+    </choice>
+</event>
 </FTL>

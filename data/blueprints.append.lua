@@ -409,8 +409,8 @@ systemsToAppend["lily_targeting_core"] = {
         { room_image = "room_lily_target_core_47", w = 2, h = 2, top = "11", bottom = "00", left = "00", right = "01", manning_slot = 3, manning_direction = "right" },
         { room_image = "room_lily_target_core_48", w = 2, h = 2, top = "11", bottom = "00", left = "01", right = "00", manning_slot = 2, manning_direction = "left" },
         { room_image = "room_lily_target_core_49", w = 2, h = 2, top = "00", bottom = "00", left = "11", right = "10", manning_slot = 1, manning_direction = "right" },
-        { room_image = "room_lily_target_core_50", w = 2, h = 2, top = "00", bottom = "00", left = "11", right = "01", manning_slot = 3, manning_direction = "up" },
-        { room_image = "room_lily_target_core_51", w = 2, h = 2, top = "01", bottom = "00", left = "11", right = "00", manning_slot = 1, manning_direction = "right" },
+        { room_image = "room_lily_target_core_50", w = 2, h = 2, top = "00", bottom = "00", left = "11", right = "01", manning_slot = 3, manning_direction = "right" },
+        { room_image = "room_lily_target_core_51", w = 2, h = 2, top = "01", bottom = "00", left = "11", right = "00", manning_slot = 1, manning_direction = "up" },
         { room_image = "room_lily_target_core_52", w = 2, h = 2, top = "00", bottom = "01", left = "11", right = "00", manning_slot = 3, manning_direction = "down" },
         { room_image = "room_lily_target_core_53", w = 2, h = 2, top = "10", bottom = "11", left = "00", right = "00", manning_slot = 0, manning_direction = "up" },
         { room_image = "room_lily_target_core_54", w = 2, h = 2, top = "01", bottom = "11", left = "00", right = "00", manning_slot = 1, manning_direction = "up" },
@@ -498,6 +498,27 @@ systemsToAppend["lily_system_bracers"] = {
         { room_image = "room_bracers_3", w = 1, h = 2, top = "0",  bottom = "0",  left = "00", right = "00"},
         { room_image = "room_bracers_4", w = 1, h = 1, top = "0",  bottom = "0",  left = "0",  right = "0"},
         { room_image = "room_bracers_1", w = 2, h = 2, top = "00", bottom = "00", left = "00", right = "00" },
+    }
+}
+
+runSystemsAppend()
+
+systemsToAppend = {}
+systemsToAppend["lily_fiber_liner"] = {
+    attributes = { power = 1, start = "false" },
+    manning = false,
+    replace_sys = "lily_system_bracers",
+    image_list = {
+        { room_image = "room_fiber_5", w = 3, h = 2, top = "000", bottom = "000", left = "00",  right = "00" },
+        { room_image = "room_fiber_6", w = 2, h = 3, top = "00",  bottom = "00",  left = "000", right = "000" },
+        { room_image = "room_fiber_1", w = 2, h = 2, top = "00",  bottom = "00",  left = "00",  right = "00" },
+        { room_image = "room_fiber",   w = 2, h = 2, top = "00",  bottom = "00",  left = "00",  right = "00" },
+        { room_image = "room_fiber_7", w = 3, h = 1, top = "000", bottom = "000", left = "0",   right = "0" },
+        { room_image = "room_fiber_8", w = 1, h = 3, top = "0",   bottom = "0",   left = "000", right = "000" },
+        { room_image = "room_fiber_2", w = 2, h = 1, top = "00",  bottom = "00",  left = "0",   right = "0" },
+        { room_image = "room_fiber_3", w = 1, h = 2, top = "0",   bottom = "0",   left = "00",  right = "00" },
+        { room_image = "room_fiber_4", w = 1, h = 1, top = "0",   bottom = "0",   left = "0",   right = "0" },
+        { room_image = "room_fiber_1", w = 2, h = 2, top = "00",  bottom = "00",  left = "00",  right = "00" },
     }
 }
 

@@ -96,6 +96,7 @@ end
 local corners = {}
 local cornersBroken = {}
 local cornersShielded = {}
+local cornersAether = {}
 script.on_init(function()
 
     corners[1] = Hyperspace.Resources:CreateImagePrimitiveString(
@@ -124,6 +125,15 @@ script.on_init(function()
         "misc/lily_systembrace_shielded_3.png", -36, -36, 0, Graphics.GL_Color(1, 1, 1, 1), 1, false)
     cornersShielded[4] = Hyperspace.Resources:CreateImagePrimitiveString(
         "misc/lily_systembrace_shielded_4.png", 1, -36, 0, Graphics.GL_Color(1, 1, 1, 1), 1, false)
+
+    cornersAether[1] = Hyperspace.Resources:CreateImagePrimitiveString(
+        "misc/lily_systembrace_aether_1.png", 1, 1, 0, Graphics.GL_Color(1, 1, 1, 1), 1, false)
+    cornersAether[2] = Hyperspace.Resources:CreateImagePrimitiveString(
+        "misc/lily_systembrace_aether_2.png", -36, 1, 0, Graphics.GL_Color(1, 1, 1, 1), 1, false)
+    cornersAether[3] = Hyperspace.Resources:CreateImagePrimitiveString(
+        "misc/lily_systembrace_aether_3.png", -36, -36, 0, Graphics.GL_Color(1, 1, 1, 1), 1, false)
+    cornersAether[4] = Hyperspace.Resources:CreateImagePrimitiveString(
+        "misc/lily_systembrace_aether_4.png", 1, -36, 0, Graphics.GL_Color(1, 1, 1, 1), 1, false)
     
 end)
 
@@ -238,6 +248,9 @@ local function render_system_bracers_effects(ship, experimental)
 
         if shipManager:HasAugmentation("UPG_LILY_BRACERS_COVERAGE") > 0 or shipManager:HasAugmentation("EX_LILY_BRACERS_COVERAGE") > 0 then
             usedCorners = cornersShielded
+        end
+        if shipManager:HasAugmentation("UPG_LILY_BRACERS_AETHER") > 0 or shipManager:HasAugmentation("EX_LILY_BRACERS_AETHER") > 0 then
+            usedCorners = cornersAether
         end
 
         if not working then
@@ -414,12 +427,25 @@ script.on_internal_event(Defines.InternalEvents.CALCULATE_STAT_POST, function(cr
             local currentShipManager = Hyperspace.ships(crew.currentShipId)
 
             if currentShipManager and currentShipManager:HasSystem(Hyperspace.ShipSystem.NameToSystemId("lily_system_bracers")) then
+                local bracers = currentShipManager:GetSystem(Hyperspace.ShipSystem.NameToSystemId("lily_system_bracers"))
                 if crew.iRoomId >= 0 and crew.iRoomId == currentShipManager:GetSystemRoom(Hyperspace.ShipSystem.NameToSystemId("lily_system_bracers")) then
                     if stat == Hyperspace.CrewStat.REPAIR_SPEED_MULTIPLIER and currentShipManager:HasAugmentation("BOON_LILY_SYSTEM_BRACERS") == 0 then
                         amount = amount * 0.5
                     end
                     if stat == Hyperspace.CrewStat.SABOTAGE_SPEED_MULTIPLIER then
                         amount = amount * 0.5
+                    end
+                end
+                if not bracers:CompletelyDestroyed() and (currentShipManager:HasAugmentation("UPG_LILY_BRACERS_AETHER") > 0 or currentShipManager:HasAugmentation("EX_LILY_BRACERS_AETHER") > 0) and crew.iShipId ~= currentShipManager.iShipId then
+                    local crewRoom = crew.iRoomId
+                    local sys = currentShipManager:GetSystemInRoom(crewRoom)
+                    if sys then
+                        if stat == Hyperspace.CrewStat.SABOTAGE_SPEED_MULTIPLIER then
+                            amount = amount * 0.5
+                        end
+                        if stat == Hyperspace.CrewStat.TRUE_HEAL_AMOUNT then
+                            amount = amount - 2
+                        end
                     end
                 end
             end

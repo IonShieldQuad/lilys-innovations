@@ -378,14 +378,17 @@ script.on_render_event(Defines.RenderEvents.MOUSE_CONTROL, function()
         local mousePosLocal = convertMousePositionToEnemyShipPosition(mousePos)
         local shipAtMouse = 0
         local roomAtMouse = -1
+
+        local combatControl = Hyperspace.App.gui.combatControl
         --print("MOUSE POS X:"..mousePos.x.." Y:"..mousePos.y.." LOCAL X:"..mousePosLocal.x.." Y:"..mousePosLocal.y)
         roomAtMouse = get_room_at_location(otherShipManager, mousePosLocal, true)
         if roomAtMouse >= 0 then
             shipAtMouse = 1
         end
-        Hyperspace.Mouse.valid = shipAtMouse > 0 and roomAtMouse > -1
+        Hyperspace.Mouse.valid = shipAtMouse > 0 and roomAtMouse > -1 and combatControl and combatControl.selectedRoom and
+        combatControl.selectedRoom > -1
         --print(shipAtMouse .. " " .. roomAtMouse)
-        if shipAtMouse > 0 and roomAtMouse > -1 then
+        if shipAtMouse > 0 and roomAtMouse > -1 and combatControl and combatControl.selectedRoom and combatControl.selectedRoom > -1 then
             local targetPosition = convertEnemyShipPositionToGlobalPosition(Hyperspace.Point(0, 0))
             local roomc = otherShipManager:GetRoomCenter(roomAtMouse)
             Graphics.CSurface.GL_PushMatrix()
@@ -428,14 +431,14 @@ script.on_internal_event(Defines.InternalEvents.ON_MOUSE_L_BUTTON_DOWN, function
         local shipAtMouse = 0
         local roomAtMouse = -1
         --print("MOUSE POS X:"..mousePos.x.." Y:"..mousePos.y.." LOCAL X:"..mousePosLocal.x.." Y:"..mousePosLocal.y)
-
+        local combatControl = Hyperspace.App.gui.combatControl
         roomAtMouse = get_room_at_location(otherShipManager, mousePosLocal, true)
         if roomAtMouse >= 0 then
             shipAtMouse = 1
         end
         --print(shipAtMouse .. " " .. roomAtMouse)
         --print("Count: " .. count)
-        if shipAtMouse ~= 0 and roomAtMouse > -1 then
+        if shipAtMouse ~= 0 and roomAtMouse > -1 and combatControl and combatControl.selectedRoom and combatControl.selectedRoom > -1 then
             selectRoom(shipManager, roomAtMouse)
             userdata_table(shipManager, "mods.lilyinno.targetingcore").selectmode = false
             activationTimer[shipManager.iShipId] = 0
@@ -573,8 +576,48 @@ script.on_internal_event(Defines.InternalEvents.SHIP_LOOP, function(shipManager)
                 if not (Hyperspace.metaVariables.lily_targeting_core_sounds_disabled and Hyperspace.metaVariables.lily_targeting_core_sounds_disabled > 0) then
                     Hyperspace.Sounds:PlaySoundMix("lily_targeting_core_locked_on", -1, false)
                 end
+            elseif otherShipManager and otherShipManager._targetable.hostile and not (targetroom and targetroom > -1) and activationTimer[shipManager.iShipId] >= 1 then
+                local systems = {}
+                for system in vter(otherShipManager.vSystemList) do
+                    ---@type Hyperspace.ShipSystem
+                    system = system
+                    systems[#systems+1] = system:GetId()
+                end
+
+                if #systems > 0 then
+                    selectRoom(shipManager, otherShipManager:GetSystem(systems[math.random(#systems)]).roomId)
+                    userdata_table(shipManager, "mods.lilyinno.targetingcore").selectmode = false
+                    
+                    --activationTimer[shipManager.iShipId] = 0
+                    if not (Hyperspace.metaVariables.lily_targeting_core_sounds_disabled and Hyperspace.metaVariables.lily_targeting_core_sounds_disabled > 0) then
+                        Hyperspace.Sounds:PlaySoundMix("lily_targeting_core_locked_on", -1, false)
+                    end
+                end
             end
 
+        end
+
+
+        if shipManager and shipManager.iShipId == 1 then
+            if otherShipManager and shipManager._targetable.hostile and otherShipManager:HasSystem(Hyperspace.ShipSystem.NameToSystemId("cloaking")) and not (targetroom and targetroom > -1) and activationTimer[shipManager.iShipId] >= 1 then
+                selectRoom(shipManager, otherShipManager:GetSystem(Hyperspace.ShipSystem.NameToSystemId("cloaking")).roomId)
+                userdata_table(shipManager, "mods.lilyinno.targetingcore").selectmode = false
+                activationTimer[shipManager.iShipId] = 0
+            elseif otherShipManager and shipManager._targetable.hostile and not (targetroom and targetroom > -1) and activationTimer[shipManager.iShipId] >= 1 then
+                local systems = {}
+                for system in vter(otherShipManager.vSystemList) do
+                    ---@type Hyperspace.ShipSystem
+                    system = system
+                    systems[#systems + 1] = system:GetId()
+                end
+
+                if #systems > 0 then
+                    selectRoom(shipManager, otherShipManager:GetSystem(systems[math.random(#systems)]).roomId)
+                    userdata_table(shipManager, "mods.lilyinno.targetingcore").selectmode = false
+
+                    activationTimer[shipManager.iShipId] = 0
+                end
+            end
         end
 
         if userdata_table(shipManager, "mods.lilyinno.targetingcore").hologram then
@@ -858,7 +901,7 @@ end, 128)
 
 script.on_internal_event(Defines.InternalEvents.PROJECTILE_INITIALIZE, function(projectile)
     --print("INIT")
-    if projectile then
+    if projectile and projectile:GetOwnerId() and projectile:GetOwnerId() >= 0 then
         local ownerShip = Hyperspace.ships(projectile:GetOwnerId())
         --print("ID:", projectile:GetOwnerId())
         if ownerShip and ownerShip:HasSystem(Hyperspace.ShipSystem.NameToSystemId("lily_targeting_core")) and (ownerShip:HasAugmentation("UPG_LILY_TARGETING_STATUS") > 0 or ownerShip:HasAugmentation("EX_LILY_TARGETING_STATUS") > 0) then

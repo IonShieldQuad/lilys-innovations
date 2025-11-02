@@ -40,7 +40,7 @@
     <title>Dedicated Targeting Core</title>
     <desc>Locks onto rooms on the enemy ship. Locked on rooms are more likely to be targeted by drones, always have visibility, and projectiles aimed at them have bonus accuracy.
 Each Core Strength provides +5% accuracy, and may have other effects with internal upgrades.
-When enemy is cloaked, the bonus accuracy provided by system is doubled, weapons charge at Core Strength * 20% rate, and a hologram is spawned to provide room vsibility.</desc>
+When the enemy is cloaked, the bonus accuracy provided by the system is doubled, weapons charge at Core Strength * 20% rate, and a hologram is spawned to provide room visibility.</desc>
     <startPower>1</startPower>
     <maxPower>4</maxPower>
     <rarity>2</rarity>
@@ -101,7 +101,21 @@ When enemy is cloaked, the bonus accuracy provided by system is doubled, weapons
     <cost>30</cost>
 </systemBlueprint>
 
-
+<systemBlueprint name="lily_fiber_liner">
+    <type>doors</type>
+    <title>Fiber Liner</title>
+    <desc>Protects your crew from damage by reducing crew damage of projectiles and beams hitting your ship, by the amount depending on the system level. Has 20% chance to take 1 point of system damage per 1 crew damage absorbed.</desc>
+    <startPower>1</startPower>
+    <maxPower>3</maxPower>
+    <rarity>2</rarity>
+    <upgradeCost>
+        <level>20</level>
+        <level>30</level>
+        <level>50</level>
+        <level>80</level>
+    </upgradeCost>
+    <cost>20</cost>
+</systemBlueprint>
 
 
 <augBlueprint name="UPG_LILY_BUNKER_BRACERS">
@@ -684,7 +698,7 @@ Incompatible with performance upgrades.
 </augBlueprint>
 <augBlueprint name="EX_LILY_BRACERS_REGEN">
     <title>Living Metal Bracers [X]</title>
-    <desc>System Bracers slowly repair themselves even in the absense of crew.
+    <desc>Made out of special metal that can "remember" shapes, System Bracers will slowly repair themselves even in the absense of crew.
     
 		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
     <cost>0</cost>
@@ -703,6 +717,24 @@ Incompatible with performance upgrades.
 <augBlueprint name="EX_LILY_BRACERS_COVERAGE">
     <title>Integrity Field Generator [X]</title>
     <desc>System Bracers now protect systems from other sources of damage, such as sabotage and fires.
+    
+		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>true</stackable>
+</augBlueprint>
+
+
+<augBlueprint name="UPG_LILY_BRACERS_AETHER">
+    <title>Aether Integrity Field</title>
+    <desc>YOU SHOULD NEVER SEE THIS</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>true</stackable>
+</augBlueprint>
+<augBlueprint name="EX_LILY_BRACERS_AETHER">
+    <title>Aether Integrity Field [X]</title>
+    <desc>Systems protected by System Bracers are now sabotaged at half speed, and deal 2 hp/s damage to intruders.
     
 		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
     <cost>0</cost>
@@ -921,9 +953,100 @@ Incompatible with performance upgrades.
     <stackable>false</stackable>
 </augBlueprint>
 
+<augBlueprint name="UPG_LILY_BUNKER_FIBER">
+    <title>Fiber Fortifications</title>
+    <desc>YOU SHOULD NEVER SEE THIS</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>false</stackable>
+</augBlueprint>
 
 
+<augBlueprint name="UPG_LILY_FIBER_STRONG">
+    <title>Double Weaving</title>
+    <desc>YOU SHOULD NEVER SEE THIS</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>false</stackable>
+</augBlueprint>
+<augBlueprint name="EX_LILY_FIBER_STRONG">
+    <title>Double Weaving [X]</title>
+    <desc>Fiber Lining protection is now twice as effective, but is repaired by crew at halved speed.
+    
+		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>false</stackable>
+</augBlueprint>
 
+<augBlueprint name="UPG_LILY_FIBER_HAZARD">
+    <title>Hazmat Layer</title>
+    <desc>YOU SHOULD NEVER SEE THIS</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>false</stackable>
+</augBlueprint>
+<augBlueprint name="EX_LILY_FIBER_HAZARD">
+    <title>Hazmat Layer [X]</title>
+    <desc>Fiber Lining now also reduces status chance (fire, breach, stun) of projectiles and beams hitting your hull.
+    
+		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>false</stackable>
+</augBlueprint>
+
+<augBlueprint name="UPG_LILY_FIBER_PRIORITY">
+    <title>Dynamic Priority</title>
+    <desc>YOU SHOULD NEVER SEE THIS</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>false</stackable>
+</augBlueprint>
+<augBlueprint name="EX_LILY_FIBER_PRIORITY">
+    <title>Dynamic Priority [X]</title>
+    <desc>Fiber Lining now only applies its protection (and therefore takes damage) to rooms with allied crew present.
+    
+		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>false</stackable>
+</augBlueprint>
+
+<augBlueprint name="UPG_LILY_FIBER_REGEN">
+    <title>Living Fibers</title>
+    <desc>YOU SHOULD NEVER SEE THIS</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>false</stackable>
+</augBlueprint>
+<augBlueprint name="EX_LILY_FIBER_REGEN">
+    <title>Living Fibers [X]</title>
+    <desc>A special living fiber liner material is capable of feeding off power leaks on your ship, and regenerate itself naturally even in the absence of crew.
+    
+		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>false</stackable>
+</augBlueprint>
+
+
+<augBlueprint name="UPG_LILY_FIBER_AETHER">
+    <title>Aether Fiber Clothing</title>
+    <desc>YOU SHOULD NEVER SEE THIS</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>true</stackable>
+</augBlueprint>
+<augBlueprint name="EX_LILY_FIBER_AETHER">
+    <title>Aether Fiber Clothing [X]</title>
+    <desc>Special clothing made from living fibers infused with aether. Provides your crew with 20% damage reduction from all sources and constant 2 hp/s regeneration.
+    
+		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>true</stackable>
+</augBlueprint>
 
 <!--
     1) Aux. Compact Reactor:
@@ -1028,7 +1151,13 @@ Core overclock and Parallel processing are mutually exclusive
     <stackable>false</stackable>
 </augBlueprint>
 
-
+<augBlueprint name="BOON_LILY_FIBER_LINER">
+    <title>Fiber Liner Grant</title>
+    <desc>YOU SHOULD NEVER SEE THIS</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>false</stackable>
+</augBlueprint>
 
 
 
