@@ -130,17 +130,45 @@ local function get_level_description_lily_ablative_armor(systemId, level, toolti
         --return (tostring(level * 2) .. "/" .. tostring(0.75 + ((level > 1) and 0.25 or 0) + level * 0.25) .. "/" .. tostring(10 * math.max(0, (level - 3))) .. "%")
         if tooltip then
             if level == 0 then
-                return "Regen Disabled." .. "\n\nManning bonuses: 20/40/60% faster regen."
+                return Hyperspace.Text:GetText("tooltip_lily_ablative_armor_disabled") ..
+                    "\n\n" .. Hyperspace.Text:GetText("tooltip_lily_ablative_armor_manning")
             end
             
             if Hyperspace.ships.player and Hyperspace.ships.player:HasSystem(systemId) then
                 local maxlvl = Hyperspace.ships.player:GetSystem(systemId).healthState.second
-                return ("HP: " .. tostring(maxlvl * 2) .. "  / Regen: " .. tostring(0.75 + ((level > 1) and 0.25 or 0) + level * 0.25) .. ((level > 3) and ("x / Ion Resist: " .. tostring(10 * math.max(0, (level - 3))) .. "%") or "")) ..
-                "\n\nManning bonuses: 20/40/60% faster regen."
+
+                if level > 3 then
+                    return string.format(Hyperspace.Text:GetText("tooltip_lily_ablative_armor_level2_ion"),
+                        tostring(maxlvl * 2), tostring(0.75 + ((level > 1) and 0.25 or 0) + level * 0.25),
+                        tostring(10 * math.max(0, (level - 3)))) ..
+                    "\n\n" .. Hyperspace.Text:GetText("tooltip_lily_ablative_armor_manning")
+                else
+                    return string.format(Hyperspace.Text:GetText("tooltip_lily_ablative_armor_level2"),
+                            tostring(maxlvl * 2), tostring(0.75 + ((level > 1) and 0.25 or 0) + level * 0.25)) ..
+                        "\n\n" .. Hyperspace.Text:GetText("tooltip_lily_ablative_armor_manning")
+                end
             end
-            return ("HP: " .. tostring(level * 2) .. "  / Regen: " .. tostring(0.75 + ((level > 1) and 0.25 or 0) + level * 0.25) .. ((level > 3) and ("x / Ion Resist: " .. tostring(10 * math.max(0, (level - 3))) .. "%") or "")) .. "\n\nManning bonuses: 20/40/60% faster regen."
+            if level > 3 then
+                return string.format(Hyperspace.Text:GetText("tooltip_lily_ablative_armor_level2_ion"),
+                        tostring(level * 2), tostring(0.75 + ((level > 1) and 0.25 or 0) + level * 0.25),
+                        tostring(10 * math.max(0, (level - 3)))) ..
+                    "\n\n" .. Hyperspace.Text:GetText("tooltip_lily_ablative_armor_manning")
+            else
+                return string.format(Hyperspace.Text:GetText("tooltip_lily_ablative_armor_level2"),
+                        tostring(level * 2), tostring(0.75 + ((level > 1) and 0.25 or 0) + level * 0.25)) ..
+                    "\n\n" .. Hyperspace.Text:GetText("tooltip_lily_ablative_armor_manning")
+            end
         end
-        return ("HP: " .. tostring(level * 2) .. "/Reg.: " .. tostring(0.75 + ((level > 1) and 0.25 or 0) + level * 0.25) .. ((level > 3) and ("x/I.Res.: " .. tostring(10 * math.max(0, (level - 3))) .. "%") or ""))
+        if level > 3 then
+            return string.format(Hyperspace.Text:GetText("tooltip_lily_ablative_armor_level_ion"),
+                    tostring(level * 2), tostring(0.75 + ((level > 1) and 0.25 or 0) + level * 0.25),
+                    tostring(10 * math.max(0, (level - 3)))) ..
+                "\n\n" .. Hyperspace.Text:GetText("tooltip_lily_ablative_armor_manning")
+        else
+            return string.format(Hyperspace.Text:GetText("tooltip_lily_ablative_armor_level"),
+                    tostring(level * 2), tostring(0.75 + ((level > 1) and 0.25 or 0) + level * 0.25)) ..
+                "\n\n" .. Hyperspace.Text:GetText("tooltip_lily_ablative_armor_manning")
+        end
         --return string.format("Layers: %i / Regen: s%x, / Ion Res.: s%", level * 2, tostring(0.75 + ((level > 1) and 0.25 or 0) + level * 0.25 ), tostring(10 * math.max(0, (level - 3))) .. "%")
     end
 end
@@ -653,7 +681,7 @@ script.on_internal_event(Defines.InternalEvents.DAMAGE_BEAM, function(ship, proj
                     neg0 = math.max(math.random() * 100, math.random() * 100) < frac
                 end
                 if neg0 then
-                    damage.fireChance = math.max(0, damage.fireChance - currentLayers)
+                    damage.fireChance = math.max(0, math.min(damage.fireChance, math.max(damage.fireChance, 1) - currentLayers))
                 end
             return Defines.Chain.CONTINUE, beamHit
         end
@@ -813,7 +841,7 @@ script.on_internal_event(Defines.InternalEvents.DAMAGE_BEAM, function(ship, proj
 
         if neg2 then
             damage.iPersDamage = math.max(0, damage.iPersDamage - currentLayers2)
-            damage.fireChance = math.max(0, damage.fireChance - currentLayers2)
+            damage.fireChance = math.max(0, math.min(damage.fireChance, math.max(damage.fireChance, 1) - currentLayers2))
         end
         if beamHit == Defines.BeamHit_NEW_ROOM then
             if neg2 then
@@ -1056,7 +1084,7 @@ script.on_internal_event(Defines.InternalEvents.DAMAGE_AREA, function(ship, proj
 
         if neg2 then
             damage.iPersDamage = math.max(0, damage.iPersDamage - currentLayers2)
-            damage.fireChance = math.max(0, damage.fireChance - currentLayers2)
+            damage.fireChance = math.max(0, math.min(damage.fireChance, math.max(damage.fireChance, 1) - currentLayers2))
         end
 
         if projectile then

@@ -90,11 +90,11 @@ local function get_level_description_lily_shock_neutralizer(systemId, level, too
     if systemId == Hyperspace.ShipSystem.NameToSystemId("lily_shock_neutralizer") then
                 if tooltip then
             if level == 0 then
-                return "Disabled."
+                return Hyperspace.Text:GetText("tooltip_lily_system_disabled")
             end
-            return ("De-Ion Rate: " .. tostring(1 + level * .15) .. "x / Bonus Power: " .. level)
+            return string.format(Hyperspace.Text:GetText("tooltip_lily_shock_neutralizer_level"), tostring(1 + level * .15), level)
         end
-        return ("Rate: " .. tostring(1 + level * .15) .. "x / Bonus Power: " .. level)
+        return string.format(Hyperspace.Text:GetText("tooltip_lily_shock_neutralizer_level"), tostring(1 + level * .15), level)
     end
 end
 
@@ -235,10 +235,9 @@ local function lily_shock_neutralizer_render(systemBox, ignoreStatus)
 
         if activateButton.bHover then
             if Hyperspace.metaVariables.lily_shock_neutralizer_hotkey_enabled == 0 and not Hyperspace.ships.player:HasSystem(Hyperspace.ShipSystem.NameToSystemId("battery")) then
-                Hyperspace.Mouse.tooltip = "Select the target room for Shock Neutralizer.\nHotkey: B"
+                Hyperspace.Mouse.tooltip = string.format(Hyperspace.Text:GetText("tooltip_lily_shock_neutralizer_button"), "B")
             else
-                Hyperspace.Mouse.tooltip =
-                "Select the target room for Shock Neutralizer.\nHotkey: N/A"
+                Hyperspace.Mouse.tooltip = string.format(Hyperspace.Text:GetText("tooltip_lily_shock_neutralizer_button"), "N/A")
             end
         end
         Graphics.CSurface.GL_RenderPrimitive(buttonBase)

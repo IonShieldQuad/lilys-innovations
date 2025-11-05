@@ -140,11 +140,12 @@ local function get_level_description_lily_infusion_bay(systemId, level, tooltip)
     if systemId == Hyperspace.ShipSystem.NameToSystemId("lily_infusion_bay") then
         if tooltip then
             if level == 0 then
-                return "Disabled. Infusions cannot be activated."
+                return Hyperspace.Text:GetText("tooltip_lily_infusion_bay_disabled")
             end
-            return (level * 2 .. " Max Charges, " .. tostring(13 - level * 3) .. "s / Charge")
+            return string.format(Hyperspace.Text:GetText("tooltip_lily_infusion_bay_level"), tostring(level * 2), tostring(13 - level * 3))
         end
-        return (level * 2 .." Charges, " .. tostring(13 - level * 3) .. "s / Charge")
+        return string.format(Hyperspace.Text:GetText("tooltip_lily_infusion_bay_level"), tostring(level * 2),
+        tostring(13 - level * 3))
     end
 end
 
@@ -194,6 +195,15 @@ local function healCrewmember(crew, amount)
 
     local healing = math.max(amount * 15, crew:GetMaxHealth() * 0.15 * amount)
     crew:DirectModifyHealth(healing)
+end
+
+local function get_activate_text(infusionName)
+    return Hyperspace.Text:GetText("tooltip_lily_infusion_bay_activate_" .. infusionName)
+    
+end
+
+local function get_effect_text(infusionName)
+    return Hyperspace.Text:GetText("tooltip_lily_infusion_bay_effect_" .. infusionName)
 end
 
 -- -13, 64
@@ -336,6 +346,7 @@ local function lily_infusion_bay_construct_system_box(systemBox)
         buttonOffsets["phoenix"] = Hyperspace.Point(
             lily_infusion_bayButtonOffset_x + lily_infusion_bayButtonOffset_x_2 * 3,
             lily_infusion_bayButtonOffset_y + lily_infusion_bayButtonOffset_y_2 * 3)
+        
         tooltips["reconstitution"] = "Grants 0.85x combat damage resistance, 1.5hp/s health regeneration, 0.5x movement speed for the duration. 45 HP/% heal, 14 second sickness."
         tooltips["combatstimulant"] = "Grants 1.5x combat damage, door damage and movement speed, which diminishes over the course of the effect (1.25x after 5 seconds, 1.1x after 10 seconds). 15 HP/% heal, 21 second sickness."
         tooltips["gaseous"] = "Grants Suffocation/fire/mind control immunity, same-ship teleporation, but combat damage is reduced to 0.5x. 30 HP/% heal, 7 second sickness."
@@ -558,8 +569,8 @@ local function lily_infusion_bay_render(systemBox, ignoreStatus)
         local level = lily_infusion_bay_system.healthState.second
         Graphics.CSurface.GL_RenderPrimitive(buttonBase[math.max(math.min(level, 3), 1)])
 
-        local ttpre = "Activate the carried "
-        local ttpost = " infusions. Effects: "
+        --local ttpre = "Activate the carried "
+        --local ttpost = " infusions. Effects: "
 
         for name, button in pairs(buttons) do
             ---@type Hyperspace.Button
@@ -577,17 +588,17 @@ local function lily_infusion_bay_render(systemBox, ignoreStatus)
 
             if button.bHover then
                 if _ == 1 then
-                    Hyperspace.Mouse.tooltip = ttpre .. "reconstitution" .. ttpost .. tooltips["reconstitution"]
+                    Hyperspace.Mouse.tooltip = get_activate_text("reconstitution") .. get_effect_text("reconstitution")
                 elseif _== 2 then
-                    Hyperspace.Mouse.tooltip = ttpre .. "combat stimulant" .. ttpost .. tooltips["combatstimulant"]
+                    Hyperspace.Mouse.tooltip = get_activate_text("combatstimulant") .. get_effect_text("combatstimulant")
                 elseif _== 3 then
-                    Hyperspace.Mouse.tooltip = ttpre .. "gaseous" .. ttpost .. tooltips["gaseous"]
+                    Hyperspace.Mouse.tooltip = get_activate_text("gaseous") .. get_effect_text("gaseous")
                 else
                     if get_fourth_button_name(shipManager) == "locked" then
-                        Hyperspace.Mouse.tooltip = "This infusion is currently locked."
+                        Hyperspace.Mouse.tooltip = Hyperspace.Text:GetText("tooltip_lily_infusion_bay_locked")
                     else
-                        Hyperspace.Mouse.tooltip = ttpre .. get_fourth_button_name(shipManager) .. ttpost .. 
-                        tooltips[get_fourth_button_name(shipManager)]
+                        Hyperspace.Mouse.tooltip = get_activate_text(get_fourth_button_name(shipManager)) ..
+                            get_effect_text(get_fourth_button_name(shipManager))
                     end
                 end
             end

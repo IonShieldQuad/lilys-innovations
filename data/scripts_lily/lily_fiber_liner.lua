@@ -71,11 +71,11 @@ local function get_level_description_lily_fiber_liner(systemId, level, tooltip)
     if systemId == Hyperspace.ShipSystem.NameToSystemId("lily_fiber_liner") then
         if tooltip then
             if level == 0 then
-                return "Disabled."
+                return Hyperspace.Text:GetText("tooltip_lily_system_disabled")
             end
-            return ("Protection: " .. tostring(level * 15) .. " dmg")
+            return string.format(Hyperspace.Text:GetText("tooltip_lily_fiber_liner_level"), tostring(level * 15))
         end
-        return ("Protection: " .. tostring(level * 15) .. " dmg")
+        return string.format(Hyperspace.Text:GetText("tooltip_lily_fiber_liner_level"), tostring(level * 15))
     end
 end
 
@@ -134,6 +134,15 @@ script.on_internal_event(Defines.InternalEvents.SHIP_LOOP, function(shipManager)
 
         if shipManager:HasAugmentation("UPG_LILY_FIBER_REGEN") > 0 or shipManager:HasAugmentation("EX_LILY_FIBER_REGEN") > 0 then
             lily_fiber_liner_system:PartialRepair(4, true)
+            if lily_fiber_liner_system:Functioning() then
+                for sys in vter(shipManager.vSystemList) do
+                    ---@type Hyperspace.ShipSystem
+                    sys = sys
+                    if sys then
+                        sys:PartialRepair(0.20 * lily_fiber_liner_system.healthState.first, true)
+                    end
+                end
+            end
         end
     end
 end)
@@ -387,6 +396,45 @@ local function render_fiber_liner_effects(ship, experimental)
 end
 
 script.on_render_event(Defines.RenderEvents.SHIP_SPARKS, render_fiber_liner_effects, function() end)
+
+local lily_recursionguard = false
+
+---@diagnostic disable-next-line: undefined-field
+script.on_internal_event(Defines.InternalEvents.CALCULATE_STAT_POST, function(crew, stat, def, amount, value)
+    if mods.lilyinno.checkStartOK() then
+        ---@type Hyperspace.CrewMember
+        crew = crew
+        ---@type Hyperspace.CrewStat
+        stat = stat
+        if crew and (not crew.bOutOfGame) and (crew.currentShipId == 0 or crew.currentShipId == 1) then
+            local currentShipManager = Hyperspace.ships(crew.currentShipId)
+            local crewShipManager = Hyperspace.ships(crew.iShipId)
+
+            if currentShipManager and crewShipManager and not lily_recursionguard then
+                lily_recursionguard = true
+                if (crewShipManager:HasAugmentation("UPG_LILY_FIBER_AETHER") > 0 or crewShipManager:HasAugmentation("EX_LILY_FIBER_AETHER") > 0) and crew.iShipId then
+                    local power, unused = crew.extend:CalculateStat(Hyperspace.CrewStat.BONUS_POWER)
+                    if power and power > 0.5 then
+                        if stat == Hyperspace.CrewStat.DAMAGE_MULTIPLIER then
+                            amount = amount * 1.3
+                        end
+                        if stat == Hyperspace.CrewStat.SABOTAGE_SPEED_MULTIPLIER then
+                            amount = amount * 1.3
+                        end
+                        if stat == Hyperspace.CrewStat.DAMAGE_ENEMIES_AMOUNT then
+                            amount = amount * 1.3
+                        end
+                        if stat == Hyperspace.CrewStat.REPAIR_SPEED_MULTIPLIER then
+                            amount = amount * 1.3
+                        end
+                    end
+                end
+                lily_recursionguard = false
+            end
+        end
+    end
+    return Defines.Chain.CONTINUE, amount, value
+end)
 
 
 mods.multiverse.systemIcons[Hyperspace.ShipSystem.NameToSystemId("lily_fiber_liner")] = mods.multiverse

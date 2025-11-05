@@ -11,3 +11,54 @@
 <text name="tooltip_lily_fiber_liner_enemy">Fiber Liner: Protects your enemy's crew by reducing crew damage of projectiles hilling enemy ship's hull. Takes damage based on crew damage absorbed.</text>
 <text name="tooltip_lily_targeting_core">Dedicated Targeting Core: Marks rooms on the enemy ship. Marked rooms are more likely to be targeted, and projectiles aimed at them have bonus accuracy.</text>
 <text name="tooltip_lily_targeting_core_enemy">Dedicated Targeting Core: Marks rooms on your ship. Marked rooms are more likely to be targeted, and projectiles aimed at them have bonus accuracy.</text>
+
+<text name="tooltip_lily_system_disabled">Disabled.</text>
+
+<text name="tooltip_lily_fiber_liner_level">Protection: %s dmg</text>
+
+<text name="tooltip_lily_system_bracers_level">HP: %s</text>
+
+<text name="tooltip_lily_infusion_bay_disabled">Disabled. Infusions cannot be activated.</text>
+<text name="tooltip_lily_infusion_bay_level">%s Max Charges, %ss / Charge</text>
+
+<text name="tooltip_lily_targeting_core_level">Core Strength: %s</text>
+<text name="tooltip_lily_targeting_core_manning">Manning bonuses: +0.5/0.75/1 Core Strength.</text>
+
+<text name="tooltip_lily_shock_neutralizer_level">Rate: %sx / Bonus Power: %s</text>
+
+<text name="tooltip_lily_ablative_armor_disabled">Regen Disabled.</text>
+<text name="tooltip_lily_ablative_armor_level">HP: %s /Reg.: %sx</text>
+<text name="tooltip_lily_ablative_armor_level2">HP: %s/ Regen: %sx</text>
+<text name="tooltip_lily_ablative_armor_level_ion">HP: %s/Reg.: %sx/I.Res.: %s</text>
+<text name="tooltip_lily_ablative_armor_level2_ion">HP: %s / Regen: %sx / Ion Resist: %s</text>
+<text name="tooltip_lily_ablative_armor_manning">Manning bonuses: 20/40/60% faster regen.</text>
+
+
+
+<text name="tooltip_lily_infusion_bay_locked">This infusion is currently locked.</text>
+<text name="tooltip_lily_infusion_bay_activate_reconstitution">Activate the carried reconstitution infusions. Effects: </text>
+<text name="tooltip_lily_infusion_bay_activate_combatstimulant">Activate the carried combat stumulant infusions. Effects: </text>
+<text name="tooltip_lily_infusion_bay_activate_gaseous">Activate the carried gaseous infusions. Effects: </text>
+<text name="tooltip_lily_infusion_bay_activate_overloaded">Activate the carried overloaded infusions. Effects: </text>
+<text name="tooltip_lily_infusion_bay_activate_chaotic">Activate the carried chaotic infusions. Effects: </text>
+<text name="tooltip_lily_infusion_bay_activate_fireborne">Activate the carried fireborne infusions. Effects: </text>
+<text name="tooltip_lily_infusion_bay_activate_explosive">Activate the carried explosive infusions. Effects: </text>
+<text name="tooltip_lily_infusion_bay_activate_phoenix">Activate the carried phoenix infusions. Effects: </text>
+<text name="tooltip_lily_infusion_bay_effect_reconstitution">Grants 0.85x combat damage resistance, 1.5hp/s health regeneration, 0.5x movement speed for the duration. 45 HP/% heal, 14 second sickness.</text>
+<text name="tooltip_lily_infusion_bay_effect_combatstimulant">Grants 1.5x combat damage, door damage and movement speed, which diminishes over the course of the effect (1.25x after 5 seconds, 1.1x after 10 seconds). 15 HP/% heal, 21 second sickness.</text>
+<text name="tooltip_lily_infusion_bay_effect_gaseous">Grants Suffocation/fire/mind control immunity, same-ship teleporation, but combat damage is reduced to 0.5x. 30 HP/% heal, 7 second sickness.</text>
+<text name="tooltip_lily_infusion_bay_effect_overloaded">Stuns self and all nearby crew for 5s and deals 2 ion damage to system. Systems on your ship have 1 ion removed instead. 30 HP/% heal, 21 second sickness.</text>
+<text name="tooltip_lily_infusion_bay_effect_chaotic">Applies an effect of a random other infusion. Hopefully there isn't any adverse effects on your crew. 15 - 75 HP/% heal, 7 second sickness.</text>
+<text name="tooltip_lily_infusion_bay_effect_fireborne">Starts a fire in current room. Grants ability to heal from fires for the duration, but also makes your crew suffocate at rapid speed, even if they are normally immune. 15 HP/% heal, 21 second sickness.</text>
+<text name="tooltip_lily_infusion_bay_effect_explosive">Explodes, damaging all enemies in the room by 15 HP. System on enemy ships take 1 damage, while on your ship are repaired by 1 bar instead. 15 HP/% heal, 14 second sickness.</text>
+<text name="tooltip_lily_infusion_bay_effect_phoenix">Crew cannot die during the duration. If they take damage that would normally kill them, they are instead healed to full health and teleported to the Infusion Bay. When this effect triggers, allies in the same room get healed by 30 HP/%, and the Infusion Bay takes 1 unresistable ion damage with double lockout duration. Won't save your boarders if enemy ship explodes. 15 HP/% heal, 14 second sickness.</text>
+
+<text name="tooltip_lily_shock_neutralizer_button">Select the target room for Shock Neutralizer.\nHotkey: %s</text>
+
+<text name="tooltip_lily_targeting_core_button">Select the room for Targeting Core to lock on to.\nHotkey: %s</text>
+<text name="tooltip_lily_targeting_core_button_notready">System not ready.</text>
+<text name="tooltip_lily_targeting_core_button_noship">No hostile ship present to target.</text>
+
+<!--
+<text name="tooltip_lily_"></text>
+-->

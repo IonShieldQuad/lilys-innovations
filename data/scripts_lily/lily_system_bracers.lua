@@ -71,11 +71,11 @@ local function get_level_description_lily_system_bracers(systemId, level, toolti
     if systemId == Hyperspace.ShipSystem.NameToSystemId("lily_system_bracers") then
         if tooltip then
             if level == 0 then
-                return "Disabled."
+                return Hyperspace.Text:GetText("tooltip_lily_system_disabled")
             end
-            return ("HP: " .. tostring(level))
+            return string.format(Hyperspace.Text:GetText("tooltip_lily_system_bracers_level"), tostring(level))
         end
-        return ("HP: " .. tostring(level))
+        return string.format(Hyperspace.Text:GetText("tooltip_lily_system_bracers_level"), tostring(level))
     end
 end
 

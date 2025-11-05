@@ -1,4 +1,10 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.7.1
+Date: 2025-11-05
+  Changes:
+    - Moved tooltip strings from Lua code to XML to allow for easier translation.
+    - External upgrade versions now have a cost defined, meaning they should be potentially obtainable in Rainbow Mode.
+---------------------------------------------------------------------------------------------------
 Version: 1.7.0
 Date: 2025-11-01
   Changes:

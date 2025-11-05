@@ -130,7 +130,7 @@ When the enemy is cloaked, the bonus accuracy provided by the system is doubled,
     <desc>Allied crew in System Bracers room take half damage from all sources, and enemy crew sabotage it at half speed.
     
 		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
-    <cost>0</cost>
+    <cost>20</cost>
     <rarity>0</rarity>
     <stackable>true</stackable>
 </augBlueprint>
@@ -147,7 +147,7 @@ When the enemy is cloaked, the bonus accuracy provided by the system is doubled,
     <desc>Makes your boarding drones prioritize landing in important enemy rooms.
     
 [X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
-    <cost>0</cost>
+    <cost>50</cost>
     <rarity>0</rarity>
     <stackable>false</stackable>
 </augBlueprint>
@@ -241,7 +241,7 @@ When the enemy is cloaked, the bonus accuracy provided by the system is doubled,
     <desc>Allied crew in Doors room take half damage from all sources, and enemy crew sabotage it at half speed.
     
 		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
-    <cost>0</cost>
+    <cost>20</cost>
     <rarity>0</rarity>
     <stackable>true</stackable>
 </augBlueprint>
@@ -258,7 +258,7 @@ When the enemy is cloaked, the bonus accuracy provided by the system is doubled,
     <desc>Oxygen system provides a tiny amount of oxygen in the system room even if it's destroyed or disabled.
     
 		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
-    <cost>0</cost>
+    <cost>10</cost>
     <rarity>0</rarity>
     <stackable>true</stackable>
 </augBlueprint>
@@ -275,7 +275,7 @@ When the enemy is cloaked, the bonus accuracy provided by the system is doubled,
     <desc>All doors and airlocks are automatically shut closed if Doors system is destroyed or disabled.
     
 		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
-    <cost>0</cost>
+    <cost>10</cost>
     <rarity>0</rarity>
     <stackable>false</stackable>
 </augBlueprint>
@@ -293,7 +293,7 @@ When the enemy is cloaked, the bonus accuracy provided by the system is doubled,
 Incompatible with performance upgrades.
     
 		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
-    <cost>0</cost>
+    <cost>50</cost>
     <rarity>0</rarity>
     <stackable>false</stackable>
 </augBlueprint>
@@ -310,7 +310,7 @@ Incompatible with performance upgrades.
     <desc>When close to a sun, backup battery can be active indefinitely.
     
 		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
-    <cost>0</cost>
+    <cost>20</cost>
     <rarity>0</rarity>
     <stackable>false</stackable>
 </augBlueprint>
@@ -328,7 +328,7 @@ Incompatible with performance upgrades.
     <desc>Crew in piloting becomes immune to mind control and stun.
     
 		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
-    <cost>0</cost>
+    <cost>20</cost>
     <rarity>0</rarity>
     <stackable>false</stackable>
 </augBlueprint>
@@ -346,7 +346,7 @@ Incompatible with performance upgrades.
     <desc>Integrated Neural Network can operate Piloting subsystem even in the absense of crew.
     
 		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
-    <cost>0</cost>
+    <cost>30</cost>
     <rarity>0</rarity>
     <stackable>false</stackable>
 </augBlueprint>
@@ -363,7 +363,7 @@ Incompatible with performance upgrades.
     <desc>Integrated Neural Network can operate Sensors subsystem even in the absense of crew.
     
 		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
-    <cost>0</cost>
+    <cost>30</cost>
     <rarity>0</rarity>
     <stackable>false</stackable>
 </augBlueprint>
@@ -380,7 +380,7 @@ Incompatible with performance upgrades.
     <desc>Integrated Neural Network can operate Doors subsystem even in the absense of crew.
     
 		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
-    <cost>0</cost>
+    <cost>30</cost>
     <rarity>0</rarity>
     <stackable>false</stackable>
 </augBlueprint>
@@ -402,7 +402,7 @@ Incompatible with performance upgrades.
     <desc>Decreases damage taken by ablative armor from beams by 1.
     
 [X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
-    <cost>0</cost>
+    <cost>60</cost>
     <rarity>0</rarity>
     <stackable>false</stackable>
 </augBlueprint>
@@ -418,7 +418,7 @@ Incompatible with performance upgrades.
     <desc>When Ablative Armor absorbs damage, it also releases a burst of debris to intercept incoming projectiles or drones.
     
 [X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
-    <cost>0</cost>
+    <cost>60</cost>
     <rarity>0</rarity>
     <stackable>false</stackable>
 </augBlueprint>
@@ -434,7 +434,7 @@ Incompatible with performance upgrades.
     <desc>Improves chances of Ablative Armor to absorb system or crew damage.
     
 		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
-    <cost>0</cost>
+    <cost>80</cost>
     <rarity>0</rarity>
     <stackable>false</stackable>
 </augBlueprint>
@@ -450,7 +450,7 @@ Incompatible with performance upgrades.
     <desc>If Ablative Armor system is present, repairs 2 hull points per jump.
     
 		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
-    <cost>0</cost>
+    <cost>50</cost>
     <rarity>0</rarity>
     <stackable>true</stackable>
 </augBlueprint>
@@ -467,7 +467,7 @@ Incompatible with performance upgrades.
     <desc>Allows effects that trigger on hull damage trigger on armor damage as well.
     
 		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
-    <cost>0</cost>
+    <cost>20</cost>
     <rarity>0</rarity>
     <stackable>true</stackable>
 </augBlueprint>
@@ -484,7 +484,7 @@ Incompatible with performance upgrades.
     <desc>Allied crew in Ablative Armor room take half damage from all sources, and enemy crew sabotage it at half speed.
     
 		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
-    <cost>0</cost>
+    <cost>20</cost>
     <rarity>0</rarity>
     <stackable>true</stackable>
 </augBlueprint>
@@ -501,7 +501,7 @@ Incompatible with performance upgrades.
     <desc>Increases chance to resist armor and hull damage by 10% and allows Ablative Armor layers benefit from resist chance.
     
 		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
-    <cost>0</cost>
+    <cost>80</cost>
     <rarity>0</rarity>
     <stackable>true</stackable>
 </augBlueprint>
@@ -536,7 +536,7 @@ Incompatible with performance upgrades.
     <desc>Protects your ship from ion damage, giving a 30% chance to negate it entirely. Stacks.
     
 		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
-    <cost>0</cost>
+    <cost>50</cost>
     <rarity>0</rarity>
     <stackable>true</stackable>
 </augBlueprint>
@@ -553,7 +553,7 @@ Incompatible with performance upgrades.
     <desc>Shock Neutralizer also provide half of its bonus to rooms adjancent to target.
     
 		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
-    <cost>0</cost>
+    <cost>60</cost>
     <rarity>0</rarity>
     <stackable>true</stackable>
 </augBlueprint>
@@ -570,7 +570,7 @@ Incompatible with performance upgrades.
     <desc>Protect your ship from Plasma damage, giving 100% chance to negate system damage on shield hits and 50% on direct hits.
     
 		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
-    <cost>0</cost>
+    <cost>30</cost>
     <rarity>0</rarity>
     <stackable>true</stackable>
 </augBlueprint>
@@ -587,7 +587,7 @@ Incompatible with performance upgrades.
     <desc>Shock Neutralizer now also affects crew stun times.
     
 		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
-    <cost>0</cost>
+    <cost>30</cost>
     <rarity>0</rarity>
     <stackable>true</stackable>
 </augBlueprint>
@@ -645,7 +645,7 @@ Incompatible with performance upgrades.
 3 Power: 3.25x Infusion Sickness recovery rate.
     
 		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
-    <cost>0</cost>
+    <cost>50</cost>
     <rarity>0</rarity>
     <stackable>true</stackable>
 </augBlueprint>
@@ -664,7 +664,7 @@ Incompatible with performance upgrades.
     <desc>Crew in the Infusion Bay become immune to suffocation and fires, and recover extra 1 HP/s.
     
 		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
-    <cost>0</cost>
+    <cost>40</cost>
     <rarity>0</rarity>
     <stackable>true</stackable>
 </augBlueprint>
@@ -683,7 +683,7 @@ Incompatible with performance upgrades.
     <desc>System Bracers have a 50% chance to not lose durability but instead catch fire when absorbing damage.
     
 		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
-    <cost>0</cost>
+    <cost>20</cost>
     <rarity>0</rarity>
     <stackable>true</stackable>
 </augBlueprint>
@@ -701,7 +701,7 @@ Incompatible with performance upgrades.
     <desc>Made out of special metal that can "remember" shapes, System Bracers will slowly repair themselves even in the absense of crew.
     
 		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
-    <cost>0</cost>
+    <cost>50</cost>
     <rarity>0</rarity>
     <stackable>true</stackable>
 </augBlueprint>
@@ -719,7 +719,7 @@ Incompatible with performance upgrades.
     <desc>System Bracers now protect systems from other sources of damage, such as sabotage and fires.
     
 		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
-    <cost>0</cost>
+    <cost>50</cost>
     <rarity>0</rarity>
     <stackable>true</stackable>
 </augBlueprint>
@@ -737,7 +737,7 @@ Incompatible with performance upgrades.
     <desc>Systems protected by System Bracers are now sabotaged at half speed, and deal 2 hp/s damage to intruders.
     
 		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
-    <cost>0</cost>
+    <cost>80</cost>
     <rarity>0</rarity>
     <stackable>true</stackable>
 </augBlueprint>
@@ -756,7 +756,7 @@ Incompatible with performance upgrades.
     <desc>Allows you to collect information about the beacons of the whole sector. Requires the ship to be stationary for some time.
     
 		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
-    <cost>0</cost>
+    <cost>40</cost>
     <rarity>0</rarity>
     <stackable>true</stackable>
 </augBlueprint>
@@ -773,7 +773,7 @@ Incompatible with performance upgrades.
     <desc>Allows you to collect more information about sectors on you journey, revealing the exact names of all of them when making an inter-sector jump.
     
 		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
-    <cost>0</cost>
+    <cost>20</cost>
     <rarity>0</rarity>
     <stackable>true</stackable>
 </augBlueprint>
@@ -790,7 +790,7 @@ Incompatible with performance upgrades.
     <desc>Automatically teleports your crew back to your ship if the enemy ship is destroyed or jumping.
     
 		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
-    <cost>0</cost>
+    <cost>50</cost>
     <rarity>0</rarity>
     <stackable>true</stackable>
 </augBlueprint>
@@ -807,7 +807,7 @@ Incompatible with performance upgrades.
     <desc>Slowly repairs your clonebay system even with absense of crew.
     
 		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
-    <cost>0</cost>
+    <cost>20</cost>
     <rarity>0</rarity>
     <stackable>true</stackable>
 </augBlueprint>
@@ -842,7 +842,7 @@ Incompatible with performance upgrades.
     <desc>If enemy ship has cloaking system, automatically and instantly locks onto it at the start of the battle.
     
 		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
-    <cost>0</cost>
+    <cost>30</cost>
     <rarity>0</rarity>
     <stackable>false</stackable>
 </augBlueprint>
@@ -860,7 +860,7 @@ Incompatible with performance upgrades.
     <desc>If a weapon has fire/breach/stun chance, this chance is increased by Core Strength * 5%. (Rounded up to nearest 10%)
     
 		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
-    <cost>0</cost>
+    <cost>60</cost>
     <rarity>0</rarity>
     <stackable>false</stackable>
 </augBlueprint>
@@ -879,7 +879,7 @@ Incompatible with performance upgrades.
     <desc>Dedicated Targeting Core now provides extra 5% weapon reload boost per Core Strength.
     
 		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
-    <cost>0</cost>
+    <cost>60</cost>
     <rarity>0</rarity>
     <stackable>false</stackable>
 </augBlueprint>
@@ -897,7 +897,7 @@ Incompatible with performance upgrades.
     <desc>Weapons with spread (such as flak) will now attempt to hit closer to the target, by 10 units per Core Strength.
     
 		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
-    <cost>0</cost>
+    <cost>50</cost>
     <rarity>0</rarity>
     <stackable>false</stackable>
 </augBlueprint>
@@ -905,7 +905,7 @@ Incompatible with performance upgrades.
 <augBlueprint name="UPG_LILY_TARGETING_UPLINK">
     <title>Weakpoint Data Uplink</title>
     <desc>YOU SHOULD NEVER SEE THIS</desc>
-    <cost>0</cost>
+    <cost>40</cost>
     <rarity>0</rarity>
     <stackable>false</stackable>
 </augBlueprint>
@@ -931,7 +931,7 @@ Incompatible with performance upgrades.
     <desc>Reduces time it takes for Dedicated Targeting Core to lock onto a room from 6 to 1.5 seconds.
     
 		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
-    <cost>0</cost>
+    <cost>40</cost>
     <rarity>0</rarity>
     <stackable>false</stackable>
 </augBlueprint>
@@ -948,7 +948,7 @@ Incompatible with performance upgrades.
     <desc>Dedicated Targeting Core now also applies its full effects to rooms adjacent to directly targeted.
     
 		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
-    <cost>0</cost>
+    <cost>40</cost>
     <rarity>0</rarity>
     <stackable>false</stackable>
 </augBlueprint>
@@ -974,7 +974,7 @@ Incompatible with performance upgrades.
     <desc>Fiber Lining protection is now twice as effective, but is repaired by crew at halved speed.
     
 		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
-    <cost>0</cost>
+    <cost>40</cost>
     <rarity>0</rarity>
     <stackable>false</stackable>
 </augBlueprint>
@@ -991,7 +991,7 @@ Incompatible with performance upgrades.
     <desc>Fiber Lining now also reduces status chance (fire, breach, stun) of projectiles and beams hitting your hull.
     
 		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
-    <cost>0</cost>
+    <cost>50</cost>
     <rarity>0</rarity>
     <stackable>false</stackable>
 </augBlueprint>
@@ -1008,7 +1008,7 @@ Incompatible with performance upgrades.
     <desc>Fiber Lining now only applies its protection (and therefore takes damage) to rooms with allied crew present.
     
 		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
-    <cost>0</cost>
+    <cost>30</cost>
     <rarity>0</rarity>
     <stackable>false</stackable>
 </augBlueprint>
@@ -1025,7 +1025,7 @@ Incompatible with performance upgrades.
     <desc>A special living fiber liner material is capable of feeding off power leaks on your ship, and regenerate itself naturally even in the absence of crew.
     
 		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
-    <cost>0</cost>
+    <cost>80</cost>
     <rarity>0</rarity>
     <stackable>false</stackable>
 </augBlueprint>
@@ -1040,10 +1040,10 @@ Incompatible with performance upgrades.
 </augBlueprint>
 <augBlueprint name="EX_LILY_FIBER_AETHER">
     <title>Aether Fiber Clothing [X]</title>
-    <desc>Special clothing made from living fibers infused with aether. Provides your crew with 20% damage reduction from all sources and constant 2 hp/s regeneration.
+    <desc>Special clothing made from living fibers infused with aether. Provides your crew with 20% damage reduction from all sources and constant 2 hp/s regeneration. Crew that provide bonus power additionally gain +30% damage and repair.
     
 		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
-    <cost>0</cost>
+    <cost>100</cost>
     <rarity>0</rarity>
     <stackable>true</stackable>
 </augBlueprint>

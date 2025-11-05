@@ -145,11 +145,12 @@ local function get_level_description_lily_targeting_core(systemId, level, toolti
     if systemId == Hyperspace.ShipSystem.NameToSystemId("lily_targeting_core") then
         if tooltip then
             if level == 0 then
-                return "Disabled." .. "\n\nManning bonuses: +0.5/0.75/1 effective levels."
+                return Hyperspace.Text:GetText("tooltip_lily_system_disabled") .. "\n\n" .. Hyperspace.Text:GetText("tooltip_lily_targeting_core_manning")
             end
-            return ("Core Strength: " .. tostring(level + 1) .. "\n\nManning bonuses: +0.5/0.75/1 Core Strength.")
+            return string.format(Hyperspace.Text:GetText("tooltip_lily_targeting_core_level"), tostring(level + 1)) ..
+                "\n\n" .. Hyperspace.Text:GetText("tooltip_lily_targeting_core_manning")
         end
-        return ("Core Strength: " .. tostring(level + 1) )
+        return string.format(Hyperspace.Text:GetText("tooltip_lily_targeting_core_level"), tostring(level + 1))
     end
 end
 
@@ -297,16 +298,16 @@ local function lily_targeting_core_render(systemBox, ignoreStatus)
 
         if activateButton.bHover then
             if activateButton.bActive then
-                if Hyperspace.metaVariables.lily_targeting_core_hotkey_enabled == 0 and not Hyperspace.ships.player:HasSystem(Hyperspace.ShipSystem.NameToSystemId("battery")) then
-                    Hyperspace.Mouse.tooltip = "Select the room for Targeting Core to lock on to.\nHotkey: I"
+                if Hyperspace.metaVariables.lily_targeting_core_hotkey_enabled == 0 then
+                    Hyperspace.Mouse.tooltip = string.format(Hyperspace.Text:GetText("tooltip_lily_targeting_core_button"), "I")
+                    
                 else
-                    Hyperspace.Mouse.tooltip =
-                    "Select the room for Targeting Core to lock on to.\nHotkey: N/A"
+                    Hyperspace.Mouse.tooltip = string.format(Hyperspace.Text:GetText("tooltip_lily_targeting_core_button"), "N/A")
                 end
             elseif activationTimer[shipManager.iShipId] < 1 then
-                Hyperspace.Mouse.tooltip = "System not ready."
+                Hyperspace.Mouse.tooltip = Hyperspace.Text:GetText("tooltip_lily_targeting_core_button_notready")
             else
-                Hyperspace.Mouse.tooltip = "No hostile ship present to target."
+                Hyperspace.Mouse.tooltip = Hyperspace.Text:GetText("tooltip_lily_targeting_core_button_noship")
             end
 
         end
