@@ -12,4 +12,10 @@
 <text name="lily_fiber_liner_installed">Fiber Liner Subsystem installed</text>
 <text name="lily_targeting_core">Dedicated Targeting Core</text>
 <text name="lily_targeting_core_installed">Dedicated Targeting Core System installed</text>
+
+
+<text name="lily_eventtext_medbay1">Medbay</text>
+<text name="lily_eventtext_medbay2">Infusion Bay</text>
+<text name="lily_eventtext_infusion_bay1">medbay</text>
+<text name="lily_eventtext_infusion_bay2">infusion bay</text>
 </FTL>
