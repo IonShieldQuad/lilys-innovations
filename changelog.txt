@@ -1,4 +1,11 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.7.3
+Date: 2025-11-12
+  Changes:
+    - Fixed some Ablative Armor text being displayed incorrectly.
+    - Fixed some missing spaces in events that caused the game to break if this mod was translated.
+    - Slightly tweaked the Dedicated Targeting Core icon to make it more round.
+---------------------------------------------------------------------------------------------------
 Version: 1.7.2
 Date: 2025-11-06
   Changes:

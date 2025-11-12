@@ -162,12 +162,10 @@ local function get_level_description_lily_ablative_armor(systemId, level, toolti
         if level > 3 then
             return string.format(Hyperspace.Text:GetText("tooltip_lily_ablative_armor_level_ion"),
                     tostring(level * 2), tostring(0.75 + ((level > 1) and 0.25 or 0) + level * 0.25),
-                    tostring(10 * math.max(0, (level - 3)))) ..
-                "\n\n" .. Hyperspace.Text:GetText("tooltip_lily_ablative_armor_manning")
+                    tostring(10 * math.max(0, (level - 3))))
         else
             return string.format(Hyperspace.Text:GetText("tooltip_lily_ablative_armor_level"),
-                    tostring(level * 2), tostring(0.75 + ((level > 1) and 0.25 or 0) + level * 0.25)) ..
-                "\n\n" .. Hyperspace.Text:GetText("tooltip_lily_ablative_armor_manning")
+                    tostring(level * 2), tostring(0.75 + ((level > 1) and 0.25 or 0) + level * 0.25))
         end
         --return string.format("Layers: %i / Regen: s%x, / Ion Res.: s%", level * 2, tostring(0.75 + ((level > 1) and 0.25 or 0) + level * 0.25 ), tostring(10 * math.max(0, (level - 3))) .. "%")
     end

@@ -52,7 +52,7 @@ You notice an input interface located below the poster, which has already recogn
         <text>Check your eligibility...</text>
         <event>
             <text>You quickly prompt the terminal to scan your ship and it gives you a selection of the following options:</text>
-            <choice req="LILYINNO_PROMO_REQ_SYSTEMS" lvl="0" max_lvl="0"hidden="true">
+            <choice req="LILYINNO_PROMO_REQ_SYSTEMS" lvl="0" max_lvl="0" hidden="true">
                 <text>Your ship is not eligible for the offer.</text>
                 <event load="OPTION_INVALID"/>
             </choice>
@@ -137,7 +137,7 @@ You notice an input interface located below the poster, which has already recogn
         </event>
     </choice>
 
-    <choice req="mods_lilyinno_systemslotbonus" lvl="1"hidden="true">
+    <choice req="mods_lilyinno_systemslotbonus" lvl="1" hidden="true">
         <text>Bonus system slot already installed.</text>
         <event load="OPTION_INVALID"/>
     </choice>
