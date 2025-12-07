@@ -88,7 +88,7 @@ When the enemy is cloaked, the bonus accuracy provided by the system is doubled,
 <systemBlueprint name="lily_ecm_suite">
     <type>hacking</type>
     <title>ECM Suite</title>
-    <desc>Grants an array of activatable abilities to disrupt ebemy drones, projectiles or systems. Especially effective against drones.</desc>
+    <desc>Grants an array of activatable abilities to disrupt enemy drones, projectiles or systems. Especially effective against drones.</desc>
     <startPower>1</startPower>
     <maxPower>3</maxPower>
     <rarity>1</rarity>
@@ -1320,6 +1320,18 @@ Core overclock and Parallel processing are mutually exclusive
     <rarity>0</rarity>
     <stackable>false</stackable>
 </augBlueprint>
+
+
+<mod:findName name="LILY_ASB_SCRAMBLER" type="augBlueprint">
+    <mod:findLike type="rarity">
+        <mod:removeTag/>
+    </mod:findLike>
+    <mod-append:rarity>0</mod-append:rarity>
+    <mod:findLike type="cost">
+        <mod:removeTag/>
+    </mod:findLike>
+    <mod-append:cost>150</mod-append:cost>
+</mod:findName>
 
 
 

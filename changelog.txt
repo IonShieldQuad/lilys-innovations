@@ -1,4 +1,11 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.8.1
+Date: 2025-12-07
+  Changes:
+    - Fixed the ASB Scrambler options appearing when they shouldn't. (hopefully)
+    - Fixed the system glitching out when you have odd number of max charges.
+    - Fixed some typos and text errors.
+---------------------------------------------------------------------------------------------------
 Version: 1.8.0
 Date: 2025-12-07
   Changes:

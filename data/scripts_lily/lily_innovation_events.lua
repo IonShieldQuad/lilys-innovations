@@ -7,14 +7,15 @@ local INT_MAX = 2147483647
 
 
 script.on_internal_event(Defines.InternalEvents.HAS_EQUIPMENT, function (shipManager, equipment, value)
-    if not value then
-        value = 0
-    end
 
     if equipment == "LILY_ECM_ASB_SCRAMBLER_ACTIVATE" then
-        if shipManager:HasEquipment("LILY_ECM_ASB_SCRAMBLER") then
+        value = 0
+        --local haseq = shipManager:HasAugmentation("LILY_ASB_SCRAMBLER") or
+        --    shipManager:HasAugmentation("AUG_LILY_ULTRA_ECM") or shipManager:HasAugmentation("EX_LILY_ECM_ASB_SCRAMBLER") or
+        --shipManager:HasAugmentation("UPG_LILY_ECM_ASB_SCRAMBLER")
+        if shipManager:HasSystem(Hyperspace.ShipSystem.NameToSystemId("lily_ecm_suite")) and shipManager:HasEquipment("LILY_ECM_ASB_SCRAMBLER") > 0 then
             if Hyperspace.App.world.space and (Hyperspace.App.world.space.bPDS or (Hyperspace.playerVariables and Hyperspace.playerVariables["mods_lilyinno_ecmsuite_asb_disabled"] > 0)) then
-                value = value + 1
+                value = 1
             end
         end
     end

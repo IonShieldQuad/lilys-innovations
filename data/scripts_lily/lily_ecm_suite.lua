@@ -170,7 +170,7 @@ local function get_max_ecm_charges(shipManager)
 
     if system.powerState.first == 0 then return 0 end
 
-    return math.max(0, math.min(8, system.healthState.first + 2 + (shipManager:HasAugmentation("UPG_LILY_ECM_CAPACITY") + shipManager:HasAugmentation("EX_LILY_ECM_CAPACITY"))))
+    return math.floor(math.max(0, math.min(8, system.healthState.first + 2 + (shipManager:HasAugmentation("UPG_LILY_ECM_CAPACITY") + shipManager:HasAugmentation("EX_LILY_ECM_CAPACITY")))))
 
 end
 
@@ -1066,7 +1066,9 @@ local function lily_ecm_suite_render(systemBox, ignoreStatus)
         --Render the base box
         Graphics.CSurface.GL_RenderPrimitive(buttonBase[1])
 
+        ---@type integer
         local maxCharges = get_max_ecm_charges(shipManager)
+        ---@type integer
         local charges = userdata_table(shipManager, "mods.lilyinno.ecmsuite").charges or 0
         local states = mods.lilyinno.ecmsuite.getStateTable(shipManager)
         local neededCharges = 0
@@ -1380,13 +1382,14 @@ script.on_internal_event(Defines.InternalEvents.JUMP_ARRIVE, function(shipManage
         local level2 = lily_ecm_suite_system.healthState.first
         local efflevel = lily_ecm_suite_system:GetEffectivePower()
 
+        ---@type integer
         local maxCharges = get_max_ecm_charges(shipManager)
 
         Hyperspace.playerVariables["mods_lilyinno_ecmsuite_asb_disabled"] = 0
 
         mods.lilyinno.ecmsuite.resetStates(shipManager, true, true, false)
 
-        charges = math.max(0, maxCharges / 2)
+        charges = math.floor(math.max(0, maxCharges / 2))
         userdata_table(shipManager, "mods.lilyinno.ecmsuite").charges = charges
 
         rechargeTimer[0] = 0
@@ -1444,6 +1447,9 @@ script.on_internal_event(Defines.InternalEvents.SHIP_LOOP, function(shipManager)
             userdata_table(shipManager, "mods.lilyinno.ecmsuite").charges = 0
         end
         local charges = userdata_table(shipManager, "mods.lilyinno.ecmsuite").charges
+        charges = math.floor(charges)
+        ---@cast charges integer
+
         local states = mods.lilyinno.ecmsuite.getStateTable(shipManager)
 
         lily_ecm_suite_system.bBoostable = false
@@ -1453,6 +1459,10 @@ script.on_internal_event(Defines.InternalEvents.SHIP_LOOP, function(shipManager)
         local multiplier = 1 / (efflevel <= 3 and (7.5 - efflevel * 1.5) or (6 / (efflevel - 1)))
         if efflevel == 0 then
             multiplier = 0
+        end
+
+        if shipManager.iShipId == 0 then
+            Hyperspace.playerVariables.lily_ecm_suite = level
         end
 
         if shipManager:HasAugmentation("UPG_LILY_ECM_JAMMER_FIELD") > 0 or shipManager:HasAugmentation("EX_LILY_ECM_JAMMER_FIELD") > 0 then
@@ -1465,7 +1475,8 @@ script.on_internal_event(Defines.InternalEvents.SHIP_LOOP, function(shipManager)
         if states["supercharge"] > 0 then
             multiplier = multiplier * 2
         end
-
+        
+        ---@type integer
         local maxCharges = get_max_ecm_charges(shipManager)
 
 
@@ -1479,30 +1490,16 @@ script.on_internal_event(Defines.InternalEvents.SHIP_LOOP, function(shipManager)
 
         charges = math.max(0, math.min(8, charges))
 
-        if charges > maxCharges then
-            multiplier = -2
-        end
         if lily_ecm_suite_system.iHackEffect == 1 then
             multiplier = multiplier * 0.75
         end
         if lily_ecm_suite_system.iHackEffect > 1 then
             multiplier = -0.5
         end
-
-        if shipManager.iShipId == 0 then
-            Hyperspace.playerVariables.lily_ecm_suite = level
-            local cApp = Hyperspace.App
-            local gui = cApp.gui
-
-            -- If player is not in danger
-            --[[local inSafeEnviroment = gui.upgradeButton.bActive
-                and not gui.event_pause
-                and cApp.world.space.projectiles:empty()
-                and not shipManager.bJumping
-            if inSafeEnviroment then
-                multiplier = multiplier * 4
-            end]]--
+        if charges > maxCharges then
+            multiplier = -2
         end
+
 
         if not mods.lilyinno.checkVarsOK() then
             multiplier = 0
@@ -1520,8 +1517,13 @@ script.on_internal_event(Defines.InternalEvents.SHIP_LOOP, function(shipManager)
             end
         end
 
+        --print("maxcharges", maxCharges)
+        --print("charges", charges)
+        --print("multiplier", multiplier)
+        --print("timer", rechargeTimer[shipManager.iShipId])
+
         rechargeTimer[shipManager.iShipId] = math.max(0, math.min(1, rechargeTimer[shipManager.iShipId] + multiplier * Hyperspace.FPS.SpeedFactor / 16))
-        if rechargeTimer[shipManager.iShipId] >= 1 and multiplier > 0 then
+        if rechargeTimer[shipManager.iShipId] >= 1 and multiplier > 0 and charges < maxCharges then
             charges = charges + 1
             rechargeTimer[shipManager.iShipId] = 0
             Hyperspace.Sounds:PlaySoundMix("lily_ecm_suite_recharge", -1, false)
@@ -1758,7 +1760,7 @@ script.on_internal_event(Defines.InternalEvents.SHIP_LOOP, function(shipManager)
         end
 
 
-        userdata_table(shipManager, "mods.lilyinno.ecmsuite").charges = charges
+        userdata_table(shipManager, "mods.lilyinno.ecmsuite").charges = math.floor(charges)
 
         if mods.lilyinno.checkVarsOK() and loadComplete[shipManager.iShipId] then
             mods.lilyinno.ecmsuite.saveStates(shipManager)
