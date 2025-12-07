@@ -529,7 +529,7 @@ local function get_fourth_button_name(shipManager)
 end
 --]]
 
-script.on_render_event(Defines.RenderEvents.SHIP_BREACHES, function() end, function(ship)
+script.on_render_event(Defines.RenderEvents.SHIP, function() end, function(ship)
     local commandGui = Hyperspace.App.gui
     --Graphics.CSurface.GL_PushMatrix()
     --Graphics.CSurface.GL_RenderPrimitive(syringes["taken"])
@@ -588,15 +588,20 @@ local function lily_infusion_bay_render(systemBox, ignoreStatus)
 
             if button.bHover then
                 if _ == 1 then
+                    Hyperspace.Mouse.bForceTooltip = true
                     Hyperspace.Mouse.tooltip = get_activate_text("reconstitution") .. get_effect_text("reconstitution")
                 elseif _== 2 then
+                    Hyperspace.Mouse.bForceTooltip = true
                     Hyperspace.Mouse.tooltip = get_activate_text("combatstimulant") .. get_effect_text("combatstimulant")
                 elseif _== 3 then
+                    Hyperspace.Mouse.bForceTooltip = true
                     Hyperspace.Mouse.tooltip = get_activate_text("gaseous") .. get_effect_text("gaseous")
                 else
                     if get_fourth_button_name(shipManager) == "locked" then
+                        Hyperspace.Mouse.bForceTooltip = true
                         Hyperspace.Mouse.tooltip = Hyperspace.Text:GetText("tooltip_lily_infusion_bay_locked")
                     else
+                        Hyperspace.Mouse.bForceTooltip = true
                         Hyperspace.Mouse.tooltip = get_activate_text(get_fourth_button_name(shipManager)) ..
                             get_effect_text(get_fourth_button_name(shipManager))
                     end

@@ -1,6 +1,6 @@
 
-<text name="tooltip_lily_ablative_armor">Ablative Armor: Provides armor layers protecting hull, systems and crew from damage. Damaged armor layers reduce the chance hull or crew damage will be absorbed.</text>
-<text name="tooltip_lily_ablative_armor_enemy">Ablative Armor: Provides armor layers protecting hull, systems and crew from damage. Damaged armor layers reduce the chance hull or crew damage will be absorbed.</text>
+<text name="tooltip_lily_ablative_armor">Ablative Armor: Provides armor layers protecting hull, systems and crew from damage. Damaged armor layers reduce the chance system or crew damage will be absorbed.</text>
+<text name="tooltip_lily_ablative_armor_enemy">Ablative Armor: Provides armor layers protecting hull, systems and crew from damage. Damaged armor layers reduce the chance system or crew damage will be absorbed.</text>
 <text name="tooltip_lily_shock_neutralizer">Shock neutralizer: Increases ion dissipation rate of affected rooms and provides bonus power to them in ion storms. Affected rooms have a Green-blue border.</text>
 <text name="tooltip_lily_shock_neutralizer_enemy">Shock neutralizer: Increases ion dissipation rate of affected rooms and provides bonus power to them in ion storms. Affected rooms have a Green-blue border.</text>
 <text name="tooltip_lily_infusion_bay">Infusion Bay: Produces infusions over time, which then can be picked up by crew and used for a variety of buffs.</text>
@@ -11,6 +11,8 @@
 <text name="tooltip_lily_fiber_liner_enemy">Fiber Liner: Protects your enemy's crew by reducing crew damage of projectiles hilling enemy ship's hull. Takes damage based on crew damage absorbed.</text>
 <text name="tooltip_lily_targeting_core">Dedicated Targeting Core: Marks rooms on the enemy ship. Marked rooms are more likely to be targeted, and projectiles aimed at them have bonus accuracy.</text>
 <text name="tooltip_lily_targeting_core_enemy">Dedicated Targeting Core: Marks rooms on your ship. Marked rooms are more likely to be targeted, and projectiles aimed at them have bonus accuracy.</text>
+<text name="tooltip_lily_ecm_suite">ECM Suite: Projects disruption signals that can affect enemy drones, missiles and systems.</text>
+<text name="tooltip_lily_ecm_suite_enemy">ECM Suite: Projects disruption signals that can affect your drones, missiles and systems.</text>
 
 <text name="tooltip_lily_system_disabled">Disabled.</text>
 
@@ -32,6 +34,9 @@
 <text name="tooltip_lily_ablative_armor_level_ion">HP: %s/Reg.: %sx/I.Res.: %s</text>
 <text name="tooltip_lily_ablative_armor_level2_ion">HP: %s / Regen: %sx / Ion Resist: %s</text>
 <text name="tooltip_lily_ablative_armor_manning">Manning bonuses: 20/40/60% faster regen.</text>
+
+<text name="tooltip_lily_ecm_suite_disabled">Disabled: Active and passive effects are disabled and rapidly losing accumilated charges.</text>
+<text name="tooltip_lily_ecm_suite_level">%s Max Charges, %ss / Charge</text>
 
 
 
@@ -58,6 +63,23 @@
 <text name="tooltip_lily_targeting_core_button">Select the room for Targeting Core to lock on to.\nHotkey: %s</text>
 <text name="tooltip_lily_targeting_core_button_notready">System not ready.</text>
 <text name="tooltip_lily_targeting_core_button_noship">No hostile ship present to target.</text>
+
+<text name="tooltip_lily_ecm_suite_button_supercharge_locked">Locked.</text>
+<text name="tooltip_lily_ecm_suite_button_supercharge">Click to enable Supercharge mode. While in this mode, all system's active abilities are disabled and cannot be activated, but the system gains charges at 2x rate. \n10 seconds duration, 20 seconds cooldown. Will automatically be disabled if the max charges are reached.</text>
+
+<text name="tooltip_lily_ecm_suite_button_offdrones">Click to activate Offensive Drone Disruption. \nWhile active, enemy offensive drones will be unable to target your ship, and boarding drones will become unable to attack or move. 10 seconds duration, 5 seconds cooldown. Requires 2 charges.</text>
+<text name="tooltip_lily_ecm_suite_button_defdrones">Click to activate Defense Drone Disruption. \nWhile active, enemy defense drones will be unable to target anything. \n10 seconds duration, 5 seconds cooldown. Requires 3 charges.</text>
+<text name="tooltip_lily_ecm_suite_button_missiles">Click to activate Missile Disruption. \nWhile active, enemy missiles fired at your ship will either miss or explode midflight. 5 seconds duration, 10 seconds cooldown. Requires 2 charges.</text>
+<text name="tooltip_lily_ecm_suite_button_counter">Click to activate ECCM Mode. \nWhile active, it will automatically counter enemy ECM abilities, expending amount of charges equal to amount spent by the enemy. If the charges are insufficient, it will have no effect. Also counters enemy Mind Control and Hacking, costing 2 and 3 charges respectively. 20 seconds duration, 10 seconds cooldown. Requires 1 charge.</text>
+<text name="tooltip_lily_ecm_suite_button_jammer">Click to select target room for System Signal Jamming. While active, target enemy system will be disrupted, either woking at lower efficiency or limited by a number of bars equal to half the charges spent. \nCannot limit piloting, life support, and any system lvl 3 (or above) to 0 bars. \n10 seconds duration, 15 seconds cooldown. Requires 2/4/6/8 charges (variable).</text>
+<text name="tooltip_lily_ecm_suite_button_electro">Click to select target room for System EM Disruption. While active, target enemy system will dissipate ion (incuding cooldowns) 50% slower (10 seconds per ion damage). \n20 seconds duration, 10 seconds cooldown. Requires 4 charges.</text>
+
+<text name="tooltip_lily_ecm_suite_jammer_shields">Shield Jamming: reduces enemy shield recharge rate to x0.7 for each 2 charges spent. Stacks multiplicatively.</text>
+<text name="tooltip_lily_ecm_suite_jammer_weapons">Weapon Jamming: reduces enemy weapon recharge rate to x0.75 for each 2 charges spent. Stacks multiplicatively. Also applies -2.5% additive accuracy penalty per charge spent.</text>
+<text name="tooltip_lily_ecm_suite_jammer_artillery">Artillery Jamming: temporarily limits the system by the amount of charges spent. Also applies -5% additive accuracy penalty per charge spent.</text>
+<text name="tooltip_lily_ecm_suite_jammer_drones">Drone Jamming: temporarily limits the system by the amount of charges spent. Also applies -5% additive accuracy for drones per charge spent.</text>
+<text name="tooltip_lily_ecm_suite_jammer_oxygen">Oxygen Jamming: temporarily limits the system by the half amount of charges spent. Cannot limit below 1 bar.</text>
+<text name="tooltip_lily_ecm_suite_jammer_misc">Jamming: temporarily limits the system by the half amount of charges spent. Cannot limit below 1 bar if the system level is 3 or more.</text>
 
 <!--
 <text name="tooltip_lily_"></text>

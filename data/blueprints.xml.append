@@ -85,6 +85,20 @@ When the enemy is cloaked, the bonus accuracy provided by the system is doubled,
     <cost>55</cost>
 </systemBlueprint>
 
+<systemBlueprint name="lily_ecm_suite">
+    <type>hacking</type>
+    <title>ECM Suite</title>
+    <desc>Grants an array of activatable abilities to disrupt ebemy drones, projectiles or systems. Especially effective against drones.</desc>
+    <startPower>1</startPower>
+    <maxPower>3</maxPower>
+    <rarity>1</rarity>
+    <upgradeCost>
+        <level>35</level>        <!-- level 2 -->
+        <level>65</level>        <!-- level 3 -->
+    </upgradeCost>
+    <cost>100</cost>
+</systemBlueprint>
+
 <systemBlueprint name="lily_system_bracers">
     <type>doors</type>
     <title>System Bracers</title>
@@ -953,6 +967,146 @@ Incompatible with performance upgrades.
     <stackable>false</stackable>
 </augBlueprint>
 
+
+
+<augBlueprint name="UPG_LILY_ECM_ANTIDRONE">
+    <title>Cld. Comms Jammer</title>
+    <desc>YOU SHOULD NEVER SEE THIS</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>false</stackable>
+</augBlueprint>
+<augBlueprint name="EX_LILY_ECM_ANTIDRONE">
+    <title>Cld. Comms Jammer [X]</title>
+    <desc>ECM suite offensive and defensive drone disruption abilities have instant cooldown.
+    
+		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
+    <cost>40</cost>
+    <rarity>0</rarity>
+    <stackable>false</stackable>
+</augBlueprint>
+
+<augBlueprint name="UPG_LILY_ECM_CAPACITY">
+    <title>ECM Capacitor Bank</title>
+    <desc>YOU SHOULD NEVER SEE THIS</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>false</stackable>
+</augBlueprint>
+<augBlueprint name="EX_LILY_ECM_CAPACITY">
+    <title>ECM Capacitor Bank [X]</title>
+    <desc>ECM suite gains +1 Max charge, up to 8.
+    
+		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
+    <cost>40</cost>
+    <rarity>0</rarity>
+    <stackable>false</stackable>
+</augBlueprint>
+
+<augBlueprint name="UPG_LILY_ECM_RETARGET">
+    <title>'Loyalist' Anti-Missile</title>
+    <desc>YOU SHOULD NEVER SEE THIS</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>false</stackable>
+</augBlueprint>
+<augBlueprint name="EX_LILY_ECM_RETARGET">
+    <title>'Loyalist' Anti-Missile [X]</title>
+    <desc>ECM suite missile disruption ability now retargets enemy missiles back at them.
+    
+		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
+    <cost>40</cost>
+    <rarity>0</rarity>
+    <stackable>false</stackable>
+</augBlueprint>
+
+<augBlueprint name="UPG_LILY_ECM_SUPERCHARGE">
+    <title>Supercharge Protocol</title>
+    <desc>YOU SHOULD NEVER SEE THIS</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>false</stackable>
+</augBlueprint>
+<augBlueprint name="EX_LILY_ECM_SUPERCHARGE">
+    <title>Supercharge Protocol [X]</title>
+    <desc>ECM gains an ability that temporary doubles its recharge speed, but prevents use of other abilities while it's active.
+    
+		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
+    <cost>40</cost>
+    <rarity>0</rarity>
+    <stackable>false</stackable>
+</augBlueprint>
+
+<augBlueprint name="UPG_LILY_ECM_ASB_SCRAMBLER">
+    <title>ASB Scrambler</title>
+    <desc>YOU SHOULD NEVER SEE THIS</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>false</stackable>
+</augBlueprint>
+<augBlueprint name="EX_LILY_ECM_ASB_SCRAMBLER">
+    <title>ASB Scrambler [X]</title>
+    <desc>Prevents hostile ASBs from hitting your ship while your ECM system is powered.
+    
+		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
+    <cost>40</cost>
+    <rarity>0</rarity>
+    <stackable>false</stackable>
+</augBlueprint>
+
+<augBlueprint name="UPG_LILY_ECM_ELECTRO_FIELD">
+    <title>Ion Counterfield</title>
+    <desc>YOU SHOULD NEVER SEE THIS</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>false</stackable>
+</augBlueprint>
+<augBlueprint name="EX_LILY_ECM_ELECTRO_FIELD">
+    <title>Ion Counterfield [X]</title>
+    <desc>Reduces enemy ion resistance by 50% while your ECM system is powered.
+    
+		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
+    <cost>40</cost>
+    <rarity>0</rarity>
+    <stackable>false</stackable>
+</augBlueprint>
+
+<augBlueprint name="UPG_LILY_ECM_JAMMER_FIELD">
+    <title>Jamming Screen</title>
+    <desc>YOU SHOULD NEVER SEE THIS</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>false</stackable>
+</augBlueprint>
+<augBlueprint name="EX_LILY_ECM_JAMMER_FIELD">
+    <title>Jamming Screen [X]</title>
+    <desc>Passively reduces enemy accuracy, reload speed and shield recharge by 10%, 15% and 20% respectively while your ECM system is powered. However, it gains charges 25% slower.
+    
+		[X] - As an external system upgrade, this augment will provide its normal effect but take up an augment slot. Can be converted for free to the internal version under the internal upgrade menu, in the On-board Tech category.</desc>
+    <cost>40</cost>
+    <rarity>0</rarity>
+    <stackable>false</stackable>
+</augBlueprint>
+
+<augBlueprint name="AUG_LILY_ULTRA_ECM">
+    <title>Minkovsky Tensor Effector</title>
+    <desc>An advanced ECM module designed outside the base cluster that use relativistic effects to amplify the system disruption. While ECM system is powered, drones disruption abilities are always active. Additionally prevents enemy ASBs from hitting your ship, reduces enemy ion resistance by 50% and their weapon accuracy by 15%.</desc>
+    <cost>40</cost>
+    <rarity>0</rarity>
+    <stackable>false</stackable>
+</augBlueprint>
+
+
+<augBlueprint name="LILY_ECM_TMP_SCRAMBLER">
+    <title>Tmp Scrambler</title>
+    <desc>YOU SHOULD NEVER SEE THIS</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>false</stackable>
+</augBlueprint>
+
+
+
 <augBlueprint name="UPG_LILY_BUNKER_FIBER">
     <title>Fiber Fortifications</title>
     <desc>YOU SHOULD NEVER SEE THIS</desc>
@@ -1143,6 +1297,14 @@ Core overclock and Parallel processing are mutually exclusive
     <stackable>false</stackable>
 </augBlueprint>
 
+<augBlueprint name="BOON_LILY_ECM_SUITE">
+    <title>ECM Suite Grant</title>
+    <desc>YOU SHOULD NEVER SEE THIS</desc>
+    <cost>0</cost>
+    <rarity>0</rarity>
+    <stackable>false</stackable>
+</augBlueprint>
+
 <augBlueprint name="BOON_LILY_SYSTEM_BRACERS">
     <title>System Bracers Grant</title>
     <desc>YOU SHOULD NEVER SEE THIS</desc>
@@ -1181,7 +1343,7 @@ Core overclock and Parallel processing are mutually exclusive
     <power>4</power>
     <cost>110</cost>
     <bp>10</bp>
-    <speed>1000</speed>
+    <speed>400</speed>
     <rarity>0</rarity>
     <projectiles>
         <!--projectile count="3" fake="false">debris_large</projectile-->
@@ -1232,7 +1394,7 @@ Core overclock and Parallel processing are mutually exclusive
     <power>4</power>
     <cost>110</cost>
     <bp>10</bp>
-    <speed>1000</speed>
+    <speed>400</speed>
     <rarity>0</rarity>
     <projectiles>
         <!--projectile count="3" fake="false">debris_large</projectile-->

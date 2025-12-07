@@ -331,10 +331,10 @@ script.on_internal_event(Defines.InternalEvents.GET_AUGMENTATION_VALUE, function
         if battery and battery.bTurnedOn then
             local level = battery.healthState.first
             if augment == "AUTO_COOLDOWN" then
-                value = value + level * 0.1
+                value = value + level * 0.075
             end
             if augment == "SHIELD_RECHARGE" then
-                value = value + level * 0.2
+                value = value + level * 0.15
             end
         end
         

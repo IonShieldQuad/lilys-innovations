@@ -477,6 +477,49 @@ systemsToAppend["lily_targeting_core"] = {
     }
 }
 
+systemsToAppend["lily_ecm_suite"] = {
+    attributes = { power = 1, start = "false" },
+    manning = false,
+    replace_sys = "hacking",
+    image_list = {
+        { room_image = "room_lily_ecm_suite", w = 2, h = 2, top = "01", bottom = "00", left = "00",  right = "10" },
+        { room_image = "room_lily_ecm_suite_2", w = 2, h = 2, top = "00", bottom = "01", left = "00", right = "01" },
+        { room_image = "room_lily_ecm_suite_3", w = 2, h = 2, top = "00", bottom = "10", left = "01", right = "00" },
+        { room_image = "room_lily_ecm_suite_4", w = 2, h = 2, top = "10", bottom = "00", left = "10", right = "00" },
+        { room_image = "room_lily_ecm_suite_5", w = 3, h = 1, top = "011", bottom = "000", left = "0", right = "0" },
+        { room_image = "room_lily_ecm_suite_6", w = 1, h = 3, top = "0", bottom = "0", left = "000",  right = "011" },
+        { room_image = "room_lily_ecm_suite_7", w = 1, h = 3, top = "0", bottom = "0",   left = "011", right = "000" },
+        { room_image = "room_lily_ecm_suite_8", w = 3, h = 1, top = "000", bottom = "011", left = "0",   right = "0" },
+        { room_image = "room_lily_ecm_suite_9", w = 3, h = 1, top = "000", bottom = "000", left = "1",   right = "0" },
+        { room_image = "room_lily_ecm_suite_10", w = 1, h = 3, top = "0", bottom = "1",   left = "000", right = "000" },
+        { room_image = "room_lily_ecm_suite_11", w = 2, h = 1, top = "11", bottom = "00", left = "0",   right = "0" },
+        { room_image = "room_lily_ecm_suite_12", w = 1, h = 2, top = "0", bottom = "0",   left = "00", right = "11" },
+        { room_image = "room_lily_ecm_suite_13", w = 2, h = 1, top = "00", bottom = "11",  left = "0",   right = "0" },
+        { room_image = "room_lily_ecm_suite_14", w = 1, h = 2, top = "0", bottom = "0",   left = "11",  right = "00" },
+        { room_image = "room_lily_ecm_suite_15", w = 2, h = 1, top = "01", bottom = "01",  left = "0",   right = "0" },
+        { room_image = "room_lily_ecm_suite_16", w = 1, h = 2, top = "0", bottom = "1",   left = "00",  right = "01" },
+        { room_image = "room_lily_ecm_suite_17", w = 2, h = 1, top = "00", bottom = "10",  left = "1",   right = "0" },
+        { room_image = "room_lily_ecm_suite_18", w = 1, h = 2, top = "1", bottom = "0",   left = "10",  right = "00" },
+        { room_image = "room_lily_ecm_suite_19", w = 2, h = 1, top = "00", bottom = "01",  left = "0",   right = "1" },
+        { room_image = "room_lily_ecm_suite_20", w = 1, h = 2, top = "0", bottom = "1",   left = "01",  right = "00" },
+        { room_image = "room_lily_ecm_suite_21", w = 2, h = 1, top = "10", bottom = "10",  left = "0",   right = "0" },
+        { room_image = "room_lily_ecm_suite_22", w = 1, h = 2, top = "1", bottom = "0",   left = "00",  right = "10" },
+        { room_image = "room_lily_ecm_suite_23", w = 2, h = 1, top = "10", bottom = "01",  left = "0",   right = "0" },
+        { room_image = "room_lily_ecm_suite_24", w = 1, h = 2, top = "0", bottom = "1",   left = "10",  right = "00" },
+        { room_image = "room_lily_ecm_suite_25", w = 2, h = 1, top = "01", bottom = "10",  left = "0",   right = "0" },
+        { room_image = "room_lily_ecm_suite_26", w = 1, h = 2, top = "0", bottom = "0",   left = "01",  right = "10" },
+        { room_image = "room_lily_ecm_suite_27", w = 2, h = 1, top = "01", bottom = "00",  left = "0",   right = "0" },
+        { room_image = "room_lily_ecm_suite_28", w = 1, h = 2, top = "0", bottom = "0",   left = "00",  right = "01" },
+        { room_image = "room_lily_ecm_suite_29", w = 2, h = 1, top = "00", bottom = "01",  left = "0",   right = "0" },
+        { room_image = "room_lily_ecm_suite_30", w = 1, h = 2, top = "0", bottom = "0",   left = "01",  right = "00" },
+        { room_image = "room_lily_ecm_suite_31", w = 2, h = 1, top = "00", bottom = "00",  left = "0",   right = "1" },
+        { room_image = "room_lily_ecm_suite_32", w = 1, h = 2, top = "0", bottom = "1",   left = "00",  right = "00" },
+        { room_image = "room_lily_ecm_suite_33", w = 1, h = 1, top = "1", bottom = "0",  left = "0",   right = "0" },
+        { room_image = "room_lily_ecm_suite_34", w = 1, h = 1, top = "0", bottom = "0",   left = "0",  right = "1" },
+        { room_image = "room_lily_ecm_suite_35", w = 1, h = 1, top = "0",   bottom = "1",   left = "0",   right = "0" },
+        { room_image = "room_lily_ecm_suite_36", w = 1, h = 1, top = "0",   bottom = "0",   left = "1",   right = "0" },
+    }
+}
 
 runSystemsAppend()
 

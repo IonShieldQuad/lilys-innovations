@@ -238,6 +238,44 @@ end)
 
 
 local function render_system_bracers_effects(ship, experimental)
+    if not (corners and corners[1]) then
+        corners[1] = Hyperspace.Resources:CreateImagePrimitiveString(
+            "misc/lily_systembrace_1.png", 1, 1, 0, Graphics.GL_Color(1, 1, 1, 1), 1, false)
+        corners[2] = Hyperspace.Resources:CreateImagePrimitiveString(
+            "misc/lily_systembrace_2.png", -36, 1, 0, Graphics.GL_Color(1, 1, 1, 1), 1, false)
+        corners[3] = Hyperspace.Resources:CreateImagePrimitiveString(
+            "misc/lily_systembrace_3.png", -36, -36, 0, Graphics.GL_Color(1, 1, 1, 1), 1, false)
+        corners[4] = Hyperspace.Resources:CreateImagePrimitiveString(
+            "misc/lily_systembrace_4.png", 1, -36, 0, Graphics.GL_Color(1, 1, 1, 1), 1, false)
+
+        cornersBroken[1] = Hyperspace.Resources:CreateImagePrimitiveString(
+            "misc/lily_systembrace_broken_1.png", 1, 1, 0, Graphics.GL_Color(1, 1, 1, 1), 1, false)
+        cornersBroken[2] = Hyperspace.Resources:CreateImagePrimitiveString(
+            "misc/lily_systembrace_broken_2.png", -36, 1, 0, Graphics.GL_Color(1, 1, 1, 1), 1, false)
+        cornersBroken[3] = Hyperspace.Resources:CreateImagePrimitiveString(
+            "misc/lily_systembrace_broken_3.png", -36, -36, 0, Graphics.GL_Color(1, 1, 1, 1), 1, false)
+        cornersBroken[4] = Hyperspace.Resources:CreateImagePrimitiveString(
+            "misc/lily_systembrace_broken_4.png", 1, -36, 0, Graphics.GL_Color(1, 1, 1, 1), 1, false)
+
+        cornersShielded[1] = Hyperspace.Resources:CreateImagePrimitiveString(
+            "misc/lily_systembrace_shielded_1.png", 1, 1, 0, Graphics.GL_Color(1, 1, 1, 1), 1, false)
+        cornersShielded[2] = Hyperspace.Resources:CreateImagePrimitiveString(
+            "misc/lily_systembrace_shielded_2.png", -36, 1, 0, Graphics.GL_Color(1, 1, 1, 1), 1, false)
+        cornersShielded[3] = Hyperspace.Resources:CreateImagePrimitiveString(
+            "misc/lily_systembrace_shielded_3.png", -36, -36, 0, Graphics.GL_Color(1, 1, 1, 1), 1, false)
+        cornersShielded[4] = Hyperspace.Resources:CreateImagePrimitiveString(
+            "misc/lily_systembrace_shielded_4.png", 1, -36, 0, Graphics.GL_Color(1, 1, 1, 1), 1, false)
+
+        cornersAether[1] = Hyperspace.Resources:CreateImagePrimitiveString(
+            "misc/lily_systembrace_aether_1.png", 1, 1, 0, Graphics.GL_Color(1, 1, 1, 1), 1, false)
+        cornersAether[2] = Hyperspace.Resources:CreateImagePrimitiveString(
+            "misc/lily_systembrace_aether_2.png", -36, 1, 0, Graphics.GL_Color(1, 1, 1, 1), 1, false)
+        cornersAether[3] = Hyperspace.Resources:CreateImagePrimitiveString(
+            "misc/lily_systembrace_aether_3.png", -36, -36, 0, Graphics.GL_Color(1, 1, 1, 1), 1, false)
+        cornersAether[4] = Hyperspace.Resources:CreateImagePrimitiveString(
+            "misc/lily_systembrace_aether_4.png", 1, -36, 0, Graphics.GL_Color(1, 1, 1, 1), 1, false)
+    end
+
     local shipManager = Hyperspace.ships(ship.iShipId)
     if shipManager:HasSystem(Hyperspace.ShipSystem.NameToSystemId("lily_system_bracers")) then
         local rooms = ship.vRoomList
@@ -431,6 +469,9 @@ script.on_internal_event(Defines.InternalEvents.CALCULATE_STAT_POST, function(cr
                 if crew.iRoomId >= 0 and crew.iRoomId == currentShipManager:GetSystemRoom(Hyperspace.ShipSystem.NameToSystemId("lily_system_bracers")) then
                     if stat == Hyperspace.CrewStat.REPAIR_SPEED_MULTIPLIER and currentShipManager:HasAugmentation("BOON_LILY_SYSTEM_BRACERS") == 0 then
                         amount = amount * 0.5
+                    end
+                    if stat == Hyperspace.CrewStat.FIRE_REPAIR_MULTIPLIER and currentShipManager:HasAugmentation("BOON_LILY_SYSTEM_BRACERS") == 0 then
+                        amount = amount * 2
                     end
                     if stat == Hyperspace.CrewStat.SABOTAGE_SPEED_MULTIPLIER then
                         amount = amount * 0.5

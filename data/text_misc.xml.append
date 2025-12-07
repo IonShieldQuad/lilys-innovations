@@ -12,10 +12,18 @@
 <text name="lily_fiber_liner_installed">Fiber Liner Subsystem installed</text>
 <text name="lily_targeting_core">Dedicated Targeting Core</text>
 <text name="lily_targeting_core_installed">Dedicated Targeting Core System installed</text>
+<text name="lily_ecm_suite">ECM Suite</text>
+<text name="lily_ecm_suite_installed">ECM Suite System installed</text>
 
 
 <text name="lily_eventtext_medbay1">Medbay</text>
 <text name="lily_eventtext_medbay2">Infusion Bay</text>
 <text name="lily_eventtext_infusion_bay1">medbay</text>
 <text name="lily_eventtext_infusion_bay2">infusion bay</text>
+<text name="lily_eventtext_pds_disable1">Signal Diluter</text>
+<text name="lily_eventtext_ecm_suite1">ECM Suite</text>
+
+<text name="lily_eventtext_ecm_asb_salvage_choice">(ASB Scrambler) Proceed without fear of ASB.</text>
+<text name="lily_eventtext_ecm_asb_salvage">With your advanced ECM providing protection from ASB, you manage to salvage some resources safely.</text>
+<text name="lily_eventtext_ecm_asb_retarget">(ASB Scrambler) Retarget the ASB to fire at the enemy!</text>
 </FTL>

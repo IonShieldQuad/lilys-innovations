@@ -19,6 +19,16 @@
         </event>
     </choice>
 </event>
+<event name="BOON_SELECT_LILY_ECM_SUITE">
+    <text>From nowhere, you hear a voice speaking to you. "Grant of [ECM] i-i-installed. Installed! Grant provides: -20% shield r-r-recharge speed and -10% weapon reload speed to your enemies... If -you- witness p-p-previous challenger; provide thanks. I advise you -visit- me as well."</text>
+    <hiddenAug>BOON_LILY_ECM_SUITE</hiddenAug>
+    <choice hidden="true">
+        <text>Continue...</text>
+        <event>
+            <loadEvent>BOON_SELECT_CONTINUE</loadEvent>
+        </event>
+    </choice>
+</event>
 <event name="BOON_SELECT_LILY_SHOCK_NEUTRALIZER">
     <text>From nowhere, you hear a voice speaking to you. "Grant of [Neutralization] i-i-installed. Installed! Grant provides: Increase of ion d-d-dissipation rate on your vessel by 10%. If -you- witness p-p-previous challenger; provide thanks. I advise you -visit- me as well."</text>
     <hiddenAug>BOON_LILY_SHOCK_NEUTRALIZER</hiddenAug>

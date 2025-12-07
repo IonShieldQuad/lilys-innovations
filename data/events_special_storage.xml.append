@@ -9,6 +9,10 @@
         <text>Dedicated Targeting Core.</text>
         <event load="STORAGE_CHECK_SYSTEM_LILY_TARGETING_CORE"/>
     </mod-append:choice>
+    <mod-append:choice req="lily_ecm_suite" hidden="true" blue="false">
+        <text>ECM Suite.</text>
+        <event load="STORAGE_CHECK_SYSTEM_LILY_ECM_SUITE"/>
+    </mod-append:choice>
     <mod-append:choice req="lily_infusion_bay" hidden="true" blue="false">
         <text>Infusion Bay.</text>
         <event load="STORAGE_CHECK_SYSTEM_LILY_INFUSION_BAY"/>
@@ -1364,7 +1368,7 @@
         <text>Dismantle the installed extra infusions to free up the slot for other ones.</text>
         <event load="STORAGE_CHECK_SYSTEM_LILY_INFUSION_BAY_UNINSTALL_FOURTH"/>
     </choice-->
-    <choice req="INFUSION_BAY_FOURTH" max_group="1" blue="false" hidden="true">
+    <choice req="INFUSION_BAY_FOURTH" lvl="0" max_lvl="10" max_group="1" blue="false" hidden="true">
         <text>Install extra infusions for the fourth slot of the system.</text>
         <event load="STORAGE_CHECK_SYSTEM_LILY_INFUSION_BAY_INSTALL_FOURTH"/>
     </choice>
@@ -3195,7 +3199,7 @@ Incompatible with battery performance upgrades.]</text>
         <text>Processor Overclocking. [ALREADY INSTALLED]</text>
         <event load="OPTION_INVALID"/>
     </choice>
-    <choice req="LILY_TARGETING_ADVANCED" lvl="0" max_lvl="0" max_group="5" blue="false" hidden="true">
+    <choice req="UPG_LILY_TARGETING_OVERCLOCK" lvl="0" max_lvl="0" max_group="5" blue="false" hidden="true">
         <text>Processor Overclocking. [Cost: 30~, 5{]</text>
         <event load="STORAGE_CHECK_SYSTEM_LILY_TARGETING_CORE_OVERCLOCK"/>
     </choice>
@@ -3204,7 +3208,7 @@ Incompatible with battery performance upgrades.]</text>
         <text>Multithreaded Targeting. [ALREADY INSTALLED]</text>
         <event load="OPTION_INVALID"/>
     </choice>
-    <choice req="LILY_TARGETING_ADVANCED" lvl="0" max_lvl="0" max_group="6" blue="false" hidden="true">
+    <choice req="UPG_LILY_TARGETING_MULTITHREAD" lvl="0" max_lvl="0" max_group="6" blue="false" hidden="true">
         <text>Multithreaded Targeting. [Cost: 45~, 5|]</text>
         <event load="STORAGE_CHECK_SYSTEM_LILY_TARGETING_CORE_MULTITHREAD"/>
     </choice>
@@ -3486,7 +3490,7 @@ Incompatible with battery performance upgrades.]</text>
 
 <event name="STORAGE_CHECK_SYSTEM_LILY_TARGETING_CORE_OVERCLOCK">
     <text>You are about to install the Processor Overclocking upgrade.
-	[Effects: Reduces time it takes for Dedicated Targeting Core to lock onto a room from 6 to 1.5 seconds. Incompatible with Multithreaded targeting.]</text>
+	[Effects: Reduces time it takes for Dedicated Targeting Core to lock onto a room from 6 to 1.5 seconds.]</text>
 
     <choice req="lily_targeting_core" lvl="2" max_group="0" blue="false" hidden="true">
         <text>Perform the upgrade. [Cost: 30~, 5{]</text>
@@ -3530,7 +3534,7 @@ Incompatible with battery performance upgrades.]</text>
 
 <event name="STORAGE_CHECK_SYSTEM_LILY_TARGETING_CORE_MULTITHREAD">
     <text>You are about to install the Multithreaded Targeting upgrade.
-	[Effects: Dedicated Targeting Core now also applies its full effects to rooms adjacent to directly targeted. Incompatible with Processor Overclocking.]</text>
+	[Effects: Dedicated Targeting Core now also applies its full effects to rooms adjacent to directly targeted.]</text>
 
     <choice req="lily_targeting_core" lvl="3" max_group="0" blue="false" hidden="true">
         <text>Perform the upgrade. [Cost: 45~, 5|]</text>
@@ -3574,6 +3578,423 @@ Incompatible with battery performance upgrades.]</text>
 
 
 
+
+<event name="STORAGE_CHECK_SYSTEM_LILY_ECM_SUITE">
+    <text>What upgrade do you want to install?</text>
+
+    <choice req="UPG_LILY_ECM_ANTIDRONE" lvl="1" max_group="0" blue="false" hidden="true">
+        <text>Cld. Comms Jammer. [ALREADY INSTALLED]</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="UPG_LILY_ECM_ANTIDRONE" lvl="0" max_group="0" blue="false" hidden="true">
+        <text>Cld. Comms Jammer. [Cost: 45~, 5|]</text>
+        <event load="STORAGE_CHECK_SYSTEM_LILY_ECM_SUITE_ANTIDRONE"/>
+    </choice>
+
+    <choice req="UPG_LILY_ECM_CAPACITY" lvl="3" max_group="1" blue="false" hidden="true">
+        <text>ECM Capacitor Bank. [MAX LVL ALREADY INSTALLED]</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="UPG_LILY_ECM_CAPACITY" lvl="2" max_group="1" blue="false" hidden="true">
+        <text>ECM Capacitor Bank lvl 3. [Cost: 20~, 2|]</text>
+        <event load="STORAGE_CHECK_SYSTEM_LILY_ECM_SUITE_CAPACITY"/>
+    </choice>
+    <choice req="UPG_LILY_ECM_CAPACITY" lvl="1" max_group="1" blue="false" hidden="true">
+        <text>ECM Capacitor Bank lvl 2. [Cost: 20~, 2|]</text>
+        <event load="STORAGE_CHECK_SYSTEM_LILY_ECM_SUITE_CAPACITY"/>
+    </choice>
+    <choice req="UPG_LILY_ECM_CAPACITY" lvl="0" max_group="1" blue="false" hidden="true">
+        <text>ECM Capacitor Bank lvl 1. [Cost: 20~, 2|]</text>
+        <event load="STORAGE_CHECK_SYSTEM_LILY_ECM_SUITE_CAPACITY"/>
+    </choice>
+
+    <choice req="UPG_LILY_ECM_RETARGET" lvl="1" max_group="2" blue="false" hidden="true">
+        <text>'Loyalist' Anti-Missile. [ALREADY INSTALLED]</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="UPG_LILY_ECM_RETARGET" lvl="0" max_group="2" blue="false" hidden="true">
+        <text>'Loyalist' Anti-Missile. [Cost: 50~, 8}, 4|]</text>
+        <event load="STORAGE_CHECK_SYSTEM_LILY_ECM_SUITE_RETARGET"/>
+    </choice>
+
+    <choice req="UPG_LILY_ECM_SUPERCHARGE" lvl="1" max_group="3" blue="false" hidden="true">
+        <text>Supercharge Protocol. [ALREADY INSTALLED]</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="UPG_LILY_ECM_SUPERCHARGE" lvl="0" max_group="3" blue="false" hidden="true">
+        <text>Supercharge Protocol. [Cost: 40~, 8{, 2|]</text>
+        <event load="STORAGE_CHECK_SYSTEM_LILY_ECM_SUITE_SUPERCHARGE"/>
+    </choice>
+
+    <choice req="UPG_LILY_ECM_ASB_SCRAMBLER" lvl="1" max_group="4" blue="false" hidden="true">
+        <text>ASB Scrambler. [ALREADY INSTALLED]</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="UPG_LILY_ECM_ASB_SCRAMBLER" lvl="0" max_group="4" blue="false" hidden="true">
+        <text>ASB Scrambler. [Cost: 80~, 10|]</text>
+        <event load="STORAGE_CHECK_SYSTEM_LILY_ECM_SUITE_ASB_SCRAMBLER"/>
+    </choice>
+
+    <choice req="UPG_LILY_ECM_ELECTRO_FIELD" lvl="1" max_group="5" blue="false" hidden="true">
+        <text>Ion Counterfield. [ALREADY INSTALLED]</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="UPG_LILY_ECM_ELECTRO_FIELD" lvl="0" max_lvl="0" max_group="5" blue="false" hidden="true">
+        <text>Ion Counterfield. [Cost: 50~, 5{]</text>
+        <event load="STORAGE_CHECK_SYSTEM_LILY_ECM_SUITE_ELECTRO_FIELD"/>
+    </choice>
+
+    <choice req="UPG_LILY_ECM_JAMMER_FIELD" lvl="1" max_group="6" blue="false" hidden="true">
+        <text>Jamming Screen. [ALREADY INSTALLED]</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="UPG_LILY_ECM_JAMMER_FIELD" lvl="0" max_lvl="0" max_group="6" blue="false" hidden="true">
+        <text>Jamming Screen. [Cost: 60~, 8|]</text>
+        <event load="STORAGE_CHECK_SYSTEM_LILY_ECM_SUITE_JAMMER_FIELD"/>
+    </choice>
+
+    <choice>
+        <text>Nevermind.</text>
+        <event load="STORAGE_CHECK_SYSTEM_LOAD"/>
+    </choice>
+</event>
+
+
+<event name="STORAGE_CHECK_SYSTEM_LILY_ECM_SUITE_ANTIDRONE">
+    <text>You are about to install the Cooled Comms Jammer upgrade.
+	[Effects: ECM suite offensive and defensive drone disruption abilities have instant cooldown.]</text>
+
+    <choice req="lily_ecm_suite" lvl="2" max_group="0" blue="false" hidden="true">
+        <text>Perform the upgrade. [Cost: 45~, 5|]</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <item_modify>
+                <item type="scrap" min="-45" max="-45"/>
+                <item type="drones" min="-5" max="-5"/>
+            </item_modify>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_ECM_ANTIDRONE"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="lily_ecm_suite" max_group="0" blue="false" hidden="true">
+        <text>This upgrade is unavailable. You need ECM Suite level 2.</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="EX_LILY_ECM_ANTIDRONE" max_group="1" blue="false" hidden="true">
+        <text>Install the External Augment internally.</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <remove name="EX_LILY_ECM_ANTIDRONE"/>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_ECM_ANTIDRONE"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="pilot" lvl="1" max_group="2" blue="false" hidden="true">
+        <text>Nevermind.</text>
+        <event load="STORAGE_CHECK_SYSTEM_LOAD"/>
+    </choice>
+</event>
+<event name="INSTALL_LILY_ECM_ANTIDRONE">
+    <variable name="loc_internal_upgrades" op="add" val="1"/>
+    <hiddenAug>UPG_LILY_ECM_ANTIDRONE</hiddenAug>
+    <loadEvent>STORAGE_CHECK_SYSTEM</loadEvent>
+</event>
+
+
+<event name="STORAGE_CHECK_SYSTEM_LILY_ECM_SUITE_CAPACITY">
+    <text>You are about to install the ECM Capacitor Bank upgrade.
+	[Effects: ECM suite gains +1 Max charge, can be installed up to 3 times.]</text>
+
+    <choice req="lily_ecm_suite" lvl="1" max_group="0" blue="false" hidden="true">
+        <text>Perform the upgrade. [Cost: 20~, 2|]</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <item_modify>
+                <item type="scrap" min="-20" max="-20"/>
+                <item type="drones" min="-2" max="-2"/>
+            </item_modify>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_ECM_CAPACITY"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="lily_ecm_suite" max_group="0" blue="false" hidden="true">
+        <text>This upgrade is unavailable. You need ECM Suite level 1.</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="EX_LILY_ECM_CAPACITY" max_group="1" blue="false" hidden="true">
+        <text>Install the External Augment internally.</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <remove name="EX_LILY_ECM_CAPACITY"/>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_ECM_CAPACITY"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="pilot" lvl="1" max_group="2" blue="false" hidden="true">
+        <text>Nevermind.</text>
+        <event load="STORAGE_CHECK_SYSTEM_LOAD"/>
+    </choice>
+</event>
+<event name="INSTALL_LILY_ECM_CAPACITY">
+    <variable name="loc_internal_upgrades" op="add" val="1"/>
+    <hiddenAug>UPG_LILY_ECM_CAPACITY</hiddenAug>
+    <loadEvent>STORAGE_CHECK_SYSTEM</loadEvent>
+</event>
+
+
+<event name="STORAGE_CHECK_SYSTEM_LILY_ECM_SUITE_RETARGET">
+    <text>You are about to install the 'Loyalist' Anti-Missile upgrade.
+	[Effects: ECM suite missile disruption ability now retargets enemy missiles back at them.]</text>
+
+    <choice req="lily_ecm_suite" lvl="2" max_group="0" blue="false" hidden="true">
+        <text>Perform the upgrade. [Cost: 50~, 8}, 4|]</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <item_modify>
+                <item type="scrap" min="-50" max="-45"/>
+                <item type="missiles" min="-8" max="-8"/>
+                <item type="drones" min="-4" max="-4"/>
+            </item_modify>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_ECM_RETARGET"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="lily_ecm_suite" max_group="0" blue="false" hidden="true">
+        <text>This upgrade is unavailable. You need ECM Suite level 2.</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="EX_LILY_ECM_RETARGET" max_group="1" blue="false" hidden="true">
+        <text>Install the External Augment internally.</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <remove name="EX_LILY_ECM_RETARGET"/>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_ECM_RETARGET"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="pilot" lvl="1" max_group="2" blue="false" hidden="true">
+        <text>Nevermind.</text>
+        <event load="STORAGE_CHECK_SYSTEM_LOAD"/>
+    </choice>
+</event>
+<event name="INSTALL_LILY_ECM_RETARGET">
+    <variable name="loc_internal_upgrades" op="add" val="1"/>
+    <hiddenAug>UPG_LILY_ECM_RETARGET</hiddenAug>
+    <loadEvent>STORAGE_CHECK_SYSTEM</loadEvent>
+</event>
+
+
+<event name="STORAGE_CHECK_SYSTEM_LILY_ECM_SUITE_SUPERCHARGE">
+    <text>You are about to install the Supercharge Protocol upgrade.
+	[Effects: ECM gains an ability that temporary doubles its recharge speed, but prevents use of other abilities while it's active.]</text>
+
+    <choice req="lily_ecm_suite" lvl="1" max_group="0" blue="false" hidden="true">
+        <text>Perform the upgrade. [Cost: 40~, 8{, 2|]</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <item_modify>
+                <item type="scrap" min="-40" max="-40"/>
+                <item type="fuel" min="-8" max="-8"/>
+                <item type="drones" min="-2" max="-2"/>
+            </item_modify>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_ECM_SUPERCHARGE"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="lily_ecm_suite" max_group="0" blue="false" hidden="true">
+        <text>This upgrade is unavailable. You need ECM Suite level 1.</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="EX_LILY_ECM_SUPERCHARGE" max_group="1" blue="false" hidden="true">
+        <text>Install the External Augment internally.</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <remove name="EX_LILY_ECM_SUPERCHARGE"/>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_ECM_SUPERCHARGE"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="pilot" lvl="1" max_group="2" blue="false" hidden="true">
+        <text>Nevermind.</text>
+        <event load="STORAGE_CHECK_SYSTEM_LOAD"/>
+    </choice>
+</event>
+<event name="INSTALL_LILY_ECM_SUPERCHARGE">
+    <variable name="loc_internal_upgrades" op="add" val="1"/>
+    <hiddenAug>UPG_LILY_ECM_SUPERCHARGE</hiddenAug>
+    <loadEvent>STORAGE_CHECK_SYSTEM</loadEvent>
+</event>
+
+
+<event name="STORAGE_CHECK_SYSTEM_LILY_ECM_SUITE_ASB_SCRAMBLER">
+    <text>You are about to install the ASB Scrambler upgrade.
+	[Effects: Prevents hostile ASBs from hitting your ship while your ECM system is powered.]</text>
+
+    <choice req="lily_ecm_suite" lvl="3" max_group="0" blue="false" hidden="true">
+        <text>Perform the upgrade. [Cost: 80~, 10|]</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <item_modify>
+                <item type="scrap" min="-80" max="-80"/>
+                <item type="drones" min="-10" max="-10"/>
+            </item_modify>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_ECM_ASB_SCRAMBLER"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="lily_ecm_suite" max_group="0" blue="false" hidden="true">
+        <text>This upgrade is unavailable. You need ECM Suite level 3.</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="EX_LILY_ECM_ASB_SCRAMBLER" max_group="1" blue="false" hidden="true">
+        <text>Install the External Augment internally.</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <remove name="EX_LILY_ECM_ASB_SCRAMBLER"/>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_ECM_ASB_SCRAMBLER"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="pilot" lvl="1" max_group="2" blue="false" hidden="true">
+        <text>Nevermind.</text>
+        <event load="STORAGE_CHECK_SYSTEM_LOAD"/>
+    </choice>
+</event>
+<event name="INSTALL_LILY_ECM_ASB_SCRAMBLER">
+    <variable name="loc_internal_upgrades" op="add" val="1"/>
+    <hiddenAug>UPG_LILY_ECM_ASB_SCRAMBLER</hiddenAug>
+    <loadEvent>STORAGE_CHECK_SYSTEM</loadEvent>
+</event>
+
+
+
+<event name="STORAGE_CHECK_SYSTEM_LILY_ECM_SUITE_ELECTRO_FIELD">
+    <text>You are about to install the Ion Counterfield upgrade.
+	[Effects: Reduces enemy ion resistance by 50% while your ECM system is powered.]</text>
+
+    <choice req="lily_ecm_suite" lvl="2" max_group="0" blue="false" hidden="true">
+        <text>Perform the upgrade. [Cost: 50~, 5{]</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <item_modify>
+                <item type="scrap" min="-50" max="-50"/>
+                <item type="fuel" min="-5" max="-5"/>
+            </item_modify>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_ECM_ELECTRO_FIELD"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="lily_ecm_suite" max_group="0" blue="false" hidden="true">
+        <text>This upgrade is unavailable. You need ECM Suite level 2.</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="EX_LILY_ECM_ELECTRO_FIELD" max_group="1" blue="false" hidden="true">
+        <text>Install the External Augment internally.</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <remove name="EX_LILY_ECM_ELECTRO_FIELD"/>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_ECM_ELECTRO_FIELD"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="pilot" lvl="1" max_group="2" blue="false" hidden="true">
+        <text>Nevermind.</text>
+        <event load="STORAGE_CHECK_SYSTEM_LOAD"/>
+    </choice>
+</event>
+<event name="INSTALL_LILY_ECM_ELECTRO_FIELD">
+    <variable name="loc_internal_upgrades" op="add" val="1"/>
+    <hiddenAug>UPG_LILY_ECM_ELECTRO_FIELD</hiddenAug>
+    <loadEvent>STORAGE_CHECK_SYSTEM</loadEvent>
+</event>
+
+
+<event name="STORAGE_CHECK_SYSTEM_LILY_ECM_SUITE_JAMMER_FIELD">
+    <text>You are about to install the Jamming Screen upgrade.
+	[Effects: Passively reduces enemy accuracy, reload speed and shield recharge by 10%, 15% and 20% respectively while your ECM system is powered. However, it gains charges 25% slower.]</text>
+
+    <choice req="lily_ecm_suite" lvl="3" max_group="0" blue="false" hidden="true">
+        <text>Perform the upgrade. [Cost: 60~, 8|]</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <item_modify>
+                <item type="scrap" min="-60" max="-60"/>
+                <item type="drones" min="-8" max="-8"/>
+            </item_modify>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_ECM_JAMMER_FIELD"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="lily_ecm_suite" max_group="0" blue="false" hidden="true">
+        <text>This upgrade is unavailable. You need ECM Suite level 3.</text>
+        <event load="OPTION_INVALID"/>
+    </choice>
+    <choice req="EX_LILY_ECM_JAMMER_FIELD" max_group="1" blue="false" hidden="true">
+        <text>Install the External Augment internally.</text>
+        <event>
+            <text>You install the upgrade.</text>
+            <remove name="EX_LILY_ECM_JAMMER_FIELD"/>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="INSTALL_LILY_ECM_JAMMER_FIELD"/>
+            </choice>
+        </event>
+    </choice>
+    <choice req="pilot" lvl="1" max_group="2" blue="false" hidden="true">
+        <text>Nevermind.</text>
+        <event load="STORAGE_CHECK_SYSTEM_LOAD"/>
+    </choice>
+</event>
+<event name="INSTALL_LILY_ECM_JAMMER_FIELD">
+    <variable name="loc_internal_upgrades" op="add" val="1"/>
+    <hiddenAug>UPG_LILY_ECM_JAMMER_FIELD</hiddenAug>
+    <loadEvent>STORAGE_CHECK_SYSTEM</loadEvent>
+</event>
+
+
+
+<mod:findName type="event" name="COMBAT_CHECK_REAL">
+    <mod-append:choice req="LILY_ECM_ASB_SCRAMBLER_ACTIVATE" lvl="1" blue="true">
+        <text>(ASB Scrambler) Retarget the ASB to fire at the enemy!</text>
+        <event load="COMBAT_CHECK_LILY_ECM_ASB_RETARGET"/>
+    </mod-append:choice>
+</mod:findName>
+
+<event name="COMBAT_CHECK_LILY_ECM_ASB_RETARGET">
+    <text>You use your advanced equipment to scramble the ASB battery and make it fire at the enemy ship instead!</text>
+    <environment type="PDS" target="enemy"/>
+    <variable name="mods_lilyinno_ecmsuite_asb_disabled" op="set" value="1"/>
+    <choice>
+        <text>Continue...</text>
+        <event/>
+    </choice>
+</event>
 
 
 
@@ -3629,6 +4050,19 @@ Incompatible with battery performance upgrades.]</text>
         <text>Enable targeting core sounds.</text>
         <event>
             <metaVariable name="lily_targeting_core_sounds_disabled" op="set" value="0"/>
+        </event>
+    </mod-append:choice>
+
+    <mod-append:choice req="lily_ecm_suite_sounds_disabled" lvl="0" max_lvl="0" blue="false">
+        <text>Disable ECM suite sounds.</text>
+        <event>
+            <metaVariable name="lily_ecm_suite_sounds_disabled" op="set" value="1"/>
+        </event>
+    </mod-append:choice>
+    <mod-append:choice req="lily_ecm_suite_sounds_disabled" lvl="1" blue="false">
+        <text>Enable ECM suite sounds.</text>
+        <event>
+            <metaVariable name="lily_ecm_suite_sounds_disabled" op="set" value="0"/>
         </event>
     </mod-append:choice>
 

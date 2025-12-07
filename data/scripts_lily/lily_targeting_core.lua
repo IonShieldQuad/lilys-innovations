@@ -299,14 +299,18 @@ local function lily_targeting_core_render(systemBox, ignoreStatus)
         if activateButton.bHover then
             if activateButton.bActive then
                 if Hyperspace.metaVariables.lily_targeting_core_hotkey_enabled == 0 then
+                    Hyperspace.Mouse.bForceTooltip = true
                     Hyperspace.Mouse.tooltip = string.format(Hyperspace.Text:GetText("tooltip_lily_targeting_core_button"), "I")
                     
                 else
+                    Hyperspace.Mouse.bForceTooltip = true
                     Hyperspace.Mouse.tooltip = string.format(Hyperspace.Text:GetText("tooltip_lily_targeting_core_button"), "N/A")
                 end
             elseif activationTimer[shipManager.iShipId] < 1 then
+                Hyperspace.Mouse.bForceTooltip = true
                 Hyperspace.Mouse.tooltip = Hyperspace.Text:GetText("tooltip_lily_targeting_core_button_notready")
             else
+                Hyperspace.Mouse.bForceTooltip = true
                 Hyperspace.Mouse.tooltip = Hyperspace.Text:GetText("tooltip_lily_targeting_core_button_noship")
             end
 

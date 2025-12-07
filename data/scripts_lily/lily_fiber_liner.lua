@@ -346,6 +346,17 @@ script.on_internal_event(Defines.InternalEvents.DAMAGE_AREA_HIT,
 
 
 local function render_fiber_liner_effects(ship, experimental)
+    if not (corners and corners[1]) then
+        corners[1] = Hyperspace.Resources:CreateImagePrimitiveString(
+            "misc/lily_fiberliner_1.png", 1, 1, 0, Graphics.GL_Color(1, 1, 1, 1), 1, false)
+        corners[2] = Hyperspace.Resources:CreateImagePrimitiveString(
+            "misc/lily_fiberliner_2.png", -36, 1, 0, Graphics.GL_Color(1, 1, 1, 1), 1, false)
+        corners[3] = Hyperspace.Resources:CreateImagePrimitiveString(
+            "misc/lily_fiberliner_3.png", -36, -36, 0, Graphics.GL_Color(1, 1, 1, 1), 1, false)
+        corners[4] = Hyperspace.Resources:CreateImagePrimitiveString(
+            "misc/lily_fiberliner_4.png", 1, -36, 0, Graphics.GL_Color(1, 1, 1, 1), 1, false)
+    end
+
     local shipManager = Hyperspace.ships(ship.iShipId)
     if shipManager:HasSystem(Hyperspace.ShipSystem.NameToSystemId("lily_fiber_liner")) then
         local rooms = ship.vRoomList

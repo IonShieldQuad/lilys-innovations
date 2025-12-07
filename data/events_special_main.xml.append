@@ -3,6 +3,7 @@
     <mod:findLike type="loadEventList">
         <mod-append:event name="BOON_SELECT_LILY_ABLATIVE_ARMOR" req="prof_e_boon_lily_ablative_armor" />
         <mod-append:event name="BOON_SELECT_LILY_TARGETING_CORE" req="prof_e_boon_lily_targeting_core" />
+        <mod-append:event name="BOON_SELECT_LILY_ECM_SUITE" req="prof_e_boon_lily_ecm_suite" />
         <mod-append:event name="BOON_SELECT_LILY_SHOCK_NEUTRALIZER" req="prof_e_boon_lily_shock_neutralizer" />
         <mod-append:event name="BOON_SELECT_LILY_INFUSION_BAY" req="prof_e_boon_lily_infusion_bay" />
         <mod-append:event name="BOON_SELECT_LILY_SYSTEM_BRACERS" req="prof_e_boon_lily_system_bracers" />
@@ -68,6 +69,24 @@ You notice an input interface located below the poster, which has already recogn
                             <text>The system begins to work on refitting your ship, and shortly finishes.
 "The established work quota: Done. Pleasure doing business with you." </text>
                             <system name="lily_ablative_armor"/>
+                            <modifyPursuit amount="1"/>
+                            <variable name="lilyinno_promo_used" op="set" value="1"/>
+                        </event>
+                    </choice>
+                </event>
+            </choice>
+
+            <choice req="hacking" hidden="true">
+                <text>(Hacking) Install ECM Suite System.</text>
+                <event>
+                    <text>You prompt the terminal to install the new system on you ship.
+"Acknowledged. The work on your ship will begin shortly..."</text>
+                    <choice hidden="true">
+                        <text>Continue...</text>
+                        <event>
+                            <text>The system begins to work on refitting your ship, and shortly finishes.
+"The established work quota: Done. Pleasure doing business with you." </text>
+                            <system name="lily_ecm_suite"/>
                             <modifyPursuit amount="1"/>
                             <variable name="lilyinno_promo_used" op="set" value="1"/>
                         </event>

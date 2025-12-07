@@ -19,4 +19,20 @@
 <lily_bracers_hit_1 volume="5">effects_lily/system_bracers_hit_1.wav</lily_bracers_hit_1>
 
 <lily_fiber_liner_hit_1 volume="5">effects_lily/fiber_liner_hit_1.wav</lily_fiber_liner_hit_1>
+
+<lily_ecm_suite_recharge volume="3">effects_lily/ecm_suite_charge.wav</lily_ecm_suite_recharge>
+<lily_ecm_suite_supercharge_up volume="3">effects_lily/ecm_suite_supercharge_up.wav</lily_ecm_suite_supercharge_up>
+<lily_ecm_suite_supercharge_down volume="3">effects_lily/ecm_suite_supercharge_down.wav</lily_ecm_suite_supercharge_down>
+<lily_ecm_suite_power_up_1 volume="3">effects_lily/ecm_suite_power_up_1.wav</lily_ecm_suite_power_up_1>
+<lily_ecm_suite_power_up_2 volume="3">effects_lily/ecm_suite_power_up_2.wav</lily_ecm_suite_power_up_2>
+<lily_ecm_suite_power_up_3 volume="3">effects_lily/ecm_suite_power_up_3.wav</lily_ecm_suite_power_up_3>
+<lily_ecm_suite_power_up_4 volume="3">effects_lily/ecm_suite_power_up_4.wav</lily_ecm_suite_power_up_4>
+<lily_ecm_suite_power_up_5 volume="3">effects_lily/ecm_suite_power_up_5.wav</lily_ecm_suite_power_up_5>
+<lily_ecm_suite_power_up_6 volume="3">effects_lily/ecm_suite_power_up_6.wav</lily_ecm_suite_power_up_6>
+<lily_ecm_suite_power_up_7 volume="3">effects_lily/ecm_suite_power_up_7.wav</lily_ecm_suite_power_up_7>
+<lily_ecm_suite_power_up_8 volume="3">effects_lily/ecm_suite_power_up_8.wav</lily_ecm_suite_power_up_8>
+<lily_ecm_suite_power_up_9 volume="3">effects_lily/ecm_suite_power_up_9.wav</lily_ecm_suite_power_up_9>
+<lily_ecm_suite_power_down_1 volume="1">effects_lily/ecm_suite_power_down_1.wav</lily_ecm_suite_power_down_1>
+<lily_ecm_suite_power_down_2 volume="1">effects_lily/ecm_suite_power_down_2.wav</lily_ecm_suite_power_down_2>
+<lily_ecm_suite_power_down_3 volume="1">effects_lily/ecm_suite_power_down_3.wav</lily_ecm_suite_power_down_3>
 </FTL>

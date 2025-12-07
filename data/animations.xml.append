@@ -149,4 +149,53 @@
     <time>0.1</time>
 </anim>
 
+<animSheet name="lily_ecm_wave" w="420" h="70" fw="70" fh="70">effects_lily/ecm_wave.png</animSheet>
+<anim name="lily_ecm_wave">
+    <sheet>lily_ecm_wave</sheet>
+    <desc length="6" x="0" y="0"/>
+    <time>0.66</time>
+</anim>
+
+<animSheet name="lily_ecm_jamming" w="210" h="35" fw="35" fh="35">effects_lily/ecm_jamming.png</animSheet>
+<anim name="lily_ecm_jamming">
+    <sheet>lily_ecm_jamming</sheet>
+    <desc length="6" x="0" y="0"/>
+    <time>1.0</time>
+</anim>
+
+<animSheet name="lily_ecm_electro" w="245" h="35" fw="35" fh="35">effects_lily/ecm_electro.png</animSheet>
+<anim name="lily_ecm_electro">
+    <sheet>lily_ecm_electro</sheet>
+    <desc length="7" x="0" y="0"/>
+    <time>1.0</time>
+</anim>
+
+<animSheet name="lily_ecm_jamming_b" w="210" h="35" fw="35" fh="35">effects_lily/ecm_jamming_b.png</animSheet>
+<anim name="lily_ecm_jamming_b">
+    <sheet>lily_ecm_jamming_b</sheet>
+    <desc length="6" x="0" y="0"/>
+    <time>1.0</time>
+</anim>
+
+<animSheet name="lily_ecm_jamming_l" w="210" h="35" fw="35" fh="35">effects_lily/ecm_jamming_l.png</animSheet>
+<anim name="lily_ecm_jamming_l">
+    <sheet>lily_ecm_jamming_l</sheet>
+    <desc length="6" x="0" y="0"/>
+    <time>1.0</time>
+</anim>
+
+<animSheet name="lily_ecm_jamming_t" w="210" h="35" fw="35" fh="35">effects_lily/ecm_jamming_t.png</animSheet>
+<anim name="lily_ecm_jamming_t">
+    <sheet>lily_ecm_jamming_t</sheet>
+    <desc length="6" x="0" y="0"/>
+    <time>1.0</time>
+</anim>
+
+<animSheet name="lily_ecm_jamming_r" w="210" h="35" fw="35" fh="35">effects_lily/ecm_jamming_r.png</animSheet>
+<anim name="lily_ecm_jamming_r">
+    <sheet>lily_ecm_jamming_r</sheet>
+    <desc length="6" x="0" y="0"/>
+    <time>1.0</time>
+</anim>
+
 </FTL>

@@ -1,4 +1,11 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.8.0
+Date: 2025-12-07
+  Changes:
+    - Finally - the ECM Suite system is here!
+    - Enjoy disrupting everything to your heart's content~
+    - Also some other fixes I don't remember.
+---------------------------------------------------------------------------------------------------
 Version: 1.7.3
 Date: 2025-11-12
   Changes:

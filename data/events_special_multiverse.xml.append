@@ -27,6 +27,19 @@
             </choice>
         </event>
     </mod-append:choice>
+    <mod-append:choice req="lily_ecm_suite" lvl="3" blue="false">
+        <text>Present your ECM Suite system.</text>
+        <event>
+            <text>"ECM Suite - so v-v-versatile and innovatve! Enemy [drones]: no longer pose a threat to you! For your effecive c-c-countermeasures: I provide Grant of ECM! Grant of ECM! Save it - for the future!"</text>
+            <achievement>ACH_BOON_LILY_ECM_SUITE</achievement>
+            <metaVariable name="prof_e_boon_lily_ecm_suite" op="set" val="1"/>
+            <variable name="ach_boon_lily_ecm_suite" op="set" val="1"/>
+            <choice hidden="true">
+                <text>Continue...</text>
+                <event load="THE_JUDGES_ENGI_ADVICE"/>
+            </choice>
+        </event>
+    </mod-append:choice>
     <mod-append:choice req="lily_infusion_bay" lvl="3" blue="false">
         <text>Present your Infusion Bay system.</text>
         <event>
@@ -84,6 +97,7 @@
 <mod:findName type="event" name="THE_JUDGES_VARIABLE_CLEAR">
     <mod-append:metaVariable name="prof_e_boon_lily_ablative_armor" op="set" val="0"/>
     <mod-append:metaVariable name="prof_e_boon_lily_targeting_core" op="set" val="0"/>
+    <mod-append:metaVariable name="prof_e_boon_lily_ecm_suite" op="set" val="0"/>
     <mod-append:metaVariable name="prof_e_boon_lily_infusion_bay" op="set" val="0"/>
     <mod-append:metaVariable name="prof_e_boon_lily_shock_neutralizer" op="set" val="0"/>
     <mod-append:metaVariable name="prof_e_boon_lily_system_bracers" op="set" val="0"/>

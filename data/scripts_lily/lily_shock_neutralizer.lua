@@ -235,8 +235,10 @@ local function lily_shock_neutralizer_render(systemBox, ignoreStatus)
 
         if activateButton.bHover then
             if Hyperspace.metaVariables.lily_shock_neutralizer_hotkey_enabled == 0 and not Hyperspace.ships.player:HasSystem(Hyperspace.ShipSystem.NameToSystemId("battery")) then
+                Hyperspace.Mouse.bForceTooltip = true
                 Hyperspace.Mouse.tooltip = string.format(Hyperspace.Text:GetText("tooltip_lily_shock_neutralizer_button"), "B")
             else
+                Hyperspace.Mouse.bForceTooltip = true
                 Hyperspace.Mouse.tooltip = string.format(Hyperspace.Text:GetText("tooltip_lily_shock_neutralizer_button"), "N/A")
             end
         end
