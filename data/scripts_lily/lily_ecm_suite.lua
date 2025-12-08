@@ -168,7 +168,7 @@ local function get_max_ecm_charges(shipManager)
     local system = shipManager:GetSystem(Hyperspace.ShipSystem.NameToSystemId("lily_ecm_suite"))
     if not system then return 0 end
 
-    if system.powerState.first == 0 then return 0 end
+    if not system:Functioning() == 0 then return 0 end
 
     return math.floor(math.max(0, math.min(8, system.healthState.first + 2 + (shipManager:HasAugmentation("UPG_LILY_ECM_CAPACITY") + shipManager:HasAugmentation("EX_LILY_ECM_CAPACITY")))))
 
@@ -1518,6 +1518,8 @@ script.on_internal_event(Defines.InternalEvents.SHIP_LOOP, function(shipManager)
         end
 
         --print("maxcharges", maxCharges)
+        --print("functioning", lily_ecm_suite_system:Functioning())
+        --print("powerStateFirst", lily_ecm_suite_system.powerState.first)
         --print("charges", charges)
         --print("multiplier", multiplier)
         --print("timer", rechargeTimer[shipManager.iShipId])
@@ -1611,6 +1613,9 @@ script.on_internal_event(Defines.InternalEvents.SHIP_LOOP, function(shipManager)
                         local blueprint = Hyperspace.Blueprints:GetWeaponBlueprint(proj.extend.name)
                         if not missileconfirmed then
                             missileconfirmed = blueprint.missiles > 0
+                        end
+                        if not missileconfirmed then
+                            missileconfirmed = proj.damage.iShieldPiercing > 2 and proj:GetType() == 3
                         end
                         if not missileconfirmed then
                             local recyclers = Hyperspace.Blueprints:GetBlueprintList("LIST_CHECK_RECYCLER")
@@ -1715,16 +1720,16 @@ script.on_internal_event(Defines.InternalEvents.SHIP_LOOP, function(shipManager)
             if enemyMind then
                 print(enemyMind.controlTimer.first, enemyMind.controlTimer.second)
             end--]]
-            if enemyHacking and enemyHacking.effectTimer and enemyHacking.effectTimer.first < enemyHacking.effectTimer.second - 0.01 and charges >= 3 then
+            if enemyHacking and enemyHacking:Functioning() and enemyHacking.effectTimer and enemyHacking.effectTimer.first < enemyHacking.effectTimer.second - 0.01 and charges >= 3 then
                 charges = charges - 3
                 enemyHacking.effectTimer.first = enemyHacking.effectTimer.second - 0.01
-                enemyHacking:ForceDecreasePower(enemyHacking.powerState.first)
+                enemyHacking:ForceDecreasePower(enemyHacking.healthState.first)
                 mods.lilyinno.ecmsuite.playAbilityEffects(shipManager, "counter")
             end
-            if enemyMind and enemyMind.controlTimer and enemyMind.controlTimer.first < enemyMind.controlTimer.second - 0.01 and charges >= 2 then
+            if enemyMind and enemyMind:Functioning() and enemyMind.controlTimer and enemyMind.controlTimer.first < enemyMind.controlTimer.second - 0.01 and charges >= 2 then
                 charges = charges - 2
                 enemyMind.controlTimer.first = enemyMind.controlTimer.second - 0.01
-                enemyMind:ForceDecreasePower(enemyMind.powerState.first)
+                enemyMind:ForceDecreasePower(enemyMind.healthState.first)
                 mods.lilyinno.ecmsuite.playAbilityEffects(shipManager, "counter")
             end
             if enemyECM then
